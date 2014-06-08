@@ -7,10 +7,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import pl.edu.agh.asynctasks.TestSpringForAndroidAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.repositories.interfaces.ILocationRepository;
+
+import java.util.concurrent.ExecutionException;
 
 public class HelloActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
     /**
@@ -37,7 +40,16 @@ public class HelloActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
         ILocationRepository locationRepository = new OrmLiteLocationRepository(getHelper());
         locationRepository.saveLocation(location);
 
-        ((TextView)findViewById(R.id.HelloActivity_TextView)).setText(locationRepository.getAllLocations().toString());
+        String result = null;
+        try {
+            result = new TestSpringForAndroidAsyncTask().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        ((TextView)findViewById(R.id.HelloActivity_TextView)).setText(result);//locationRepository.getAllLocations().toString());
 
     }
 }

@@ -26,6 +26,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="ormlite-android-4.48" level="project" />
+    <orderEntry type="library" name="spring-android-core-1.0.1.RELEASE" level="project" />
   </component>
 </module>
 
