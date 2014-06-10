@@ -9,9 +9,15 @@ import org.springframework.web.client.RestTemplate;
  */
 public class TestSpringForAndroidAsyncTask extends AsyncTask<Void, Void, String> {
 
+    public String address;
+
+    public TestSpringForAndroidAsyncTask(String address) {
+        this.address = address;
+    }
+
     @Override
     protected String doInBackground(Void... voids) {
-        String url = "http://192.168.1.101:8080/TourTrip/rest/location/single";//"https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={query}";
+        String url = "http://maps.google.com/maps/api/geocode/json?address=" + address + "&sensor=false%22";
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
         String result = restTemplate.getForObject(url, String.class, "Android");

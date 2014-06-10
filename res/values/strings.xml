@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EngineerProjectMobile</string>
+    <string name="app_name">Trip Tour</string>
+
+    <string name="MainMenuActivity.Tile.ShowAllLocations">Show All Locations</string>
+    <string name="MainMenuActivity.Tile.ShowMyLocations">Show My Locations</string>
+    <string name="MainMenuActivity.Tile.Settings">Settings</string>
+    <string name="MainMenuActivity.Tile.Help">Help</string>
+    <string name="MainMenuActivity.Tile.Trips">Create Trip</string>
+    <string name="MainMenuActivity.Tile.Synchronize">Synchronize App With Server</string>
+    <string name="MainMenuActivity.Tile.TripsSchedule">Trips Schedule</string>
+    <string name="MainMenuActivity.Tile.LocalizationDescription">Localization Description</string>
+    <string name="MainMenuActivity.Tile.Logout">Logout</string>
+
 </resources>

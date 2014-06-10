@@ -26,23 +26,23 @@ public class HelloActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 
         System.out.println("TEST");
 
-        GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.ShowLocationsOnMapView_Map)).getMap();
-        map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(15.0, 15.0), 16));
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-
         Location location = new Location();
         location.setDescription("Descritption");
         location.setName("Name");
-        location.setLatitude(123.123);
-        location.setLongitude(123.123);
+        location.setLatitude(50.061901);
+        location.setLongitude(19.937480);
 
         ILocationRepository locationRepository = new OrmLiteLocationRepository(getHelper());
         locationRepository.saveLocation(location);
 
+        GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.ShowLocationsOnMapView_Map)).getMap();
+        map.setMyLocationEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));
+        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
         String result = null;
         try {
-            result = new TestSpringForAndroidAsyncTask().execute().get();
+            result = new TestSpringForAndroidAsyncTask("Sukiennice Krakow").execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
