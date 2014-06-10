@@ -9,7 +9,7 @@
     <string name="MainMenuActivity.Tile.Trips">Create Trip</string>
     <string name="MainMenuActivity.Tile.Synchronize">Synchronize App With Server</string>
     <string name="MainMenuActivity.Tile.TripsSchedule">Trips Schedule</string>
-    <string name="MainMenuActivity.Tile.LocalizationDescription">Localization Description</string>
+    <string name="MainMenuActivity.Tile.LocalizationDescription">Location Description</string>
     <string name="MainMenuActivity.Tile.Logout">Logout</string>
 
 </resources>
