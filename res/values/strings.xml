@@ -2,6 +2,12 @@
 <resources>
     <string name="app_name">Trip Tour</string>
 
+    <string name="LoginActivity.Login">Login</string>
+    <string name="LoginActivity.Password">Password</string>
+    <string name="LoginActivity.LogAsGuest">Log as guest</string>
+    <string name="LoginActivity.LogAsDefault">Log as default user</string>
+
+
     <string name="MainMenuActivity.Tile.ShowAllLocations">Show All Locations</string>
     <string name="MainMenuActivity.Tile.ShowMyLocations">Show My Locations</string>
     <string name="MainMenuActivity.Tile.Settings">Settings</string>
@@ -11,5 +17,7 @@
     <string name="MainMenuActivity.Tile.TripsSchedule">Trips Schedule</string>
     <string name="MainMenuActivity.Tile.LocalizationDescription">Localization Description</string>
     <string name="MainMenuActivity.Tile.Logout">Logout</string>
+
+
 
 </resources>

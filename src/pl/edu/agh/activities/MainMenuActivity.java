@@ -10,6 +10,6 @@ import pl.edu.agh.main.R;
 public class MainMenuActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_menu_activity_layout);
+        setContentView(R.layout.main_menu_activity);
     }
 }
