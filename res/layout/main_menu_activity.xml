@@ -15,7 +15,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/show_locations_icon"
+                android:drawableTop="@drawable/icon_show_locations"
                 android:text="@string/MainMenuActivity.Tile.ShowAllLocations"
                 />
 
@@ -23,7 +23,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/my_locations_icon"
+                android:drawableTop="@drawable/icon_my_location"
                 android:text="@string/MainMenuActivity.Tile.ShowMyLocations"
                 />
     </LinearLayout>
@@ -37,7 +37,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/trips_icon"
+                android:drawableTop="@drawable/icon_trips"
                 android:text="@string/MainMenuActivity.Tile.Trips"
                 />
 
@@ -45,7 +45,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/calendar_icon"
+                android:drawableTop="@drawable/icon_calendar"
                 android:text="@string/MainMenuActivity.Tile.TripsSchedule"
                 />
 
@@ -59,7 +59,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/localization_description"
+                android:drawableTop="@drawable/icon_location_description"
                 android:text="@string/MainMenuActivity.Tile.LocalizationDescription"
                 />
 
@@ -67,7 +67,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/synchronize_icon"
+                android:drawableTop="@drawable/icon_synchronize"
                 android:text="@string/MainMenuActivity.Tile.Synchronize"
                 />
     </LinearLayout>
@@ -80,7 +80,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/settings_icon"
+                android:drawableTop="@drawable/icon_settings"
                 android:text="@string/MainMenuActivity.Tile.Settings"
                 />
 
@@ -88,7 +88,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/help_icon"
+                android:drawableTop="@drawable/icon_help"
                 android:text="@string/MainMenuActivity.Tile.Help"
                 />
     </LinearLayout>
@@ -102,7 +102,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/logout_icon"
+                android:drawableTop="@drawable/icon_logout"
                 android:text="@string/MainMenuActivity.Tile.Logout"
                 />
     </LinearLayout>
