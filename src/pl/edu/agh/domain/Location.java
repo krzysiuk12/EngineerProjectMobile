@@ -3,6 +3,8 @@ package pl.edu.agh.domain;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.sql.Timestamp;
+
 /**
  * Created by Krzysiu on 2014-06-08.
  */
@@ -23,6 +25,21 @@ public class Location {
 
     @DatabaseField(columnName = "latitude")
     private double latitude;
+
+    @DatabaseField(columnName = "status")
+    private String status;
+
+    @DatabaseField(columnName = "creationDate")
+    private Timestamp creationDate;
+
+    @DatabaseField(columnName = "createdByAccountId")
+    private Long createdByAccountId;
+
+    @DatabaseField(columnName = "removedByAccountId")
+    private Long removedByAccountId;
+
+    @DatabaseField(columnName = "address")
+    private Address address;
 
     public Location() {
     }
@@ -62,6 +79,43 @@ public class Location {
         this.latitude = latitude;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getStatus() {
+
+        return status;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+    public Timestamp getCreationDate() {
+
+        return creationDate;
+    }
+
+    public Long getCreatedByAccountId() {
+        return createdByAccountId;
+    }
+    public void setCreatedByAccountId(Long createdByAccountId) {
+        this.createdByAccountId = createdByAccountId;
+    }
+
+    public Long getRemovedByAccountId() {
+        return removedByAccountId;
+    }
+    public void setRemovedByAccountId(Long removedByAccountId) {
+        this.removedByAccountId = removedByAccountId;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Location{" +
@@ -70,6 +124,12 @@ public class Location {
                 ", description='" + description + '\'' +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
+                ", status=" + status +
+                ", createdByAccountId=" + createdByAccountId +
+                ", removedByAccountId=" + removedByAccountId +
+                ", address=" + address +
                 "}\n";
     }
+
+
 }
