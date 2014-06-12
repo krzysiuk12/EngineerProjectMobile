@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<integer name="LoginActivity.InnerLayout.Proportion.Total">4</integer>
+	<integer name="LoginActivity.InnerLayout.Proportion.Main">2</integer>
+	<integer name="LoginActivity.InnerLayout.Proportion.Box">1</integer>
+</resources>
