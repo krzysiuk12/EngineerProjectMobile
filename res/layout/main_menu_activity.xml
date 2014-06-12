@@ -17,6 +17,7 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/icon_show_locations"
                 android:text="@string/MainMenuActivity.Tile.ShowAllLocations"
+				android:id="@+id/MainMenu_ShowLocationsButton"
                 />
 
         <Button

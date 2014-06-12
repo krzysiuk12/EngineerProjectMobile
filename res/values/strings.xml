@@ -19,5 +19,8 @@
     <string name="MainMenuActivity.Tile.Logout">Logout</string>
 
 
+	<string name="ShowLocationsOnMapActivity.Button.ShowDescription">Show Description</string>
+	<string name="ShowLocationsOnMapActivity.Button.DownloadLocations">Download Locations</string>
+
 
 </resources>
