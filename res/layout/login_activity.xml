@@ -8,13 +8,13 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_centerVertical="true"
+			android:layout_gravity="center"
 			android:id="@+id/scrollView">
 		<LinearLayout
 				android:orientation="horizontal"
 				android:weightSum="@integer/LoginActivity.InnerLayout.Proportion.Total"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:layout_gravity="center"
 				android:id="@+id/LoginActivity.OuterLayout">
 			<Button
 					android:layout_width="0dp"
