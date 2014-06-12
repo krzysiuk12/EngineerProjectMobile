@@ -1,68 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="@dimen/LoginActivity.Layout.Width.Max"
-              android:layout_height="match_parent"
-              android:layout_gravity="center"
-              android:gravity="center_vertical">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/LoginActivity.Login"/>
-    <EditText
-            android:id="@+id/LoginActivity.Login.EditText"
-            android:layout_width="@dimen/LoginActivity.Layout.Width.Max"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/LoginActivity.Password"/>
-    <EditText
-            android:id="@+id/LoginActivity.Password.EditText"
-            android:layout_width="@dimen/LoginActivity.Layout.Width.Max"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:inputType="textPassword"
-            android:ems="10"/>
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/LoginActivity.ButtonsSection.Margin.Top">
-        <Button
-                android:id="@+id/LoginActivity.LoginButton"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/LoginActivity.Button.Margin"
-                android:padding="@dimen/LoginActivity.Button.Padding"
-                android:background="@drawable/shape_filled_green"
-                android:text="@string/LoginActivity.Login"
-                android:textAppearance="@style/White_Login"
-                android:textColor="@android:color/white"/>
-        <Button
-                android:id="@+id/LoginActivity.LoginAsDefault"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/LoginActivity.Button.Margin"
-                android:padding="@dimen/LoginActivity.Button.Padding"
-                android:background="@drawable/shape_filled_blue"
-                android:text="@string/LoginActivity.LogAsDefault"
-                android:textAppearance="@style/White_Login"
-                android:textColor="@android:color/white"/>
-        <Button
-                android:id="@+id/LoginActivity.LoginAsUser"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/LoginActivity.Button.Margin"
-                android:padding="@dimen/LoginActivity.Button.Padding"
-                android:background="@drawable/shape_filled_grey"
-                android:text="@string/LoginActivity.LogAsGuest"
-                android:textAppearance="@style/White_Login"
-                android:textColor="@android:color/white"/>
-    </LinearLayout>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal"
+		android:weightSum="1"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:scrollbars="vertical"
+		android:scrollbarAlwaysDrawVerticalTrack="true">
+	<Button
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="0.25"
+			android:visibility="invisible"/>
+
+		<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:layout_gravity="center"
+				android:scrollbars="vertical"
+				android:scrollbarAlwaysDrawVerticalTrack="true">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:text="@string/LoginActivity.Login"/>
+
+			<EditText
+					android:id="@+id/LoginActivity.Login"
+					android:width="@dimen/LoginActivity.Layout.Width.Max"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:inputType="textPersonName"
+					android:ems="10"
+					android:layout_marginBottom="@dimen/LoginActivity.Button.Margin"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:text="@string/LoginActivity.Password"/>
+
+			<EditText
+					android:id="@+id/LoginActivity.Password"
+					android:width="@dimen/LoginActivity.Layout.Width.Max"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:inputType="textPassword"
+					android:ems="10"
+					android:layout_marginBottom="@dimen/LoginActivity.Button.Margin"/>
+
+			<Button
+					android:id="@+id/LoginActivity.LoginButton"
+					android:width="@dimen/LoginActivity.Layout.Width.Max"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/LoginActivity.Button.Margin"
+					android:layout_marginBottom="@dimen/LoginActivity.Button.Margin"
+					android:text="@string/LoginActivity.Login"
+					android:padding="@dimen/LoginActivity.Button.Padding"
+					android:background="@drawable/shape_filled_green"
+					android:textColor="@android:color/white"
+					android:textAppearance="@style/White_Login"/>
+
+			<Button
+					android:id="@+id/LoginActivity.LoginAsDefault"
+					android:width="@dimen/LoginActivity.Layout.Width.Max"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/LoginActivity.Button.Margin"
+					android:layout_marginBottom="@dimen/LoginActivity.Button.Margin"
+					android:text="@string/LoginActivity.LogAsDefault"
+					android:padding="@dimen/LoginActivity.Button.Padding"
+					android:background="@drawable/shape_filled_blue"
+					android:textAppearance="@style/White_Login"
+					android:textColor="@android:color/white"/>
+
+			<Button
+					android:id="@+id/LoginActivity.LoginAsGuest"
+					android:layout_width="match_parent"
+					android:width="@dimen/LoginActivity.Layout.Width.Max"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/LoginActivity.Button.Margin"
+					android:layout_marginBottom="@dimen/LoginActivity.Button.Margin"
+					android:text="@string/LoginActivity.LogAsGuest"
+					android:padding="@dimen/LoginActivity.Button.Padding"
+					android:background="@drawable/shape_filled_grey"
+					android:textAppearance="@style/White_Login"
+					android:textColor="@android:color/white"/>
+		</LinearLayout>
+
+
+	<Button
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="0.25"
+			android:visibility="invisible"/>
 </LinearLayout>

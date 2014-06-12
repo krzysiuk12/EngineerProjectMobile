@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="LoginActivity.Layout.Width.Max">800px</dimen>
-    <dimen name="LoginActivity.ButtonsSection.Margin.Top">80px</dimen>
-    <dimen name="LoginActivity.Button.Padding">30px</dimen>
-    <dimen name="LoginActivity.Button.Margin">15px</dimen>
+	<dimen name="LoginActivity.Button.Margin">15dp</dimen>
+	<dimen name="LoginActivity.Button.Padding">30dp</dimen>
+	<dimen name="LoginActivity.Layout.Width.Max">200dp</dimen>
 
 </resources>
