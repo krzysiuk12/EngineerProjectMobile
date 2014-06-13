@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "UserAccountStatusEvent")
 public class UserAccountStatusEvent {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, index = true)
     private Long id;
 
     @DatabaseField(columnName = "actionType")
@@ -25,8 +25,8 @@ public class UserAccountStatusEvent {
     @DatabaseField(columnName = "endDate")
     private Timestamp endDate;
 
-    @DatabaseField(columnName = "userAccountId")
-    private Long userAccountId;
+    @DatabaseField(columnName = "userAccount")
+    private UserAccount userAccount;
 
     public UserAccountStatusEvent() {
     }
@@ -59,11 +59,11 @@ public class UserAccountStatusEvent {
         this.endDate = endDate;
     }
 
-    public Long getUserAccountId() {
-        return userAccountId;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
-    public void setUserAccountId(Long userAccountId) {
-        this.userAccountId = userAccountId;
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class UserAccountStatusEvent {
                 ", getActionType=" + actionType +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", userAccountId=" + userAccountId +
+                ", userAccount=" + userAccount.toString() +
                 "}\n";
     }
 

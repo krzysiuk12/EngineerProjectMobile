@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "Individuals")
 public class Individual {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, index = true)
     private Long id;
 
     @DatabaseField(columnName = "firstName")

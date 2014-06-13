@@ -32,14 +32,14 @@ public class Location {
     @DatabaseField(columnName = "creationDate")
     private Timestamp creationDate;
 
-    @DatabaseField(columnName = "createdByAccountId")
-    private Long createdByAccountId;
+    @DatabaseField(columnName = "createdByAccount", canBeNull = false, foreign = true)
+    private Long createdByAccount;
 
-    @DatabaseField(columnName = "removedByAccountId")
-    private Long removedByAccountId;
+    @DatabaseField(columnName = "removedByAccount", canBeNull = true, foreign = true)
+    private Long removedByAccount;
 
-    @DatabaseField(columnName = "address", canBeNull = true, foreign = true)
-    private Long addressId;
+    @DatabaseField(columnName = "address", canBeNull = false, foreign = true)
+    private Address address;
 
     public Location() {
     }
@@ -95,25 +95,25 @@ public class Location {
         return creationDate;
     }
 
-    public Long getCreatedByAccountId() {
-        return createdByAccountId;
+    public Long getCreatedByAccount() {
+        return createdByAccount;
     }
-    public void setCreatedByAccountId(Long createdByAccountId) {
-        this.createdByAccountId = createdByAccountId;
-    }
-
-    public Long getRemovedByAccountId() {
-        return removedByAccountId;
-    }
-    public void setRemovedByAccountId(Long removedByAccountId) {
-        this.removedByAccountId = removedByAccountId;
+    public void setCreatedByAccount(Long createdByAccount) {
+        this.createdByAccount = createdByAccount;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getRemovedByAccount() {
+        return removedByAccount;
     }
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+    public void setRemovedByAccount(Long removedByAccount) {
+        this.removedByAccount = removedByAccount;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -125,9 +125,9 @@ public class Location {
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", status=" + status +
-                ", createdByAccountId=" + createdByAccountId +
-                ", removedByAccountId=" + removedByAccountId +
-                ", addressId=" + addressId +
+                ", createdByAccount=" + createdByAccount.toString() +
+                ", removedByAccount=" + removedByAccount.toString() +
+                ", address=" + address.toString() +
                 "}\n";
     }
 

@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "UserAccounts")
 public class UserAccount {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, index = true)
     private Long id;
 
     @DatabaseField(columnName = "token")
@@ -24,10 +24,7 @@ public class UserAccount {
     @DatabaseField(columnName = "password")
     private String password;
 
-//    @DatabaseField(columnName = "status")
-//    private String status;
-
-    @DatabaseField(columnName = "status")
+    @DatabaseField(columnName = "status", canBeNull = false, foreign = true)
     private UserAccountStatusEvent status;
 
     @DatabaseField(columnName = "invalidSignInAttemptsCounter")
@@ -84,13 +81,6 @@ public class UserAccount {
     public void setPassword(String password) {
         this.password = password;
     }
-
-//    public String getStatus() {
-//        return status;
-//    }
-//    public void setStatus(String status) {
-//        this.status = status;
-//    }
 
     public int getInvalidSignInAttemptsCounter() {
         return invalidSignInAttemptsCounter;
