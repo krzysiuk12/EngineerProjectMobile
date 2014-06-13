@@ -10,6 +10,9 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "Addresses")
 public class Address {
 
+    @DatabaseField(generatedId = true, index = true)
+    private Long id;
+
     @DatabaseField(columnName = "street")
     private String street;
 
@@ -23,6 +26,13 @@ public class Address {
     private String country;
 
     public Address() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getStreet() {
@@ -57,7 +67,8 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "street=" + street +
+                "id=" + id +
+                ", street=" + street +
                 ", postalCode=" + postalCode +
                 ", city=" + city +
                 ", country=" + country +

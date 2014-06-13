@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "Locations")
 public class Location {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, index = true)
     private Long id;
 
     @DatabaseField(columnName = "name")
@@ -38,8 +38,8 @@ public class Location {
     @DatabaseField(columnName = "removedByAccountId")
     private Long removedByAccountId;
 
-    @DatabaseField(columnName = "address")
-    private Address address;
+    @DatabaseField(columnName = "address", canBeNull = true, foreign = true)
+    private Long addressId;
 
     public Location() {
     }
@@ -109,11 +109,11 @@ public class Location {
         this.removedByAccountId = removedByAccountId;
     }
 
-    public Address getAddress() {
-        return address;
+    public Long getAddressId() {
+        return addressId;
     }
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class Location {
                 ", status=" + status +
                 ", createdByAccountId=" + createdByAccountId +
                 ", removedByAccountId=" + removedByAccountId +
-                ", address=" + address +
+                ", addressId=" + addressId +
                 "}\n";
     }
 
