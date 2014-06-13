@@ -1,6 +1,5 @@
 package pl.edu.agh.domain;
 
-import com.google.android.gms.drive.internal.ac;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
