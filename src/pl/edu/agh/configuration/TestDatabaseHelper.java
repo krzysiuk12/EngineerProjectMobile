@@ -8,7 +8,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import pl.edu.agh.domain.Location;
+import pl.edu.agh.domain.*;
 import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.interfaces.ILogService;
 
@@ -36,6 +36,10 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             Log.i(LOGGER_TAG, "Test Database - onCreate Method.");
+            TableUtils.createTable(connectionSource, Individual.class);
+            TableUtils.createTable(connectionSource, UserAccount.class);
+            TableUtils.createTable(connectionSource, UserAccountStatusEvent.class);
+            TableUtils.createTable(connectionSource, Address.class);
             TableUtils.createTable(connectionSource, Location.class);
         } catch(SQLException ex) {
             Log.e(LOGGER_TAG, "Cannot create database", ex);
@@ -48,6 +52,10 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(LOGGER_TAG, "Test Database - onCreate Method.");
             TableUtils.dropTable(connectionSource, Location.class, true);
+            TableUtils.dropTable(connectionSource, Address.class, true);
+            TableUtils.dropTable(connectionSource, UserAccountStatusEvent.class, true);
+            TableUtils.dropTable(connectionSource, UserAccount.class, true);
+            TableUtils.dropTable(connectionSource, Individual.class, true);
             onCreate(sqLiteDatabase, connectionSource);
         } catch(SQLException ex) {
             Log.e(LOGGER_TAG, "Cannot create database", ex);

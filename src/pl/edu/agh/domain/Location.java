@@ -38,8 +38,10 @@ public class Location {
     @DatabaseField(columnName = "address", canBeNull = false, foreign = true)
     private Address address;
 
+    @DatabaseField(columnName = "url")
     private String url;
 
+    @DatabaseField(columnName = "rating")
     private double rating;
 
     public Location() {

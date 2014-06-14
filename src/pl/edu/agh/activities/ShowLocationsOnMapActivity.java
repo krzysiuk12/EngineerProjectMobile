@@ -8,11 +8,10 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import pl.edu.agh.asynctasks.LocationByIdAsyncTask;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 
 import java.util.concurrent.ExecutionException;
 
@@ -20,6 +19,8 @@ import java.util.concurrent.ExecutionException;
  * Created by Magdalena Strzoda (Llostris) on 2014-06-11.
  */
 public class ShowLocationsOnMapActivity extends Activity {
+
+    private GoogleMapsManagementService googleMapsManagementService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +31,10 @@ public class ShowLocationsOnMapActivity extends Activity {
 		map.setMyLocationEnabled(true);
 
         try {
+            googleMapsManagementService = new GoogleMapsManagementService();
             Location location = new LocationByIdAsyncTask(2L).execute().get();
-            LatLng testLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(testLatLng, 15));
-            map.addMarker(
-                    new MarkerOptions()
-                            .title("YOU")
-                            .snippet("... are here ...")
-                            .position(testLatLng)
-            );
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(googleMapsManagementService .getLatLngFromLocation(location), 15));
+            map.addMarker(googleMapsManagementService.createLocationMarker(location));
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
