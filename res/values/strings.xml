@@ -12,15 +12,17 @@
     <string name="MainMenuActivity.Tile.ShowMyLocations">Show My Locations</string>
     <string name="MainMenuActivity.Tile.Settings">Settings</string>
     <string name="MainMenuActivity.Tile.Help">Help</string>
-    <string name="MainMenuActivity.Tile.Trips">Create Trip</string>
+    <string name="MainMenuActivity.Tile.CreateTrips">Create Trip</string>
     <string name="MainMenuActivity.Tile.Synchronize">Synchronize App With Server</string>
-    <string name="MainMenuActivity.Tile.TripsSchedule">Trips Schedule</string>
-    <string name="MainMenuActivity.Tile.LocalizationDescription">Location Description</string>
+    <string name="MainMenuActivity.Tile.Trips">Trips</string>
+    <string name="MainMenuActivity.Tile.Locations">Locations</string>
     <string name="MainMenuActivity.Tile.Logout">Logout</string>
+	<string name="MainMenuActivity.Tile.AddLocation">Add Location</string>
 
 
 	<string name="ShowLocationsOnMapActivity.Button.ShowDescription">Show Description</string>
 	<string name="ShowLocationsOnMapActivity.Button.DownloadLocations">Download Locations</string>
+	<string name="ShowLocationsOnMapActivity.SearchBar">Search</string>
 
 
 </resources>
