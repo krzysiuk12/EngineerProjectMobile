@@ -10,7 +10,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import pl.edu.agh.asynctasks.LocationByIdAsyncTask;
+import pl.edu.agh.domain.Location;
 import pl.edu.agh.main.R;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Magdalena Strzoda (Llostris) on 2014-06-11.
@@ -25,16 +29,21 @@ public class ShowLocationsOnMapActivity extends Activity {
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		map.setMyLocationEnabled(true);
 
-		// test point
-		LatLng testLatLng = new LatLng(51.4895247, 0.0083485);
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(testLatLng, 10));
-
-		map.addMarker(
-				new MarkerOptions()
-						.title("YOU")
-						.snippet("... are here ...")
-						.position(testLatLng)
-		);
+        try {
+            Location location = new LocationByIdAsyncTask(2L).execute().get();
+            LatLng testLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(testLatLng, 15));
+            map.addMarker(
+                    new MarkerOptions()
+                            .title("YOU")
+                            .snippet("... are here ...")
+                            .position(testLatLng)
+            );
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
 		// Buttons
 

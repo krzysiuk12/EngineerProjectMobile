@@ -22,6 +22,9 @@
     <orderEntry type="library" exported="" name="spring-android-core-1.0.1.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="google-play-services1" level="project" />
     <orderEntry type="module" module-name="google-play-services_lib" exported="" />
+    <orderEntry type="library" name="jackson-core-asl-1.9.13" level="project" />
+    <orderEntry type="library" name="jackson-databind-2.4.0" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.4.0" level="project" />
   </component>
 </module>
 

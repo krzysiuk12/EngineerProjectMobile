@@ -35,11 +35,12 @@ public class Location {
     @DatabaseField(columnName = "createdByAccount", canBeNull = false, foreign = true)
     private Long createdByAccount;
 
-    @DatabaseField(columnName = "removedByAccount", canBeNull = true, foreign = true)
-    private Long removedByAccount;
-
     @DatabaseField(columnName = "address", canBeNull = false, foreign = true)
     private Address address;
+
+    private String url;
+
+    private double rating;
 
     public Location() {
     }
@@ -102,18 +103,25 @@ public class Location {
         this.createdByAccount = createdByAccount;
     }
 
-    public Long getRemovedByAccount() {
-        return removedByAccount;
-    }
-    public void setRemovedByAccount(Long removedByAccount) {
-        this.removedByAccount = removedByAccount;
-    }
-
     public Address getAddress() {
         return address;
     }
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     @Override
@@ -126,7 +134,6 @@ public class Location {
                 ", latitude=" + latitude +
                 ", status=" + status +
                 ", createdByAccount=" + createdByAccount.toString() +
-                ", removedByAccount=" + removedByAccount.toString() +
                 ", address=" + address.toString() +
                 "}\n";
     }
