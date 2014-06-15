@@ -13,11 +13,11 @@ import pl.edu.agh.tools.PathTools;
 /**
  * Created by Krzysiu on 2014-06-14.
  */
-public class LocationByIdAsyncTask extends AsyncTask<Void, Void, Location> {
+public class GetLocationByIdAsyncTask extends AsyncTask<Void, Void, Location> {
 
     private Long id;
 
-    public LocationByIdAsyncTask(Long id) {
+    public GetLocationByIdAsyncTask(Long id) {
         this.id = id;
     }
 
@@ -26,7 +26,6 @@ public class LocationByIdAsyncTask extends AsyncTask<Void, Void, Location> {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "SomeToken");
         RestTemplate restTemplate = new RestTemplate();
-        //restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         String path = PathTools.getLocationByIdPath(id);
         ResponseEntity<Location> responseEntity = restTemplate.exchange(path, HttpMethod.GET, new HttpEntity<Location>(headers), Location.class);

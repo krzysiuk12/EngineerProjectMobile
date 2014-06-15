@@ -44,6 +44,9 @@ public class Location {
     @DatabaseField(columnName = "rating")
     private double rating;
 
+    @DatabaseField(columnName = "isUsersPrivate")
+    private boolean usersPrivate;
+
     public Location() {
     }
 
@@ -124,6 +127,13 @@ public class Location {
     }
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public boolean isUsersPrivate() {
+        return usersPrivate;
+    }
+    public void setUsersPrivate(boolean usersPrivate) {
+        this.usersPrivate = usersPrivate;
     }
 
     @Override

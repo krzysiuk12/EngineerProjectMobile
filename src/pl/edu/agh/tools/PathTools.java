@@ -12,4 +12,8 @@ public class PathTools {
     public static String getLocationByIdPath(Long id) {
         return new StringBuilder(LOCATIONS_PATH).append("/").append(id).toString();
     }
+
+    public static String getAllLocationsPath() {
+        return LOCATIONS_PATH;
+    }
 }
