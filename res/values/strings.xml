@@ -4,6 +4,7 @@
 
     <string name="LoginActivity.Login">Login</string>
     <string name="LoginActivity.Password">Password</string>
+	<string name="LoginActivity.LoginButton">Login</string>
     <string name="LoginActivity.LogAsGuest">Log as guest</string>
     <string name="LoginActivity.LogAsDefault">Log as default user</string>
 
@@ -22,7 +23,15 @@
 
 	<string name="ShowLocationsOnMapActivity.Button.ShowDescription">Show Description</string>
 	<string name="ShowLocationsOnMapActivity.Button.DownloadLocations">Download Locations</string>
-	<string name="ShowLocationsOnMapActivity.SearchBar">Search</string>
+	<string name="ShowLocationsOnMapActivity.SearchBox">Search</string>
+
+	<string name="LocationDescription.Name">Name</string>
+	<string name="LocationDescription.Description">Description</string>
+	<string name="LocationDescription.Rating">Rating</string>
+	<string name="LocationDescription.Status">Status</string>
+	<string name="LocationDescription.Address">Address</string>
+	<string name="LocationDescription.CreatedBy">Created by</string>
+	<string name="LocationDescription.Image">Image</string>
 
 
 </resources>

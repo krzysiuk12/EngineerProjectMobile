@@ -17,7 +17,7 @@
 				android:layout_weight="1"
 				android:drawableTop="@drawable/icon_trips"
 				android:text="@string/MainMenuActivity.Tile.CreateTrips"
-				android:id="@+id/MainMenu_CreateTripButton"
+				android:id="@+id/MainMenu.CreateTripButton"
 				/>
 		<Button
 				android:layout_width="0dip"
@@ -25,7 +25,7 @@
 				android:layout_weight="1"
 				android:drawableTop="@drawable/icon_my_location"
 				android:text="@string/MainMenuActivity.Tile.ShowMyLocations"
-				android:id="@+id/MainMenu_ShowPrivateLocationsButton"
+				android:id="@+id/MainMenu.ShowPrivateLocationsButton"
 				/>
     </LinearLayout>
 
@@ -40,7 +40,7 @@
 				android:layout_weight="1"
 				android:drawableTop="@drawable/icon_show_locations"
 				android:text="@string/MainMenuActivity.Tile.ShowAllLocations"
-				android:id="@+id/MainMenu_ShowLocationsButton"
+				android:id="@+id/MainMenu.ShowLocationsButton"
 				/>
         <Button
                 android:layout_width="0dip"
@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/icon_calendar"
                 android:text="@string/MainMenuActivity.Tile.Trips"
-				android:id="@+id/MainMenu_TripsButton"
+				android:id="@+id/MainMenu.TripsButton"
                 />
     </LinearLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/icon_location_description"
                 android:text="@string/MainMenuActivity.Tile.Locations"
-				android:id="@+id/MainMenu_LocationsButton"
+				android:id="@+id/MainMenu.LocationsButton"
                 />
 		<Button
 				android:layout_width="0dip"
@@ -72,7 +72,7 @@
 				android:layout_weight="1"
 				android:drawableTop="@drawable/icon_add_location"
 				android:text="@string/MainMenuActivity.Tile.AddLocation"
-				android:id="@+id/MainMenu_AddLocationButton"
+				android:id="@+id/MainMenu.AddLocationButton"
 				/>
 
     </LinearLayout>
@@ -89,7 +89,7 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/icon_settings"
                 android:text="@string/MainMenuActivity.Tile.Settings"
-				android:id="@+id/MainMenu_SettingsButton"
+				android:id="@+id/MainMenu.SettingsButton"
                 />
 		<Button
 				android:layout_width="0dip"
@@ -97,7 +97,7 @@
 				android:layout_weight="1"
 				android:drawableTop="@drawable/icon_help"
 				android:text="@string/MainMenuActivity.Tile.Help"
-				android:id="@+id/MainMenu_HelpButton"
+				android:id="@+id/MainMenu.HelpButton"
 				/>
 
     </LinearLayout>
@@ -113,6 +113,7 @@
                 android:layout_weight="1"
                 android:drawableTop="@drawable/icon_logout"
                 android:text="@string/MainMenuActivity.Tile.Logout"
+				android:id="@+id/MainMenu.LogoutButton"
                 />
 		<Button
 				android:layout_width="0dip"
@@ -120,7 +121,7 @@
 				android:layout_weight="1"
 				android:drawableTop="@drawable/icon_synchronize"
 				android:text="@string/MainMenuActivity.Tile.Synchronize"
-				android:id="@+id/MainMenu_SynchronizeButton"
+				android:id="@+id/MainMenu.SynchronizeButton"
 				/>
     </LinearLayout>
 

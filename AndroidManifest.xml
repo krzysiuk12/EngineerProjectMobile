@@ -21,14 +21,15 @@
 
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
 
-        <meta-data
-                android:name="com.google.android.maps.v2.API_KEY"
-                android:value="AIzaSyCHY3kkDlGy0C1rUXJ4GGRxWspE0aKU2AM" />
+		<meta-data
+				android:name="com.google.android.maps.v2.API_KEY"
+				android:value="AIzaSyBPxZJSeblSkrFcHZII0_lj3S1UK37U4Xc" />
         <meta-data
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version" />
 
-        <activity android:name="pl.edu.agh.activities.LoginActivity">
+        <activity android:name="pl.edu.agh.activities.LoginActivity"
+				  android:windowSoftInputMode="stateUnchanged">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -38,11 +39,16 @@
         <activity android:name="pl.edu.agh.activities.MainMenuActivity" android:label="@string/app_name">
         </activity>
 
-		<activity android:name="pl.edu.agh.activities.ShowLocationsOnMapActivity" android:label="@string/app_name">
+		<activity android:name="pl.edu.agh.activities.ShowLocationsOnMapActivity" android:label="@string/app_name"
+				  android:windowSoftInputMode="stateUnchanged">
 		</activity>
 
-        <activity android:name="HelloActivity" android:label="@string/app_name">
-        </activity>
+		<activity android:name="pl.edu.agh.activities.ShowLocationsActivity" android:label="@string/app_name">
+		</activity>
+
+		<activity android:name="pl.edu.agh.activities.LocationDescriptionActivity" android:label="@string/app_name">
+		</activity>
+
     </application>
 
 </manifest>
