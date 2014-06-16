@@ -1,6 +1,7 @@
 package pl.edu.agh.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,14 +44,14 @@ public class ShowLocationsOnMapActivity extends Activity {
 
 		// Buttons
 
-		((Button) findViewById(R.id.ShowLocations_ShowDescriptionButton)).setOnClickListener(new View.OnClickListener() {
+		((Button) findViewById(R.id.ShowLocationsOnMapActivity_ShowDescriptionButton)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				showDescription(view);
 			}
 		});
 
-		((Button) findViewById(R.id.ShowLocations_DownloadLocationsButton)).setOnClickListener(new View.OnClickListener() {
+		((Button) findViewById(R.id.ShowLocationsOnMapActivity_DownloadLocationsButton)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				downloadLocations(view);
@@ -60,7 +61,9 @@ public class ShowLocationsOnMapActivity extends Activity {
 	}
 
 	private void showDescription(View view) {
-		Toast.makeText(getApplicationContext(), "showDescription", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent();
+		intent.setClass(this, LocationDescriptionActivity.class);
+		startActivity(intent);
 	}
 
 	private void downloadLocations(View view) {
