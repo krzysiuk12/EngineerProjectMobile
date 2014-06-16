@@ -9,11 +9,12 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import pl.edu.agh.asynctasks.LocationByIdAsyncTask;
+import pl.edu.agh.asynctasks.GetAllLocationsAsyncTask;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -33,9 +34,11 @@ public class ShowLocationsOnMapActivity extends Activity {
 
         try {
             googleMapsManagementService = new GoogleMapsManagementService();
-            Location location = new LocationByIdAsyncTask(2L).execute().get();
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(googleMapsManagementService .getLatLngFromLocation(location), 15));
-            map.addMarker(googleMapsManagementService.createLocationMarker(location));
+            List<Location> locations = new GetAllLocationsAsyncTask().execute().get();
+            for(Location location : locations) {
+                map.addMarker(googleMapsManagementService.createLocationMarker(location));
+            }
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(googleMapsManagementService.getLatLngFromLocation(locations.get(0)), 15));
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
