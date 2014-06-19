@@ -20,7 +20,21 @@ public class MainMenuActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu_activity);
 
+	    ((Button)findViewById(R.id.MainMenu_CreateTripButton)).setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View view) {
+			    createTrip(view);
+		    }
+	    });
+
 	    ((Button)findViewById(R.id.MainMenu_ShowLocationsButton)).setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View view) {
+			    showLocationsOnMap(view);
+		    }
+	    });
+
+	    ((Button)findViewById(R.id.MainMenu_LocationsButton)).setOnClickListener(new View.OnClickListener() {
 		    @Override
 		    public void onClick(View view) {
 			    showLocations(view);
@@ -41,7 +55,18 @@ public class MainMenuActivity extends Activity {
         });
     }
 
-	private void showLocations(View view) {
+	private void createTrip(View view) {
+
+	}
+
+
+	private void showLocationsOnMap(View view) {
 		startActivity(new Intent(this, ShowLocationsOnMapActivity.class));
 	}
+
+	private void showLocations(View view) {
+		startActivity(new Intent(this, ShowLocationsActivity.class));
+	}
+
+
 }
