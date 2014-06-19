@@ -12,6 +12,7 @@ import pl.edu.agh.asynctasks.GetAllLocationsAsyncTask;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -33,7 +34,7 @@ public class ShowLocationsOnMapActivity extends Activity {
 
         try {
             googleMapsManagementService = new GoogleMapsManagementService();
-            List<Location> locations = new GetAllLocationsAsyncTask().execute().get();
+            List<Location> locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
             for(Location location : locations) {
                 map.addMarker(googleMapsManagementService.createLocationMarker(location));
             }

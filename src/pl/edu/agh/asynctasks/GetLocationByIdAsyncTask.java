@@ -2,12 +2,10 @@ package pl.edu.agh.asynctasks;
 
 import android.os.AsyncTask;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.domain.Location;
+import pl.edu.agh.tools.HttpRequestsPreparationTools;
 import pl.edu.agh.tools.PathTools;
 
 /**
@@ -15,20 +13,18 @@ import pl.edu.agh.tools.PathTools;
  */
 public class GetLocationByIdAsyncTask extends AsyncTask<Void, Void, Location> {
 
+    private String token;
     private Long id;
 
-    public GetLocationByIdAsyncTask(Long id) {
+    public GetLocationByIdAsyncTask(String token, Long id) {
+        this.token = token;
         this.id = id;
     }
 
     @Override
     protected Location doInBackground(Void... voids) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "SomeToken");
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        String path = PathTools.getLocationByIdPath(id);
-        ResponseEntity<Location> responseEntity = restTemplate.exchange(path, HttpMethod.GET, new HttpEntity<Location>(headers), Location.class);
+        ResponseEntity<Location> responseEntity = HttpRequestsPreparationTools.getRestTemplateWithJacksonConverter()
+                .exchange(PathTools.getLocationByIdPath(id), HttpMethod.GET, new HttpEntity<Location>(HttpRequestsPreparationTools.getHttpHeadersWithHeader(token)), Location.class);
         return responseEntity.getBody();
     }
 }

@@ -11,6 +11,27 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "Locations")
 public class Location {
 
+    public static final double MINIMUM_STAR_RATING = 8.0;
+
+    public enum Status {
+        /**
+         * Draft that user created, cannot be used as Location (FK), can be changed to available state.
+         */
+        DRAFT,
+        /**
+         * Currently available and send to user location that will be shown on the map.
+         */
+        AVAILABLE,
+        /**
+         * Currently unavaible but not removed from database location. Location is unavailable for some reason for some time.
+         */
+        UNAVAILABLE,
+        /**
+         * Permanently unavailable location.
+         */
+        REMOVED
+    }
+
     @DatabaseField(generatedId = true, index = true)
     private Long id;
 
@@ -27,7 +48,7 @@ public class Location {
     private double latitude;
 
     @DatabaseField(columnName = "status")
-    private String status;
+    private Status status;
 
     @DatabaseField(columnName = "creationDate")
     private Timestamp creationDate;
@@ -85,10 +106,10 @@ public class Location {
         this.latitude = latitude;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
-    public String getStatus() {
+    public Status getStatus() {
 
         return status;
     }

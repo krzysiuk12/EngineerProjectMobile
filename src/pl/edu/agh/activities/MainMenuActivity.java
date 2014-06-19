@@ -5,7 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import pl.edu.agh.asynctasks.PutLocationStatusAsyncTask;
+import pl.edu.agh.domain.Location;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Krzysiu on 2014-06-10.
@@ -21,6 +26,19 @@ public class MainMenuActivity extends Activity {
 			    showLocations(view);
 		    }
 	    });
+
+        ((Button)findViewById(R.id.MainMenu_SynchronizeButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Location location = new PutLocationStatusAsyncTask(UserAccountManagementService.getToken(), 3L, Location.Status.UNAVAILABLE).execute().get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 	private void showLocations(View view) {
