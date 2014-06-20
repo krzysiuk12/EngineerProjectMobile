@@ -16,51 +16,78 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 
-			<ImageView
-					android:layout_width="wrap_content"
+			<TextView
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:contentDescription="@string/LocationDescription.Image"
-					android:id="@+id/imageView"/>
+					android:text="@string/LocationDescription.Name"
+					android:textAppearance="@style/LocationDescription.Name"
+					android:layout_marginBottom="@dimen/LocationDescription.Margin.Bottom"
+					android:id="@+id/LocationDescription.Name"
+					/>
 
 			<LinearLayout
 					android:orientation="horizontal"
-					android:layout_width="match_parent"
-					android:layout_height="0dp"
-					android:layout_weight="1">
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
 
-				<TextView
+
+				<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:contentDescription="@string/LocationDescription.Image"
+						android:background="@drawable/icon_add_location"
+						android:id="@+id/LocationDescription.Image"/>
+
+				<LinearLayout
+						android:orientation="vertical"
 						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:text="@string/LocationDescription.Name"/>
-				<TextView
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:id="@+id/LocationDescription.Name"/>
+						android:layout_height="wrap_content">
+
+					<LinearLayout
+							android:orientation="horizontal"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="@dimen/LocationDescription.Margin.Bottom">
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="match_parent"
+								android:layout_marginRight="@dimen/LocationDescription.Margin.Right"
+								android:text="@string/LocationDescription.Status" />
+						<TextView
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								android:id="@+id/LocationDescription.Status"/>
+					</LinearLayout>
+
+					<LinearLayout
+							android:orientation="horizontal"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="@dimen/LocationDescription.Margin.Bottom">
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="match_parent"
+								android:layout_marginRight="@dimen/LocationDescription.Margin.Right"
+								android:text="@string/LocationDescription.Rating" />
+						<TextView
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								android:id="@+id/LocationDescription.Rating"/>
+					</LinearLayout>
+
+				</LinearLayout>
+
 			</LinearLayout>
 
 			<LinearLayout
 					android:orientation="horizontal"
 					android:layout_width="match_parent"
-					android:layout_height="0dp"
-					android:layout_weight="1">
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/LocationDescription.Margin.Bottom">
 				<TextView
-						android:layout_width="match_parent"
+						android:layout_width="wrap_content"
 						android:layout_height="match_parent"
-						android:text="@string/LocationDescription.Status" />
-				<TextView
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:id="@+id/LocationDescription.Status"/>
-			</LinearLayout>
-
-			<LinearLayout
-					android:orientation="horizontal"
-					android:layout_width="match_parent"
-					android:layout_height="0dp"
-					android:layout_weight="1">
-				<TextView
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
+						android:layout_marginRight="@dimen/LocationDescription.Margin.Right"
 						android:text="@string/LocationDescription.Description" />
 				<TextView
 						android:layout_width="match_parent"
@@ -71,19 +98,36 @@
 			<LinearLayout
 					android:orientation="horizontal"
 					android:layout_width="match_parent"
-					android:layout_height="0dp"
-					android:layout_weight="1">
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/LocationDescription.Margin.Bottom">
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:text="@string/LocationDescription.Address"
+						android:layout_marginRight="@dimen/LocationDescription.Margin.Right"/>
 				<TextView
 						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:text="@string/LocationDescription.Address" />
-				<TextView
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
+						android:layout_height="wrap_content"
 						android:id="@+id/LocationDescription.Address"/>
 			</LinearLayout>
 
+			<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:text="@string/LocationDescription.CreatedBy"
+						android:layout_marginRight="@dimen/LocationDescription.Margin.Right"/>
+				<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/LocationDescription.CreatedBy"/>
+			</LinearLayout>
+
 		</LinearLayout>
+
 	</ScrollView>
 
 </LinearLayout>

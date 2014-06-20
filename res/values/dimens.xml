@@ -5,4 +5,11 @@
 	<dimen name="LoginActivity.Button.Padding">30dp</dimen>
 	<dimen name="LoginActivity.Layout.Width.Max">200dp</dimen>
 
+	<dimen name="LocationDescription.Padding">10dp</dimen>
+	<dimen name="LocationDescription.Margin.Right">10dp</dimen>
+	<dimen name="LocationDescription.Margin.Bottom">30dp</dimen>
+	<dimen name="LocationDescription.Name.TextSize">20dp</dimen>
+	<dimen name="LocationDescription.Image.MaxWidth">150dp</dimen>
+	<dimen name="LocationDescription.Image.MaxHeight">100dp</dimen>
+
 </resources>

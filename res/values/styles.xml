@@ -6,4 +6,9 @@
         <item name="android:typeface">serif</item>
     </style>
 
+	<style name="LocationDescription.Name" parent="android:TextAppearance.DeviceDefault.Widget.TextView">
+		<item name="android:textStyle">bold</item>
+		<item name="android:textSize">@dimen/LocationDescription.Name.TextSize</item>
+	</style>
+
 </resources>

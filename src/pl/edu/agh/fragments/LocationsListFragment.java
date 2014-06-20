@@ -6,16 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import pl.edu.agh.activities.LocationDescriptionActivity;
+import pl.edu.agh.asynctasks.GetAllLocationsAsyncTask;
+import pl.edu.agh.domain.Location;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
- * Created by Magdalena Strzoda (Llostris) on 2014-06-15.
+ * Created by Magdalena Strzoda on 2014-06-15.
  */
 public class LocationsListFragment extends ListFragment {
 	private int currentPosition = 0;
@@ -28,15 +31,17 @@ public class LocationsListFragment extends ListFragment {
 		View detailsFrame = getActivity().findViewById(R.id.ShowLocations_LocationDescription);
 		isDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
-		// test
-		List<String> list = new ArrayList<String>();
-		list.add("1111");
-		list.add("2222");
-		list.add("3");
-		list.add("4");
-		list.add("5");
-		list.add("6");
-		setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, list));
+		ArrayList<Location> locationList = new ArrayList<Location>();
+		try {
+			List<Location> locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+			locationList = new ArrayList<Location>(locations);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+
+		setListAdapter(new LocationAdapter(getActivity().getApplicationContext(), locationList));
 
 		if (savedInstanceState != null) {
 			currentPosition = savedInstanceState.getInt("currentPosition", 0);
@@ -82,7 +87,7 @@ public class LocationsListFragment extends ListFragment {
 			Log.d("LocationListFragment", "showDetails() new intent");
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), LocationDescriptionActivity.class);
-			intent.putExtra("index", index);
+			intent.putExtra("index", getListAdapter().getItemId(index));
 
 			startActivity(intent);
 		}
