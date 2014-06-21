@@ -53,6 +53,13 @@ public class MainMenuActivity extends Activity {
                 }
             }
         });
+
+        ((Button) findViewById(R.id.MainMenu_AddLocationButton)).setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addLocation(view);
+            }
+        });
     }
 
 	private void createTrip(View view) {
@@ -68,5 +75,8 @@ public class MainMenuActivity extends Activity {
 		startActivity(new Intent(this, ShowLocationsActivity.class));
 	}
 
+    private void addLocation(View view) {
+        startActivity(new Intent(this, AddLocationActivity.class));
+    }
 
 }
