@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import pl.edu.agh.activities.locations.AddLocationActivity;
 import pl.edu.agh.asynctasks.locations.PutLocationStatusAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
-import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
-import pl.edu.agh.serializers.google.directions.GoogleDirectionsSerializer;
 import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
-import pl.edu.agh.services.implementation.GoogleDirectionsService;
 import pl.edu.agh.services.implementation.GoogleGeocodingService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 
@@ -31,18 +29,16 @@ public class MainMenuActivity extends Activity {
         new TestDatabaseHelper(this).getReadableDatabase();
 
         try {
-            Location origin = new Location();
+/*            Location origin = new Location();
             origin.setLatitude(50.067265);
             origin.setLongitude(19.944448);
             Location destination = new Location();
             destination.setLatitude(50.435275);
             destination.setLongitude(18.850237);
             GoogleDirectionsSerializer route = new GoogleDirectionsService().getTripDescription(origin, destination, null, null, null);
-            new InfoToastBuilder(this, "Wycieczka zostałą załadowana poprawnie.").build().show();
-            System.out.println("HERE");
+            System.out.println("HERE");*/
 
             GoogleGeocodingSerializer geocode = new GoogleGeocodingService().getLocationDescription("santacruz", null, null);
-            new InfoToastBuilder(this, "Adres lokalizacji załadowany").build().show();
             System.out.println("HERE");
         } catch(Exception ex) {
             ex.printStackTrace();

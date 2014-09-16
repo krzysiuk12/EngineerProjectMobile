@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="Location.Name">Name</string>
+    <string name="Location.Description">Description</string>
+    <string name="Location.Longitude">Longitude</string>
+    <string name="Location.Latitude">Latitude</string>
+    <string name="Location.Status">Status</string>
+    <string name="Location.CreationDate">Creation Date</string>
+    <string name="Location.CreatedByAccount">Created By</string>
+    <string name="Location.Address">Address</string>
+    <string name="Location.Url">Url</string>
+    <string name="Location.Rating">Rating</string>
+    <string name="Location.UsersPrivate">Visible To Other Users</string>
+
+    <string name="Address.Street">Street</string>
+    <string name="Address.City">City</string>
+    <string name="Address.PostalCode">Postal Code</string>
+    <string name="Address.Country">Country</string>
+
+</resources>

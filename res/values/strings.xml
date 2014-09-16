@@ -8,7 +8,6 @@
     <string name="LoginActivity.LogAsGuest">Log as guest</string>
     <string name="LoginActivity.LogAsDefault">Log as default user</string>
 
-
     <string name="MainMenuActivity.Tile.ShowAllLocations">Show All Locations</string>
     <string name="MainMenuActivity.Tile.ShowMyLocations">Show My Locations</string>
     <string name="MainMenuActivity.Tile.Settings">Settings</string>
@@ -19,7 +18,6 @@
     <string name="MainMenuActivity.Tile.Locations">Locations</string>
     <string name="MainMenuActivity.Tile.Logout">Logout</string>
 	<string name="MainMenuActivity.Tile.AddLocation">Add Location</string>
-
 
 	<string name="ShowLocationsOnMapActivity.Button.ShowDescription">Show Description</string>
 	<string name="ShowLocationsOnMapActivity.Button.DownloadLocations">Download Locations</string>
@@ -32,9 +30,5 @@
 	<string name="LocationDescription.Address">Address</string>
 	<string name="LocationDescription.CreatedBy">Created by</string>
 	<string name="LocationDescription.Image">Image</string>
-
-    <string name="AddLocationFragment.Name">Location name</string>
-    <string name="AddLocationFragment.Description">Description</string>
-
 
 </resources>

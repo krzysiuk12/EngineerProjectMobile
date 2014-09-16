@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/Layout.Padding">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/AddLocation.map"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="1"
+              android:name="com.google.android.gms.maps.MapFragment"/>
+
+    <fragment
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:name="pl.edu.agh.fragments.AddLocationFragment"
+            android:id="@+id/AddLocation.LocationProperties"
+            tools:layout="@layout/add_location_fragment"/>
 
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-        <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="pl.edu.agh.fragments.AddLocationFragment"
-                android:id="@+id/AddLocation.LocationProperties" />
-
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/AddLocation.map"
-                  android:layout_width="match_parent"
-                  android:layout_height="0dp"
-                  android:layout_weight="0.7"
-                  android:name="com.google.android.gms.maps.MapFragment"/>
-    </LinearLayout>
-</ScrollView>
+    <Button
+            android:id="@+id/AddLocation.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/Layout.Margin"
+            android:drawableTop="@drawable/icon_add_location"
+            android:text="@string/MainMenuActivity.Tile.AddLocation"
+            />
+</LinearLayout>

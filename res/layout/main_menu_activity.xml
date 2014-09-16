@@ -56,7 +56,8 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="0dip"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_gravity="center">
 
         <Button
                 android:layout_width="0dip"
@@ -70,6 +71,7 @@
 				android:layout_width="0dip"
 				android:layout_height="match_parent"
 				android:layout_weight="1"
+                android:layout_gravity="center_vertical"
 				android:drawableTop="@drawable/icon_add_location"
 				android:text="@string/MainMenuActivity.Tile.AddLocation"
 				android:id="@+id/MainMenu.AddLocationButton"
@@ -96,7 +98,7 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1"
 				android:drawableTop="@drawable/icon_help"
-				android:text="@string/MainMenuActivity.Tile.Help"
+                android:text="@string/MainMenuActivity.Tile.Help"
 				android:id="@+id/MainMenu.HelpButton"
 				/>
 

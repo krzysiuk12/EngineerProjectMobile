@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="Layout.Padding">5dp</dimen>
+    <dimen name="Layout.Margin">5dp</dimen>
+    <dimen name="Layout.Label.Margin.Right">2dp</dimen>
+
 	<dimen name="LoginActivity.Button.Margin">15dp</dimen>
 	<dimen name="LoginActivity.Button.Padding">30dp</dimen>
 	<dimen name="LoginActivity.Layout.Width.Max">200dp</dimen>

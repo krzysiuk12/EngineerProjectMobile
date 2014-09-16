@@ -12,6 +12,6 @@ import android.view.ViewGroup;import pl.edu.agh.main.R;
 public class AddLocationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.add_location_fragment, container, false);
+        return inflater.inflate(R.layout.add_location_fragment, container, true);
     }
 }

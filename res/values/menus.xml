@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="Menu.GoogleType">Google Maps Type</string>
+    <string name="Menu.GoogleType.Hybrid">Hybrid</string>
+    <string name="Menu.GoogleType.Satellite">Satellite</string>
+    <string name="Menu.GoogleType.Normal">Normal</string>
+    <string name="Menu.GoogleType.Terrain">Terrain</string>
+    
+    <string name="AddLocationMenu.Search.Title">Search</string>
+    <string name="AddLocationMenu.Help.Title">Help</string>
+    <string name="AddLocationMenu.Settings.Title">Settings</string>
+
+</resources>

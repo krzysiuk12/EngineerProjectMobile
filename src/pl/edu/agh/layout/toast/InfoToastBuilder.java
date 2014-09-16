@@ -24,7 +24,7 @@ public class InfoToastBuilder extends ToastBuilder {
 
     @Override
     protected int getImageResource() {
-        return R.drawable.info_icon;
+        return R.drawable.icon_info;
     }
 
     @Override

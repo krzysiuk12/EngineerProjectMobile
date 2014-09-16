@@ -24,7 +24,7 @@ public class WarningToastBuilder extends ToastBuilder {
 
     @Override
     protected int getImageResource() {
-        return R.drawable.warning_icon;
+        return R.drawable.icon_warning;
     }
 
     @Override

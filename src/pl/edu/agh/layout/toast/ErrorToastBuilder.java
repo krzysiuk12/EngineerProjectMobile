@@ -24,7 +24,7 @@ public class ErrorToastBuilder extends ToastBuilder {
 
     @Override
     protected int getImageResource() {
-        return R.drawable.error_icon;
+        return R.drawable.icon_error;
     }
 
     @Override
