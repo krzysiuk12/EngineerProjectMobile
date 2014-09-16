@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import pl.edu.agh.domain.Location;
+import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
 
 /**

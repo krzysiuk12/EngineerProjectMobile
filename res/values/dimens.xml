@@ -12,4 +12,8 @@
 	<dimen name="LocationDescription.Image.MaxWidth">150dp</dimen>
 	<dimen name="LocationDescription.Image.MaxHeight">100dp</dimen>
 
+    <dimen name="Toast.Padding.TopAndBottom">10dp</dimen>
+    <dimen name="Toast.ImageView.Margin.Right">5dp</dimen>
+    <dimen name="Toast.ImageView.Margin.Left">10dp</dimen>
+
 </resources>

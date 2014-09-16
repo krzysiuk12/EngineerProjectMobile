@@ -3,6 +3,7 @@
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
+        <option name="PACK_TEST_CODE" value="true" />
         <proGuardCfgFiles>
           <file>file://C:/Program Files/Java/jdk1.7.0_25/tools/proguard/proguard-android.txt</file>
         </proGuardCfgFiles>
@@ -22,7 +23,6 @@
     <orderEntry type="library" exported="" name="spring-android-core-1.0.1.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="google-play-services1" level="project" />
     <orderEntry type="module" module-name="google-play-services_lib" exported="" />
-    <orderEntry type="library" name="jackson-core-asl-1.9.13" level="project" />
     <orderEntry type="library" name="jackson-databind-2.4.0" level="project" />
     <orderEntry type="library" name="jackson-annotations-2.4.0" level="project" />
   </component>

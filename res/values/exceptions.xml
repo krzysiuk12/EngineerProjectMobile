@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="GoogleDirectionsException.NOT_DEFINED">Not defined exception</string>
+
+    <string name="GoogleGeocodingException.FAILED_TO_GET_LOCATION_DESCRIPTION">Failed to get location description.</string>
+    <string name="GoogleGeocodingException.NOT_DEFINED">Not defined exception</string>
+
+    <string name="LocationException.ValidationError.NameIsRequired">Name field is required</string>
+    <string name="LocationException.ValidationError.LongitudeIsRequired">Longitude field is required</string>
+    <string name="LocationException.ValidationError.LatitudeIsRequired">Latitude field is required</string>
+    <string name="LocationException.ValidationError.StatusIsRequired">Status field is required</string>
+    <string name="LocationException.ValidationError.CreatedByAccountIsRequired">CreatedByAccount field is required</string>
+    <string name="LocationException.ValidationError.CreationDateIsRequired">CreationDate field is required</string>
+    <string name="LocationException.ValidationError.AddressIsRequired">Address field is required</string>
+
+</resources>

@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import pl.edu.agh.asynctasks.GetLocationByIdAsyncTask;
-import pl.edu.agh.domain.Location;
+import pl.edu.agh.asynctasks.locations.GetLocationByIdAsyncTask;
+import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 

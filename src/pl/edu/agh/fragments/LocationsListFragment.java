@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import pl.edu.agh.activities.LocationDescriptionActivity;
-import pl.edu.agh.asynctasks.GetAllLocationsAsyncTask;
-import pl.edu.agh.domain.Location;
+import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
+import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 

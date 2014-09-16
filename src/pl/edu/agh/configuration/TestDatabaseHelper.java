@@ -8,7 +8,12 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import pl.edu.agh.domain.*;
+import pl.edu.agh.domain.accounts.Address;
+import pl.edu.agh.domain.accounts.Individual;
+import pl.edu.agh.domain.accounts.UserAccount;
+import pl.edu.agh.domain.accounts.UserAccountStatusEvent;
+import pl.edu.agh.domain.locations.Location;
+import pl.edu.agh.domain.trips.*;
 import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.interfaces.ILogService;
 
@@ -19,7 +24,7 @@ import java.sql.SQLException;
  */
 public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String DATABASE_NAME = "Test.db";
+    public static final String DATABASE_NAME = "Test.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final ILogService logService = new AndroidLogService();
@@ -41,6 +46,11 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, UserAccountStatusEvent.class);
             TableUtils.createTable(connectionSource, Address.class);
             TableUtils.createTable(connectionSource, Location.class);
+            TableUtils.createTable(connectionSource, TripDirection.class);
+            TableUtils.createTable(connectionSource, TripStep.class);
+            TableUtils.createTable(connectionSource, TripDayLocation.class);
+            TableUtils.createTable(connectionSource, TripDay.class);
+            TableUtils.createTable(connectionSource, Trip.class);
         } catch(SQLException ex) {
             Log.e(LOGGER_TAG, "Cannot create database", ex);
             throw new RuntimeException(ex);
@@ -48,9 +58,14 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i2) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            Log.i(LOGGER_TAG, "Test Database - onCreate Method.");
+            Log.i(LOGGER_TAG, "Test Database - onUpgrade Method.");
+            TableUtils.dropTable(connectionSource, Trip.class, true);
+            TableUtils.dropTable(connectionSource, TripDay.class, true);
+            TableUtils.dropTable(connectionSource, TripDayLocation.class, true);
+            TableUtils.dropTable(connectionSource, TripStep.class, true);
+            TableUtils.dropTable(connectionSource, TripDirection.class, true);
             TableUtils.dropTable(connectionSource, Location.class, true);
             TableUtils.dropTable(connectionSource, Address.class, true);
             TableUtils.dropTable(connectionSource, UserAccountStatusEvent.class, true);
@@ -58,11 +73,10 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Individual.class, true);
             onCreate(sqLiteDatabase, connectionSource);
         } catch(SQLException ex) {
-            Log.e(LOGGER_TAG, "Cannot create database", ex);
+            Log.e(LOGGER_TAG, "Cannot upgrade database", ex);
             throw new RuntimeException(ex);
         }
     }
-
 
     public Dao<Location, Long> getLocationsDao() throws SQLException {
         if(locationsDao == null) {

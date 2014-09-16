@@ -3,13 +3,16 @@ package pl.edu.agh.services.implementation;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import pl.edu.agh.domain.Location;
+import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
+
 
 /**
  * Created by Krzysiu on 2014-06-14.
  */
 public class GoogleMapsManagementService {
+
+    public static final double MINIMUM_STAR_RATING = 8.0;
 
     private enum MarkerColor {
         BLUE,
@@ -36,7 +39,7 @@ public class GoogleMapsManagementService {
         if(location.isUsersPrivate()) {
             setPrivateMarkerIcon(option, location, MarkerColor.BLUE);
         } else {
-            if(location.getRating() >= Location.MINIMUM_STAR_RATING) {
+            if(location.getRating() >= MINIMUM_STAR_RATING) {
                 setStarMarkerIcon(option, location, MarkerColor.ORANGE);
             } else {
                 switch(location.getStatus()) {

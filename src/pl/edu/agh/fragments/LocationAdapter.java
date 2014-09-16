@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import pl.edu.agh.domain.Location;
+import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
 
 import java.util.ArrayList;
