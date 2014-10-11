@@ -19,4 +19,11 @@
     <string name="ShowAllLocationsOnMapMenu.Help.Title">Help</string>
     <string name="ShowAllLocationsOnMapMenu.Setting.Title">Settings</string>
 
+    <string name="ShowPrivateLocationsOnMapMenu.Title">Show My Locations On Map</string>
+    <string name="ShowPrivateLocationsOnMapMenu.Search.Title">Search</string>
+    <string name="ShowPrivateLocationsOnMapMenu.Search.InMemory">Search in my current locations</string>
+    <string name="ShowPrivateLocationsOnMapMenu.Search.Online">Search online</string>
+    <string name="ShowPrivateLocationsOnMapMenu.Help.Title">Help</string>
+    <string name="ShowPrivateLocationsOnMapMenu.Setting.Title">Settings</string>
+
 </resources>

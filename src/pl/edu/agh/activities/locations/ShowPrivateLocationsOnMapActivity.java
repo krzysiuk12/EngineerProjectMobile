@@ -25,9 +25,9 @@ import pl.edu.agh.services.interfaces.IGoogleGeocodingService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 
 /**
- * Created by Magdalena Strzoda (Llostris) on 2014-06-11.
+ * Created by Krzysztof Kicinger on 2014-10-12.
  */
-public class ShowAllLocationsOnMapActivity extends Activity implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
+public class ShowPrivateLocationsOnMapActivity extends Activity implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
 
     //<editor-fold desc="Fields">
     private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
@@ -37,27 +37,27 @@ public class ShowAllLocationsOnMapActivity extends Activity implements GeocodeSe
 
     //<editor-fold desc="Lifecycle Methods - onCreate">
     @Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.show_all_locations_on_map_activity);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.show_private_locations_on_map_activity);
 
-        //TODO: Load from db all locations and create markers
+        //TODO: Load from db private locations and create markers
 
-		getGoogleMapsManagementService().setMyLocationEnabled(getGoogleMap());
+        getGoogleMapsManagementService().setMyLocationEnabled(getGoogleMap());
         getGoogleMapsManagementService().setMapPosition(getGoogleMap(), getGoogleMapsManagementService().getMyLocation(getGoogleMap()), 15);
 
-		getShowDescriptionButton().setOnClickListener(new View.OnClickListener() {
+        getShowDescriptionButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDescriptionAction(view);
             }
         });
-		getDownloadLocationsButton().setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				downloadLocationsAction(view);
-			}
-		});
+        getDownloadLocationsButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                downloadLocationsAction(view);
+            }
+        });
 
         getGoogleMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -68,38 +68,38 @@ public class ShowAllLocationsOnMapActivity extends Activity implements GeocodeSe
             }
         });
 
-	}
+    }
     //</editor-fold>
 
     //<editor-fold desc="ActionBar Menu - Methods">
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.show_all_locations_on_map_activity_menu, menu);
+        getMenuInflater().inflate(R.menu.show_private_locations_on_map_activity_menu, menu);
         return true;
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.ShowAllLocationsOnMapMenu_Search_Online:
+            case R.id.ShowPrivateLocationsOnMapMenu_Search_Online:
                 searchOnlineMenuAction();
                 return true;
-            case R.id.ShowAllLocationsOnMapMenu_Search_InMemory:
+            case R.id.ShowPrivateLocationsOnMapMenu_Search_InMemory:
                 searchInMemoryMenuAction();
                 return true;
-            case R.id.ShowAllLocationsOnMapMenu_Help:
+            case R.id.ShowPrivateLocationsOnMapMenu_Help:
                 helpMenuAction();
                 return true;
-            case R.id.ShowAllLocationsOnMapMenu_Settings_GoogleMapsType_Hybrid:
+            case R.id.ShowPrivateLocationsOnMapMenu_Settings_GoogleMapsType_Hybrid:
                 getGoogleMapsManagementService().setHybridMapType(getGoogleMap());
                 return true;
-            case R.id.ShowAllLocationsOnMapMenu_Settings_GoogleMapsType_Normal:
+            case R.id.ShowPrivateLocationsOnMapMenu_Settings_GoogleMapsType_Normal:
                 getGoogleMapsManagementService().setNormalMapType(getGoogleMap());
                 return true;
-            case R.id.ShowAllLocationsOnMapMenu_Settings_GoogleMapsType_Satellite:
+            case R.id.ShowPrivateLocationsOnMapMenu_Settings_GoogleMapsType_Satellite:
                 getGoogleMapsManagementService().setSatelliteMapType(getGoogleMap());
                 return true;
-            case R.id.ShowAllLocationsOnMapMenu_Settings_GoogleMapsType_Terrain:
+            case R.id.ShowPrivateLocationsOnMapMenu_Settings_GoogleMapsType_Terrain:
                 getGoogleMapsManagementService().setTerrainMapType(getGoogleMap());
                 return true;
         }
@@ -150,7 +150,7 @@ public class ShowAllLocationsOnMapActivity extends Activity implements GeocodeSe
 
     public GoogleMap getGoogleMap() {
         if(googleMap == null) {
-            googleMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.ShowAllLocationsOnMapActivity_Map)).getMap();
+            googleMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.ShowPrivateLocationsOnMapActivity_Map)).getMap();
         }
         return googleMap;
     }
@@ -158,19 +158,19 @@ public class ShowAllLocationsOnMapActivity extends Activity implements GeocodeSe
 
     //<editor-fold desc="Getters and Setters - Layout Elements">
     private TextView getDescriptionNameTextView() {
-        return (TextView)findViewById(R.id.ShowAllLocationsOnMapActivity_Description_Name);
+        return (TextView)findViewById(R.id.ShowPrivateLocationsOnMapActivity_Description_Name);
     }
 
     private TextView getDescriptionStatusTextView() {
-        return (TextView)findViewById(R.id.ShowAllLocationsOnMapActivity_Description_Status);
+        return (TextView)findViewById(R.id.ShowPrivateLocationsOnMapActivity_Description_Status);
     }
 
     private Button getShowDescriptionButton() {
-        return (Button) findViewById(R.id.ShowAllLocationsOnMapActivity_ShowDescriptionButton);
+        return (Button) findViewById(R.id.ShowPrivateLocationsOnMapActivity_ShowDescriptionButton);
     }
 
     private Button getDownloadLocationsButton() {
-        return (Button) findViewById(R.id.ShowAllLocationsOnMapActivity_DownloadLocationsButton);
+        return (Button) findViewById(R.id.ShowPrivateLocationsOnMapActivity_DownloadLocationsButton);
     }
     //</editor-fold>
 
@@ -186,5 +186,5 @@ public class ShowAllLocationsOnMapActivity extends Activity implements GeocodeSe
         }
     }
     //</editor-fold>
-}
 
+}

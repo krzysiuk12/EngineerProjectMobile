@@ -1,10 +1,11 @@
-package pl.edu.agh.activities;
+package pl.edu.agh.activities.main;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import pl.edu.agh.activities.main.MainMenuActivity;
 import pl.edu.agh.main.R;
 
 /**
@@ -14,6 +15,8 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+
+        getActionBar().hide();
 
         ((Button)findViewById(R.id.LoginActivity_LoginButton)).setOnClickListener(new View.OnClickListener() {
             @Override
