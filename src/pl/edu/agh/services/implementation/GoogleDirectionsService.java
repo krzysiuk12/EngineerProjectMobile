@@ -49,7 +49,6 @@ public class GoogleDirectionsService extends BaseService implements IGoogleDirec
         for(Leg leg : route.getLegs()) {
 
         }
-
         return null;
     }
 }

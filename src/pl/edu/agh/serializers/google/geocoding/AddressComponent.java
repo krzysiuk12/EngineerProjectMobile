@@ -2,6 +2,8 @@ package pl.edu.agh.serializers.google.geocoding;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
+
 /**
  * Created by Krzysiu on 2014-09-15.
  */
@@ -10,15 +12,15 @@ public class AddressComponent {
 
     private String long_name;
     private String short_name;
-    //private List<Type> types;
+    private List<AddressComponentType> types;
 
     public AddressComponent() {
     }
 
-    public AddressComponent(String long_name, String short_name) { //,List<Type> types) {
+    public AddressComponent(String long_name, String short_name, List<AddressComponentType> types) {
         this.long_name = long_name;
         this.short_name = short_name;
-        //this.types = types;
+        this.types = types;
     }
 
     public String getLong_name() {
@@ -37,11 +39,11 @@ public class AddressComponent {
         this.short_name = short_name;
     }
 
-/*    public List<Type> getTypes() {
+    public List<AddressComponentType> getTypes() {
         return types;
     }
 
-    public void setTypes(List<Type> types) {
+    public void setTypes(List<AddressComponentType> types) {
         this.types = types;
-    }*/
+    }
 }

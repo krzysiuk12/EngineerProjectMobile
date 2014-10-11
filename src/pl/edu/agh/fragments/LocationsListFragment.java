@@ -32,14 +32,14 @@ public class LocationsListFragment extends ListFragment {
 		isDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
 		ArrayList<Location> locationList = new ArrayList<Location>();
-		try {
-			List<Location> locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+/*		try {*/
+			List<Location> locations = new ArrayList<Location>(); //new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
 			locationList = new ArrayList<Location>(locations);
-		} catch (InterruptedException e) {
+/*		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		setListAdapter(new LocationAdapter(getActivity().getApplicationContext(), locationList));
 

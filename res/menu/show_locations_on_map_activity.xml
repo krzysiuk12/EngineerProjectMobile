@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/AddLocationMenu.Search"
+          android:icon="@drawable/ic_search"
+          android:title="@string/AddLocationMenu.Search.Title"
+          android:showAsAction="always"/>
+
+    <item android:id="@+id/AddLocationMenu.Help"
+          android:icon="@drawable/ic_help"
+          android:title="@string/AddLocationMenu.Help.Title"
+          android:showAsAction="always"/>
+
+    <item android:icon="@drawable/ic_action_overflow"
+          android:showAsAction="always">
+        <menu>
+            <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType"
+                  android:title="@string/Menu.GoogleType"
+                  android:showAsAction="always">
+                <menu>
+                    <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType.Normal"
+                          android:title="@string/Menu.GoogleType.Normal"
+                          android:showAsAction="always"/>
+                    <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType.Hybrid"
+                          android:title="@string/Menu.GoogleType.Hybrid"
+                          android:showAsAction="always"/>
+                    <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType.Satellite"
+                          android:title="@string/Menu.GoogleType.Satellite"
+                          android:showAsAction="always"/>
+                    <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType.Terrain"
+                          android:title="@string/Menu.GoogleType.Terrain"
+                          android:showAsAction="always"/>
+                </menu>
+            </item>
+        </menu>
+    </item>
+</menu>

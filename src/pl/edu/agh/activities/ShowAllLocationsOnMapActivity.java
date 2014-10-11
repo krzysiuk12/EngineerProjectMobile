@@ -33,18 +33,18 @@ public class ShowAllLocationsOnMapActivity extends Activity {
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		map.setMyLocationEnabled(true);
 
-        try {
+        /*try {
             googleMapsManagementService = new GoogleMapsManagementService();
-            List<Location> locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+*//*            List<Location> locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
             for(Location location : locations) {
                 map.addMarker(googleMapsManagementService.createLocationMarker(location));
             }
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(googleMapsManagementService.getLatLngFromLocation(locations.get(0)), 15));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(googleMapsManagementService.getLatLngFromLocation(locations.get(0)), 15));*//*
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }
+        }*/
 
 		// Buttons
 

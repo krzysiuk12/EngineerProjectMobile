@@ -12,6 +12,6 @@ public class BaseService implements IBaseService {
 
     @Override
     public ILogService getLogService() {
-        return null;
+        return logService;
     }
 }

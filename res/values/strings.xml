@@ -2,6 +2,11 @@
 <resources>
     <string name="app_name">Trip Tour</string>
 
+    <string name="SearchGeocodeDialogFragment.Title">Search for location</string>
+    <string name="SearchGeocodeDialogFragment.Search">Location name</string>
+    <string name="SearchGeocodeDialogFragment.Button.Cancel">Cancel</string>
+    <string name="SearchGeocodeDialogFragment.Button.Search">Search</string>
+
     <string name="LoginActivity.Login">Login</string>
     <string name="LoginActivity.Password">Password</string>
 	<string name="LoginActivity.LoginButton">Login</string>

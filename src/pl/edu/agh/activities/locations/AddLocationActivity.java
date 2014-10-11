@@ -14,10 +14,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.locations.Location;
+import pl.edu.agh.exceptions.GoogleGeocodingException;
+import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
+import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
+import pl.edu.agh.services.implementation.GoogleGeocodingService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
+import pl.edu.agh.services.interfaces.IGoogleGeocodingService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 import pl.edu.agh.utils.StringUtils;
 
@@ -25,9 +30,10 @@ import pl.edu.agh.utils.StringUtils;
  * Created by Sławomir on 19.06.14.
  * Edited by Krzysiu on 16.09.14
  */
-public class AddLocationActivity extends Activity {
+public class AddLocationActivity extends Activity implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
 
     private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
+    private IGoogleGeocodingService geocodingService = new GoogleGeocodingService();
     private GoogleMap googleMap;
     private EditText locationNameEditText;
     private EditText locationDescriptionEditText;
@@ -105,6 +111,7 @@ public class AddLocationActivity extends Activity {
 
     }
 
+    //<editor-fold desc="ActionBar Menu - Creation and Actions">
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_location_activity_menu, menu);
@@ -135,22 +142,9 @@ public class AddLocationActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    //</editor-fold>
 
-    public GoogleMap getGoogleMap() {
-        if(googleMap == null) {
-            googleMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.AddLocation_map)).getMap();
-        }
-        return googleMap;
-    }
-
-    public Location getLocation() {
-        if(location == null) {
-            location = new Location();
-            location.setAddress(new Address());
-        }
-        return location;
-    }
-
+    //<editor-fold desc="Getters and Setters - Layout Elements">
     public EditText getLocationNameEditText() {
         if(locationNameEditText == null) {
             locationNameEditText = ((EditText)findViewById(R.id.AddLocation_LocationNameEditText));
@@ -200,6 +194,16 @@ public class AddLocationActivity extends Activity {
     public Button getAddLocationButton() {
         return ((Button)findViewById(R.id.AddLocation_Button));
     }
+    //</editor-fold>
+
+    //<editor-fold desc="Getters and Setters">
+    public IGoogleGeocodingService getGeocodingService() {
+        return geocodingService;
+    }
+
+    public void setGeocodingService(IGoogleGeocodingService geocodingService) {
+        this.geocodingService = geocodingService;
+    }
 
     public IGoogleMapsManagementService getGoogleMapsManagementService() {
         return googleMapsManagementService;
@@ -209,8 +213,30 @@ public class AddLocationActivity extends Activity {
         this.googleMapsManagementService = googleMapsManagementService;
     }
 
+    public GoogleMap getGoogleMap() {
+        if(googleMap == null) {
+            googleMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.AddLocation_map)).getMap();
+        }
+        return googleMap;
+    }
+
+    public Location getLocation() {
+        if(location == null) {
+            location = new Location();
+            location.setAddress(new Address());
+        }
+        return location;
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Actions">
     public void searchMenuAction() {
-        new InfoToastBuilder(this, "Wybrano search").build().show();
+        new GeocodeSearchDialogFragment().show(getFragmentManager(), "GeocodeFragment");
+        /*try {
+            GoogleGeocodingSerializer serializer = getGeocodingService().getLocationDescription("agh", null, null);
+        } catch(GoogleGeocodingException ex) {
+            //TODO: error dialog
+        }*/
     }
 
     public void helpMenuAction() {
@@ -222,4 +248,28 @@ public class AddLocationActivity extends Activity {
         new InfoToastBuilder(this, StringUtils.getString(this, R.string.AddLocation_NewLocationAdded)).build().show();
         finish();
     }
+    //</editor-fold>
+
+    //<editor-fold desc="GeocodeSearchDialogListener Implementation">
+    @Override
+    public void onDialogPositiveClick(String locationName) {
+        try {
+            GoogleGeocodingSerializer serializer = getGeocodingService().getLocationDescription(locationName, null, null);
+            Location location = getGeocodingService().deserializeLocationDescription(serializer);
+            updateFormFields(location);
+        } catch(GoogleGeocodingException ex) {
+            //TODO: error dialog, toast
+        }
+    }
+    //</editor-fold>
+
+    public void updateFormFields(Location location) {
+        getLocationNameEditText().setText(location.getName());
+        getLocationDescriptionEditText().setText(location.getDescription());
+        getLocationAddressCityEditText().setText(location.getAddress().getCity());
+        getLocationAddressCountryEditText().setText(location.getAddress().getCountry());
+        getLocationAddressPostalCodeEditText().setText(location.getAddress().getPostalCode());
+        getLocationAddressStreetEditText().setText(location.getAddress().getStreet());
+    }
+
 }

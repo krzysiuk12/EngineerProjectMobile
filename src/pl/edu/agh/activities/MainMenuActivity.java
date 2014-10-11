@@ -9,6 +9,7 @@ import pl.edu.agh.activities.locations.AddLocationActivity;
 import pl.edu.agh.asynctasks.locations.PutLocationStatusAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
+import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.main.R;
 import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
 import pl.edu.agh.services.implementation.GoogleGeocodingService;
@@ -38,8 +39,8 @@ public class MainMenuActivity extends Activity {
             GoogleDirectionsSerializer route = new GoogleDirectionsService().getTripDescription(origin, destination, null, null, null);
             System.out.println("HERE");*/
 
-            GoogleGeocodingSerializer geocode = new GoogleGeocodingService().getLocationDescription("santacruz", null, null);
-            System.out.println("HERE");
+/*            GoogleGeocodingSerializer geocode = new GoogleGeocodingService().getLocationDescription("santacruz", null, null);
+            System.out.println("HERE");*/
         } catch(Exception ex) {
             ex.printStackTrace();
         }
