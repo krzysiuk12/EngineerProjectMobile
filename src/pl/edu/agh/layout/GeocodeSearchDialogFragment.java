@@ -53,7 +53,7 @@ public class GeocodeSearchDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.SearchGeocodeDialogFragment_Button_Search, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        getActivityListener().onDialogPositiveClick("agh");
+                        getActivityListener().onDialogPositiveClick(locationName);
                         dialog.cancel();
                     }
                 })

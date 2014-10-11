@@ -232,11 +232,6 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     //<editor-fold desc="Actions">
     public void searchMenuAction() {
         new GeocodeSearchDialogFragment().show(getFragmentManager(), "GeocodeFragment");
-        /*try {
-            GoogleGeocodingSerializer serializer = getGeocodingService().getLocationDescription("agh", null, null);
-        } catch(GoogleGeocodingException ex) {
-            //TODO: error dialog
-        }*/
     }
 
     public void helpMenuAction() {
@@ -270,6 +265,7 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
         getLocationAddressCountryEditText().setText(location.getAddress().getCountry());
         getLocationAddressPostalCodeEditText().setText(location.getAddress().getPostalCode());
         getLocationAddressStreetEditText().setText(location.getAddress().getStreet());
+        getGoogleMapsManagementService().setMapPosition(getGoogleMap(), getGoogleMapsManagementService().getLatLngFromLocation(location), 15);
     }
 
 }
