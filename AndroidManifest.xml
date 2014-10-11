@@ -36,10 +36,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="pl.edu.agh.activities.MainMenuActivity" android:label="@string/app_name">
+        <activity android:name="pl.edu.agh.activities.MainMenuActivity">
         </activity>
 
-		<activity android:name="pl.edu.agh.activities.ShowAllLocationsOnMapActivity" android:label="@string/app_name"
+		<activity android:name="pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity" android:label="@string/ShowAllLocationsOnMapMenu.Title"
 				  android:windowSoftInputMode="stateUnchanged">
 		</activity>
 
@@ -48,7 +48,8 @@
 
 		<activity android:name="pl.edu.agh.activities.LocationDescriptionActivity" android:label="@string/app_name">
 		</activity>
-        <activity android:name="pl.edu.agh.activities.locations.AddLocationActivity"/>
+
+        <activity android:name="pl.edu.agh.activities.locations.AddLocationActivity" android:label="@string/AddLocationMenu.Title"/>
 
     </application>
 

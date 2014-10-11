@@ -3,16 +3,15 @@ package pl.edu.agh.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import pl.edu.agh.activities.locations.AddLocationActivity;
+import pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity;
 import pl.edu.agh.asynctasks.locations.PutLocationStatusAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
-import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.main.R;
-import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
-import pl.edu.agh.services.implementation.GoogleGeocodingService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 import java.util.concurrent.ExecutionException;
@@ -92,6 +91,10 @@ public class MainMenuActivity extends Activity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
+    }
 
     private void showLocationsOnMap(View view) {
         startActivity(new Intent(this, ShowAllLocationsOnMapActivity.class));

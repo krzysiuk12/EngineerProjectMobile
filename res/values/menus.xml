@@ -6,9 +6,17 @@
     <string name="Menu.GoogleType.Satellite">Satellite</string>
     <string name="Menu.GoogleType.Normal">Normal</string>
     <string name="Menu.GoogleType.Terrain">Terrain</string>
-    
+
+    <string name="AddLocationMenu.Title">Add Location</string>
     <string name="AddLocationMenu.Search.Title">Search</string>
     <string name="AddLocationMenu.Help.Title">Help</string>
     <string name="AddLocationMenu.Settings.Title">Settings</string>
+
+    <string name="ShowAllLocationsOnMapMenu.Title">Show All Locations On Map</string>
+    <string name="ShowAllLocationsOnMapMenu.Search.Title">Search</string>
+    <string name="ShowAllLocationsOnMapMenu.Search.InMemory">Search in current locations</string>
+    <string name="ShowAllLocationsOnMapMenu.Search.Online">Search online</string>
+    <string name="ShowAllLocationsOnMapMenu.Help.Title">Help</string>
+    <string name="ShowAllLocationsOnMapMenu.Setting.Title">Settings</string>
 
 </resources>

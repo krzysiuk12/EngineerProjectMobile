@@ -110,4 +110,13 @@ public class GoogleGeocodingService extends BaseService implements IGoogleGeocod
         return location;
     }
 
+    @Override
+    public Location deserializeLocationForLatLng(GoogleGeocodingSerializer serializer) throws GoogleGeocodingException {
+        Location location = new Location();
+        if(serializer != null && serializer.getResults() != null && !serializer.getResults().isEmpty()) {
+            location.setLatitude(serializer.getResults().get(0).getGeometry().getLocation().getLat());
+            location.setLongitude(serializer.getResults().get(0).getGeometry().getLocation().getLng());
+        }
+        return location;
+    }
 }

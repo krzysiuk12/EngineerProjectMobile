@@ -5,64 +5,61 @@
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
+        android:padding="@dimen/Layout.Padding"
 		android:focusable="true"
 		android:focusableInTouchMode="true"
 		android:id="@+id/ShowLocationsOnMapActivity.OuterLayout">
 
-	<EditText
-			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_weight="0.1"
-			android:text="@string/ShowLocationsOnMapActivity.SearchBox"
-			android:id="@+id/ShowLocationsOnMapActivity.SearchBox"/>
-
 	<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-			  android:id="@+id/map"
+			  android:id="@+id/ShowAllLocationsOnMapActivity.Map"
 			  android:layout_width="match_parent"
 			  android:layout_height="0dp"
-			  android:layout_weight="0.7"
+			  android:layout_weight="0.8"
+              android:padding="@dimen/Layout.Padding"
 			  android:name="com.google.android.gms.maps.MapFragment"/>
 
 	<LinearLayout
-			android:orientation="horizontal"
+			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
-			android:layout_weight="0.1"
-			android:id="@+id/ShowLocationsOnMapActivity.DescriptionPanel">
+            android:gravity="center_vertical"
+			android:layout_weight="0.1">
 
 		<TextView
+                android:id="@+id/ShowAllLocationsOnMapActivity.Description.Name"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:text="@string/LocationDescription.Name"
-				android:id="@+id/ShowLocationsOnMapActivity.Description.Name"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 		<TextView
+                android:id="@+id/ShowAllLocationsOnMapActivity.Description.Status"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:text="@string/LocationDescription.Status"
-				android:id="@+id/ShowLocationsOnMapActivity.Description.Status"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 	</LinearLayout>
 
 	<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_weight="0.1"
-			android:weightSum="1"
-			android:id="@+id/ShowLocationsOnMapActivity.BottomPanel">
+			android:layout_height="wrap_content"
+			android:weightSum="1">
 
 		<Button
+                android:id="@+id/ShowAllLocationsOnMapActivity.ShowDescriptionButton"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
-				android:text="@string/ShowLocationsOnMapActivity.Button.ShowDescription"
-				android:id="@+id/ShowLocationsOnMapActivity.ShowDescriptionButton"
-				android:layout_weight="0.5"/>
+                android:layout_weight="0.5"
+                android:text="@string/ShowLocationsOnMapActivity.Button.ShowDescription"
+                android:drawableTop="@drawable/icon_show_description"/>
 		<Button
+                android:id="@+id/ShowAllLocationsOnMapActivity.DownloadLocationsButton"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
+                android:layout_weight="0.5"
 				android:text="@string/ShowLocationsOnMapActivity.Button.DownloadLocations"
-				android:id="@+id/ShowLocationsOnMapActivity.DownloadLocationsButton"
-				android:layout_weight="0.5"/>
+                android:drawableTop="@drawable/icon_synchronize" />
 	</LinearLayout>
 
 </LinearLayout>

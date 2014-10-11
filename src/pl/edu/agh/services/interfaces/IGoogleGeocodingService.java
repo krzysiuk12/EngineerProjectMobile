@@ -13,4 +13,6 @@ public interface IGoogleGeocodingService {
 
     public Location deserializeLocationDescription(GoogleGeocodingSerializer serializer) throws GoogleGeocodingException;
 
+    public Location deserializeLocationForLatLng(GoogleGeocodingSerializer serializer) throws GoogleGeocodingException;
+
 }

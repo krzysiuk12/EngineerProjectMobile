@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:icon="@drawable/ic_search"
+          android:title="@string/ShowAllLocationsOnMapMenu.Search.Title"
+          android:showAsAction="always">
+        <menu>
+            <item android:id="@+id/ShowAllLocationsOnMapMenu.Search.InMemory"
+                  android:title="@string/ShowAllLocationsOnMapMenu.Search.InMemory"
+                  android:showAsAction="always"/>
+            <item android:id="@+id/ShowAllLocationsOnMapMenu.Search.Online"
+                  android:title="@string/ShowAllLocationsOnMapMenu.Search.Online"
+                  android:showAsAction="always"/>
+        </menu>
+    </item>
+
+    <item android:id="@+id/ShowAllLocationsOnMapMenu.Help"
+          android:icon="@drawable/ic_help"
+          android:title="@string/ShowAllLocationsOnMapMenu.Help.Title"
+          android:showAsAction="always"/>
+
+    <item android:icon="@drawable/ic_action_overflow"
+          android:title="@string/ShowAllLocationsOnMapMenu.Setting.Title"
+          android:showAsAction="always">
+        <menu>
+            <item android:id="@+id/ShowAllLocationsOnMapMenu.Settings.GoogleMapsType"
+                  android:title="@string/Menu.GoogleType"
+                  android:showAsAction="always">
+                <menu>
+                    <item android:id="@+id/ShowAllLocationsOnMapMenu.Settings.GoogleMapsType.Normal"
+                          android:title="@string/Menu.GoogleType.Normal"
+                          android:showAsAction="always"/>
+                    <item android:id="@+id/ShowAllLocationsOnMapMenu.Settings.GoogleMapsType.Hybrid"
+                          android:title="@string/Menu.GoogleType.Hybrid"
+                          android:showAsAction="always"/>
+                    <item android:id="@+id/ShowAllLocationsOnMapMenu.Settings.GoogleMapsType.Satellite"
+                          android:title="@string/Menu.GoogleType.Satellite"
+                          android:showAsAction="always"/>
+                    <item android:id="@+id/ShowAllLocationsOnMapMenu.Settings.GoogleMapsType.Terrain"
+                          android:title="@string/Menu.GoogleType.Terrain"
+                          android:showAsAction="always"/>
+                </menu>
+            </item>
+        </menu>
+    </item>
+</menu>
