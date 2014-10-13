@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class LocationAdapter extends ArrayAdapter<Location> {
 
 	public LocationAdapter(Context context, ArrayList<Location> locations) {
-		super(context, R.layout.list_item_location, locations);
+		super(context, R.layout.list_item, locations);
 	}
 
 	@Override
@@ -26,15 +26,15 @@ public class LocationAdapter extends ArrayAdapter<Location> {
 
 		// Check if an existing view is being reused, otherwise inflate the view
 		if ( convertView == null ) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_location, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
 		}
-		TextView tvName = (TextView) convertView.findViewById(R.id.ListItem_Location_Name);
+		TextView tvName = (TextView) convertView.findViewById(R.id.ListItem_Name);
 		tvName.setText(location.getName());
 		return convertView;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return ((Location) getItem(position)).getId();
+		return getItem(position).getId();
 	}
 }

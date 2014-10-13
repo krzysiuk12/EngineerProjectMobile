@@ -8,7 +8,7 @@
 	<TextView
 			android:layout_width="match_parent"
 			android:layout_height="50dp"
-			android:id="@+id/ListItem.Location.Name"
+			android:id="@+id/ListItem.Name"
 			android:gravity="center_vertical"
 			android:text="@string/LocationDescription.Name"/>
 </LinearLayout>
