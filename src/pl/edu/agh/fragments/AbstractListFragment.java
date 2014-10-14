@@ -13,6 +13,7 @@ import java.io.Serializable;
  * Created by Magda on 2014-10-13.
  */
 public abstract class AbstractListFragment<T extends Serializable> extends ListFragment {
+	protected static final String KEY_CURRENT_POSITION = "currentPosition";
 	protected int currentPosition = 0;
 	protected boolean isDualPane;
 	protected int detailsPaneId;
@@ -24,10 +25,10 @@ public abstract class AbstractListFragment<T extends Serializable> extends ListF
 		View detailsFrame = getActivity().findViewById(detailsPaneId);
 		isDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
-		setListAdapter();
+		setListAdapter(getAdapterInstance());
 
 		if (savedInstanceState != null) {
-			currentPosition = savedInstanceState.getInt("currentPosition", 0);
+			currentPosition = savedInstanceState.getInt(KEY_CURRENT_POSITION, 0);
 		}
 
 		if ( isDualPane ) {
@@ -39,7 +40,7 @@ public abstract class AbstractListFragment<T extends Serializable> extends ListF
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putInt("currentPosition", currentPosition);
+		outState.putInt(KEY_CURRENT_POSITION, currentPosition);
 	}
 
 	@Override
@@ -69,17 +70,17 @@ public abstract class AbstractListFragment<T extends Serializable> extends ListF
 		} else {
 			// launch a new activity
 			Intent intent = new Intent();
-			setClassForDetailsIntent(intent);
-			intent.putExtra("index", getListAdapter().getItemId(index));
-			intent.putExtra("listItem", (Serializable) getListAdapter().getItem(index));
+			intent.setClass(getActivity(), getClassForDetailsIntent());
+			intent.putExtra(AbstractDescriptionFragment.KEY_INDEX, getListAdapter().getItemId(index));
+			intent.putExtra(AbstractDescriptionFragment.KEY_ITEM, (Serializable) getListAdapter().getItem(index));
 
 			startActivity(intent);
 		}
 	}
 
-	protected abstract void setListAdapter();
+	protected abstract AbstractAdapter getAdapterInstance();
 
-	protected abstract void setClassForDetailsIntent(Intent intent);
+	protected abstract Class getClassForDetailsIntent();
 
 	protected abstract AbstractDescriptionFragment getDetailsFragmentInstance(T listItem, int index);
 }

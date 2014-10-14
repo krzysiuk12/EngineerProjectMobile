@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.io.Serializable;
 
@@ -16,10 +15,14 @@ public abstract class AbstractDescriptionFragment<T extends Serializable> extend
 
 	protected View view;
 
+	public static final String KEY_INDEX = "index";
+
+	public static final String KEY_ITEM = "listItem";
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
-		setLayout(inflater, container);
+		view = inflater.inflate(getLayoutId(), container, false);
 		showDetails();
 		return view;
 	}
@@ -30,17 +33,12 @@ public abstract class AbstractDescriptionFragment<T extends Serializable> extend
 
 	protected void setInitialArguments(long index, T listItem) {
 		Bundle args = new Bundle();
-		args.putLong("index", index);
-		args.putSerializable("listItem", listItem);
+		args.putLong(KEY_INDEX, index);
+		args.putSerializable(KEY_ITEM, listItem);
 		setArguments(args);
 	}
 
-	protected void setTextViewText(int textViewId, String value) {
-		TextView textView = (TextView) view.findViewById(textViewId);
-		textView.setText(value);
-	}
-
-	protected abstract void setLayout(LayoutInflater inflater, ViewGroup container);
+	protected abstract int getLayoutId();
 
 	protected abstract void showDetails();
 }

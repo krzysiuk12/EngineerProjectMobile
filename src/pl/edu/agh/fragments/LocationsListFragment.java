@@ -1,6 +1,5 @@
 package pl.edu.agh.fragments;
 
-import android.content.Intent;
 import pl.edu.agh.activities.LocationDescriptionActivity;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
 import pl.edu.agh.domain.locations.Location;
@@ -27,12 +26,12 @@ public class LocationsListFragment extends AbstractListFragment<Location> {
 	}
 
 	@Override
-	protected void setClassForDetailsIntent(Intent intent) {
-		intent.setClass(getActivity(), LocationDescriptionActivity.class);
+	protected Class getClassForDetailsIntent() {
+		return LocationDescriptionActivity.class;
 	}
 
 	@Override
-	protected void setListAdapter() {
+	protected AbstractAdapter getAdapterInstance() {
 		//TODO: replace with local db
 		ArrayList<Location> locationList = new ArrayList<Location>();
 		try {
@@ -43,8 +42,7 @@ public class LocationsListFragment extends AbstractListFragment<Location> {
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-
-		setListAdapter(new LocationAdapter(getActivity().getApplicationContext(), locationList));
+		return new LocationAdapter(getActivity(), locationList);
 	}
 
 }

@@ -68,12 +68,18 @@ public class Address implements Serializable{
 
     @Override
     public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", street=" + street +
-                ", postalCode=" + postalCode +
-                ", city=" + city +
-                ", country=" + country +
-                "}\n";
+	    StringBuilder builder = new StringBuilder();
+	    if ( getStreet() != null )
+		    builder.append(getStreet()).append(", ");
+	    if ( getPostalCode() != null ) {
+		    builder.append(getPostalCode()).append(" ");
+		    if ( getCity() == null )
+			    builder.replace(builder.length() - 1, builder.length(), ", ");   // postal code without city
+	    }
+	    if ( getCity() != null )
+		    builder.append(getCity()).append(", ");
+	    if ( getCountry() != null)
+		    builder.append(getCountry());
+	    return builder.toString();
     }
 }
