@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 /**
  * Created by Magda on 2014-10-12.
  */
-public abstract class AbstractDescriptionFragment extends Fragment {
+public abstract class AbstractDescriptionFragment<T extends Serializable> extends Fragment {
 
 	protected View view;
 
@@ -26,9 +28,10 @@ public abstract class AbstractDescriptionFragment extends Fragment {
 		return getArguments() != null ? getArguments().getLong("index", 0) : 0;
 	}
 
-	protected void setInitialArguments(long index) {
+	protected void setInitialArguments(long index, T listItem) {
 		Bundle args = new Bundle();
 		args.putLong("index", index);
+		args.putSerializable("listItem", listItem);
 		setArguments(args);
 	}
 

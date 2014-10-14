@@ -3,12 +3,14 @@ package pl.edu.agh.domain.accounts;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * Created by Sławomir on 12.06.14.
  */
 
 @DatabaseTable(tableName = "Addresses")
-public class Address {
+public class Address implements Serializable{
 
     @DatabaseField(generatedId = true, index = true)
     private Long id;

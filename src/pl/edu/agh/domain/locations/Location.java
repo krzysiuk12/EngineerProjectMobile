@@ -7,15 +7,16 @@ import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.common.BaseObject;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Created by Krzysiu on 2014-06-08.
  */
 @DatabaseTable(tableName = LocationMapping.TABLE_NAME)
-public class Location extends BaseObject {
+public class Location extends BaseObject implements Serializable {
 
-    public enum Status {
+    public enum Status implements Serializable {
         /**
          * Draft that user created, cannot be used as Location (FK), can be changed to available state.
          */

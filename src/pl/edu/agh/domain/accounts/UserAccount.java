@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.domain.common.BaseObject;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -11,7 +12,7 @@ import java.sql.Timestamp;
  */
 
 @DatabaseTable(tableName = "UserAccounts")
-public class UserAccount extends BaseObject {
+public class UserAccount extends BaseObject implements Serializable {
 
     @DatabaseField(columnName = "token", canBeNull = false, width = 50)
     private String token;

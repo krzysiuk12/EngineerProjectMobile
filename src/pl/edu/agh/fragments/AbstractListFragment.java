@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import java.io.Serializable;
+
 /**
  * Created by Magda on 2014-10-13.
  */
-public abstract class AbstractListFragment extends ListFragment {
+public abstract class AbstractListFragment<T extends Serializable> extends ListFragment {
 	protected int currentPosition = 0;
 	protected boolean isDualPane;
 	protected int detailsPaneId;
@@ -58,7 +60,7 @@ public abstract class AbstractListFragment extends ListFragment {
 					getFragmentManager().findFragmentById(detailsPaneId);
 
 			if ( descriptionFragment == null || descriptionFragment.getDisplayedItemIndex() != index ) {
-				descriptionFragment = getDetailsFragmentInstance(index);
+				descriptionFragment = getDetailsFragmentInstance((T) getListAdapter().getItem(index), index);
 				FragmentTransaction ft = getFragmentManager().beginTransaction();
 				ft.replace(detailsPaneId, descriptionFragment);
 				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -69,8 +71,7 @@ public abstract class AbstractListFragment extends ListFragment {
 			Intent intent = new Intent();
 			setClassForDetailsIntent(intent);
 			intent.putExtra("index", getListAdapter().getItemId(index));
-
-//			intent.putExtra("location", (Serializable) getListAdapter().getItem(index)); // to test
+			intent.putExtra("listItem", (Serializable) getListAdapter().getItem(index));
 
 			startActivity(intent);
 		}
@@ -80,5 +81,5 @@ public abstract class AbstractListFragment extends ListFragment {
 
 	protected abstract void setClassForDetailsIntent(Intent intent);
 
-	protected abstract AbstractDescriptionFragment getDetailsFragmentInstance(int index);
+	protected abstract AbstractDescriptionFragment getDetailsFragmentInstance(T listItem, int index);
 }
