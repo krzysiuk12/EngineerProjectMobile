@@ -24,9 +24,11 @@
     <string name="MainMenuActivity.Tile.Logout">Logout</string>
 	<string name="MainMenuActivity.Tile.AddLocation">Add Location</string>
 
-	<string name="ShowLocationsOnMapActivity.Button.ShowDescription">Show Description</string>
-	<string name="ShowLocationsOnMapActivity.Button.DownloadLocations">Download Locations</string>
-	<string name="ShowLocationsOnMapActivity.SearchBox">Search</string>
+	<string name="ShowAllLocationsOnMapActivity.Button.ShowDescription">Show Location Description</string>
+	<string name="ShowAllLocationsOnMapActivity.Button.DownloadLocations">Download Locations</string>
+
+    <string name="ShowPrivateLocationsOnMapActivity.Button.ShowDescription">Show My Location Description</string>
+    <string name="ShowPrivateLocationsOnMapActivity.Button.DownloadLocations">Download My Locations</string>
 
 	<string name="LocationDescription.Name">Name</string>
 	<string name="LocationDescription.Description">Description</string>

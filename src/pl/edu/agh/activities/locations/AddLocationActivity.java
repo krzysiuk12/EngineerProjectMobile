@@ -32,6 +32,7 @@ import pl.edu.agh.utils.StringUtils;
  */
 public class AddLocationActivity extends Activity implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
 
+    //<editor-fold desc="Fields">
     private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
     private IGoogleGeocodingService geocodingService = new GoogleGeocodingService();
     private GoogleMap googleMap;
@@ -42,7 +43,9 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     private EditText locationAddressPostalCodeEditText;
     private EditText locationAddressCountryEditText;
     private Location location;
+    //</editor-fold>
 
+    //<editor-fold desc="Lifecycle Methods - onCreate">
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_location_activity);
@@ -104,12 +107,11 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
                 addLocationAction();
             }
         });
-/*        LatLng myLocation = getGoogleMapsManagementService().getMyLocation(getGoogleMap());
-        if(myLocation != null) {
-            getGoogleMapsManagementService().setMapPosition(getGoogleMap(), myLocation, 15);
-        }*/
 
+        getGoogleMapsManagementService().setMyLocationEnabled(getGoogleMap());
+        getGoogleMapsManagementService().setMapPosition(getGoogleMap(), getGoogleMapsManagementService().getMyLocation(getGoogleMap()), 15);
     }
+    //</editor-fold>
 
     //<editor-fold desc="ActionBar Menu - Creation and Actions">
     @Override
@@ -128,16 +130,16 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
                 helpMenuAction();
                 return true;
             case R.id.AddLocationMenu_Settings_GoogleMapsType_Hybrid:
-                googleMapsManagementService.setHybridMapType(getGoogleMap());
+                getGoogleMapsManagementService().setHybridMapType(getGoogleMap());
                 return true;
             case R.id.AddLocationMenu_Settings_GoogleMapsType_Normal:
-                googleMapsManagementService.setNormalMapType(getGoogleMap());
+                getGoogleMapsManagementService().setNormalMapType(getGoogleMap());
                 return true;
             case R.id.AddLocationMenu_Settings_GoogleMapsType_Satellite:
-                googleMapsManagementService.setSatelliteMapType(getGoogleMap());
+                getGoogleMapsManagementService().setSatelliteMapType(getGoogleMap());
                 return true;
             case R.id.AddLocationMenu_Settings_GoogleMapsType_Terrain:
-                googleMapsManagementService.setTerrainMapType(getGoogleMap());
+                getGoogleMapsManagementService().setTerrainMapType(getGoogleMap());
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -230,11 +232,11 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     //</editor-fold>
 
     //<editor-fold desc="Actions">
-    public void searchMenuAction() {
+    private void searchMenuAction() {
         new GeocodeSearchDialogFragment().show(getFragmentManager(), "GeocodeFragment");
     }
 
-    public void helpMenuAction() {
+    private void helpMenuAction() {
         new InfoToastBuilder(this, "Wybrano help").build().show();
     }
 
@@ -258,7 +260,7 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     }
     //</editor-fold>
 
-    public void updateFormFields(Location location) {
+    private void updateFormFields(Location location) {
         getLocationNameEditText().setText(location.getName());
         getLocationDescriptionEditText().setText(location.getDescription());
         getLocationAddressCityEditText().setText(location.getAddress().getCity());

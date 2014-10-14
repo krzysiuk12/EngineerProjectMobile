@@ -13,6 +13,7 @@
           android:showAsAction="always"/>
 
     <item android:icon="@drawable/ic_action_overflow"
+          android:title="@string/AddLocationMenu.Settings.Title"
           android:showAsAction="always">
         <menu>
             <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType"
