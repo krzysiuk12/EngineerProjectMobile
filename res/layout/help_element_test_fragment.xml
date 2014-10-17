@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HelpElementDescription.Test.Title"
+                    android:textAppearance="@style/HelpElementDescription.Title"
+                    android:id="@+id/HelpElementDesciption.Test.Title"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Image"
+                    android:background="@drawable/icon_calendar" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HelpElementDescription.Test.Subtitle"
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"
+                    android:id="@+id/HelpElementDesciption.Test.Subtitle"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

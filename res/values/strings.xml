@@ -38,4 +38,18 @@
 	<string name="LocationDescription.CreatedBy">Created by</string>
 	<string name="LocationDescription.Image">Image</string>
 
+    <string name="HelpElementDescription.Test.Title">Test page</string>
+    <string name="HelpElementDescription.Test.Subtitle">First subtitle</string>
+
+    <string name="HelpElementDescription.MainMenu.Title">Main Menu</string>
+    <string name="HelpElementDescription.MainMenu.Subtitle.CreateTrip">Create Trip Button</string>
+    <string name="HelpElementDescription.MainMenu.CreateTrip.Text">
+        Clicking this button will take you to the menu for creating a trip.
+        A trip consist of a set of chosen locations which you want to visit.
+    </string>
+    <string name="HelpElementDescription.MainMenu.Subtitle.ShowMyLocations">Show My Locations Button</string>
+    <string name="HelpElementDescription.MainMenu.ShowMyLocations.Text">
+        Click this button to go to a view presenting a list of all locations created by you.
+    </string>
+
 </resources>

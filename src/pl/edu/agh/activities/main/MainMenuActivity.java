@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import pl.edu.agh.activities.ShowLocationsActivity;
+import pl.edu.agh.activities.help.HelpActivity;
 import pl.edu.agh.activities.locations.AddLocationActivity;
 import pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity;
 import pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity;
@@ -93,6 +94,14 @@ public class MainMenuActivity extends Activity {
             }
         });
 
+
+        getShowHelpActivityButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showHelpActivity(view);
+            }
+        });
+
     }
     //</editor-fold>
 
@@ -120,6 +129,8 @@ public class MainMenuActivity extends Activity {
     private Button getAddLocationButton() {
         return (Button) findViewById(R.id.MainMenu_AddLocationButton);
     }
+
+    private Button getShowHelpActivityButton() { return (Button) findViewById(R.id.MainMenu_HelpButton); }
     //</editor-fold>
 
     //<editor-fold desc="Actions">
@@ -145,6 +156,8 @@ public class MainMenuActivity extends Activity {
     private void showMyLocationsOnMapAction(View view) {
         startActivity(new Intent(this, ShowPrivateLocationsOnMapActivity.class));
     }
+
+    private void showHelpActivity(View view) { startActivity(new Intent(this, HelpActivity.class )); }
     //</editor-fold>
 
 

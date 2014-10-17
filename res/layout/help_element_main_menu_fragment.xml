@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HelpElementDescription.MainMenu.Title"
+                    android:textAppearance="@style/HelpElementDescription.Title"
+                    android:id="@+id/HelpElementDesciption.MainMenu.Title"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HelpElementDescription.MainMenu.Subtitle.CreateTrip"
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"
+                    android:id="@+id/HelpElementDesciption.MainMenu.Subtitle.CreateTrip"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Image"
+                    android:background="@drawable/icon_trips"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HelpElementDescription.MainMenu.CreateTrip.Text"
+                    android:id="@+id/HelpElementDescription.MainMenu.CreateTrip.Text"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HelpElementDescription.MainMenu.Subtitle.ShowMyLocations"
+                    android:id="@+id/HelpElementDescription.MainMenu.Subtitle.ShowMyLocations"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Image"
+                    android:background="@drawable/icon_my_location"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HelpElementDescription.MainMenu.ShowMyLocations.Text"
+                    android:id="@+id/HelpElementDescription.MainMenu.ShowMyLocations.Text"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

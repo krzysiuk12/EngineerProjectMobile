@@ -20,4 +20,10 @@
     <dimen name="Toast.ImageView.Margin.Right">5dp</dimen>
     <dimen name="Toast.ImageView.Margin.Left">10dp</dimen>
 
+    <dimen name="HelpElementDescription.Title.TextSize">30dp</dimen>
+    <dimen name="HelpElementDescription.Subtitle.TextSize">18dp</dimen>
+    <dimen name="HelpElementDescription.Image.MaxWidth">300dp</dimen>
+    <dimen name="HelpElementDescription.Image.MaxHeight">200dp</dimen>
+    <dimen name="HelpElementDescription.Margin.Bottom">30dp</dimen>
+
 </resources>
