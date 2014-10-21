@@ -10,6 +10,7 @@ import pl.edu.agh.activities.help.HelpActivity;
 import pl.edu.agh.activities.locations.AddLocationActivity;
 import pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity;
 import pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity;
+import pl.edu.agh.activities.settings.SettingsActivity;
 import pl.edu.agh.asynctasks.locations.PutLocationStatusAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
@@ -102,6 +103,14 @@ public class MainMenuActivity extends Activity {
             }
         });
 
+
+        getSettingsButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSettings(view);
+            }
+        });
+
     }
     //</editor-fold>
 
@@ -132,6 +141,7 @@ public class MainMenuActivity extends Activity {
 
     private Button getShowHelpActivityButton() { return (Button) findViewById(R.id.MainMenu_HelpButton); }
     //</editor-fold>
+    private Button getSettingsButton() { return (Button) findViewById(R.id.MainMenu_SettingsButton); }
 
     //<editor-fold desc="Actions">
     private void createTripAction(View view) {
@@ -159,6 +169,8 @@ public class MainMenuActivity extends Activity {
 
     private void showHelpActivity(View view) { startActivity(new Intent(this, HelpActivity.class )); }
     //</editor-fold>
+
+    private void showSettings(View view) { startActivity(new Intent(this, SettingsActivity.class ));}
 
 
 }

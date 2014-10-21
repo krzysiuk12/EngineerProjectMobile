@@ -1,18 +1,18 @@
-package pl.edu.agh.activities.help;
+package pl.edu.agh.activities.settings;
 
 import pl.edu.agh.domain.common.BaseObject;
 
 import java.io.Serializable;
 
 /**
- * Created by Sławek on 2014-10-12.
+ * Created by Sławek on 2014-10-21.
  */
-public class HelpElement extends BaseObject implements Serializable {
+public class SettingsIssue extends BaseObject implements Serializable {
 
     private int layoutId;
     private String label;
 
-    public HelpElement(String label, int layoutId) {
+    public SettingsIssue(String label, int layoutId) {
         this.label = label;
         this.layoutId = layoutId;
     }

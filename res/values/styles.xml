@@ -21,4 +21,9 @@
         <item name="android:textSize">@dimen/HelpElementDescription.Subtitle.TextSize</item>
     </style>
 
+    <style name="SettingsIssuePanel.Title" parent="android:TextAppearance.DeviceDefault.Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/SettingsIssuePanel.Title.TextSize</item>
+    </style>
+
 </resources>

@@ -26,4 +26,7 @@
     <dimen name="HelpElementDescription.Image.MaxHeight">200dp</dimen>
     <dimen name="HelpElementDescription.Margin.Bottom">30dp</dimen>
 
+    <dimen name="SettingsIssuePanel.Title.TextSize">20dp</dimen>
+    <dimen name="SettingsIssuePanel.Margin.Bottom">30dp</dimen>
+
 </resources>
