@@ -5,7 +5,7 @@ package pl.edu.agh.services.implementation;
  */
 public class UserAccountManagementService {
 
-    private static String TOKEN = "admin";
+    private static String TOKEN = "C5XKSIYXLAXJYVAFSS6Y";
 
     public static String getToken() {
         return TOKEN;

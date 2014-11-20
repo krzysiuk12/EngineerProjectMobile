@@ -43,6 +43,10 @@
         <activity android:name="pl.edu.agh.activities.locations.AddLocationActivity" android:label="@string/AddLocationMenu.Title"/>
 		<activity android:name="pl.edu.agh.activities.ShowLocationsActivity" android:label="@string/app_name"/>
 		<activity android:name="pl.edu.agh.activities.LocationDescriptionActivity" android:label="@string/app_name"/>
+        <activity android:name="pl.edu.agh.activities.settings.SettingsActivity" android:label="@string/app_name"/> <!-- TODO : proper labels -->
+        <activity android:name="pl.edu.agh.activities.SettingsIssuePanelActivity" android:label="@string/app_name"/>
+        <activity android:name="pl.edu.agh.activities.help.HelpActivity" android:label="@string/app_name"/>
+        <activity android:name="pl.edu.agh.activities.HelpElementDescriptionActivity" android:label="@string/app_name"/>
 
     </application>
 
