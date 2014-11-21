@@ -1,9 +1,12 @@
 package pl.edu.agh.fragments;
 
+import android.widget.Toast;
 import pl.edu.agh.activities.LocationDescriptionActivity;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
+import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
+import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 import java.util.ArrayList;
@@ -32,17 +35,11 @@ public class LocationsListFragment extends AbstractListFragment<Location> {
 
 	@Override
 	protected AbstractAdapter getAdapterInstance() {
-		//TODO: replace with local db
-		ArrayList<Location> locationList = new ArrayList<Location>();
-		try {
-			List<Location> locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
-			locationList = new ArrayList<Location>(locations);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
-		return new LocationAdapter(getActivity(), locationList);
+
+		// TODO : proper call to the database
+		// TODO : null pointer checks
+		List<Location> locationList = (new OrmLiteLocationRepository(new TestDatabaseHelper(getActivity()))).getAllLocations();
+		return new LocationAdapter(getActivity(), (ArrayList) locationList);
 	}
 
 }

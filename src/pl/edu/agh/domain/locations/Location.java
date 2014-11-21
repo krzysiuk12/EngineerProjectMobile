@@ -8,7 +8,7 @@ import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.common.BaseObject;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by Krzysiu on 2014-06-08.
@@ -53,10 +53,10 @@ public class Location extends BaseObject implements Serializable {
     @DatabaseField(columnName = LocationMapping.CREATION_DATE_COLUMN_NAME, canBeNull = false)
     private Date creationDate;
 
-    @DatabaseField(columnName = LocationMapping.CREATED_BY_ACCOUNT_COLUMN_NAME, canBeNull = false, foreign = true)
+    @DatabaseField(columnName = LocationMapping.CREATED_BY_ACCOUNT_COLUMN_NAME, canBeNull = true, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private UserAccount createdByAccount;
 
-    @DatabaseField(columnName = LocationMapping.ADDRESS_COLUMN_NAME, canBeNull = false, foreign = true)
+    @DatabaseField(columnName = LocationMapping.ADDRESS_COLUMN_NAME, canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Address address;
 
     @DatabaseField(columnName = LocationMapping.URL_COLUMN_NAME)
@@ -156,7 +156,7 @@ public class Location extends BaseObject implements Serializable {
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", status=" + status +
-                ", createdByAccount=" + createdByAccount.toString() +
+                ", createdByAccount=" + (createdByAccount != null ? createdByAccount.toString() : "N/A") +
                 ", address=" + address.toString() +
                 "}\n";
     }

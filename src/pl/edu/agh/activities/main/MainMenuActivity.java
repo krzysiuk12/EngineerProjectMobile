@@ -15,6 +15,8 @@ import pl.edu.agh.asynctasks.locations.PutLocationStatusAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
+import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
+import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 import java.util.concurrent.ExecutionException;
@@ -35,6 +37,12 @@ public class MainMenuActivity extends Activity {
         //Tests
         this.deleteDatabase(TestDatabaseHelper.DATABASE_NAME);
         new TestDatabaseHelper(this).getReadableDatabase();
+
+	    // TODO
+	    OrmLiteLocationRepository locationRepository = new OrmLiteLocationRepository(new TestDatabaseHelper(this));
+		new SynchronizationService(locationRepository).downloadAllLocations();
+
+//	    ILocationManagementService locationManagementService = new LocationManagementService();
 
         try {
 /*            Location origin = new Location();

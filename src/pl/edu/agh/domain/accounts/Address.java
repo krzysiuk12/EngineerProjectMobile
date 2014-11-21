@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Address implements Serializable{
 
     @DatabaseField(generatedId = true, index = true)
-    private Long id;
+    private int id;
 
     @DatabaseField(columnName = "street")
     private String street;
@@ -30,10 +30,10 @@ public class Address implements Serializable{
     public Address() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

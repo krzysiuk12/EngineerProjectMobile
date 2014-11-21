@@ -13,11 +13,17 @@ public interface ILocationRepository {
 
     public void saveLocation(Location location) throws LocationException;
 
+    public void saveOrUpdateLocation(Location location) throws LocationException;
+
+	public void updateLocation(Location loation) throws LocationException;
+
     public Location getLocationById(Long id) throws LocationException;
 
     public Location getLocationByName(String name) throws LocationException;
 
     public Location getLocationByCoordinates(double longitude, double latitude) throws LocationException;
+
+	public List<Location> getAllLocations() throws LocationException;
 
     public List<Location> getAllUserLocations(UserAccount account) throws LocationException;
 

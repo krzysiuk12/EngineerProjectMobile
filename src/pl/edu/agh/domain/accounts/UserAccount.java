@@ -23,7 +23,7 @@ public class UserAccount extends BaseObject implements Serializable {
     @DatabaseField(columnName = "password", canBeNull = false)
     private String password;
 
-    @DatabaseField(columnName = "status", canBeNull = false, foreign = true)
+    @DatabaseField(columnName = "status", canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private UserAccountStatusEvent status;
 
     @DatabaseField(columnName = "invalidSignInAttemptsCounter")
@@ -44,7 +44,7 @@ public class UserAccount extends BaseObject implements Serializable {
     @DatabaseField(columnName = "isDefaultUser")
     private boolean isDefaultUser;
 
-    @DatabaseField(columnName = "individual", foreign = true)
+    @DatabaseField(columnName = "individual", canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Individual individual;
 
     @DatabaseField(columnName = "language")

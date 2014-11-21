@@ -13,7 +13,7 @@ import java.sql.Date;
 public class Individual {
 
     @DatabaseField(generatedId = true, index = true)
-    private Long id;
+    private int id;
 
     @DatabaseField(columnName = "firstName")
     private String firstName;
@@ -48,8 +48,8 @@ public class Individual {
     public Individual() {
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
