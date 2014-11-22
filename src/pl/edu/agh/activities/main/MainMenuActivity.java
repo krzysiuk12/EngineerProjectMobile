@@ -1,6 +1,7 @@
 package pl.edu.agh.activities.main;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -119,6 +120,14 @@ public class MainMenuActivity extends Activity {
             }
         });
 
+	    getLogoutButton().setOnClickListener(new View.OnClickListener() {
+
+		    @Override
+		    public void onClick(View view) {
+			    logOut(view);
+		    }
+	    });
+
     }
     //</editor-fold>
 
@@ -148,8 +157,13 @@ public class MainMenuActivity extends Activity {
     }
 
     private Button getShowHelpActivityButton() { return (Button) findViewById(R.id.MainMenu_HelpButton); }
-    //</editor-fold>
+
     private Button getSettingsButton() { return (Button) findViewById(R.id.MainMenu_SettingsButton); }
+
+	private Button getLogoutButton() {
+		return (Button) findViewById(R.id.MainMenu_LogoutButton);
+	}
+	//</editor-fold>
 
     //<editor-fold desc="Actions">
     private void createTripAction(View view) {
@@ -176,9 +190,15 @@ public class MainMenuActivity extends Activity {
     }
 
     private void showHelpActivity(View view) { startActivity(new Intent(this, HelpActivity.class )); }
-    //</editor-fold>
 
     private void showSettings(View view) { startActivity(new Intent(this, SettingsActivity.class ));}
 
-
+	private void logOut(View view) {
+		new UserAccountManagementService().logOut();
+		Intent logOutIntent = new Intent(this, LoginActivity.class);
+		logOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(logOutIntent);
+		finish();
+	}
+	//</editor-fold>
 }
