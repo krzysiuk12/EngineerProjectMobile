@@ -6,12 +6,16 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
@@ -19,12 +23,17 @@ import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
+import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
+import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.GoogleGeocodingService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.interfaces.IGoogleGeocodingService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 import pl.edu.agh.utils.StringUtils;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Sławomir on 19.06.14.
@@ -42,8 +51,10 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     private EditText locationAddressCityEditText;
     private EditText locationAddressPostalCodeEditText;
     private EditText locationAddressCountryEditText;
+	private EditText locationRatingEditText;
+	private Spinner locationStatusSpinner;
     private Location location;
-    //</editor-fold>
+	//</editor-fold>
 
     //<editor-fold desc="Lifecycle Methods - onCreate">
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +74,28 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
                 getLocation().setDescription(getLocationDescriptionEditText().getText().toString());
             }
         });
+
+	    getLocationRatingEditText().addTextChangedListener(new AfterTextChangedTextWatcher() {
+		    @Override
+		    public void afterTextChanged(Editable s) {
+			    String ratingText = getLocationRatingEditText().getText().toString();
+			    if ( ratingText.length() > 0) {
+				    getLocation().setRating(Double.parseDouble(ratingText));
+			    }
+		    }
+	    });
+
+	    getLocationStatusSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+		    @Override
+		    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			    getLocation().setStatus((Location.Status) parent.getItemAtPosition(position));
+		    }
+
+		    @Override
+		    public void onNothingSelected(AdapterView<?> parent) {
+				// TODO: if required (test)
+		    }
+	    });
 
         getLocationAddressStreetEditText().addTextChangedListener(new AfterTextChangedTextWatcher() {
             @Override
@@ -94,10 +127,12 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
 
 
         getUsersPrivateCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                getLocation().setUsersPrivate(!isChecked);
-            }
+	        @Override
+	        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+		        AndroidLogService service = new AndroidLogService();
+		        service.error("is Checked fired");
+		        getLocation().setUsersPrivate(!isChecked);
+	        }
         });
 
 
@@ -189,6 +224,20 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
         return locationAddressCountryEditText;
     }
 
+	public Spinner getLocationStatusSpinner() {
+		if ( locationStatusSpinner == null ) {
+			locationStatusSpinner = ((Spinner) findViewById(R.id.AddLocation_StatusSpinner));
+		}
+		return locationStatusSpinner;
+	}
+
+	public EditText getLocationRatingEditText() {
+		if ( locationRatingEditText == null ) {
+			locationRatingEditText = ((EditText) findViewById(R.id.AddLocation_Rating_EditText));
+		}
+		return locationRatingEditText;
+	}
+
     public CheckBox getUsersPrivateCheckBox() {
         return ((CheckBox)findViewById(R.id.AddLocation_UsersPrivateCheckbox));
     }
@@ -242,7 +291,13 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
 
     public void addLocationAction() {
         //TODO: Save location - catch exception (if happened with FormValidationErrors then errorToastBuilder and the same page) if ok InfoToastBuilder with ok message
-        new InfoToastBuilder(this, StringUtils.getString(this, R.string.AddLocation_NewLocationAdded)).build().show();
+
+	    getLocation().setCreationDate(new Date());
+	    // TODO: set this users id as createdByAccount
+	    // TODO: get location from map (clicking capability), proper function call
+		new OrmLiteLocationRepository(new TestDatabaseHelper(this)).saveLocation(location);
+
+	    new InfoToastBuilder(this, StringUtils.getString(this, R.string.AddLocation_NewLocationAdded)).build().show();
         finish();
     }
     //</editor-fold>
@@ -255,7 +310,9 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
             Location location = getGeocodingService().deserializeLocationDescription(serializer);
             updateFormFields(location);
         } catch(GoogleGeocodingException ex) {
-            //TODO: error dialog, toast
+	        CharSequence error = "Error downloading location description";
+	        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+	        //TODO: error dialog, toast
         }
     }
     //</editor-fold>

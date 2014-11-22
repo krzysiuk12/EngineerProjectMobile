@@ -155,16 +155,14 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_marginRight="@dimen/Layout.Label.Margin.Right"
-                        android:text="@string/Location.Name"
+                        android:text="@string/Location.Rating"
                         android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                         android:id="@+id/AddLocation.Rating.EditText"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:inputType="textPostalAddress"
-                        android:text="@string/Location.Rating"
-                        android:hint="@string/Location.Rating"/>
+                        android:inputType="numberDecimal"/>
             </LinearLayout>
 
         </LinearLayout>

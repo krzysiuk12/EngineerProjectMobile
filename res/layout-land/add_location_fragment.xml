@@ -45,9 +45,7 @@
                         android:id="@+id/AddLocation.Rating.EditText"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:inputType="textPostalAddress"
-                        android:text="@string/Location.Rating"
-                        android:hint="@string/Location.Rating"/>
+                        android:inputType="numberDecimal"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"

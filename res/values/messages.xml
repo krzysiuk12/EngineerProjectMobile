@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="AddLocation.NewLocationAdded">New location has been added</string>
+    <string name="AddLocation.NewLocationNotAdded">Sorry! Adding new location failed</string>
 </resources>
