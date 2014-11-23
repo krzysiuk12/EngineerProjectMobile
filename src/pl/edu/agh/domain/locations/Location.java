@@ -1,6 +1,8 @@
 package pl.edu.agh.domain.locations;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.locations.LocationMapping;
 import pl.edu.agh.domain.accounts.Address;
@@ -9,6 +11,7 @@ import pl.edu.agh.domain.common.BaseObject;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Krzysiu on 2014-06-08.
@@ -68,8 +71,16 @@ public class Location extends BaseObject implements Serializable {
     @DatabaseField(columnName = LocationMapping.USERS_PRIVATE_COLUMN_NAME)
     private boolean usersPrivate;
 
+//	@ForeignCollectionField
+//	private ForeignCollection<Comment> commentsCollection;
+// TODO: persistence in db
+	private List<Comment> comments;
+
     public Location() {
     }
+
+// <editor-fold desc="Geters and Setters">
+
 
     public String getName() {
         return name;
@@ -148,6 +159,15 @@ public class Location extends BaseObject implements Serializable {
         this.usersPrivate = usersPrivate;
     }
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	// </editor-fold>
     @Override
     public String toString() {
         return "Location{" +
@@ -160,6 +180,5 @@ public class Location extends BaseObject implements Serializable {
                 ", address=" + address.toString() +
                 "}\n";
     }
-
 
 }
