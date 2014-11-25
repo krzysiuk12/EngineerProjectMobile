@@ -76,6 +76,9 @@ public class Location extends BaseObject implements Serializable {
 // TODO: persistence in db
 	private List<Comment> comments;
 
+    @DatabaseField(columnName = LocationMapping.SYNCED_COLUMN_NAME, canBeNull = true, defaultValue = "true")   // TODO: turn into foreign field?
+    private boolean isSynced;
+
     public Location() {
     }
 
@@ -178,6 +181,7 @@ public class Location extends BaseObject implements Serializable {
                 ", status=" + status +
                 ", createdByAccount=" + (createdByAccount != null ? createdByAccount.toString() : "N/A") +
                 ", address=" + address.toString() +
+                ", isSynced=" + isSynced +
                 "}\n";
     }
 

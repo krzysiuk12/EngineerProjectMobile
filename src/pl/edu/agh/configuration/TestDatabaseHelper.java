@@ -12,6 +12,7 @@ import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.accounts.Individual;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.accounts.UserAccountStatusEvent;
+import pl.edu.agh.domain.locations.Comment;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.domain.trips.*;
 import pl.edu.agh.services.implementation.AndroidLogService;
@@ -51,6 +52,7 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, TripDayLocation.class);
             TableUtils.createTable(connectionSource, TripDay.class);
             TableUtils.createTable(connectionSource, Trip.class);
+            TableUtils.createTable(connectionSource, Comment.class);
         } catch(SQLException ex) {
             Log.e(LOGGER_TAG, "Cannot create database", ex);
             throw new RuntimeException(ex);
@@ -71,6 +73,7 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, UserAccountStatusEvent.class, true);
             TableUtils.dropTable(connectionSource, UserAccount.class, true);
             TableUtils.dropTable(connectionSource, Individual.class, true);
+            TableUtils.dropTable(connectionSource, Comment.class, true);
             onCreate(sqLiteDatabase, connectionSource);
         } catch(SQLException ex) {
             Log.e(LOGGER_TAG, "Cannot upgrade database", ex);

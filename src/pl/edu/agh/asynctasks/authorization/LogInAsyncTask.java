@@ -25,16 +25,21 @@ public class LogInAsyncTask extends AsyncTask<Void, Void, ResponseSerializer<Log
 
 	@Override
 	protected ResponseSerializer<LoginSerializer> doInBackground(Void... params) {
-		LoginSerializer loginSerializer = new LoginSerializer();
-		loginSerializer.setLogin(login);
-		loginSerializer.setPassword(password);
 		// TODO: IMPLEMENT SAFE AUTHORIZATION
 		ResponseEntity<ResponseSerializer<LoginSerializer>> responseEntity = HttpRequestBuilder.getRestTemplateWithJacksonConverter()
 				.exchange(new SessionPathBuilder().buildLogInPath(),
 						HttpMethod.POST,
-						new HttpEntity<LoginSerializer>(loginSerializer),
+						new HttpEntity<LoginSerializer>(buildLoginSerializer()),
 						new ParameterizedTypeReference<ResponseSerializer<LoginSerializer>>() {}
 				);
 		return responseEntity.getBody();
 	}
+
+	private LoginSerializer buildLoginSerializer() {
+		LoginSerializer loginSerializer = new LoginSerializer();
+		loginSerializer.setLogin(login);
+		loginSerializer.setPassword(password);
+		return loginSerializer;
+	}
+
 }

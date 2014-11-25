@@ -80,7 +80,7 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
 		    public void afterTextChanged(Editable s) {
 			    String ratingText = getLocationRatingEditText().getText().toString();
 			    if ( ratingText.length() > 0) {
-				    getLocation().setRating(Double.parseDouble(ratingText));
+//				    getLocation().setRating(Double.parseDouble(ratingText));
 			    }
 		    }
 	    });

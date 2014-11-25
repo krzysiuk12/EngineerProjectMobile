@@ -6,4 +6,9 @@ package pl.edu.agh.services.interfaces;
 public interface ISynchronizationService {
 
 	public void downloadAllLocations();
+
+	public void sendNewPublicLocations();
+
+	public void sendNewPrivateLocations();
+
 }

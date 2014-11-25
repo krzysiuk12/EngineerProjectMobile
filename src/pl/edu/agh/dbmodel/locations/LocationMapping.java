@@ -20,6 +20,7 @@ public class LocationMapping extends BaseMapping {
     public static final String RATING_COLUMN_NAME = "rating";
     public static final String USERS_PRIVATE_COLUMN_NAME = "usersPrivate";
 	public static final String COMMENTS_COLUMN_NAME = "comments";
+    public static final String SYNCED_COLUMN_NAME = "isSynced";
 
 
 }

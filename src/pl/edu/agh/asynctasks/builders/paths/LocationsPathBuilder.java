@@ -12,15 +12,27 @@ public class LocationsPathBuilder extends PathBuilder {
     }
 
     public String buildLocationByIdPath(Long id) {
-        return new StringBuilder().append(LOCATIONS_PATH).append("/").append(id).toString();
+        return LOCATIONS_PATH + "/" + id;
     }
 
     public String buildChangeLocationStatusPath(Long id) {
-        return new StringBuilder(LOCATIONS_PATH).append("/").append(id).append("/status").toString();
+        return LOCATIONS_PATH + "/" + id + "/status";
     }
 
     public String buildAddNewLocationPath() {
         return LOCATIONS_PATH;
     }
+
+	public String buildAllPrivateLocationsPath() {
+		return LOCATIONS_PATH + "/my";
+	}
+
+	public String buildPrivateLocationByIdPath(long id) {
+		return LOCATIONS_PATH + "/my/" + id;
+	}
+
+	public String buildAddNewPrivateLocationPath() {
+		return LOCATIONS_PATH + "/private";
+	}
 
 }
