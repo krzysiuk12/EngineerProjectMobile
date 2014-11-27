@@ -28,14 +28,14 @@
                 android:id="@+id/ShowAllLocationsOnMapActivity.Description.Name"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="@string/LocationDescription.Name"
+				android:text="@string/Location.Name"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 		<TextView
                 android:id="@+id/ShowAllLocationsOnMapActivity.Description.Status"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="@string/LocationDescription.Status"
+				android:text="@string/Location.Status"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
 	</LinearLayout>
 

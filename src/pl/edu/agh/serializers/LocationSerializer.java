@@ -11,21 +11,29 @@ public class LocationSerializer {
 	private String description;
 	private double latitude;
 	private double longitude;
+	private Location.Status status;
 	private String addressStreet;
 	private String addressPostalCode;
 	private String addressCity;
 	private String addressCountry;
+	private String url;
 
 	public LocationSerializer() {
 	}
 
-	public LocationSerializer(String name, double latitude, double longitude, String addressCity, String addressCountry) {
+	public LocationSerializer(String name, String description, String url, double latitude, double longitude, Location.Status status, String addressStreet, String addressPostalCode, String addressCity, String addressCountry) {
 		this.name = name;
+		this.description = description;
+		this.url = url;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.status = status;
+		this.addressStreet = addressStreet;
+		this.addressPostalCode = addressPostalCode;
 		this.addressCity = addressCity;
 		this.addressCountry = addressCountry;
 	}
+
 
 	public String getName() {
 		return name;
@@ -91,12 +99,30 @@ public class LocationSerializer {
 		this.addressPostalCode = addressPostalCode;
 	}
 
+	public Location.Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Location.Status status) {
+		this.status = status;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public static LocationSerializer buildLocationSerializerFromLocation(Location location) {
 		LocationSerializer serializer = new LocationSerializer();
 		serializer.setName(location.getName());
 		serializer.setLatitude(location.getLatitude());
 		serializer.setLongitude(location.getLongitude());
 		serializer.setDescription(location.getDescription());
+		serializer.setUrl(location.getUrl());
+		serializer.setStatus(location.getStatus());
 
 		if ( location.getAddress() != null ) {
 			serializer.setAddressCountry(location.getAddress().getCountry());

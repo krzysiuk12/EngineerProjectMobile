@@ -29,4 +29,6 @@
     <dimen name="SettingsIssuePanel.Title.TextSize">20dp</dimen>
     <dimen name="SettingsIssuePanel.Margin.Bottom">30dp</dimen>
 
+    <dimen name="General.HeaderSize">16dp</dimen>
+
 </resources>

@@ -19,7 +19,7 @@
 			<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:text="@string/LocationDescription.Name"
+					android:text="@string/Location.Name"
 					android:textAppearance="@style/LocationDescription.Name"
 					android:layout_marginBottom="@dimen/LocationDescription.Margin.Bottom"
 					android:id="@+id/LocationDescription.Name"
@@ -52,7 +52,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="match_parent"
 								android:layout_marginRight="@dimen/LocationDescription.Margin.Right"
-								android:text="@string/LocationDescription.Status" />
+								android:text="@string/Location.Status" />
 						<TextView
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
@@ -68,7 +68,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="match_parent"
 								android:layout_marginRight="@dimen/LocationDescription.Margin.Right"
-								android:text="@string/LocationDescription.Rating" />
+								android:text="@string/Location.Rating" />
 						<TextView
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
@@ -88,7 +88,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="match_parent"
 						android:layout_marginRight="@dimen/LocationDescription.Margin.Right"
-						android:text="@string/LocationDescription.Description" />
+						android:text="@string/Location.Description" />
 				<TextView
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
@@ -103,7 +103,7 @@
 				<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="match_parent"
-						android:text="@string/LocationDescription.Address"
+						android:text="@string/Location.Address"
 						android:layout_marginRight="@dimen/LocationDescription.Margin.Right"/>
 				<TextView
 						android:layout_width="match_parent"
@@ -118,7 +118,7 @@
 				<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="match_parent"
-						android:text="@string/LocationDescription.CreatedBy"
+						android:text="@string/Location.CreatedByAccount"
 						android:layout_marginRight="@dimen/LocationDescription.Margin.Right"/>
 				<TextView
 						android:layout_width="match_parent"

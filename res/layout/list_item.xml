@@ -10,5 +10,5 @@
 			android:layout_height="50dp"
 			android:id="@+id/ListItem.Name"
 			android:gravity="center_vertical"
-			android:text="@string/LocationDescription.Name"/>
+			android:text="@string/Location.Name"/>
 </LinearLayout>

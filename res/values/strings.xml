@@ -30,12 +30,13 @@
     <string name="ShowPrivateLocationsOnMapActivity.Button.ShowDescription">Show My Location Description</string>
     <string name="ShowPrivateLocationsOnMapActivity.Button.DownloadLocations">Download My Locations</string>
 
-	<string name="LocationDescription.Name">Name</string>
-	<string name="LocationDescription.Description">Description</string>
-	<string name="LocationDescription.Rating">Rating</string>
-	<string name="LocationDescription.Status">Status</string>
-	<string name="LocationDescription.Address">Address</string>
-	<string name="LocationDescription.CreatedBy">Created by</string>
 	<string name="LocationDescription.Image">Image</string>
+
+    <string name="Synchronization.SendLocations">Send Locations</string>
+    <string name="Synchronization.SendLocations.Private">Private</string>
+    <string name="Synchronization.SendLocations.Public">Public</string>
+    <string name="Synchronization.SendLocations.Both">Both</string>
+    <string name="Synchronization.SendLocationsButton">Send Locations</string>
+    <string name="Synchronization.DownloadLocations">Download Locations</string>
 
 </resources>

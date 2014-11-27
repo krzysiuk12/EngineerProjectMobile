@@ -26,4 +26,9 @@
         <item name="android:textSize">@dimen/SettingsIssuePanel.Title.TextSize</item>
     </style>
 
+    <style name="Synchronization.Option.Title" parent="android:TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+        <!--<item name="android:textSize">@dimen/General.HeaderSize</item>-->
+    </style>
+
 </resources>

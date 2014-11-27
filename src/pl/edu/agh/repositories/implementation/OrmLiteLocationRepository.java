@@ -23,6 +23,8 @@ public class OrmLiteLocationRepository implements ILocationRepository {
 
     public OrmLiteSqliteOpenHelper openHelper;
 
+    private static final double EPSILON = 0.001;
+
     public OrmLiteLocationRepository(OrmLiteSqliteOpenHelper openHelper) {
         this.openHelper = openHelper;
     }
@@ -62,8 +64,8 @@ public class OrmLiteLocationRepository implements ILocationRepository {
     public Location getLocationByCoordinates(double longitude, double latitude) throws LocationException {
         QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryBuilder();
         try {
-            queryBuilder.where().eq(LocationMapping.LATITUDE_COLUMN_NAME, latitude);
-            queryBuilder.where().eq(LocationMapping.LONGITUDE_COLUMN_NAME, longitude);
+            queryBuilder.where().between(LocationMapping.LATITUDE_COLUMN_NAME, latitude - EPSILON, latitude + EPSILON);
+            queryBuilder.where().between(LocationMapping.LONGITUDE_COLUMN_NAME, longitude - EPSILON, longitude + EPSILON);
             return ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryForFirst(queryBuilder.prepare());
         } catch (SQLException e) {
             e.printStackTrace();

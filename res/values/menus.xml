@@ -26,4 +26,15 @@
     <string name="ShowPrivateLocationsOnMapMenu.Help.Title">Help</string>
     <string name="ShowPrivateLocationsOnMapMenu.Setting.Title">Settings</string>
 
+    <string name="ShowLocationsMenu.Title">Show Locations</string>
+    <string name="ShowLocationsMenu.Description.Title">Location Description</string>
+
+    <string name="SettingsMenu.Title">Settings</string>
+    <string name="SettingsMenu.Issue.Title">Settings</string>
+
+    <string name="HelpMenu.Title">Help</string>
+    <string name="HelpMenu.Element.Title">Help Element</string>
+
+    <string name="SynchronizationMenu.Title">Synchronization</string>
+
 </resources>
