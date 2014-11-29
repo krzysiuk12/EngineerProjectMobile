@@ -31,4 +31,7 @@
 
     <dimen name="General.HeaderSize">16dp</dimen>
 
+    <dimen name="Synchronization.Button.Padding">30dp</dimen>
+    <dimen name="Synchronization.Button.MarginTopBottom">20dp</dimen>
+
 </resources>

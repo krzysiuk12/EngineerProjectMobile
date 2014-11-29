@@ -41,12 +41,13 @@
 		<activity android:name="pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity" android:label="@string/ShowAllLocationsOnMapMenu.Title" android:windowSoftInputMode="stateUnchanged"/>
         <activity android:name="pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity" android:label="@string/ShowPrivateLocationsOnMapMenu.Title"/>
         <activity android:name="pl.edu.agh.activities.locations.AddLocationActivity" android:label="@string/AddLocationMenu.Title"/>
-		<activity android:name="pl.edu.agh.activities.ShowLocationsActivity" android:label="@string/app_name"/>
-		<activity android:name="pl.edu.agh.activities.LocationDescriptionActivity" android:label="@string/app_name"/>
-        <activity android:name="pl.edu.agh.activities.settings.SettingsActivity" android:label="@string/app_name"/> <!-- TODO : proper labels -->
-        <activity android:name="pl.edu.agh.activities.SettingsIssuePanelActivity" android:label="@string/app_name"/>
-        <activity android:name="pl.edu.agh.activities.help.HelpActivity" android:label="@string/app_name"/>
-        <activity android:name="pl.edu.agh.activities.HelpElementDescriptionActivity" android:label="@string/app_name"/>
+		<activity android:name="pl.edu.agh.activities.ShowLocationsActivity" android:label="@string/ShowLocationsMenu.Title"/>
+		<activity android:name="pl.edu.agh.activities.LocationDescriptionActivity" android:label="@string/ShowLocationsMenu.Description.Title"/>
+        <activity android:name="pl.edu.agh.activities.settings.SettingsActivity" android:label="@string/SettingsMenu.Title"/>
+        <activity android:name="pl.edu.agh.activities.SettingsIssuePanelActivity" android:label="@string/SettingsMenu.Issue.Title"/>
+        <activity android:name="pl.edu.agh.activities.help.HelpActivity" android:label="@string/HelpMenu.Title"/>
+        <activity android:name="pl.edu.agh.activities.HelpElementDescriptionActivity" android:label="@string/HelpMenu.Element.Title"/>
+        <activity android:name="pl.edu.agh.activities.SynchronizationActivity" android:label="@string/SynchronizationMenu.Title"/>
 
     </application>
 

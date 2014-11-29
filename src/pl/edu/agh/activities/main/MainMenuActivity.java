@@ -7,16 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import pl.edu.agh.activities.ShowLocationsActivity;
+import pl.edu.agh.activities.SynchronizationActivity;
 import pl.edu.agh.activities.help.HelpActivity;
 import pl.edu.agh.activities.locations.AddLocationActivity;
 import pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity;
 import pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity;
 import pl.edu.agh.activities.settings.SettingsActivity;
+import pl.edu.agh.asynctasks.locations.GetLocationByIdAsyncTask;
+import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
 import pl.edu.agh.asynctasks.locations.PutLocationStatusAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
 import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
+import pl.edu.agh.serializers.common.ResponseSerializer;
+import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 
@@ -67,36 +73,35 @@ public class MainMenuActivity extends Activity {
                 createTripAction(view);
             }
         });
+
         getShowAllLocationsButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showAllLocationsOnMapAction(view);
             }
         });
+
         getShowMyLocationsButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPrivateLocationsOnMapAction(view);
             }
         });
+
         getLocationsButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showLocationsAction(view);
             }
         });
+
         getSynchronizeButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Location location = new PutLocationStatusAsyncTask(UserAccountManagementService.getToken(), 3L, Location.Status.UNAVAILABLE).execute().get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+                showSynchronizationActivity(view);
             }
         });
+
         getAddLocationButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,14 +109,12 @@ public class MainMenuActivity extends Activity {
             }
         });
 
-
         getShowHelpActivityButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showHelpActivity(view);
             }
         });
-
 
         getSettingsButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +195,10 @@ public class MainMenuActivity extends Activity {
     private void showHelpActivity(View view) { startActivity(new Intent(this, HelpActivity.class )); }
 
     private void showSettings(View view) { startActivity(new Intent(this, SettingsActivity.class ));}
+
+    private void showSynchronizationActivity(View view) {
+        startActivity(new Intent(this, SynchronizationActivity.class));
+    }
 
 	private void logOut(View view) {
 		new UserAccountManagementService().logOut();

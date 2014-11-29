@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/Synchronization.Option.Title"
+                    android:text="@string/Synchronization.SendLocations"/>
+
+            <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                <!-- TODO: implement me: onClickListener! -->
+                <RadioButton
+                        android:id="@+id/Synchronization.SendLocationsCheckbox.Private"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:onClick="onSendLocationsRadioButtonClicked"
+                        android:text="@string/Synchronization.SendLocations.Private"/>
+
+                <RadioButton
+                        android:id="@+id/Synchronization.SendLocationsCheckbox.Public"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:onClick="onSendLocationsRadioButtonClicked"
+                        android:text="@string/Synchronization.SendLocations.Public"/>
+
+                <RadioButton
+                        android:id="@+id/Synchronization.SendLocationsCheckbox.Both"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:onClick="onSendLocationsRadioButtonClicked"
+                        android:text="@string/Synchronization.SendLocations.Both"/>
+
+            </RadioGroup>
+
+            <Button
+                    android:id="@+id/Synchronization.SendLocations.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/Synchronization.Button.MarginTopBottom"
+                    android:layout_marginBottom="@dimen/Synchronization.Button.MarginTopBottom"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingLeft="@dimen/Synchronization.Button.Padding"
+                    android:paddingRight="@dimen/Synchronization.Button.Padding"
+                    android:text="@string/Synchronization.SendLocationsButton"
+                    android:onClick="onSendLocationsButtonClicked"/>
+
+            <View style="@style/Divider"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
