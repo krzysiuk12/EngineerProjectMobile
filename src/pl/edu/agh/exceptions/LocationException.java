@@ -27,7 +27,9 @@ public class LocationException extends BaseException {
         VALIDATION_STATUS_IS_REQUIRED(R.string.LocationException_ValidationError_StatusIsRequired, ExceptionType.WARNING),
         VALIDATION_CREATED_BY_ACCOUNT_IS_REQUIRED(R.string.LocationException_ValidationError_CreatedByAccountIsRequired, ExceptionType.WARNING),
         VALIDATION_CREATION_DATE_IS_REQUIRED(R.string.LocationException_ValidationError_CreationDateIsRequired, ExceptionType.WARNING),
-        VALIDATION_ADDRESS_IS_REQUIRED(R.string.LocationException_ValidationError_AddressIsRequired, ExceptionType.WARNING);
+        VALIDATION_ADDRESS_IS_REQUIRED(R.string.LocationException_ValidationError_AddressIsRequired, ExceptionType.WARNING),
+        VALIDATION_CITY_IS_REQUIRED(R.string.LocationException_ValidationError_CityIsRequired, ExceptionType.WARNING),
+        VALIDATION_COUNTRY_IS_REQUIRED(R.string.LocationException_ValidationError_CountryIsRequired, ExceptionType.WARNING);
 
         private final int stringResourceId;
         private final ExceptionType exceptionType;
@@ -39,12 +41,12 @@ public class LocationException extends BaseException {
 
         @Override
         public int getStringResourceId() {
-            return 0;
+            return stringResourceId;
         }
 
         @Override
         public ExceptionType getExceptionType() {
-            return null;
+            return exceptionType;
         }
     }
 

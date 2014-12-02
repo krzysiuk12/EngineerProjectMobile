@@ -39,6 +39,17 @@ public class GoogleMapsManagementService extends BaseService implements IGoogleM
     }
 
     @Override
+    public MarkerOptions createNewMarker(LatLng position) {
+        if ( position != null ) {
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(position);
+            markerOptions.title("new location");    // TODO
+            return markerOptions;
+        }
+        return null;
+    }
+
+    @Override
     public LatLng getLatLngFromLocation(Location location) {
         if (location != null) {
             return new LatLng(location.getLatitude(), location.getLongitude());

@@ -1,12 +1,5 @@
 package pl.edu.agh.fragments;
 
-import android.app.Fragment;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
 import pl.edu.agh.activities.HelpElementDescriptionActivity;
 import pl.edu.agh.activities.help.HelpElement;
 import pl.edu.agh.main.R;
@@ -17,6 +10,8 @@ import java.util.ArrayList;
  * Created by Sławek on 2014-10-15.
  */
 public class HelpElementsListFragment extends AbstractListFragment<HelpElement> {
+
+    private int detailsPaneId;
 
     public HelpElementsListFragment() {
         super();
@@ -43,5 +38,9 @@ public class HelpElementsListFragment extends AbstractListFragment<HelpElement> 
         return HelpElementDescriptionFragment.newInstance(helpElement, index);
     }
 
+    @Override
+    protected int getDetailsPaneId() {
+        return detailsPaneId;
+    }
 
 }

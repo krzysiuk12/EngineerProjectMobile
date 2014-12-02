@@ -13,5 +13,8 @@
     <string name="LocationException.ValidationError.CreatedByAccountIsRequired">CreatedByAccount field is required</string>
     <string name="LocationException.ValidationError.CreationDateIsRequired">CreationDate field is required</string>
     <string name="LocationException.ValidationError.AddressIsRequired">Address field is required</string>
+    <string name="LocationException.ValidationError.LocationOnMapIsRequired">Setting location on map is required</string>
+    <string name="LocationException.ValidationError.CityIsRequired">City is required</string>
+    <string name="LocationException.ValidationError.CountryIsRequired">Country is required</string>
 
 </resources>

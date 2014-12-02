@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 public class SettingsIssuesListFragment extends AbstractListFragment<SettingsIssue> {
 
+    private int detailsPaneId;
+
     public SettingsIssuesListFragment() {
         super();
         detailsPaneId = R.id.SettingsActivity_SettingsIssuePanel;
@@ -32,5 +34,10 @@ public class SettingsIssuesListFragment extends AbstractListFragment<SettingsIss
     @Override
     protected AbstractDescriptionFragment getDetailsFragmentInstance(SettingsIssue settingsIssue, int index) {
         return new SettingsIssuePanelFragment().newInstance(settingsIssue, index);
+    }
+
+    @Override
+    protected int getDetailsPaneId() {
+        return detailsPaneId;
     }
 }

@@ -16,13 +16,12 @@ public abstract class AbstractListFragment<T extends Serializable> extends ListF
 	protected static final String KEY_CURRENT_POSITION = "currentPosition";
 	protected int currentPosition = 0;
 	protected boolean isDualPane;
-	protected int detailsPaneId;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		View detailsFrame = getActivity().findViewById(detailsPaneId);
+		View detailsFrame = getActivity().findViewById(getDetailsPaneId());
 		isDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
 		setListAdapter(getAdapterInstance());
@@ -58,12 +57,12 @@ public abstract class AbstractListFragment<T extends Serializable> extends ListF
 			getListView().setItemChecked(index, true);
 
 			AbstractDescriptionFragment descriptionFragment = (AbstractDescriptionFragment)
-					getFragmentManager().findFragmentById(detailsPaneId);
+					getFragmentManager().findFragmentById(getDetailsPaneId());
 
 			if ( descriptionFragment == null || descriptionFragment.getDisplayedItemIndex() != index ) {
 				descriptionFragment = getDetailsFragmentInstance((T) getListAdapter().getItem(index), index);
 				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				ft.replace(detailsPaneId, descriptionFragment);
+				ft.replace(getDetailsPaneId(), descriptionFragment);
 				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 				ft.commit();
 			}
@@ -83,4 +82,6 @@ public abstract class AbstractListFragment<T extends Serializable> extends ListF
 	protected abstract Class getClassForDetailsIntent();
 
 	protected abstract AbstractDescriptionFragment getDetailsFragmentInstance(T listItem, int index);
+
+	protected abstract int getDetailsPaneId();
 }

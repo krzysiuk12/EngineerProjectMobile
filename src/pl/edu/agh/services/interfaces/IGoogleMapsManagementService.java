@@ -12,6 +12,8 @@ public interface IGoogleMapsManagementService {
 
     public MarkerOptions createLocationMarker(Location location);
 
+    public MarkerOptions createNewMarker(LatLng position);
+
     public LatLng getLatLngFromLocation(Location location);
 
     public void setNormalMapType(GoogleMap map);

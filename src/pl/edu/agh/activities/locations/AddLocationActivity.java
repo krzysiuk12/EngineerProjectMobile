@@ -15,12 +15,18 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
+import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.exceptions.common.FormValidationError;
 import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
+import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
@@ -28,11 +34,13 @@ import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
 import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.GoogleGeocodingService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
+import pl.edu.agh.services.implementation.LocationManagementService;
 import pl.edu.agh.services.interfaces.IGoogleGeocodingService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
+import pl.edu.agh.services.interfaces.ILocationManagementService;
+import pl.edu.agh.tools.ErrorTools;
 import pl.edu.agh.utils.StringUtils;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -44,6 +52,7 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     //<editor-fold desc="Fields">
     private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
     private IGoogleGeocodingService geocodingService = new GoogleGeocodingService();
+    private ILocationManagementService locationManagementService = new LocationManagementService();
     private GoogleMap googleMap;
     private EditText locationNameEditText;
     private EditText locationDescriptionEditText;
@@ -54,6 +63,7 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
 	private EditText locationRatingEditText;
 	private Spinner locationStatusSpinner;
     private Location location;
+    private Marker newLocationMarker;
 	//</editor-fold>
 
     //<editor-fold desc="Lifecycle Methods - onCreate">
@@ -145,6 +155,20 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
 
         getGoogleMapsManagementService().setMyLocationEnabled(getGoogleMap());
         getGoogleMapsManagementService().setMapPosition(getGoogleMap(), getGoogleMapsManagementService().getMyLocation(getGoogleMap()), 15);
+
+        getGoogleMap().setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if ( newLocationMarker == null ) {
+                    MarkerOptions markerOptions = getGoogleMapsManagementService().createNewMarker(latLng);
+                    newLocationMarker = getGoogleMap().addMarker(markerOptions);
+                } else {
+                    newLocationMarker.setPosition(latLng);
+                }
+                getLocation().setLatitude(latLng.latitude);
+                getLocation().setLongitude(latLng.longitude);
+            }
+        });
     }
     //</editor-fold>
 
@@ -264,6 +288,14 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
         this.googleMapsManagementService = googleMapsManagementService;
     }
 
+    public ILocationManagementService getLocationManagementService() {
+        return locationManagementService;
+    }
+
+    public void setLocationManagementService(ILocationManagementService locationManagementService) {
+        this.locationManagementService = locationManagementService;
+    }
+
     public GoogleMap getGoogleMap() {
         if(googleMap == null) {
             googleMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.AddLocation_map)).getMap();
@@ -292,13 +324,24 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     public void addLocationAction() {
         //TODO: Save location - catch exception (if happened with FormValidationErrors then errorToastBuilder and the same page) if ok InfoToastBuilder with ok message
 
-	    getLocation().setCreationDate(new Date());
-	    // TODO: set this users id as createdByAccount
-	    // TODO: get location from map (clicking capability), proper function call
-		new OrmLiteLocationRepository(new TestDatabaseHelper(this)).saveLocation(location);
+        if ( newLocationMarker == null ) {
+            new ErrorToastBuilder(this, getString(R.string.LocationException_ValidationError_LocationOnMapIsRequired)).build().show();  // todo: do sth with stack so the back button will work correctly
+        } else {
+            try {
+                getLocation().setCreationDate(new Date());
 
-	    new InfoToastBuilder(this, StringUtils.getString(this, R.string.AddLocation_NewLocationAdded)).build().show();
-        finish();
+                getLocationManagementService().validateLocation(location);  // TODO: move to locationMgmtService
+                new OrmLiteLocationRepository(new TestDatabaseHelper(this)).saveLocation(location); // TODO: proper function call to locationMgmtService
+
+                new InfoToastBuilder(this, StringUtils.getString(this, R.string.AddLocation_NewLocationAdded)).build().show();
+                finish();
+            } catch (LocationException e) {
+                String message = ErrorTools.createFormValidationErrorString(this.getResources(), e.getFormValidationErrors());
+                new ErrorToastBuilder(this, message).build().show();
+                e.printStackTrace();
+            }
+        }
+
     }
     //</editor-fold>
 
