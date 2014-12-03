@@ -20,7 +20,7 @@
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                       android:id="@+id/AddLocation.map"
                       android:layout_width="match_parent"
-                      android:layout_height="0dp"
+                      android:layout_height="@dimen/AddLocation.Map.Height"
                       android:layout_weight="1"
                       android:name="com.google.android.gms.maps.MapFragment"/>
 

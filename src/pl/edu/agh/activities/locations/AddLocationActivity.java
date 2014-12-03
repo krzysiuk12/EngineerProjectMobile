@@ -1,6 +1,5 @@
 package pl.edu.agh.activities.locations;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
@@ -18,12 +17,12 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
 import pl.edu.agh.exceptions.LocationException;
-import pl.edu.agh.exceptions.common.FormValidationError;
 import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
@@ -47,12 +46,12 @@ import java.util.Date;
  * Created by Sławomir on 19.06.14.
  * Edited by Krzysiu on 16.09.14
  */
-public class AddLocationActivity extends Activity implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
+public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper> implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
 
     //<editor-fold desc="Fields">
     private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
     private IGoogleGeocodingService geocodingService = new GoogleGeocodingService();
-    private ILocationManagementService locationManagementService = new LocationManagementService();
+    private ILocationManagementService locationManagementService;
     private GoogleMap googleMap;
     private EditText locationNameEditText;
     private EditText locationDescriptionEditText;
@@ -60,7 +59,6 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     private EditText locationAddressCityEditText;
     private EditText locationAddressPostalCodeEditText;
     private EditText locationAddressCountryEditText;
-	private EditText locationRatingEditText;
 	private Spinner locationStatusSpinner;
     private Location location;
     private Marker newLocationMarker;
@@ -69,6 +67,7 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
     //<editor-fold desc="Lifecycle Methods - onCreate">
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        locationManagementService = new LocationManagementService(this);
         setContentView(R.layout.add_location_activity);
 
         getLocationNameEditText().addTextChangedListener(new AfterTextChangedTextWatcher() {
@@ -84,16 +83,6 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
                 getLocation().setDescription(getLocationDescriptionEditText().getText().toString());
             }
         });
-
-	    getLocationRatingEditText().addTextChangedListener(new AfterTextChangedTextWatcher() {
-		    @Override
-		    public void afterTextChanged(Editable s) {
-			    String ratingText = getLocationRatingEditText().getText().toString();
-			    if ( ratingText.length() > 0) {
-//				    getLocation().setRating(Double.parseDouble(ratingText));
-			    }
-		    }
-	    });
 
 	    getLocationStatusSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 		    @Override
@@ -255,13 +244,6 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
 		return locationStatusSpinner;
 	}
 
-	public EditText getLocationRatingEditText() {
-		if ( locationRatingEditText == null ) {
-			locationRatingEditText = ((EditText) findViewById(R.id.AddLocation_Rating_EditText));
-		}
-		return locationRatingEditText;
-	}
-
     public CheckBox getUsersPrivateCheckBox() {
         return ((CheckBox)findViewById(R.id.AddLocation_UsersPrivateCheckbox));
     }
@@ -330,6 +312,7 @@ public class AddLocationActivity extends Activity implements GeocodeSearchDialog
             try {
                 getLocation().setCreationDate(new Date());
 
+//                getLocationManagementService().saveLocation(location);
                 getLocationManagementService().validateLocation(location);  // TODO: move to locationMgmtService
                 new OrmLiteLocationRepository(new TestDatabaseHelper(this)).saveLocation(location); // TODO: proper function call to locationMgmtService
 

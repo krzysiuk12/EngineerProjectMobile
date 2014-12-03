@@ -34,4 +34,6 @@
     <dimen name="Synchronization.Button.Padding">30dp</dimen>
     <dimen name="Synchronization.Button.MarginTopBottom">20dp</dimen>
 
+    <dimen name="AddLocation.Map.Height">200dp</dimen> <!-- todo: different value for different heights of screen / land etc.-->
+
 </resources>

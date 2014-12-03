@@ -1,11 +1,18 @@
 package pl.edu.agh.services.implementation;
 
+import android.content.Context;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import pl.edu.agh.configuration.DatabaseHelper;
+import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.configuration.TestDatabaseManager;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.common.FormValidationError;
 import pl.edu.agh.main.R;
+import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
+import pl.edu.agh.repositories.interfaces.ILocationRepository;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
 import pl.edu.agh.tools.StringTools;
 
@@ -16,6 +23,14 @@ import java.util.List;
  * Created by Krzysiu on 2014-06-14.
  */
 public class LocationManagementService implements ILocationManagementService {
+
+	private static LocationManagementService instance;
+	private DatabaseHelper databaseHelper;
+	private ILocationRepository locationRepository;
+
+	public LocationManagementService(Context context) {
+		locationRepository = new OrmLiteLocationRepository(TestDatabaseManager.getDatabaseHelper(context));
+	}
 
 	@Override
 	public List<FormValidationError> validateLocation(Location location) throws LocationException {
@@ -49,22 +64,28 @@ public class LocationManagementService implements ILocationManagementService {
 
 	@Override
 	public void saveLocation(Location location) throws LocationException {
-
+		List<FormValidationError> errors = validateLocation(location);
+		if ( !errors.isEmpty() ) {
+			throw new LocationException(errors);
+		}
+		locationRepository.saveLocation(location);
 	}
 
 	@Override
 	public Location getLocationById(Long id) throws LocationException {
-		return null;
+		return locationRepository.getLocationById(id);
 	}
 
 	@Override
 	public Location getLocationByName(String name) throws LocationException {
-		return null;
+//		if ( StringTools.isNullOrEmpty(name) )
+//			throw new LocationException(0);
+		return locationRepository.getLocationByName(name);
 	}
 
 	@Override
 	public Location getLocationByCoordinates(double longitude, double latitude) throws LocationException {
-		return null;
+		return locationRepository.getLocationByCoordinates(longitude, latitude);
 	}
 
 	@Override
