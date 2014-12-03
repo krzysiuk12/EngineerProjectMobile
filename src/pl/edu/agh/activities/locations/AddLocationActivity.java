@@ -39,6 +39,7 @@ import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
 import pl.edu.agh.tools.ErrorTools;
 import pl.edu.agh.utils.StringUtils;
+import pl.edu.agh.views.ScrollViewWithMap;
 
 import java.util.Date;
 
@@ -69,6 +70,8 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
         super.onCreate(savedInstanceState);
         locationManagementService = new LocationManagementService(this);
         setContentView(R.layout.add_location_activity);
+
+        ((ScrollViewWithMap) findViewById(R.id.AddLocation_ScrollView)).addInterceptScrollView(findViewById(R.id.AddLocation_map));
 
         getLocationNameEditText().addTextChangedListener(new AfterTextChangedTextWatcher() {
             @Override

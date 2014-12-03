@@ -2,6 +2,7 @@ package pl.edu.agh.domain.accounts;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import pl.edu.agh.dbmodel.locations.AddressMapping;
 
 import java.io.Serializable;
 
@@ -9,22 +10,22 @@ import java.io.Serializable;
  * Created by Sławomir on 12.06.14.
  */
 
-@DatabaseTable(tableName = "Addresses")
+@DatabaseTable(tableName = AddressMapping.TABLE_NAME)
 public class Address implements Serializable{
 
     @DatabaseField(generatedId = true, index = true)
     private int id;
 
-    @DatabaseField(columnName = "street")
+    @DatabaseField(columnName = AddressMapping.STREET_COLUMN_NAME)
     private String street;
 
-    @DatabaseField(columnName = "postalCode")
+    @DatabaseField(columnName = AddressMapping.POSTAL_CODE_COLUMN_NAME)
     private String postalCode;
 
-    @DatabaseField(columnName = "city")
+    @DatabaseField(columnName = AddressMapping.CITY_COLUMN_NAME)
     private String city;
 
-    @DatabaseField(columnName = "country")
+    @DatabaseField(columnName = AddressMapping.COUNTRY_COLUMN_NAME)
     private String country;
 
     public Address() {
