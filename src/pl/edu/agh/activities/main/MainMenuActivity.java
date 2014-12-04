@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import pl.edu.agh.activities.ShowLocationsActivity;
+import pl.edu.agh.activities.ShowTripsActivity;
 import pl.edu.agh.activities.SynchronizationActivity;
 import pl.edu.agh.activities.help.HelpActivity;
 import pl.edu.agh.activities.locations.AddLocationActivity;
@@ -109,6 +110,13 @@ public class MainMenuActivity extends Activity {
             }
         });
 
+        getShowTripsButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTripsAction(view);
+            }
+        });
+
         getShowHelpActivityButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +167,10 @@ public class MainMenuActivity extends Activity {
         return (Button) findViewById(R.id.MainMenu_AddLocationButton);
     }
 
+    private Button getShowTripsButton() {
+        return (Button) findViewById(R.id.MainMenu_TripsButton);
+    }
+
     private Button getShowHelpActivityButton() { return (Button) findViewById(R.id.MainMenu_HelpButton); }
 
     private Button getSettingsButton() { return (Button) findViewById(R.id.MainMenu_SettingsButton); }
@@ -188,8 +200,8 @@ public class MainMenuActivity extends Activity {
         startActivity(new Intent(this, AddLocationActivity.class));
     }
 
-    private void showMyLocationsOnMapAction(View view) {
-        startActivity(new Intent(this, ShowPrivateLocationsOnMapActivity.class));
+    private void showTripsAction(View view) {
+        startActivity(new Intent(this, ShowTripsActivity.class));
     }
 
     private void showHelpActivity(View view) { startActivity(new Intent(this, HelpActivity.class )); }

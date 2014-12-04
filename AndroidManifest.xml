@@ -48,6 +48,7 @@
         <activity android:name="pl.edu.agh.activities.help.HelpActivity" android:label="@string/HelpMenu.Title"/>
         <activity android:name="pl.edu.agh.activities.HelpElementDescriptionActivity" android:label="@string/HelpMenu.Element.Title"/>
         <activity android:name="pl.edu.agh.activities.SynchronizationActivity" android:label="@string/SynchronizationMenu.Title"/>
+        <activity android:name="pl.edu.agh.activities.ShowTripsActivity" android:label="@string/ShowTripsMenu.Title"/>
 
     </application>
 

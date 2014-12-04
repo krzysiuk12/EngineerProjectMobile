@@ -37,4 +37,6 @@
 
     <string name="SynchronizationMenu.Title">Synchronization</string>
 
+    <string name="ShowTripsMenu.Title">Show Trips</string>
+
 </resources>

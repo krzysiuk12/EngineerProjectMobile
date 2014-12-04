@@ -17,4 +17,10 @@
     <string name="LocationException.ValidationError.CityIsRequired">City is required</string>
     <string name="LocationException.ValidationError.CountryIsRequired">Country is required</string>
 
+    <string name="TripException.ValidationError.NameIsRequired">Trip name is required</string>
+    <string name="TripException.ValidationError.StartDateIsRequired">Start date is required</string>
+    <string name="TripException.ValidationError.EndDateIsRequired">End date is required</string>
+    <string name="TripException.ValidationError.AuthorIsRequired">Author is required</string>
+    <string name="TripException.ValidationError.TripDaysIsRequired">Trip days cannot be empty</string>
+    <string name="TripException.ValidationError.StartDateBeforeEndDate">Start Date must be before End Date</string>
 </resources>

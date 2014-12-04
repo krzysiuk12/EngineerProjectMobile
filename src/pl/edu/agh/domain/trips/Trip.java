@@ -19,7 +19,7 @@ import java.util.Date;
 @DatabaseTable(tableName = TripMapping.TABLE_NAME)
 public class Trip extends BaseObject implements Serializable {
 
-    @DatabaseField(columnName = TripMapping.NAME_COLUMN_NAME, width = 100)
+    @DatabaseField(columnName = TripMapping.NAME_COLUMN_NAME, width = 100, canBeNull = false)
     private String name;
 
     @DatabaseField(columnName = TripMapping.DESCRIPTION_COLUMN_NAME, width = 500)
