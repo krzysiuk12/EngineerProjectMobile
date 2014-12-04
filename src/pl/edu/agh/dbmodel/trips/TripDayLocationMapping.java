@@ -8,7 +8,7 @@ import pl.edu.agh.dbmodel.common.BaseMapping;
 public class TripDayLocationMapping extends BaseMapping {
 
     public static final String TABLE_NAME = "tripdaylocations";
-    public static final String TRIP_COLUMN_NAME = "id_trip";
+    public static final String TRIP_DAY_COLUMN_NAME = "id_trip";
     public static final String LOCATION_COLUMN_NAME = "id_location";
     public static final String ORDINAL_COLUMN_NAME = "ordinal";
 

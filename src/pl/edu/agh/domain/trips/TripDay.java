@@ -5,7 +5,9 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import pl.edu.agh.dbmodel.trips.TripDayLocationMapping;
 import pl.edu.agh.dbmodel.trips.TripDayMapping;
+import pl.edu.agh.dbmodel.trips.TripStepMapping;
 import pl.edu.agh.domain.common.BaseObject;
 
 import java.util.Date;
@@ -19,17 +21,14 @@ public class TripDay extends BaseObject {
     @DatabaseField(columnName = TripDayMapping.TRIP_COLUMN_NAME, foreign = true, canBeNull = false)
     private Trip trip;
 
-    @ForeignCollectionField(eager = false, foreignFieldName = "tripDay")
+    @ForeignCollectionField(eager = false, foreignFieldName = TripDayLocationMapping.TRIP_DAY_COLUMN_NAME)
     private ForeignCollection<TripDayLocation> locations;
 
-    @ForeignCollectionField(eager = false, foreignFieldName = "tripDay")
+    @ForeignCollectionField(eager = false, foreignFieldName = TripStepMapping.TRIP_DAY_COLUMN_NAME)
     private ForeignCollection<TripStep> tripSteps;
 
     @DatabaseField(columnName = TripDayMapping.DATE_COLUMN_NAME, dataType = DataType.DATE, canBeNull = false)
     private Date date;
-
-    @DatabaseField(columnName = TripDayMapping.DAY_NUMBER_COLUMN_NAME, dataType = DataType.DATE_TIME, canBeNull = false)
-    private int dayNumber;
 
     @DatabaseField(columnName = TripDayMapping.PLANNED_START_TIME_COLUMN_NAME, dataType = DataType.DATE_TIME, canBeNull = false)
     private Date plannedStartTime;
@@ -67,14 +66,6 @@ public class TripDay extends BaseObject {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public int getDayNumber() {
-        return dayNumber;
-    }
-
-    public void setDayNumber(int dayNumber) {
-        this.dayNumber = dayNumber;
     }
 
     public Date getPlannedStartTime() {

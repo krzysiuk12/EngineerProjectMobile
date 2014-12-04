@@ -2,52 +2,37 @@ package pl.edu.agh.domain.accounts;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import pl.edu.agh.dbmodel.accounts.UserAccountMapping;
 import pl.edu.agh.domain.common.BaseObject;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * Created by Sławek on 12.06.14.
  */
 
-@DatabaseTable(tableName = "UserAccounts")
+@DatabaseTable(tableName = UserAccountMapping.TABLE_NAME)
 public class UserAccount extends BaseObject implements Serializable {
 
-    @DatabaseField(columnName = "token", canBeNull = false, width = 50)
+    @DatabaseField(columnName = UserAccountMapping.TOKEN_COLUMN_NAME, canBeNull = false, width = 50)
     private String token;
 
-    @DatabaseField(columnName = "login", canBeNull = false, unique = true, width = 50)
+    @DatabaseField(columnName = UserAccountMapping.LOGIN_COLUMN_NAME, canBeNull = false, unique = true, width = 50)
     private String login;
 
-    @DatabaseField(columnName = "password", canBeNull = false)
+    @DatabaseField(columnName = UserAccountMapping.PASSWORD_COLUMN_NAME, canBeNull = false)
     private String password;
 
-    @DatabaseField(columnName = "status", canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
-    private UserAccountStatusEvent status;
-
-    @DatabaseField(columnName = "invalidSignInAttemptsCounter")
-    private int invalidSignInAttemptsCounter;
-
-    @DatabaseField(columnName = "lockedOutCounter")
-    private int lockedOutCounter;
-
-    @DatabaseField(columnName = "creationDate")
-    private Timestamp creationDate;
-
-    @DatabaseField(columnName = "isWizardDone")
+    @DatabaseField(columnName = UserAccountMapping.IS_WIZARD_DONE_COLUMN_NAME)
     private boolean isWizardDone;
 
-    @DatabaseField(columnName = "accountGroup")
-    private String accountGroup;
-
-    @DatabaseField(columnName = "isDefaultUser")
+    @DatabaseField(columnName = UserAccountMapping.IS_DEFAULT_USER_COLUMN_NAME)
     private boolean isDefaultUser;
 
-    @DatabaseField(columnName = "individual", canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    @DatabaseField(columnName = UserAccountMapping.INDIVIDUAL_COLUMN_NAME, canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Individual individual;
 
-    @DatabaseField(columnName = "language")
+    @DatabaseField(columnName = UserAccountMapping.LANGUAGE_COLUMN_NAME)
     private String language;
 
     public UserAccount() {
@@ -74,39 +59,11 @@ public class UserAccount extends BaseObject implements Serializable {
         this.password = password;
     }
 
-    public int getInvalidSignInAttemptsCounter() {
-        return invalidSignInAttemptsCounter;
-    }
-    public void setInvalidSignInAttemptsCounter(int invalidSignInAttemptsCounter) {
-        this.invalidSignInAttemptsCounter = invalidSignInAttemptsCounter;
-    }
-
-    public int getLockedOutCounter() {
-        return lockedOutCounter;
-    }
-    public void setLockedOutCounter(int lockedOutCounter) {
-        this.lockedOutCounter = lockedOutCounter;
-    }
-
-    public Timestamp getCreationDate() {
-        return creationDate;
-    }
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public boolean isWizardDone() {
         return isWizardDone;
     }
     public void setWizardDone(boolean isWizardDone) {
         this.isWizardDone = isWizardDone;
-    }
-
-    public String getAccountGroup() {
-        return accountGroup;
-    }
-    public void setAccountGroup(String accountGroup) {
-        this.accountGroup = accountGroup;
     }
 
     public boolean isDefaultUser() {
@@ -130,24 +87,13 @@ public class UserAccount extends BaseObject implements Serializable {
         this.language = language;
     }
 
-    public UserAccountStatusEvent getStatus() {
-        return status;
-    }
-    public void setStatus(UserAccountStatusEvent status) {
-        this.status = status;
-    }
 
     @Override
     public String toString() {
         return "UserAccount{" +
                 ", login=" + login +
                 ", password=" + password +
-                ", status=" + status.toString() +
-                ", invalidSignInAttemptsCounter=" + invalidSignInAttemptsCounter +
-                ", lockedOutCounter=" + lockedOutCounter +
-                ", creationDate=" + creationDate +
                 ", isWizardDone=" + isWizardDone +
-                ", accountGroup=" + accountGroup +
                 ", isDefaultUser=" + isDefaultUser +
                 ", getIndividual=" + individual.toString() +
                 ", getLanguage=" + language +

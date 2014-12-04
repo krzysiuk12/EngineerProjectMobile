@@ -1,8 +1,6 @@
 package pl.edu.agh.domain.locations;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.locations.LocationMapping;
 import pl.edu.agh.domain.accounts.Address;
@@ -84,7 +82,6 @@ public class Location extends BaseObject implements Serializable {
 
 // <editor-fold desc="Geters and Setters">
 
-
     public String getName() {
         return name;
     }
@@ -162,7 +159,15 @@ public class Location extends BaseObject implements Serializable {
         this.usersPrivate = usersPrivate;
     }
 
-	public List<Comment> getComments() {
+    public boolean isSynced() {
+        return isSynced;
+    }
+
+    public void setSynced(boolean isSynced) {
+        this.isSynced = isSynced;
+    }
+
+    public List<Comment> getComments() {
 		return comments;
 	}
 
@@ -171,6 +176,7 @@ public class Location extends BaseObject implements Serializable {
 	}
 
 	// </editor-fold>
+
     @Override
     public String toString() {
         return "Location{" +

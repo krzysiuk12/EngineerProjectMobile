@@ -23,13 +23,13 @@ public class TripStep extends BaseObject {
     @DatabaseField(columnName = TripStepMapping.END_LOCATION_COLUMN_NAME, foreign = true, canBeNull = false)
     private Location endLocation;
 
-    @DatabaseField(columnName = TripStepMapping.DISTANCE_COLUMN_NAME, width = TripStepMapping.DISTANCE_DEFAULT_FIELD_WIDTH)
+    @DatabaseField(columnName = TripStepMapping.DISTANCE_COLUMN_NAME, width = TripStepMapping.DISTANCE_DEFAULT_FIELD_WIDTH, canBeNull = false)
     private String distance;
 
-    @DatabaseField(columnName = TripStepMapping.DISTANCE_UNIT_COLUMN_NAME)
+    @DatabaseField(columnName = TripStepMapping.DISTANCE_UNIT_COLUMN_NAME, canBeNull = false)
     private DistanceUnit distanceUnit;
 
-    @DatabaseField(columnName = TripStepMapping.DURATION_COLUMN_NAME, width = TripStepMapping.DURATION_DEFAULT_FIELD_WIDTH)
+    @DatabaseField(columnName = TripStepMapping.DURATION_COLUMN_NAME, width = TripStepMapping.DURATION_DEFAULT_FIELD_WIDTH, canBeNull = false)
     private String duration;
 
     @ForeignCollectionField(eager = false, foreignFieldName = "tripStep")

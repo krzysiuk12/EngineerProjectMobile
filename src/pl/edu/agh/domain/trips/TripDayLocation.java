@@ -12,7 +12,7 @@ import pl.edu.agh.domain.locations.Location;
 @DatabaseTable(tableName = TripDayLocationMapping.TABLE_NAME)
 public class TripDayLocation extends BaseObject {
 
-    @DatabaseField(columnName = TripDayLocationMapping.TRIP_COLUMN_NAME, foreign = true, canBeNull = false)
+    @DatabaseField(columnName = TripDayLocationMapping.TRIP_DAY_COLUMN_NAME, foreign = true, canBeNull = false)
     private TripDay tripDay;
 
     @DatabaseField(columnName = TripDayLocationMapping.LOCATION_COLUMN_NAME, foreign = true, canBeNull = false)

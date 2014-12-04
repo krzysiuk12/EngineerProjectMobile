@@ -12,6 +12,8 @@ public class TripDirectionMapping extends BaseMapping {
     public static final String TRIP_STEP_COLUMN_NAME = "id_tripstep";
     public static final String DISTANCE_COLUMN_NAME = "distance";
     public static final String DURATION_COLUMN_NAME = "duration";
+    public static final String START_COORDINATE_COLUMN_NAME = "startcoordinate";
+    public static final String END_COORDINATE_COLUMN_NAME = "endcoordinate";
     public static final String START_LATITUDE_COLUMN_NAME = "startlatitude";
     public static final String START_LONGITUDE_COLUMN_NAME = "startlongitude";
     public static final String END_LATITUDE_COLUMN_NAME = "endlatitude";

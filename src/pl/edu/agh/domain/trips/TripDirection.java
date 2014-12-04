@@ -23,17 +23,11 @@ public class TripDirection extends BaseObject  {
     @DatabaseField(columnName = TripDirectionMapping.DURATION_COLUMN_NAME)
     private String duration;
 
-    @DatabaseField(columnName = TripDirectionMapping.START_LATITUDE_COLUMN_NAME, canBeNull = false)
-    private double startLatitude;
+    @DatabaseField(columnName = TripDirectionMapping.START_COORDINATE_COLUMN_NAME, canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private Coordinate startCoordinate;
 
-    @DatabaseField(columnName = TripDirectionMapping.START_LONGITUDE_COLUMN_NAME, canBeNull = false)
-    private double startLongitude;
-
-    @DatabaseField(columnName = TripDirectionMapping.END_LATITUDE_COLUMN_NAME, canBeNull = false)
-    private double endLatitude;
-
-    @DatabaseField(columnName = TripDirectionMapping.END_LONGITUDE_COLUMN_NAME, canBeNull = false)
-    private double endLongitude;
+    @DatabaseField(columnName = TripDirectionMapping.END_COORDINATE_COLUMN_NAME, canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private Coordinate endCoordinate;
 
     @DatabaseField(columnName = TripDirectionMapping.INSTRUCTION_COLUMN_NAME, canBeNull = false)
     private String instruction;
@@ -76,36 +70,20 @@ public class TripDirection extends BaseObject  {
         this.duration = duration;
     }
 
-    public double getStartLatitude() {
-        return startLatitude;
+    public Coordinate getStartCoordinate() {
+        return startCoordinate;
     }
 
-    public void setStartLatitude(double startLatitude) {
-        this.startLatitude = startLatitude;
+    public void setStartCoordinate(Coordinate startCoordinate) {
+        this.startCoordinate = startCoordinate;
     }
 
-    public double getStartLongitude() {
-        return startLongitude;
+    public Coordinate getEndCoordinate() {
+        return endCoordinate;
     }
 
-    public void setStartLongitude(double startLongitude) {
-        this.startLongitude = startLongitude;
-    }
-
-    public double getEndLatitude() {
-        return endLatitude;
-    }
-
-    public void setEndLatitude(double endLatitude) {
-        this.endLatitude = endLatitude;
-    }
-
-    public double getEndLongitude() {
-        return endLongitude;
-    }
-
-    public void setEndLongitude(double endLongitude) {
-        this.endLongitude = endLongitude;
+    public void setEndCoordinate(Coordinate endCoordinate) {
+        this.endCoordinate = endCoordinate;
     }
 
     public String getInstruction() {

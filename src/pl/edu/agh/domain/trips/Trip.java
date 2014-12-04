@@ -5,30 +5,30 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import pl.edu.agh.dbmodel.trips.TripDayMapping;
 import pl.edu.agh.dbmodel.trips.TripMapping;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.common.BaseObject;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Krzysiu on 2014-09-14.
  */
 @DatabaseTable(tableName = TripMapping.TABLE_NAME)
-public class Trip extends BaseObject {
+public class Trip extends BaseObject implements Serializable {
 
     @DatabaseField(columnName = TripMapping.NAME_COLUMN_NAME, width = 100)
     private String name;
 
-    @DatabaseField(columnName = TripMapping.DESCRIPTION_COLUMN_NAME, width = 300)
+    @DatabaseField(columnName = TripMapping.DESCRIPTION_COLUMN_NAME, width = 500)
     private String description;
 
-    @DatabaseField(columnName = TripMapping.AUTHOR_COLUMN_NAME, foreign = true, canBeNull = false)
+    @DatabaseField(columnName = TripMapping.AUTHOR_COLUMN_NAME, foreign = true, canBeNull = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private UserAccount author;
 
-    //private List<UserAccount> participants; //TODO: rethink of this functionality
-
-    @ForeignCollectionField(eager = false, foreignFieldName = "trip")
+    @ForeignCollectionField(eager = false, foreignFieldName = TripDayMapping.TRIP_COLUMN_NAME)
     private ForeignCollection<TripDay> days;
 
     @DatabaseField(columnName = TripMapping.START_DATE_COLUMN_NAME, dataType = DataType.DATE, canBeNull = false)
