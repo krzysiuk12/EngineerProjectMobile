@@ -5,16 +5,12 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import pl.edu.agh.configuration.TestDatabaseManager;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.exceptions.TripException;
-import pl.edu.agh.exceptions.common.ExceptionType;
 import pl.edu.agh.exceptions.common.FormValidationError;
-import pl.edu.agh.exceptions.common.IExceptionDefinition;
-import pl.edu.agh.main.R;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
 import pl.edu.agh.repositories.interfaces.ITripRepository;
 import pl.edu.agh.services.interfaces.ITripManagementService;
 import pl.edu.agh.tools.StringTools;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +41,7 @@ public class TripManagementService implements ITripManagementService {
 		if ( trip.getEndDate() == null ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_END_DATE_IS_REQUIRED.getStringResourceId()));
 		}
-		if ( trip.getEndDate().before(trip.getStartDate()) ) {
-			// EndDate < StartDate
+		if ( trip.getStartDate().after(trip.getEndDate()) ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_START_DATE_BEFORE_END_DATE.getStringResourceId()));
 		}
 		if ( trip.getDays() == null || trip.getDays().isEmpty() ) {

@@ -36,4 +36,7 @@
 
     <dimen name="AddLocation.Map.Height">200dp</dimen> <!-- todo: different value for different heights of screen / land etc.-->
 
+    <dimen name="ShowTrips.TripItem.NameRowHeight">40dp</dimen>
+    <dimen name="ShowTrips.TripItem.DateRowHeight">20dp</dimen>
+
 </resources>

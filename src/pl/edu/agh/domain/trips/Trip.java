@@ -28,7 +28,7 @@ public class Trip extends BaseObject implements Serializable {
     @DatabaseField(columnName = TripMapping.AUTHOR_COLUMN_NAME, foreign = true, canBeNull = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private UserAccount author;
 
-    @ForeignCollectionField(eager = false, foreignFieldName = TripDayMapping.TRIP_COLUMN_NAME)
+    @ForeignCollectionField(eager = false, foreignFieldName = "trip")
     private ForeignCollection<TripDay> days;
 
     @DatabaseField(columnName = TripMapping.START_DATE_COLUMN_NAME, dataType = DataType.DATE, canBeNull = false)

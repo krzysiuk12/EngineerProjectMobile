@@ -19,4 +19,16 @@
     <string name="Address.PostalCode">Postal Code</string>
     <string name="Address.Country">Country</string>
 
+    <string name="Trip.Name">Name</string>
+    <string name="Trip.StartDate">Start Date</string>
+    <string name="Trip.EndDate">End Date</string>
+    <string name="Trip.Description">Description</string>
+    <string name="Trip.Author">Author</string>
+
+    <string name="TripDay">Day of trip</string>
+    <string name="TripDay.Date">Date</string>
+
+
+
+
 </resources>

@@ -21,10 +21,10 @@ public class TripDay extends BaseObject {
     @DatabaseField(columnName = TripDayMapping.TRIP_COLUMN_NAME, foreign = true, canBeNull = false)
     private Trip trip;
 
-    @ForeignCollectionField(eager = false, foreignFieldName = TripDayLocationMapping.TRIP_DAY_COLUMN_NAME)
+    @ForeignCollectionField(eager = false, foreignFieldName = "tripDay")
     private ForeignCollection<TripDayLocation> locations;
 
-    @ForeignCollectionField(eager = false, foreignFieldName = TripStepMapping.TRIP_DAY_COLUMN_NAME)
+    @ForeignCollectionField(eager = false, foreignFieldName = "tripDay")
     private ForeignCollection<TripStep> tripSteps;
 
     @DatabaseField(columnName = TripDayMapping.DATE_COLUMN_NAME, dataType = DataType.DATE, canBeNull = false)

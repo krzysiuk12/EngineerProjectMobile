@@ -2,27 +2,22 @@ package pl.edu.agh.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import pl.edu.agh.fragments.AbstractDescriptionFragment;
 import pl.edu.agh.fragments.HelpElementDescriptionFragment;
 import pl.edu.agh.main.R;
 
 /**
  * Created by Sławek on 2014-10-13.
  */
-public class HelpElementDescriptionActivity extends Activity {
+public class HelpElementDescriptionActivity extends AbstractDetailsActivity {
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected int getDetailsPaneId() {
+        return R.id.HelpActivity_HelpElementDescription;
+    }
 
-        super.onCreate(savedInstanceState);
-
-        if(findViewById(R.id.HelpActivity_HelpElementDescription) != null) {
-            finish();
-            return;
-        }
-
-        if(savedInstanceState == null) {
-            HelpElementDescriptionFragment descriptionFragment = new HelpElementDescriptionFragment();
-            descriptionFragment.setArguments(getIntent().getExtras());
-            getFragmentManager().beginTransaction().add(android.R.id.content, descriptionFragment).commit();
-        }
+    @Override
+    protected AbstractDescriptionFragment getDetailsFragment() {
+        return new HelpElementDescriptionFragment();
     }
 }
