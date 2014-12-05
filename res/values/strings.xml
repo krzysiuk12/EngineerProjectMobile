@@ -39,4 +39,6 @@
     <string name="Synchronization.SendLocationsButton">Send Locations</string>
     <string name="Synchronization.DownloadLocations">Download Locations</string>
 
+    <string name="ShowTrips.ListItem.DatesSeparator"> - </string>
+
 </resources>
