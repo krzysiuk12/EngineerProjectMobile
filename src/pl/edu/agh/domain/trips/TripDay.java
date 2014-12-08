@@ -1,5 +1,6 @@
 package pl.edu.agh.domain.trips;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -10,7 +11,10 @@ import pl.edu.agh.dbmodel.trips.TripDayMapping;
 import pl.edu.agh.dbmodel.trips.TripStepMapping;
 import pl.edu.agh.domain.common.BaseObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Krzysiu on 2014-09-14.
@@ -22,10 +26,10 @@ public class TripDay extends BaseObject {
     private Trip trip;
 
     @ForeignCollectionField(eager = false, foreignFieldName = "tripDay")
-    private ForeignCollection<TripDayLocation> locations;
+    private Collection<TripDayLocation> locations;
 
     @ForeignCollectionField(eager = false, foreignFieldName = "tripDay")
-    private ForeignCollection<TripStep> tripSteps;
+    private Collection<TripStep> tripSteps;
 
     @DatabaseField(columnName = TripDayMapping.DATE_COLUMN_NAME, dataType = DataType.DATE, canBeNull = false)
     private Date date;
@@ -44,19 +48,19 @@ public class TripDay extends BaseObject {
         this.trip = trip;
     }
 
-    public ForeignCollection<TripDayLocation> getLocations() {
+    public Collection<TripDayLocation> getLocations() {
         return locations;
     }
 
-    public void setLocations(ForeignCollection<TripDayLocation> locations) {
+    public void setLocations(Collection<TripDayLocation> locations) {
         this.locations = locations;
     }
 
-    public ForeignCollection<TripStep> getTripSteps() {
+    public Collection<TripStep> getTripSteps() {
         return tripSteps;
     }
 
-    public void setTripSteps(ForeignCollection<TripStep> tripSteps) {
+    public void setTripSteps(Collection<TripStep> tripSteps) {
         this.tripSteps = tripSteps;
     }
 
@@ -75,4 +79,5 @@ public class TripDay extends BaseObject {
     public void setPlannedStartTime(Date plannedStartTime) {
         this.plannedStartTime = plannedStartTime;
     }
+
 }

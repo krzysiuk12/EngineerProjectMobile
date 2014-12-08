@@ -101,4 +101,18 @@ public class TripDirection extends BaseObject  {
     public void setTravelMode(TravelMode travelMode) {
         this.travelMode = travelMode;
     }
+
+    @Override
+    public String toString() {
+        return "TripDirection{" +
+                "ordinal=" + ordinal + ", " +
+                "tripstep=" + tripStep + ", " +
+                "distance=" + distance + ", " +
+                "duration=" + duration + ", " +
+                "startCoordinate=" + startCoordinate + ", " +
+                "endCoordinate=" + endCoordinate + ", " +
+                "instruction=" + instruction + ", " +
+                "travelmode=" + travelMode +
+                "}";
+    }
 }

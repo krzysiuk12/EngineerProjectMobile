@@ -11,7 +11,10 @@ import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.common.BaseObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Krzysiu on 2014-09-14.
@@ -28,9 +31,8 @@ public class Trip extends BaseObject implements Serializable {
     @DatabaseField(columnName = TripMapping.AUTHOR_COLUMN_NAME, foreign = true, canBeNull = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private UserAccount author;
 
-    @JsonIgnore
     @ForeignCollectionField(eager = false, foreignFieldName = "trip")
-    private ForeignCollection<TripDay> days;
+    private Collection<TripDay> days;
 
     @DatabaseField(columnName = TripMapping.START_DATE_COLUMN_NAME, dataType = DataType.DATE, canBeNull = false)
     private Date startDate;
@@ -73,11 +75,11 @@ public class Trip extends BaseObject implements Serializable {
         this.author = author;
     }
 
-    public ForeignCollection<TripDay> getDays() {
-        return days;
+    public Collection<TripDay> getDays() {
+        return new ArrayList<>(days);
     }
 
-    public void setDays(ForeignCollection<TripDay> days) {
+    public void setDays(Collection<TripDay> days) {
         this.days = days;
     }
 
@@ -104,8 +106,8 @@ public class Trip extends BaseObject implements Serializable {
                 "description=\'" + description + "\', " +
                 "startDate=" + startDate.toString() + ", " +
                 "endDate=" + endDate.toString() + ", " +
-//                "tripDaySize" + tripDays.size() + ", " +
-//                "tripDayListSize" + days.size() +
+                "tripDaySize=" + days.size() + ", " +
+                "tripDayListSize=" + days.size() +
                 "}";
     }
 }
