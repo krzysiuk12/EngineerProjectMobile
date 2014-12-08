@@ -22,14 +22,16 @@ import java.util.List;
 /**
  * Created by Krzysiu on 2014-06-14.
  */
-public class LocationManagementService implements ILocationManagementService {
+public class LocationManagementService extends BaseService implements ILocationManagementService {
 
-	private static LocationManagementService instance;
-	private DatabaseHelper databaseHelper;
 	private ILocationRepository locationRepository;
 
+	public LocationManagementService() {
+		locationRepository = new OrmLiteLocationRepository(getHelper());
+	}
+
 	public LocationManagementService(Context context) {
-		locationRepository = new OrmLiteLocationRepository(TestDatabaseManager.getDatabaseHelper(context));
+		locationRepository = new OrmLiteLocationRepository(getHelperInternal(context));
 	}
 
 	@Override
@@ -69,6 +71,15 @@ public class LocationManagementService implements ILocationManagementService {
 			throw new LocationException(errors);
 		}
 		locationRepository.saveLocation(location);
+	}
+
+	@Override
+	public void updateLocation(Location location) throws LocationException {
+		List<FormValidationError> errors = validateLocation(location);
+		if ( !errors.isEmpty() ) {
+			throw new LocationException(errors);
+		}
+		locationRepository.updateLocation(location);
 	}
 
 	@Override

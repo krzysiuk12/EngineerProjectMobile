@@ -17,12 +17,16 @@ import java.util.List;
 /**
  * Created by Magda on 2014-12-04.
  */
-public class TripManagementService implements ITripManagementService {
+public class TripManagementService extends BaseService implements ITripManagementService {
 
 	private ITripRepository tripRepository;
 
+	public TripManagementService() {
+		tripRepository = new OrmLiteTripRepository(getHelper());
+	}
+
 	public TripManagementService(Context context) {
-		tripRepository = new OrmLiteTripRepository(TestDatabaseManager.getDatabaseHelper(context));
+		tripRepository = new OrmLiteTripRepository(getHelperInternal(context));
 	}
 
 	public TripManagementService(OrmLiteSqliteOpenHelper helper) {
@@ -44,9 +48,10 @@ public class TripManagementService implements ITripManagementService {
 		if ( trip.getStartDate().after(trip.getEndDate()) ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_START_DATE_BEFORE_END_DATE.getStringResourceId()));
 		}
-		if ( trip.getDays() == null || trip.getDays().isEmpty() ) {
-			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAYS_IS_REQUIRED.getStringResourceId()));
-		}
+		// TODO: uncomment when downloading locations works properly
+//		if ( trip.getTripDays() == null || trip.getTripDays().isEmpty() ) {
+//			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAYS_IS_REQUIRED.getStringResourceId()));
+//		}
 
 		return errors;
 	}

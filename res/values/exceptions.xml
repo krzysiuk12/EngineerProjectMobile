@@ -21,6 +21,6 @@
     <string name="TripException.ValidationError.StartDateIsRequired">Start date is required</string>
     <string name="TripException.ValidationError.EndDateIsRequired">End date is required</string>
     <string name="TripException.ValidationError.AuthorIsRequired">Author is required</string>
-    <string name="TripException.ValidationError.TripDaysIsRequired">Trip days cannot be empty</string>
+    <string name="TripException.ValidationError.TripDaysIsRequired">Trip Days cannot be empty</string>
     <string name="TripException.ValidationError.StartDateBeforeEndDate">Start Date must be before End Date</string>
 </resources>

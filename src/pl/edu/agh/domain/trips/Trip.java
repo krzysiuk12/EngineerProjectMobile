@@ -1,11 +1,11 @@
 package pl.edu.agh.domain.trips;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
-import pl.edu.agh.dbmodel.trips.TripDayMapping;
 import pl.edu.agh.dbmodel.trips.TripMapping;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.common.BaseObject;
@@ -28,6 +28,7 @@ public class Trip extends BaseObject implements Serializable {
     @DatabaseField(columnName = TripMapping.AUTHOR_COLUMN_NAME, foreign = true, canBeNull = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private UserAccount author;
 
+    @JsonIgnore
     @ForeignCollectionField(eager = false, foreignFieldName = "trip")
     private ForeignCollection<TripDay> days;
 
@@ -94,5 +95,17 @@ public class Trip extends BaseObject implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "name=\'" + name + "\', " +
+                "description=\'" + description + "\', " +
+                "startDate=" + startDate.toString() + ", " +
+                "endDate=" + endDate.toString() + ", " +
+//                "tripDaySize" + tripDays.size() + ", " +
+//                "tripDayListSize" + days.size() +
+                "}";
     }
 }

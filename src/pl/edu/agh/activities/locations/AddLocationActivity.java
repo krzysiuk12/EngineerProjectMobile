@@ -314,6 +314,7 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
         } else {
             try {
                 getLocation().setCreationDate(new Date());
+                getLocation().setSynced(false);
 
 //                getLocationManagementService().saveLocation(location);
                 getLocationManagementService().validateLocation(location);  // TODO: move to locationMgmtService

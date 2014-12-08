@@ -16,6 +16,8 @@ public interface ILocationManagementService {
 
     public void saveLocation(Location location) throws LocationException;
 
+    public void updateLocation(Location location) throws LocationException;
+
     public Location getLocationById(Long id) throws LocationException;
 
     public Location getLocationByName(String name) throws LocationException;

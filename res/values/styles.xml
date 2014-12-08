@@ -31,6 +31,10 @@
         <!--<item name="android:textSize">@dimen/General.HeaderSize</item>-->
     </style>
 
+    <style name="DetailElement.Title" parent="android:TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>

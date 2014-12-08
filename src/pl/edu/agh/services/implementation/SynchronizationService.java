@@ -2,15 +2,25 @@ package pl.edu.agh.services.implementation;
 
 import android.content.Intent;
 import android.os.IBinder;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseService;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewPrivateLocationAsyncTask;
+import pl.edu.agh.asynctasks.trips.GetAllTripsAsyncTask;
+import pl.edu.agh.asynctasks.trips.GetMyTripsAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
+import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
+import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
+import pl.edu.agh.serializers.common.ResponseSerializer;
+import pl.edu.agh.serializers.common.ResponseStatus;
+import pl.edu.agh.services.interfaces.ILocationManagementService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
+import pl.edu.agh.services.interfaces.ITripManagementService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +30,28 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by Magda on 2014-11-21.
  */
-public class SynchronizationService extends OrmLiteBaseService<TestDatabaseHelper> implements ISynchronizationService{
+public class SynchronizationService extends BaseService implements ISynchronizationService {
 
+	ILocationManagementService locationManagementService;
+	ITripManagementService tripManagementService;
 	OrmLiteLocationRepository locationRepository;
+	OrmLiteTripRepository tripRepository;
+
+	public SynchronizationService() {
+		super();
+		tripManagementService = new TripManagementService();
+		locationManagementService = new LocationManagementService();
+	}
 
 	public SynchronizationService(OrmLiteLocationRepository locationRepository) {
 		this.locationRepository = locationRepository;
 	}
 
+	public SynchronizationService(OrmLiteTripRepository tripRepository) {
+		this.tripRepository = tripRepository;
+	}
+
 	// TODO : remove, testing purposes (small db)
-	// todo: use location management service for this ?
 	@Override
 	public void downloadAllLocations() {
 		ArrayList<Location> locationList = new ArrayList<Location>();
@@ -42,8 +64,41 @@ public class SynchronizationService extends OrmLiteBaseService<TestDatabaseHelpe
 			e.printStackTrace();
 		}
 		for ( Location location : locationList ){
-			locationRepository.saveLocation(location);  // TODO: save / saveOrUpdate
+			try {
+				new LocationManagementService().saveLocation(location);
+			} catch (LocationException e) {
+				e.printStackTrace();
+			}
 		}
+	}
+
+	@Override
+	public void downloadTrips() {
+		getLogService().debug("SynchronizationService", "start downloadTrips()");
+		ArrayList<Trip> trips = new ArrayList<>();
+		try {
+			List<Trip> tripList = new GetMyTripsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+			trips = new ArrayList<>(tripList);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+
+		getLogService().debug("SynchronizationService", "downloaded trips: " + trips.size());
+		if ( !trips.isEmpty() )
+			getLogService().debug((trips.get(0)).toString());
+
+		for ( Trip trip : trips ) {
+			try {
+				new TripManagementService().saveTrip(trip);
+//				new TripManagementService(OpenHelperManager.getHelper(this, TestDatabaseHelper.class));
+//				new TripManagementService(getHelper()).saveTrip(trip);
+			} catch (TripException e) {
+				e.printStackTrace();
+			}
+		}
+		getLogService().debug("SynchronizationService", "end downloadTrips()");
 	}
 
 	@Override
@@ -54,15 +109,23 @@ public class SynchronizationService extends OrmLiteBaseService<TestDatabaseHelpe
 		} catch (LocationException e) {
 			e.printStackTrace();
 		}
+		getLogService().debug("SynchronizationService", locations.size() + " ");
 		if ( locations == null )
 			return;
 
 		for ( Location location : locations) {
 			try {
-				new PostAddNewLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
+				ResponseSerializer response = new PostAddNewLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
+				if ( response.getStatus() == ResponseStatus.OK ) {
+					location.setSynced(true);
+					new LocationManagementService().updateLocation(location);
+//					locationRepository.updateLocation(location);
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();    // TODO: error handling
 			} catch (ExecutionException e) {
+				e.printStackTrace();
+			} catch (LocationException e) {
 				e.printStackTrace();
 			}
 		}
@@ -81,17 +144,19 @@ public class SynchronizationService extends OrmLiteBaseService<TestDatabaseHelpe
 
 		for ( Location location : locations) {
 			try {
-				new PostAddNewPrivateLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
+				ResponseSerializer response = new PostAddNewPrivateLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
+				if ( response.getStatus() == ResponseStatus.OK ) {
+					location.setSynced(true);
+					new LocationManagementService().updateLocation(location);
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {
+				e.printStackTrace();
+			} catch (LocationException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;    // TODO!
-	}
 }

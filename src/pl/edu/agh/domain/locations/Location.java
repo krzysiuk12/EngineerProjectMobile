@@ -74,10 +74,11 @@ public class Location extends BaseObject implements Serializable {
 // TODO: persistence in db
 	private List<Comment> comments;
 
-    @DatabaseField(columnName = LocationMapping.SYNCED_COLUMN_NAME, canBeNull = true, defaultValue = "true")   // TODO: turn into foreign field?
+    @DatabaseField(columnName = LocationMapping.SYNCED_COLUMN_NAME, canBeNull = true)
     private boolean isSynced;
 
     public Location() {
+        this.isSynced = true;   // default value
     }
 
 // <editor-fold desc="Geters and Setters">
