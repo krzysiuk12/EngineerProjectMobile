@@ -52,10 +52,6 @@ public class LocationManagementService extends BaseService implements ILocationM
 		}
 
 		errors.addAll(validateAddress(location.getAddress()));
-
-		if ( !errors.isEmpty() ) {
-			throw new LocationException(errors);    // todo: move to saveLocation?
-		}
 		return errors;
 	}
 
@@ -95,6 +91,11 @@ public class LocationManagementService extends BaseService implements ILocationM
 	}
 
 	@Override
+	public List<Location> getAllLocations() throws LocationException {
+		return locationRepository.getAllLocations();
+	}
+
+	@Override
 	public List<Location> getAllUserLocations(UserAccount account) throws LocationException {
 		return null;
 	}
@@ -102,6 +103,16 @@ public class LocationManagementService extends BaseService implements ILocationM
 	@Override
 	public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException {
 		return null;
+	}
+
+	@Override
+	public List<Location> getAllNewPrivateLocations() throws LocationException {
+		return locationRepository.getAllNewPrivateLocations();
+	}
+
+	@Override
+	public List<Location> getAllNewPublicLocations() throws LocationException {
+		return locationRepository.getAllNewPublicLocations();
 	}
 
 	private List<FormValidationError> validateAddress(Address address) {

@@ -1,6 +1,7 @@
 package pl.edu.agh.domain.locations;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.locations.LocationMapping;
 import pl.edu.agh.domain.accounts.Address;
@@ -8,6 +9,7 @@ import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.common.BaseObject;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -69,10 +71,8 @@ public class Location extends BaseObject implements Serializable {
     @DatabaseField(columnName = LocationMapping.USERS_PRIVATE_COLUMN_NAME)
     private boolean usersPrivate;
 
-//	@ForeignCollectionField
-//	private ForeignCollection<Comment> commentsCollection;
-// TODO: persistence in db
-	private List<Comment> comments;
+	@ForeignCollectionField
+	private Collection<Comment> comments;
 
     @DatabaseField(columnName = LocationMapping.SYNCED_COLUMN_NAME, canBeNull = true)
     private boolean isSynced;
@@ -168,11 +168,11 @@ public class Location extends BaseObject implements Serializable {
         this.isSynced = isSynced;
     }
 
-    public List<Comment> getComments() {
+    public Collection<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(Collection<Comment> comments) {
 		this.comments = comments;
 	}
 

@@ -1,15 +1,10 @@
 package pl.edu.agh.services.implementation;
 
-import android.content.Intent;
-import android.os.IBinder;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.android.apptools.OrmLiteBaseService;
+import android.content.Context;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewPrivateLocationAsyncTask;
-import pl.edu.agh.asynctasks.trips.GetAllTripsAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetMyTripsAsyncTask;
-import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.exceptions.LocationException;
@@ -41,6 +36,13 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		super();
 		tripManagementService = new TripManagementService();
 		locationManagementService = new LocationManagementService();
+		locationRepository = new OrmLiteLocationRepository(getHelper());
+		tripRepository = new OrmLiteTripRepository(getHelper());
+	}
+
+	public SynchronizationService(Context context) {
+		tripManagementService = new TripManagementService(context);
+		locationManagementService = new LocationManagementService(context);
 	}
 
 	public SynchronizationService(OrmLiteLocationRepository locationRepository) {
@@ -66,7 +68,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		}
 		for ( Location location : locationList ){
 			try {
-				new LocationManagementService().saveLocation(location);
+				locationManagementService.saveLocation(location);
 			} catch (LocationException e) {
 				e.printStackTrace();
 			}
@@ -106,21 +108,20 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	public void sendNewPublicLocations() {
 		List<Location> locations = null;
 		try {
-			locations = locationRepository.getAllNewPublicLocations();
+			locations = locationManagementService.getAllNewPublicLocations();
 		} catch (LocationException e) {
 			e.printStackTrace();
 		}
 		getLogService().debug("SynchronizationService", locations.size() + " ");
 		if ( locations == null )
-			return;
+			return; // TODO: toast if nothing to send
 
 		for ( Location location : locations) {
 			try {
 				ResponseSerializer response = new PostAddNewLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
 				if ( response.getStatus() == ResponseStatus.OK ) {
 					location.setSynced(true);
-					new LocationManagementService().updateLocation(location);
-//					locationRepository.updateLocation(location);
+					locationManagementService.updateLocation(location);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();    // TODO: error handling
@@ -135,8 +136,9 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	@Override
 	public void sendNewPrivateLocations() {
 		List<Location> locations = null;
+		getLogService().debug("sendNewPrivateLocations()");
 		try {
-			locations = locationRepository.getAllNewPrivateLocations();
+			locations = locationManagementService.getAllNewPrivateLocations();
 		} catch (LocationException e) {
 			e.printStackTrace();
 		}
@@ -148,7 +150,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 				ResponseSerializer response = new PostAddNewPrivateLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
 				if ( response.getStatus() == ResponseStatus.OK ) {
 					location.setSynced(true);
-					new LocationManagementService().updateLocation(location);
+					locationManagementService.updateLocation(location);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

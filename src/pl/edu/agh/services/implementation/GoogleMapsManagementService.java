@@ -43,7 +43,6 @@ public class GoogleMapsManagementService extends BaseService implements IGoogleM
         if ( position != null ) {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(position);
-            markerOptions.title("new location");    // TODO
             return markerOptions;
         }
         return null;

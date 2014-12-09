@@ -24,8 +24,14 @@ public interface ILocationManagementService {
 
     public Location getLocationByCoordinates(double longitude, double latitude) throws LocationException;
 
+    public List<Location> getAllLocations() throws LocationException;
+
     public List<Location> getAllUserLocations(UserAccount account) throws LocationException;
 
     public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException;
+
+    public List<Location> getAllNewPrivateLocations() throws LocationException;
+
+    public List<Location> getAllNewPublicLocations() throws LocationException;
 
 }

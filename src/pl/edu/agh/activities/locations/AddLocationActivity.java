@@ -95,7 +95,7 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
 
 		    @Override
 		    public void onNothingSelected(AdapterView<?> parent) {
-				// TODO: if required (test)
+                getLocation().setStatus(Location.Status.DRAFT); // default
 		    }
 	    });
 
@@ -307,8 +307,6 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
     }
 
     public void addLocationAction() {
-        //TODO: Save location - catch exception (if happened with FormValidationErrors then errorToastBuilder and the same page) if ok InfoToastBuilder with ok message
-
         if ( newLocationMarker == null ) {
             new ErrorToastBuilder(this, getString(R.string.LocationException_ValidationError_LocationOnMapIsRequired)).build().show();  // todo: do sth with stack so the back button will work correctly
         } else {
@@ -316,9 +314,7 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
                 getLocation().setCreationDate(new Date());
                 getLocation().setSynced(false);
 
-//                getLocationManagementService().saveLocation(location);
-                getLocationManagementService().validateLocation(location);  // TODO: move to locationMgmtService
-                new OrmLiteLocationRepository(new TestDatabaseHelper(this)).saveLocation(location); // TODO: proper function call to locationMgmtService
+                getLocationManagementService().saveLocation(location);
 
                 new InfoToastBuilder(this, StringUtils.getString(this, R.string.AddLocation_NewLocationAdded)).build().show();
                 finish();
