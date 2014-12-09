@@ -14,18 +14,15 @@ import java.util.ArrayList;
  */
 public class TripAdapter extends AbstractAdapter<Trip> {
 
-	private final SimpleDateFormat simpleDateFormat;
-
 	public TripAdapter(Context context, ArrayList<Trip> items) {
 		super(context, R.layout.trip_list_item, items);
-		simpleDateFormat = new SimpleDateFormat("dd MMM yyyy");
 	}
 
 	@Override
 	protected void setLabels(View view, Trip item) {
 		RenderingTools.setTextViewText(view, R.id.ShowTrips_TripItem_Name, item.getName());
-		RenderingTools.setTextViewText(view, R.id.ShowTrips_TripItem_StartDate, simpleDateFormat.format(item.getStartDate()));
-		RenderingTools.setTextViewText(view, R.id.ShowTrips_TripItem_EndDate, simpleDateFormat.format(item.getEndDate()));
+		RenderingTools.setTextViewText(view, R.id.ShowTrips_TripItem_StartDate, RenderingTools.formatDate(item.getStartDate()));
+		RenderingTools.setTextViewText(view, R.id.ShowTrips_TripItem_EndDate, RenderingTools.formatDate(item.getEndDate()));
 	}
 
 }

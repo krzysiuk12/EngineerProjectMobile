@@ -38,5 +38,11 @@
     <string name="SynchronizationMenu.Title">Synchronization</string>
 
     <string name="ShowTripsMenu.Title">Show Trips</string>
+    <string name="ShowTripsMenu.TripViewMode.Title">Trip view mode</string>
+    <string name="ShowTripsMenu.TripViewMode.All">All</string>
+    <string name="ShowTripsMenu.TripViewMode.Past">Past</string>
+    <string name="ShowTripsMenu.TripViewMode.Current">Current</string>
+    <string name="ShowTripsMenu.TripViewMode.Future">Future</string>
+    <string name="ShowTripsMenu.Details.Title">Trip Details</string>
 
 </resources>

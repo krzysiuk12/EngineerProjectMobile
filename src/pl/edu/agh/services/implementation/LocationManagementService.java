@@ -1,16 +1,11 @@
 package pl.edu.agh.services.implementation;
 
 import android.content.Context;
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import pl.edu.agh.configuration.DatabaseHelper;
-import pl.edu.agh.configuration.TestDatabaseHelper;
-import pl.edu.agh.configuration.TestDatabaseManager;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.common.FormValidationError;
-import pl.edu.agh.main.R;
 import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.repositories.interfaces.ILocationRepository;
 import pl.edu.agh.services.interfaces.ILocationManagementService;

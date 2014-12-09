@@ -39,5 +39,7 @@
     <dimen name="ShowTrips.TripItem.NameRowHeight">40dp</dimen>
     <dimen name="ShowTrips.TripItem.DateRowHeight">20dp</dimen>
     <dimen name="ShowTrips.TripItem.Separator.Padding">10dp</dimen>
+    <dimen name="ShowTrips.TripDetails.Layout.Margin">10dp</dimen>
+    <dimen name="ShowTrips.TripDetails.DateRowMargin">10dp</dimen>
 
 </resources>

@@ -106,8 +106,7 @@ public class Trip extends BaseObject implements Serializable {
                 "description=\'" + description + "\', " +
                 "startDate=" + startDate.toString() + ", " +
                 "endDate=" + endDate.toString() + ", " +
-                "tripDaySize=" + days.size() + ", " +
-                "tripDayListSize=" + days.size() +
+                "daysSize=" + days.size() +
                 "}";
     }
 }

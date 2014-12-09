@@ -15,7 +15,6 @@ public class TripDetailsFragment extends AbstractDescriptionFragment<Trip> {
 		return fragment;
 	}
 
-
 	@Override
 	protected int getLayoutId() {
 		return R.layout.trip_details_fragment;
@@ -27,6 +26,9 @@ public class TripDetailsFragment extends AbstractDescriptionFragment<Trip> {
 
 		if ( trip != null ) {
 			RenderingTools.setTextViewText(view, R.id.TripDetails_Trip_Name, trip.getName());
+			RenderingTools.setTextViewText(view, R.id.ShowTrips_TripDetails_StartDate, RenderingTools.formatDate(trip.getStartDate()));
+			RenderingTools.setTextViewText(view, R.id.ShowTrips_TripDetails_EndDate, RenderingTools.formatDate(trip.getEndDate()));
+			RenderingTools.setTextViewText(view, R.id.TripDetails_Trip_Description, trip.getDescription());
 			// TODO : fill when layout created
 		}
 	}

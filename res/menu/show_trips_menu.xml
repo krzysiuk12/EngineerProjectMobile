@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:icon="@drawable/ic_action_overflow"
+          android:title="@string/ShowTripsMenu.TripViewMode.Title"
+          android:showAsAction="always">
+
+        <menu>
+
+            <item android:id="@+id/ShowTripsMenu.TripViewMode.All"
+                  android:title="@string/ShowTripsMenu.TripViewMode.All"
+                  android:showAsAction="ifRoom"/>
+
+            <item android:id="@+id/ShowTripsMenu.TripViewMode.Past"
+                  android:title="@string/ShowTripsMenu.TripViewMode.Past"
+                  android:showAsAction="ifRoom"/>
+
+            <item android:id="@+id/ShowTripsMenu.TripViewMode.Current"
+                  android:title="@string/ShowTripsMenu.TripViewMode.Current"
+                  android:showAsAction="ifRoom"/>
+
+            <item android:id="@+id/ShowTripsMenu.TripViewMode.Future"
+                  android:title="@string/ShowTripsMenu.TripViewMode.Future"
+                  android:showAsAction="ifRoom"/>
+
+        </menu>
+
+    </item>
+
+</menu>

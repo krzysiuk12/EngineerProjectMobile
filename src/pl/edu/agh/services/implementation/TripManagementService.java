@@ -48,10 +48,9 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		if ( trip.getStartDate().after(trip.getEndDate()) ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_START_DATE_BEFORE_END_DATE.getStringResourceId()));
 		}
-		// TODO: uncomment when downloading locations works properly
-//		if ( trip.getTripDays() == null || trip.getTripDays().isEmpty() ) {
-//			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAYS_IS_REQUIRED.getStringResourceId()));
-//		}
+		if ( trip.getDays() == null || trip.getDays().isEmpty() ) {
+			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAYS_IS_REQUIRED.getStringResourceId()));
+		}
 
 		return errors;
 	}
@@ -69,6 +68,21 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	@Override
 	public List<Trip> getAllTrips() throws TripException {
 		return tripRepository.getAllTrips();
+	}
+
+	@Override
+	public List<Trip> getPastTrips() throws TripException {
+		return tripRepository.getPastTrips();
+	}
+
+	@Override
+	public List<Trip> getCurrentTrips() throws TripException {
+		return tripRepository.getCurrentTrips();
+	}
+
+	@Override
+	public List<Trip> getFutureTrips() throws TripException {
+		return tripRepository.getFutureTrips();
 	}
 
 	@Override

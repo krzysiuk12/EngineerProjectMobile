@@ -17,6 +17,12 @@ public interface ITripManagementService {
 
 	public List<Trip> getAllTrips() throws TripException;
 
+	public List<Trip> getPastTrips() throws TripException;
+
+	public List<Trip> getCurrentTrips() throws TripException;
+
+	public List<Trip> getFutureTrips() throws TripException;
+
 	public Trip getTripById(long id) throws TripException;
 
 	public Trip getTripByName(String name) throws TripException;

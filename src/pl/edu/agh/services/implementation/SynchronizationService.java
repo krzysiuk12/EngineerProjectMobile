@@ -57,7 +57,8 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		ArrayList<Location> locationList = new ArrayList<Location>();
 		try {
 			List<Location> locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
-			locationList = new ArrayList<Location>(locations);
+			if ( locations != null )
+				locationList = new ArrayList<Location>(locations);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {

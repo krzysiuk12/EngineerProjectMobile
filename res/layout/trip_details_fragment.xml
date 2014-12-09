@@ -3,47 +3,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:layout_margin="@dimen/Layout.Margin">
 
     <TextView android:id="@+id/TripDetails.Trip.Name"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/Trip.Name" android:textAppearance="@style/LocationDescription.Name"/>
 
-    <View style="@style/Divider"/>
-
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/ShowTrips.TripItem.DateRowHeight"
-            android:weightSum="5">
+            android:layout_marginBottom="@dimen/ShowTrips.TripDetails.DateRowMargin">
 
         <TextView
-                android:id="@+id/ShowTrips.TripItem.StartDate"
-                android:layout_width="0dp"
+                android:id="@+id/ShowTrips.TripDetails.StartDate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="right"
+                android:gravity="center_vertical"
                 android:text="@string/Trip.StartDate"/>
         <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/ShowTrips.ListItem.DatesSeparator"/>
+                android:paddingLeft="@dimen/ShowTrips.TripItem.Separator.Padding"
+                android:paddingRight="@dimen/ShowTrips.TripItem.Separator.Padding"
+                android:text="@string/ShowTrips.TripItem.DatesSeparator"/>
         <TextView
-                android:id="@+id/ShowTrips.TripItem.EndDate"
-                android:layout_width="0dp"
+                android:id="@+id/ShowTrips.TripDetails.EndDate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="left"
+                android:gravity="center_vertical"
                 android:text="@string/Trip.EndDate"/>
 
     </LinearLayout>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Trip.Description"
+            android:textStyle="bold"/>
 
     <TextView
             android:id="@+id/TripDetails.Trip.Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Trip.Description"/>
+
+
 
 </LinearLayout>
