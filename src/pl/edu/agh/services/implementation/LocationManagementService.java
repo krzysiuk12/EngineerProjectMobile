@@ -86,7 +86,7 @@ public class LocationManagementService extends BaseService implements ILocationM
 	}
 
 	@Override
-	public Location getLocationByCoordinates(double longitude, double latitude) throws LocationException {
+	public Location getLocationByCoordinates(double latitude, double longitude) throws LocationException {
 		return locationRepository.getLocationByCoordinates(longitude, latitude);
 	}
 
@@ -102,6 +102,11 @@ public class LocationManagementService extends BaseService implements ILocationM
 
 	@Override
 	public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException {
+		return null;
+	}
+
+	@Override
+	public List<Location> getAllUserPrivateLocations(String login) throws LocationException {
 		return null;
 	}
 

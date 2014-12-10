@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
-import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.main.R;
-import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
 
@@ -27,7 +25,8 @@ public class SynchronizationActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		synchronizationService = new SynchronizationService(new OrmLiteLocationRepository(new TestDatabaseHelper(this)));   // TODO
+//		synchronizationService = new SynchronizationService(this);   // TODO
+		synchronizationService = new SynchronizationService();
 		setContentView(R.layout.synchronization_fragment);
 	}
 

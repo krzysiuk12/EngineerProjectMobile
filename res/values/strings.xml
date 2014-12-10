@@ -26,6 +26,9 @@
 
 	<string name="ShowAllLocationsOnMapActivity.Button.ShowDescription">Show Location Description</string>
 	<string name="ShowAllLocationsOnMapActivity.Button.DownloadLocations">Download Locations</string>
+    <string name="ShowAllLocationsOnMapActivity.LocationNullError">You first must choose an existing location on map!</string>
+    <string name="ShowAllLocationsOnMapActivity.NoLocationFoundError">Error occurred. No such location found.</string>
+    <string name="ShowAllLocationsOnMapActivity.SearchError">Error occurred while searching. We\'re very sorry!</string>
 
     <string name="ShowPrivateLocationsOnMapActivity.Button.ShowDescription">Show My Location Description</string>
     <string name="ShowPrivateLocationsOnMapActivity.Button.DownloadLocations">Download My Locations</string>

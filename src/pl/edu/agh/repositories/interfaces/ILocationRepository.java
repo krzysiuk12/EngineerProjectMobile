@@ -27,6 +27,8 @@ public interface ILocationRepository {
 
     public List<Location> getAllUserLocations(UserAccount account) throws LocationException;
 
+    public List<Location> getAllUserPrivateLocations(String login) throws LocationException;
+
     public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException;
 
     public List<Location> getAllNewPublicLocations() throws LocationException;

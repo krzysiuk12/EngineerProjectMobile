@@ -16,15 +16,22 @@ public class UserAccountManagementService implements IUserAccountManagementServi
 
     private static String TOKEN = "token";
 
+	private static String LOGIN = "";
+
     public static String getToken() {
         return TOKEN;
     }
+
+	public static String getLogin() {
+		return LOGIN;
+	}
 
 	public boolean logIn(String login, String password) {
 		try {
 			ResponseSerializer<LoginSerializer> response = new LogInAsyncTask(login, password).execute().get();
 			if ( response.getStatus() == ResponseStatus.OK ) {
 				TOKEN = response.getResult().getToken();
+				LOGIN = response.getResult().getLogin();
 				return true;
 			}
 		} catch (InterruptedException e) {

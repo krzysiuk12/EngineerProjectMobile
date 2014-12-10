@@ -75,6 +75,20 @@ public class OrmLiteLocationRepository implements ILocationRepository {
 
     @Override
     public List<Location> getAllUserLocations(UserAccount account) throws LocationException {
+        QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryBuilder();
+        try {
+            queryBuilder.where().eq(LocationMapping.CREATED_BY_ACCOUNT_COLUMN_NAME, account);
+            queryBuilder.where().eq(LocationMapping.USERS_PRIVATE_COLUMN_NAME, true);
+            return ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().query(queryBuilder.prepare());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Location> getAllUserPrivateLocations(String login) throws LocationException {
+        QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryBuilder();
         return null;
     }
 
