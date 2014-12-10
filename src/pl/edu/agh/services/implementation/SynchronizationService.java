@@ -2,13 +2,17 @@ package pl.edu.agh.services.implementation;
 
 import android.content.Context;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
+import pl.edu.agh.asynctasks.locations.GetAllPrivateLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewPrivateLocationAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetMyTripsAsyncTask;
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.TripException;
+import pl.edu.agh.layout.toast.ErrorToastBuilder;
+import pl.edu.agh.main.R;
 import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
 import pl.edu.agh.serializers.common.ResponseSerializer;
@@ -56,17 +60,43 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	// TODO : remove, testing purposes (small db)
 	@Override
 	public void downloadAllLocations() {
-		ArrayList<Location> locationList = new ArrayList<Location>();
+		List<Location> locations = new ArrayList<Location>();
 		try {
-			List<Location> locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
-			if ( locations != null )
-				locationList = new ArrayList<Location>(locations);
+			locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-		for ( Location location : locationList ){
+
+		if ( locations == null )
+			return;
+
+		for ( Location location : locations ){
+			try {
+				locationManagementService.saveLocation(location);
+			} catch (LocationException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void downloadAllPrivateLocations() {
+		List<Location> locations = null;
+		try {
+			locations = new GetAllPrivateLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+
+		if ( locations == null )
+			return;
+
+		for ( Location location : locations ) {
+			location.setCreatedByAccount(UserAccountManagementService.getUserAccount());
 			try {
 				locationManagementService.saveLocation(location);
 			} catch (LocationException e) {

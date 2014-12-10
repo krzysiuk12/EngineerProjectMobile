@@ -25,9 +25,11 @@ public interface ILocationRepository {
 
 	public List<Location> getAllLocations() throws LocationException;
 
+    public List<Location> getAllPublicLocations() throws LocationException;
+
     public List<Location> getAllUserLocations(UserAccount account) throws LocationException;
 
-    public List<Location> getAllUserPrivateLocations(String login) throws LocationException;
+    public List<Location> getAllUserPrivateLocations(String token) throws LocationException;
 
     public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException;
 

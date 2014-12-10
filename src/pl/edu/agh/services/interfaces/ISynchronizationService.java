@@ -7,6 +7,8 @@ public interface ISynchronizationService {
 
 	public void downloadAllLocations();
 
+	public void downloadAllPrivateLocations();
+
 	public void downloadTrips();
 
 	public void sendNewPublicLocations();

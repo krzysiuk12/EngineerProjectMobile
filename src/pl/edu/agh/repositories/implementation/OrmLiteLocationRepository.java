@@ -1,20 +1,20 @@
 package pl.edu.agh.repositories.implementation;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.dbmodel.accounts.UserAccountMapping;
 import pl.edu.agh.dbmodel.locations.LocationMapping;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.repositories.interfaces.ILocationRepository;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by Krzysiu on 2014-06-08.
@@ -47,6 +47,11 @@ public class OrmLiteLocationRepository implements ILocationRepository {
     @Override
     public List<Location> getAllLocations() {
         return ((TestDatabaseHelper)openHelper).getLocationsRuntimeExceptionDao().queryForAll();
+    }
+
+    @Override
+    public List<Location> getAllPublicLocations() throws LocationException {
+        return ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryForEq(LocationMapping.USERS_PRIVATE_COLUMN_NAME, false);
     }
 
     @Override
@@ -87,8 +92,16 @@ public class OrmLiteLocationRepository implements ILocationRepository {
     }
 
     @Override
-    public List<Location> getAllUserPrivateLocations(String login) throws LocationException {
-        QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryBuilder();
+    public List<Location> getAllUserPrivateLocations(String token) throws LocationException {
+        QueryBuilder userAccountQueryBuilder = ((TestDatabaseHelper) openHelper).getUserAccountRuntimeExceptionDao().queryBuilder();
+        QueryBuilder locationQueryBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryBuilder();
+        try {
+            userAccountQueryBuilder.where().eq(UserAccountMapping.TOKEN_COLUMN_NAME, UserAccountManagementService.getToken());
+            locationQueryBuilder.where().eq(LocationMapping.USERS_PRIVATE_COLUMN_NAME, true);
+            return locationQueryBuilder.join(userAccountQueryBuilder).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

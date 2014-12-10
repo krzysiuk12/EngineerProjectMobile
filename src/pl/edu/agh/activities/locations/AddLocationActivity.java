@@ -294,6 +294,7 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
         if(location == null) {
             location = new Location();
             location.setAddress(new Address());
+            location.setUsersPrivate(true);
         }
         return location;
     }

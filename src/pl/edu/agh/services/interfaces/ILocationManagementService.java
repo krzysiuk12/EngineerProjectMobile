@@ -30,7 +30,7 @@ public interface ILocationManagementService {
 
     public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException;
 
-    public List<Location> getAllUserPrivateLocations(String login) throws LocationException;
+    public List<Location> getAllUserPrivateLocations(String token) throws LocationException;
 
     public List<Location> getAllNewPrivateLocations() throws LocationException;
 
