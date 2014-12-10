@@ -1,17 +1,15 @@
-package pl.edu.agh.services.interfaces;
+package pl.edu.agh.repositories.interfaces;
 
 import pl.edu.agh.domain.accounts.UserAccount;
 
 /**
- * Created by Krzysiu on 2014-06-14.
+ * Created by Magda on 2014-12-10.
  */
-public interface IUserAccountManagementService {
-
-	public boolean logIn(String login, String password);
-
-	public void logOut();
+public interface IUserAccountRepository {
 
 	public void saveUserAccount(UserAccount userAccount);
+
+	public void updateUserAccount(UserAccount userAccount);
 
 	public UserAccount getUserAccountByLogin(String login);
 

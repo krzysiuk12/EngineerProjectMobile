@@ -27,7 +27,8 @@ public class LocationDescriptionFragment extends AbstractDescriptionFragment<Loc
 			RenderingTools.setTextViewText(view, R.id.LocationDescription_Description, location.getDescription());
 			RenderingTools.setTextViewText(view, R.id.LocationDescription_Address, location.getAddress().toString());
 			RenderingTools.setTextViewText(view, R.id.LocationDescription_Rating, location.getRating() + "");
-			RenderingTools.setTextViewText(view, R.id.LocationDescription_CreatedBy, location.getCreatedByAccount() + "");
+			RenderingTools.setTextViewText(view, R.id.LocationDescription_CreatedBy,
+					(location.getCreatedByAccount() != null ? location.getCreatedByAccount().getLogin() : "unknown"));
 		}
 	}
 

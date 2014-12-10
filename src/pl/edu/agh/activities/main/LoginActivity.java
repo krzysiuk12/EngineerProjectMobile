@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.activities.main.MainMenuActivity;
-import pl.edu.agh.asynctasks.authorization.LogInAsyncTask;
+import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
-import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.serializers.LoginSerializer;
 import pl.edu.agh.serializers.common.ResponseSerializer;
@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by Krzysiu on 2014-06-11.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 
 	private EditText loginEditText;
 	private EditText passwordEditText;
@@ -40,7 +40,7 @@ public class LoginActivity extends Activity {
     }
 
     public void loginButtonAction(View view) {
-		boolean loginResult = new UserAccountManagementService().logIn(getLoginEditText().getText().toString(), getPasswordEditText().getText().toString());
+		boolean loginResult = new UserAccountManagementService(this).logIn(getLoginEditText().getText().toString(), getPasswordEditText().getText().toString());
 	    if ( loginResult ) {
 		    finish(); // Removes Activity from Stack - Leaving main menu closes the app
 		    startActivity(new Intent(this, MainMenuActivity.class));

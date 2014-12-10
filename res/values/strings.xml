@@ -41,6 +41,7 @@
     <string name="Synchronization.SendLocations.Both">Both</string>
     <string name="Synchronization.SendLocationsButton">Send Locations</string>
     <string name="Synchronization.DownloadLocations">Download Locations</string>
+    <string name="Synchronization.NoUserAccountFoundError">Error occurred. Please try again.</string>
 
     <string name="ShowTrips.TripItem.DatesSeparator"> - </string>
 

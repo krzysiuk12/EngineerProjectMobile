@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.accounts.Address;
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
 import pl.edu.agh.exceptions.LocationException;
@@ -34,6 +35,7 @@ import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.GoogleGeocodingService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.implementation.LocationManagementService;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.services.interfaces.IGoogleGeocodingService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
@@ -313,6 +315,7 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
             try {
                 getLocation().setCreationDate(new Date());
                 getLocation().setSynced(false);
+                getLocation().setCreatedByAccount(UserAccountManagementService.getUserAccount());
 
                 getLocationManagementService().saveLocation(location);
 

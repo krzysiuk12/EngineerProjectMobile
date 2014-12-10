@@ -35,6 +35,8 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
     private RuntimeExceptionDao<Location, Long> locationsRuntimeExceptionDao;
     private Dao<Trip, Long> tripDao;
     private RuntimeExceptionDao<Trip, Long> tripRuntimeExceptionDao;
+    private Dao<UserAccount, Long> userAccountDao;
+    private RuntimeExceptionDao<UserAccount, Long> userAccountRuntimeExceptionDao;
 
     public TestDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -109,6 +111,20 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
             tripRuntimeExceptionDao = getRuntimeExceptionDao(Trip.class);
         }
         return tripRuntimeExceptionDao;
+    }
+
+    public Dao<UserAccount, Long> getUserAccountDao() throws SQLException {
+        if ( userAccountDao == null ) {
+            userAccountDao = getDao(UserAccount.class);
+        }
+        return userAccountDao;
+    }
+
+    public RuntimeExceptionDao<UserAccount, Long> getUserAccountRuntimeExceptionDao() {
+        if ( userAccountRuntimeExceptionDao == null ) {
+            userAccountRuntimeExceptionDao = getRuntimeExceptionDao(UserAccount.class);
+        }
+        return userAccountRuntimeExceptionDao;
     }
 
     @Override

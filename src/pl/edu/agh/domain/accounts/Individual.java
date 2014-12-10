@@ -3,7 +3,9 @@ package pl.edu.agh.domain.accounts;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.accounts.IndividualMapping;
+import pl.edu.agh.domain.common.BaseObject;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -11,10 +13,7 @@ import java.sql.Date;
  */
 
 @DatabaseTable(tableName = IndividualMapping.TABLE_NAME)
-public class Individual {
-
-    @DatabaseField(generatedId = true, index = true)
-    private int id;
+public class Individual extends BaseObject implements Serializable {
 
     @DatabaseField(columnName = IndividualMapping.FIRST_NAME_COLUMN_NAME)
     private String firstName;
@@ -34,9 +33,6 @@ public class Individual {
     public Individual() {
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
@@ -55,7 +51,6 @@ public class Individual {
     @Override
     public String toString() {
         return "Individual{" +
-                "id=" + id +
                 ", firstName=" + firstName +
                 ", lastName" + lastName +
                 ", description" + description +
