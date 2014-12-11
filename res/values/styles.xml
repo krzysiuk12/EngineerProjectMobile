@@ -46,6 +46,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="WizardPage.Title" parent="android:TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WizardPage.SmallText" parent="android:TextAppearance.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>

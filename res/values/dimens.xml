@@ -42,4 +42,9 @@
     <dimen name="ShowTrips.TripDetails.Layout.Margin">10dp</dimen>
     <dimen name="ShowTrips.TripDetails.DateRowMargin">10dp</dimen>
 
+    <dimen name="WizardPageElement.Margin.Bottom">15dp</dimen>
+    <dimen name="WizardPageSmallText.Margin.Bottom">5dp</dimen>
+    <dimen name="WizardPageMainLayout.Margin.Left">20dp</dimen>
+    <dimen name="WizardPageMainLayout.Margin.Right">20dp</dimen>
+
 </resources>
