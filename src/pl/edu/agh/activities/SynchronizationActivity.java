@@ -68,4 +68,16 @@ public class SynchronizationActivity extends Activity {
 		}
 	}
 
+	public void onManageTripsDownloadChecked(View view) {
+
+	}
+
+	public void onManageTripsSendChecked(View view) {
+
+	}
+
+	public void onManageTripsButtonClicked(View view) {
+
+	}
+
 }

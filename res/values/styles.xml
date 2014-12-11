@@ -31,6 +31,17 @@
         <!--<item name="android:textSize">@dimen/General.HeaderSize</item>-->
     </style>
 
+    <style name="SynchronizationButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/Synchronization.Button.MarginTopBottom</item>
+        <item name="android:layout_marginBottom">@dimen/Synchronization.Button.MarginTopBottom</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:paddingLeft">@dimen/Synchronization.Button.Padding</item>
+        <item name="android:paddingRight">@dimen/Synchronization.Button.Padding</item>
+    </style>
+
     <style name="DetailElement.Title" parent="android:TextAppearance.Large">
         <item name="android:textStyle">bold</item>
     </style>

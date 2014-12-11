@@ -25,7 +25,6 @@
                     android:orientation="horizontal"
                     android:weightSum="3">
 
-                <!-- TODO: implement me: onClickListener! -->
                 <RadioButton
                         android:id="@+id/Synchronization.SendLocationsCheckbox.Private"
                         android:layout_width="0dp"
@@ -54,15 +53,47 @@
 
             <Button
                     android:id="@+id/Synchronization.SendLocations.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/Synchronization.Button.MarginTopBottom"
-                    android:layout_marginBottom="@dimen/Synchronization.Button.MarginTopBottom"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingLeft="@dimen/Synchronization.Button.Padding"
-                    android:paddingRight="@dimen/Synchronization.Button.Padding"
                     android:text="@string/Synchronization.SendLocationsButton"
-                    android:onClick="onSendLocationsButtonClicked"/>
+                    android:onClick="onSendLocationsButtonClicked"
+                    style="@style/SynchronizationButton"/>
+
+            <View style="@style/Divider"/>
+
+            <!-- Trip management -->
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textAppearance="@style/Synchronization.Option.Title"
+                      android:text="@string/Synchronization.ManageTrips"/>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:weightSum="2">
+
+                <CheckBox android:id="@+id/Synchronization.ManageTrips.Download"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:text="@string/Synchronization.ManageTrips.Download"
+                          android:onClick="onManageTripsDownloadChecked"
+                          android:checked="false"/>
+
+                <CheckBox android:id="@+id/Synchronization.ManageTrips.Send"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:text="@string/Synchronization.ManageTrips.Send"
+                          android:onClick="onManageTripsSendChecked"
+                          android:checked="false"/>
+
+            </LinearLayout>
+
+            <Button
+                    android:id="@+id/Synchronization.ManageTrips.Button"
+                    android:text="@string/Synchronization.ManageTripsButton"
+                    android:onClick="onManageTripsButtonClicked"
+                    style="@style/SynchronizationButton"
+                    />
 
             <View style="@style/Divider"/>
 
