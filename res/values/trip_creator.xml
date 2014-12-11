@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="TripCreatorInitPage.Title">Trip Creator</string>
+    <string name="TripCreatorInitPage.IntroductionText">
+        This Trip Creator will allow you to create new trip in few simple steps.
+        Choose name, date and plan all days of the trip by choosing locations to visit.
+        Click the button below to begin.
+    </string>
+    <string name="TripCreatorInitPage.StartButton">Create Trip</string>
+    <string name="TripCreatorMainSettingsPage.Title">Step One: Main Trip Settings</string>
+    <string name="TripCreatorMainSettingsPage.TripNameLabel">Write name of the trip</string>
+    <string name="TripCreatorMainSettingPage.TripDescriptionLabel">Provide description</string>
+    <string name="TripCreatorMainSettingsPage.TripStartDate">Set start date of your trip</string>
+    <string name="TripCreatorMainSettingsPage.TripEndDate">Set end date of your trip</string>
+    <string name="TripCreatorDaysListPage.Title">Step Two: Set Locations To Visit For Each Day</string>
+    <string name="TripCreatorDaysListPage.DaysListLabel">List of trip days. Click every day to add locations to visit during that day</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_arrow_left"
+                android:id="@+id/TripCreatorDaysListPage.GoBackButton"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/WizardPage.Title"
+                android:text="@string/TripCreatorDaysListPage.Title"
+                android:id="@+id/TripCreatorDaysListPage.Title"
+                android:layout_gravity="center_horizontal"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_arrow"
+                android:id="@+id/TripCreatorDaysListPage.GoNextButton"/>
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/TripCreatorDaysListPage.DaysListLabel"
+            android:id="@+id/TripCreatorDaysListPage.DaysListLabel"
+            android:layout_gravity="center_horizontal"/>
+
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TripCreatorDaysListPage.ListOfDays"/>
+
+</LinearLayout>
