@@ -35,7 +35,7 @@ public class TripsListFragment extends AbstractListFragment<Trip> {
 		super();
 		currentView = TripViewMode.ALL_TRIPS;
 		detailsPaneId = R.id.ShowTrips_TripDetails;
-		tripManagementService = new TripManagementService();
+		tripManagementService = new TripManagementService(getActivity());
 	}
 
 	@Override

@@ -51,5 +51,10 @@
             android:text="@string/Trip.Description"/>
 
 
+    <Button android:id="@+id/TripDetails.Trip.TripDayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SynchronizationButton"
+            android:onClick="onTripDayDetailsButtonClicked"/>
 
 </LinearLayout>

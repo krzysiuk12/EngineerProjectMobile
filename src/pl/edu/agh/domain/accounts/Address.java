@@ -3,6 +3,7 @@ package pl.edu.agh.domain.accounts;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.locations.AddressMapping;
+import pl.edu.agh.domain.common.BaseObject;
 
 import java.io.Serializable;
 
@@ -11,10 +12,7 @@ import java.io.Serializable;
  */
 
 @DatabaseTable(tableName = AddressMapping.TABLE_NAME)
-public class Address implements Serializable{
-
-    @DatabaseField(generatedId = true, index = true)
-    private int id;
+public class Address extends BaseObject implements Serializable{
 
     @DatabaseField(columnName = AddressMapping.STREET_COLUMN_NAME)
     private String street;
@@ -29,13 +27,6 @@ public class Address implements Serializable{
     private String country;
 
     public Address() {
-    }
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getStreet() {

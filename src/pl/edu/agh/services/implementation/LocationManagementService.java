@@ -1,6 +1,7 @@
 package pl.edu.agh.services.implementation;
 
 import android.content.Context;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
@@ -12,6 +13,7 @@ import pl.edu.agh.services.interfaces.ILocationManagementService;
 import pl.edu.agh.tools.StringTools;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +29,10 @@ public class LocationManagementService extends BaseService implements ILocationM
 
 	public LocationManagementService(Context context) {
 		locationRepository = new OrmLiteLocationRepository(getHelperInternal(context));
+	}
+
+	public LocationManagementService(OrmLiteSqliteOpenHelper helper) {
+		locationRepository = new OrmLiteLocationRepository(helper);
 	}
 
 	@Override
@@ -57,6 +63,7 @@ public class LocationManagementService extends BaseService implements ILocationM
 
 	@Override
 	public void saveLocation(Location location) throws LocationException {
+		location.setCreationDate(new Date());
 		List<FormValidationError> errors = validateLocation(location);
 		if ( !errors.isEmpty() ) {
 			throw new LocationException(errors);

@@ -1,6 +1,5 @@
 package pl.edu.agh.activities.locations;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,8 +12,10 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.activities.LocationDescriptionActivity;
 import pl.edu.agh.activities.SynchronizationActivity;
+import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
 import pl.edu.agh.exceptions.LocationException;
@@ -37,12 +38,12 @@ import java.util.List;
 /**
  * Created by Magda on 2014-12-10.
  */
-public abstract class AbstractShowLocationsOnMapActivity extends Activity implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
+public abstract class AbstractShowLocationsOnMapActivity extends OrmLiteBaseActivity<TestDatabaseHelper> implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
 
 	//<editor-fold desc="Fields">
 	private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
 	private IGoogleGeocodingService googleGeocodingService = new GoogleGeocodingService();
-	private ILocationManagementService locationManagementService = new LocationManagementService();
+	private ILocationManagementService locationManagementService = new LocationManagementService(this);
 	private GoogleMap googleMap;
 	private Marker selectedMarker = null;
 	//</editor-fold>

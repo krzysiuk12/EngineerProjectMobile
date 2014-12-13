@@ -21,6 +21,7 @@ public class TripManagementService extends BaseService implements ITripManagemen
 
 	private ITripRepository tripRepository;
 
+	@Deprecated
 	public TripManagementService() {
 		tripRepository = new OrmLiteTripRepository(getHelper());
 	}

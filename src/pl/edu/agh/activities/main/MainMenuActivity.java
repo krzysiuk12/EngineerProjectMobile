@@ -1,11 +1,17 @@
 package pl.edu.agh.activities.main;
 
 import android.app.Activity;
+import android.app.IntentService;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.activities.ShowLocationsActivity;
 import pl.edu.agh.activities.ShowTripsActivity;
@@ -15,20 +21,10 @@ import pl.edu.agh.activities.locations.AddLocationActivity;
 import pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity;
 import pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity;
 import pl.edu.agh.activities.settings.SettingsActivity;
-import pl.edu.agh.asynctasks.locations.GetLocationByIdAsyncTask;
-import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
-import pl.edu.agh.asynctasks.locations.PutLocationStatusAsyncTask;
 import pl.edu.agh.configuration.TestDatabaseHelper;
-import pl.edu.agh.domain.accounts.Address;
-import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.main.R;
-import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
-import pl.edu.agh.serializers.common.ResponseSerializer;
-import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
-
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Krzysiu on 2014-06-10.
@@ -43,16 +39,8 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 
         getActionBar().hide();
 
-        //Tests
-        this.deleteDatabase(TestDatabaseHelper.DATABASE_NAME);
-        new TestDatabaseHelper(this).getReadableDatabase();
-
-	    // TODO
-	    OrmLiteLocationRepository locationRepository = new OrmLiteLocationRepository(getHelper());
-		new SynchronizationService().downloadAllLocations();
-		new SynchronizationService().downloadTrips();
-
-//	    ILocationManagementService locationManagementService = new LocationManagementService();
+	    // TODO: move to appropriate place
+        new SynchronizationService(this).downloadAllLocations();
 
         try {
 /*            Location origin = new Location();
@@ -143,6 +131,30 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 
     }
     //</editor-fold>
+
+
+    // TODO : use IBinder to call services or remove completely
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        ServiceConnection mConnection = new ServiceConnection() {
+//            @Override
+//            public void onServiceConnected(ComponentName name, IBinder service) {
+//                mSynchronizationService = ((SynchronizationService.LocalBinder) service).getService();
+//                Toast.makeText(MainMenuActivity.this, R.string.TripCreatorInitPage_IntroductionText, Toast.LENGTH_SHORT).show();
+//                mSynchronizationService.downloadAllLocations();
+//                mSynchronizationService.downloadTrips();
+//            }
+//
+//            @Override
+//            public void onServiceDisconnected(ComponentName name) {
+//
+//            }
+//        };
+//        bindService(new Intent(MainMenuActivity.this, SynchronizationService.LocalBinder.class), mConnection, Context.BIND_AUTO_CREATE);
+//
+//    }
 
     //<editor-fold desc="Getters and Setters - Layout Elements">
     private Button getCreateTripButton() {

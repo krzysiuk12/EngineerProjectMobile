@@ -15,4 +15,6 @@ public interface ISynchronizationService {
 
 	public void sendNewPrivateLocations();
 
+	public void sendTrips();
+
 }

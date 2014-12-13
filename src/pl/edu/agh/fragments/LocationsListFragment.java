@@ -22,7 +22,7 @@ public class LocationsListFragment extends AbstractListFragment<Location> {
 
 	public LocationsListFragment() {
 		super();
-		locationManagementService = new LocationManagementService();
+		locationManagementService = new LocationManagementService(getActivity());
 		detailsPaneId = R.id.ShowLocations_LocationDescription; // required
 	}
 

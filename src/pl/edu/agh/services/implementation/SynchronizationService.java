@@ -1,6 +1,9 @@
 package pl.edu.agh.services.implementation;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.GetAllPrivateLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
@@ -12,6 +15,7 @@ import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
+import pl.edu.agh.layout.toast.ToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
@@ -35,6 +39,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	ITripManagementService tripManagementService;
 	OrmLiteLocationRepository locationRepository;
 	OrmLiteTripRepository tripRepository;
+	IBinder binder = new LocalBinder();
 
 	public SynchronizationService() {
 		super();
@@ -60,6 +65,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	// TODO : remove, testing purposes (small db)
 	@Override
 	public void downloadAllLocations() {
+		getLogService().debug("downloadAllLocations start");
 		List<Location> locations = new ArrayList<Location>();
 		try {
 			locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
@@ -79,6 +85,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 				e.printStackTrace();
 			}
 		}
+		getLogService().debug("downloadAllLocations end");
 	}
 
 	@Override
@@ -107,7 +114,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 	@Override
 	public void downloadTrips() {
-		getLogService().debug("SynchronizationService", "start downloadTrips()");
+		getLogService().debug("SynchronizationService", "downloadTrips start");
 		ArrayList<Trip> trips = new ArrayList<>();
 		try {
 			List<Trip> tripList = new GetMyTripsAsyncTask(UserAccountManagementService.getToken()).execute().get();
@@ -123,15 +130,14 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 			getLogService().debug((trips.get(0)).toString());
 
 		for ( Trip trip : trips ) {
+			trip.setAuthor(UserAccountManagementService.getUserAccount());
 			try {
-				new TripManagementService().saveTrip(trip);
-//				new TripManagementService(OpenHelperManager.getHelper(this, TestDatabaseHelper.class));
-//				new TripManagementService(getHelper()).saveTrip(trip);
+				tripManagementService.saveTrip(trip);
 			} catch (TripException e) {
 				e.printStackTrace();
 			}
 		}
-		getLogService().debug("SynchronizationService", "end downloadTrips()");
+		getLogService().debug("SynchronizationService", "downloadTrips end");
 	}
 
 	@Override
@@ -181,6 +187,9 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 				if ( response.getStatus() == ResponseStatus.OK ) {
 					location.setSynced(true);
 					locationManagementService.updateLocation(location);
+				} else {
+//					new ErrorToastBuilder(getApplicationContext(), )
+					// TODO: error handling
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -190,6 +199,22 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void sendTrips() {
+
+	}
+
+	public class LocalBinder extends Binder {
+		public SynchronizationService getService() {
+			return SynchronizationService.this;
+		}
+	}
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		return binder;
 	}
 
 }

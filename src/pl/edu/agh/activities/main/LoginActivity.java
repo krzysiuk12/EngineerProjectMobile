@@ -29,6 +29,10 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
+		//Tests - moved from MainMenuActivity
+		this.deleteDatabase(TestDatabaseHelper.DATABASE_NAME);
+		new TestDatabaseHelper(this).getReadableDatabase();
+
         getActionBar().hide();
 
         ((Button)findViewById(R.id.LoginActivity_LoginButton)).setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,7 @@
 package pl.edu.agh.fragments;
 
+import android.content.Intent;
+import android.view.View;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.main.R;
 import pl.edu.agh.tools.RenderingTools;
@@ -31,6 +33,11 @@ public class TripDetailsFragment extends AbstractDescriptionFragment<Trip> {
 			RenderingTools.setTextViewText(view, R.id.TripDetails_Trip_Description, trip.getDescription());
 			// TODO : fill when layout created
 		}
+	}
+
+	public void onTripDayDetailsButtonClicked(View view) {
+		Intent intent = new Intent();
+		intent.setClass(getActivity(), TripDayDetailsFragment.class);
 	}
 
 }

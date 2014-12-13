@@ -3,7 +3,10 @@ package pl.edu.agh.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
@@ -11,7 +14,7 @@ import pl.edu.agh.services.interfaces.ISynchronizationService;
 /**
  * Created by Magda on 2014-11-26.
  */
-public class SynchronizationActivity extends Activity {
+public class SynchronizationActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 
 	enum SendLocationMode {
 		PRIVATE,
@@ -25,8 +28,7 @@ public class SynchronizationActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		synchronizationService = new SynchronizationService(this);   // TODO
-		synchronizationService = new SynchronizationService();
+		synchronizationService = new SynchronizationService(this);
 		setContentView(R.layout.synchronization_fragment);
 	}
 
@@ -68,15 +70,15 @@ public class SynchronizationActivity extends Activity {
 		}
 	}
 
-	public void onManageTripsDownloadChecked(View view) {
-
-	}
-
-	public void onManageTripsSendChecked(View view) {
-
-	}
-
 	public void onManageTripsButtonClicked(View view) {
+
+		if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Download)).isChecked() ) {
+			synchronizationService.downloadTrips();
+		}
+
+		if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Send)).isChecked() ) {
+			// TODO: sending trips
+		}
 
 	}
 
