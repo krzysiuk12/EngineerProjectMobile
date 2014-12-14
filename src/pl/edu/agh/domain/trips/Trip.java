@@ -40,6 +40,9 @@ public class Trip extends BaseObject implements Serializable {
     @DatabaseField(columnName = TripMapping.END_DATE_COLUMN_NAME, dataType = DataType.DATE, canBeNull = false)
     private Date endDate;
 
+    @DatabaseField(columnName = TripMapping.IS_SYNCED_COLUMN_NAME, dataType = DataType.BOOLEAN, canBeNull = false)
+    private boolean isSynced;
+
     public Trip() {
     }
 

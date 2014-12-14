@@ -49,5 +49,10 @@
     <string name="Synchronization.NoUserAccountFoundError">Error occurred. Please try again.</string>
 
     <string name="ShowTrips.TripItem.DatesSeparator"> - </string>
+    <string name="ShowTrips.TripDetails.ShowTripDayDetails">Show trip days</string>
+
+    <string name="Settings.Language.Title">Language</string>
+    <string name="Settings.Language.Button">Change</string>
+    <string name="Settings.LanguageSettings">Language Settings</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package pl.edu.agh.activities.settings;
 
+import android.view.View;
 import pl.edu.agh.domain.common.BaseObject;
 
 import java.io.Serializable;
@@ -23,4 +24,10 @@ public class SettingsIssue extends BaseObject implements Serializable {
     public String getLabel() {
         return label;
     }
+
+    // TODO : make abstract ?
+    public void initializeView(View view) {
+
+    }
+
 }

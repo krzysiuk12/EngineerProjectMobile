@@ -1,7 +1,11 @@
 package pl.edu.agh.fragments;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.main.R;
 import pl.edu.agh.tools.RenderingTools;
@@ -35,9 +39,23 @@ public class TripDetailsFragment extends AbstractDescriptionFragment<Trip> {
 		}
 	}
 
-	public void onTripDayDetailsButtonClicked(View view) {
-		Intent intent = new Intent();
-		intent.setClass(getActivity(), TripDayDetailsFragment.class);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = super.onCreateView(inflater, container, savedInstanceState);
+
+		((Button) view.findViewById(R.id.TripDetails_Trip_TripDayButton)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showTripDayDetails(v);
+			}
+		});
+
+		return view;
+	}
+
+	public void showTripDayDetails(View view) {
+		TripDayDetailsFragment details = new TripDayDetailsFragment();
+		getFragmentManager().beginTransaction().replace(android.R.id.content, details).commit();
 	}
 
 }

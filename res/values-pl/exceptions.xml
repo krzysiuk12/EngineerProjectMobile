@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="LocationException.ValidationError.NameIsRequired">Pole "Nazwa" jest wymagane</string>
+    <string name="LocationException.ValidationError.LongitudeIsRequired">Długość geograficzna jest wymagana</string>
+    <string name="LocationException.ValidationError.LatitudeIsRequired">Szerokość geograficzna jest wymagana</string>
+    <string name="LocationException.ValidationError.LocationOnMapIsRequired">Oznaczenie lokalizacji na mapie jest
+        wymagane</string>
+    <string name="LocationException.ValidationError.CreationDateIsRequired">Data utworzenia jest wymagana</string>
+    <string name="LocationException.ValidationError.CountryIsRequired">Państwo jest wymagane</string>
+    <string name="LocationException.ValidationError.CityIsRequired">Miasto jest wymagane</string>
+    <string name="LocationException.ValidationError.AddressIsRequired">Adres jest wymagany</string>
+    <string name="LocationException.ValidationError.CreatedByAccountIsRequired">Pole "Utworzone przez" jest wymagane</string>
+    <string name="LocationException.ValidationError.StatusIsRequired">Status jest wymagany</string>
+
+</resources>

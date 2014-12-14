@@ -55,6 +55,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/SynchronizationButton"
-            android:onClick="onTripDayDetailsButtonClicked"/>
+            android:text="@string/ShowTrips.TripDetails.ShowTripDayDetails"/>
 
 </LinearLayout>

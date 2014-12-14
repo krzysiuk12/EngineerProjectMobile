@@ -23,7 +23,9 @@ public class SettingsIssuePanelFragment extends AbstractDescriptionFragment<Sett
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         displayedSettingsIssue = (SettingsIssue) getArguments().getSerializable(KEY_ITEM);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        displayedSettingsIssue.initializeView(view);
+        return view;
     }
 
     @Override

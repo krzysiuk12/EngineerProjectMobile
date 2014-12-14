@@ -28,8 +28,6 @@ public class AddLocationFragment extends Fragment {
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    statusSpinner.setAdapter(adapter);
 
-	   Button button = ((Button) getActivity().findViewById(R.id.AddLocation_Button));
-
 	    return view;
     }
 

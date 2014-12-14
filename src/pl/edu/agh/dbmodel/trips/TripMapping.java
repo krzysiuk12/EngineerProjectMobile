@@ -13,5 +13,6 @@ public class TripMapping extends BaseMapping {
     public static final String AUTHOR_COLUMN_NAME = "id_author";
     public static final String START_DATE_COLUMN_NAME = "startdate";
     public static final String END_DATE_COLUMN_NAME = "enddate";
+    public static final String IS_SYNCED_COLUMN_NAME = "issynced";
 
 }
