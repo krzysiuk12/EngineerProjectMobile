@@ -3,7 +3,6 @@ package pl.edu.agh.services.implementation;
 import android.content.Context;
 import pl.edu.agh.asynctasks.authorization.LogInAsyncTask;
 import pl.edu.agh.asynctasks.authorization.LogOutAsyncTask;
-import pl.edu.agh.domain.accounts.Individual;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.repositories.implementation.OrmLiteUserAccountRepository;
 import pl.edu.agh.repositories.interfaces.IUserAccountRepository;
@@ -97,7 +96,6 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 		userAccount.setLogin(login);
 		userAccount.setPassword(password);
 		userAccount.setToken(getToken());
-		userAccount.setIndividual(new Individual());
 		return userAccount;
 	}
 

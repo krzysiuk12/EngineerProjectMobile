@@ -29,10 +29,6 @@ public class UserAccount extends BaseObject implements Serializable {
     @DatabaseField(columnName = UserAccountMapping.IS_DEFAULT_USER_COLUMN_NAME)
     private boolean isDefaultUser;
 
-    // TODO: remove?
-    @DatabaseField(columnName = UserAccountMapping.INDIVIDUAL_COLUMN_NAME, canBeNull = false, foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
-    private Individual individual;
-
     @DatabaseField(columnName = UserAccountMapping.LANGUAGE_COLUMN_NAME)
     private String language;
 
@@ -74,12 +70,6 @@ public class UserAccount extends BaseObject implements Serializable {
         this.isDefaultUser = isDefaultUser;
     }
 
-    public Individual getIndividual() {
-        return individual;
-    }
-    public void setIndividual(Individual individual) {
-        this.individual = individual;
-    }
 
     public String getLanguage() {
         return language;
@@ -96,7 +86,6 @@ public class UserAccount extends BaseObject implements Serializable {
                 ", password=" + password +
                 ", isWizardDone=" + isWizardDone +
                 ", isDefaultUser=" + isDefaultUser +
-                ", getIndividual=" + ( individual != null ? individual.toString() : null) +
                 ", getLanguage=" + language +
                 "}\n";
     }

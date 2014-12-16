@@ -227,7 +227,7 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
     }
 
 	private void logOut(View view) {
-		new UserAccountManagementService().logOut();
+		new UserAccountManagementService(this).logOut();
 		Intent logOutIntent = new Intent(this, LoginActivity.class);
 		logOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(logOutIntent);

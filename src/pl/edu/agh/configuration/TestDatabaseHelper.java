@@ -9,7 +9,6 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import pl.edu.agh.domain.accounts.Address;
-import pl.edu.agh.domain.accounts.Individual;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.accounts.UserAccountStatusEvent;
 import pl.edu.agh.domain.locations.Comment;
@@ -46,7 +45,6 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             Log.i(LOGGER_TAG, "Test Database - onCreate Method.");
-            TableUtils.createTable(connectionSource, Individual.class);
             TableUtils.createTable(connectionSource, UserAccount.class);
             TableUtils.createTable(connectionSource, UserAccountStatusEvent.class);
             TableUtils.createTable(connectionSource, Address.class);
@@ -76,7 +74,6 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Address.class, true);
             TableUtils.dropTable(connectionSource, UserAccountStatusEvent.class, true);
             TableUtils.dropTable(connectionSource, UserAccount.class, true);
-            TableUtils.dropTable(connectionSource, Individual.class, true);
             TableUtils.dropTable(connectionSource, Comment.class, true);
             onCreate(sqLiteDatabase, connectionSource);
         } catch(SQLException ex) {
