@@ -1,6 +1,7 @@
 package pl.edu.agh.fragments;
 
 import pl.edu.agh.activities.SettingsIssuePanelActivity;
+import pl.edu.agh.activities.settings.DefaultUserSettingsIssue;
 import pl.edu.agh.activities.settings.LanguageSettingsIssue;
 import pl.edu.agh.activities.settings.SettingsIssue;
 import pl.edu.agh.main.R;
@@ -23,7 +24,7 @@ public class SettingsIssuesListFragment extends AbstractListFragment<SettingsIss
     protected AbstractAdapter getAdapterInstance() {
         ArrayList<SettingsIssue> settingsIssuesList = new ArrayList<SettingsIssue>();
         settingsIssuesList.add(new LanguageSettingsIssue(getString(R.string.Settings_LanguageSettings)));
-        // TODO: add default user funcionality
+        settingsIssuesList.add(new DefaultUserSettingsIssue(getString(R.string.Settings_DefaultUser)));
 
         return new SettingsIssueAdapter(getActivity(), settingsIssuesList);
     }
@@ -35,7 +36,7 @@ public class SettingsIssuesListFragment extends AbstractListFragment<SettingsIss
 
     @Override
     protected AbstractDescriptionFragment getDetailsFragmentInstance(SettingsIssue settingsIssue, int index) {
-        return new SettingsIssuePanelFragment().newInstance(settingsIssue, index);
+        return SettingsIssuePanelFragment.newInstance(settingsIssue, index);
     }
 
     @Override

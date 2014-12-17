@@ -45,4 +45,18 @@ public class OrmLiteUserAccountRepository implements IUserAccountRepository {
 		return null;
 	}
 
+	@Override
+	public UserAccount getDefaultUser() {
+		List<UserAccount> userAccounts = ((TestDatabaseHelper) openHelper).getUserAccountRuntimeExceptionDao().queryForEq(UserAccountMapping.IS_DEFAULT_USER_COLUMN_NAME, true);
+		if ( !userAccounts.isEmpty() )
+			return userAccounts.get(0);
+		else
+			return null;
+	}
+
+	@Override
+	public List<UserAccount> getAllUsers() {
+		return ((TestDatabaseHelper) openHelper).getUserAccountRuntimeExceptionDao().queryForAll();
+	}
+
 }

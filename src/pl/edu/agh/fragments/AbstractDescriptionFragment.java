@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import pl.edu.agh.activities.settings.SettingsIssue;
 
 import java.io.Serializable;
 
@@ -37,6 +38,12 @@ public abstract class AbstractDescriptionFragment<T extends Serializable> extend
 		args.putSerializable(KEY_ITEM, listItem);
 		setArguments(args);
 	}
+
+	/*
+	Requires a following method to be implemented:
+
+	public static AbstractDescriptionFragment<T> newInstance(T item, long index);
+	 */
 
 	protected abstract int getLayoutId();
 

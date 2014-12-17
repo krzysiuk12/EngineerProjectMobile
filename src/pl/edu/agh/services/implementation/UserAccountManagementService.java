@@ -9,8 +9,10 @@ import pl.edu.agh.repositories.interfaces.IUserAccountRepository;
 import pl.edu.agh.serializers.LoginSerializer;
 import pl.edu.agh.serializers.common.ResponseSerializer;
 import pl.edu.agh.serializers.common.ResponseStatus;
+import pl.edu.agh.services.interfaces.IApplicationSettingsService;
 import pl.edu.agh.services.interfaces.IUserAccountManagementService;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -22,14 +24,18 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 
 	private static UserAccount USER_ACCOUNT = null;
 
+	private IApplicationSettingsService applicationSettingsService;
+
 	private IUserAccountRepository userAccountRepository;
 
 	public UserAccountManagementService() {
 		userAccountRepository = new OrmLiteUserAccountRepository(getHelper());
+		applicationSettingsService = new ApplicationSettingsService();
 	}
 
 	public UserAccountManagementService(Context context) {
 		userAccountRepository = new OrmLiteUserAccountRepository(getHelperInternal(context));
+		applicationSettingsService = new ApplicationSettingsService();
 	}
 
     public static String getToken() {
@@ -57,6 +63,15 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 		return false;
 	}
 
+	@Override
+	public boolean logAsDefault() {
+		UserAccount defaultUser = userAccountRepository.getDefaultUser();
+		if ( defaultUser != null)
+			return logIn(defaultUser.getLogin(), defaultUser.getPassword());
+		else
+			return false;
+	}
+
 	public void logOut() {
 		new LogOutAsyncTask(getToken()).execute();
 	}
@@ -74,6 +89,28 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 	@Override
 	public UserAccount getUserAccountByToken(String token) {
 		return userAccountRepository.getUserAccountByToken(token);
+	}
+
+	@Override
+	public void setAsDefaultUser(UserAccount user, boolean isDefault) {
+		if ( isDefault ) {
+			// set other users to false - only one user can be a default user
+			List<UserAccount> userAccounts = userAccountRepository.getAllUsers();
+
+			for (UserAccount userAccount : userAccounts) {
+				userAccount.setDefaultUser(false);
+				userAccountRepository.updateUserAccount(userAccount);
+			}
+		}
+
+		user.setDefaultUser(isDefault);
+		userAccountRepository.updateUserAccount(user);
+	}
+
+	@Override
+	public void changeLanguagePreferenceForUser(UserAccount user, UserAccount.Language language) {
+		user.setLanguage(language);
+		userAccountRepository.updateUserAccount(user);
 	}
 
 	// <editor-fold description="Private methods">

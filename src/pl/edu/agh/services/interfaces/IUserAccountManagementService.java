@@ -9,6 +9,8 @@ public interface IUserAccountManagementService {
 
 	public boolean logIn(String login, String password);
 
+	public boolean logAsDefault();
+
 	public void logOut();
 
 	public void saveUserAccount(UserAccount userAccount);
@@ -16,5 +18,9 @@ public interface IUserAccountManagementService {
 	public UserAccount getUserAccountByLogin(String login);
 
 	public UserAccount getUserAccountByToken(String token);
+
+	public void setAsDefaultUser(UserAccount user, boolean isDefault);
+
+	public void changeLanguagePreferenceForUser(UserAccount user, UserAccount.Language language);
 
 }

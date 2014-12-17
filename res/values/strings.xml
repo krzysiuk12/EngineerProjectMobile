@@ -55,4 +55,6 @@
     <string name="Settings.Language.Button">Change</string>
     <string name="Settings.LanguageSettings">Language Settings</string>
 
+    <string name="Settings.DefaultUser">Default User</string>
+
 </resources>

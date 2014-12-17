@@ -15,7 +15,7 @@ public class HelpElementDescriptionFragment  extends AbstractDescriptionFragment
 
     private HelpElement displayedHelpElement;
 
-    public static HelpElementDescriptionFragment newInstance(HelpElement helpElement, int index) {
+    public static HelpElementDescriptionFragment newInstance(HelpElement helpElement, long index) {
         HelpElementDescriptionFragment fragment = new HelpElementDescriptionFragment();
         fragment.setInitialArguments(index, helpElement);
         return fragment;

@@ -14,6 +14,11 @@ import java.io.Serializable;
 @DatabaseTable(tableName = UserAccountMapping.TABLE_NAME)
 public class UserAccount extends BaseObject implements Serializable {
 
+    public enum Language implements Serializable {
+        EN,
+        PL
+    }
+
     @DatabaseField(columnName = UserAccountMapping.TOKEN_COLUMN_NAME, canBeNull = false, width = 50)
     private String token;
 
@@ -30,7 +35,7 @@ public class UserAccount extends BaseObject implements Serializable {
     private boolean isDefaultUser;
 
     @DatabaseField(columnName = UserAccountMapping.LANGUAGE_COLUMN_NAME)
-    private String language;
+    private Language language;
 
     public UserAccount() {
     }
@@ -71,10 +76,10 @@ public class UserAccount extends BaseObject implements Serializable {
     }
 
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
-    public void setLanguage(String language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 

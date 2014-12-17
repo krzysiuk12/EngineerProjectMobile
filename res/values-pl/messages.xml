@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="AddLocation.NewLocationAdded">Nowa lokalizacja została dodana</string>
+    <string name="AddLocation.NewLocationNotAdded">Przepraszamy, wystąpił błąd przy dodawaniu lokacji.</string>
+
+    <string name="Setting.Success">Ustawienie zostało zapisane</string>
+
+    <string name="LanguageSetting.Success">Ustawienia języka zostały zmienione</string>
+
+    <string name="DefaultUserSetting.Success">Domyślny użytkownik został ustawiony</string>
+</resources>

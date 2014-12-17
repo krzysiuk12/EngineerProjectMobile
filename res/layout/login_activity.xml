@@ -85,18 +85,18 @@
 						android:textAppearance="@style/White_Login"
 						android:textColor="@android:color/white"/>
 
-				<Button
-						android:id="@+id/LoginActivity.LoginAsGuest"
-						android:layout_width="match_parent"
-						android:width="@dimen/LoginActivity.Layout.Width.Max"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="@dimen/LoginActivity.Button.Margin"
-						android:layout_marginBottom="@dimen/LoginActivity.Button.Margin"
-						android:text="@string/LoginActivity.LogAsGuest"
-						android:padding="@dimen/LoginActivity.Button.Padding"
-						android:background="@drawable/shape_filled_grey"
-						android:textAppearance="@style/White_Login"
-						android:textColor="@android:color/white"/>
+				<!--<Button-->
+						<!--android:id="@+id/LoginActivity.LoginAsGuest"-->
+						<!--android:layout_width="match_parent"-->
+						<!--android:width="@dimen/LoginActivity.Layout.Width.Max"-->
+						<!--android:layout_height="wrap_content"-->
+						<!--android:layout_marginTop="@dimen/LoginActivity.Button.Margin"-->
+						<!--android:layout_marginBottom="@dimen/LoginActivity.Button.Margin"-->
+						<!--android:text="@string/LoginActivity.LogAsGuest"-->
+						<!--android:padding="@dimen/LoginActivity.Button.Padding"-->
+						<!--android:background="@drawable/shape_filled_grey"-->
+						<!--android:textAppearance="@style/White_Login"-->
+						<!--android:textColor="@android:color/white"/>-->
 			</LinearLayout>
 
 

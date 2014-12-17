@@ -1,27 +1,24 @@
 package pl.edu.agh.activities.settings;
 
-import android.content.res.Configuration;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
+import pl.edu.agh.domain.accounts.UserAccount;
+import pl.edu.agh.fragments.SettingsIssuePanelFragment;
+import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
-import pl.edu.agh.services.implementation.AndroidLogService;
-
-import java.util.Locale;
+import pl.edu.agh.services.implementation.ApplicationSettingsService;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 /**
  * Created by Magda on 2014-11-19.
  */
 public class LanguageSettingsIssue extends SettingsIssue {
 
-	public enum Language {
-		EN,
-		PL
-	}
-
-	private Language currentLanguage;
+	private UserAccount.Language currentLanguage;
 
 	public LanguageSettingsIssue(String label) {
 		super(label, R.layout.settings_language);
@@ -29,8 +26,6 @@ public class LanguageSettingsIssue extends SettingsIssue {
 
 	@Override
 	public void initializeView(View view) {
-		super.initializeView(view);
-
 		configureLanguageSpinner(view);
 
 		((Button) view.findViewById(R.id.Settings_Language_Button)).setOnClickListener(new View.OnClickListener() {
@@ -43,30 +38,28 @@ public class LanguageSettingsIssue extends SettingsIssue {
 
 	private void configureLanguageSpinner(View view) {
 		Spinner languageSpinner = ((Spinner) view.findViewById(R.id.Settings_Language_Spinner));
-		ArrayAdapter<Language> adapter = new ArrayAdapter<Language>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, Language.values());
+		ArrayAdapter<UserAccount.Language> adapter = new ArrayAdapter<UserAccount.Language>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, UserAccount.Language.values());
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		languageSpinner.setAdapter(adapter);
 
 		languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				currentLanguage = (Language) parent.getItemAtPosition(position);
+				currentLanguage = (UserAccount.Language) parent.getItemAtPosition(position);
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				currentLanguage = Language.EN;
+				currentLanguage = UserAccount.Language.EN;
 			}
 		});
 	}
 
 	private void onLanguageChange(View view) {
-		Locale locale = new Locale(currentLanguage.toString());
-		Locale.setDefault(locale);
-		Configuration config = new Configuration();
-		config.locale = locale;
-		view.getContext().getResources().updateConfiguration(config, view.getContext().getResources().getDisplayMetrics());
-		// TODO: save setting in databse
+		// TODO: combine this into one method!
+		new ApplicationSettingsService().changeLanguagePreference(view, currentLanguage);
+		new UserAccountManagementService(view.getContext()).changeLanguagePreferenceForUser(UserAccountManagementService.getUserAccount(), currentLanguage);
+		getFragment().showSuccessToastAndFinish();
 	}
 
 }

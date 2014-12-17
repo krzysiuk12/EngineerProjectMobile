@@ -32,24 +32,6 @@
 
     <string name="LocationDescription.Image">Obrazek</string>
 
-    <string name="AddLocation.NewLocationAdded">Nowa lokalizacja została dodana</string>
-    <string name="AddLocation.NewLocationNotAdded">Przepraszamy, wystąpił błąd przy dodawaniu lokacji.</string>
-
-    <string name="AddLocationMenu.Help.Title">Pomoc</string>
-    <string name="AddLocationMenu.Search.Title">Wyszukaj</string>
-    <string name="AddLocationMenu.Title">Dodaj lokację</string>
-    <string name="AddLocationMenu.Settings.Title">Ustawienia</string>
-
-    <string name="Menu.GoogleType">Typ Mapy Google</string>
-    <string name="Menu.GoogleType.Hybrid">Hybrydowa</string>
-    <string name="Menu.GoogleType.Normal">Normalna</string>
-    <string name="Menu.GoogleType.Satellite">Satelitarna</string>
-    <string name="Menu.GoogleType.Terrain">Terenowa</string>
-
-    <string name="SettingsMenu.Issue.Title">Ustawienia</string>
-    <string name="SettingsMenu.Title">Ustawienia</string>
-    <string name="HelpMenu.Title">Pomoc</string>
-    <string name="HelpMenu.Element.Title">Element Pomocy</string>
     <string name="Location.Latitude">Szerokość geograficzna</string>
     <string name="Location.Longitude">Długość geograficzna</string>
     <string name="Settings.Language.Button">Zmień</string>
@@ -58,15 +40,6 @@
         mapie!</string>
     <string name="ShowAllLocationsOnMapActivity.NoLocationFoundError">Wystąpił błąd. Nie ma takiej lokalizacji.</string>
     <string name="ShowAllLocationsOnMapActivity.SearchError">Wystąpił błąd w trakcie wyszukiwania, bardzo przepraszamy.</string>
-    <string name="ShowAllLocationsOnMapMenu.Help.Title">Pomoc</string>
-    <string name="ShowAllLocationsOnMapMenu.Search.InMemory">Szukaj w aplikacji</string>
-    <string name="ShowAllLocationsOnMapMenu.Search.Online">Szukaj online</string>
-    <string name="ShowAllLocationsOnMapMenu.Search.Title">Szukaj</string>
-    <string name="ShowAllLocationsOnMapMenu.Setting.Title">Ustawienia</string>
-    <string name="ShowAllLocationsOnMapMenu.Title">Pokaż lokacje na mapie</string>
-    <string name="ShowLocationsMenu.Description.Title">Opis lokalizacji</string>
-    <string name="ShowLocationsMenu.Title">Pokaż lokalizacje</string>
-    <string name="ShowPrivateLocationsOnMapMenu.Help.Title">Pomoc</string>
     <string name="TripException.ValidationError.AuthorIsRequired">Autor jest wymagany</string>
     <string name="TripException.ValidationError.EndDateIsRequired">Data zakończenia jest wymagana</string>
     <string name="TripException.ValidationError.NameIsRequired">Nazwa wycieczki jest wymagana</string>
@@ -78,20 +51,7 @@
     <string name="Trip.EndDate">Data zakończenia</string>
     <string name="Trip.Name">Nazwa</string>
     <string name="Trip.StartDate">Data rozpoczęcia</string>
-    <string name="ShowPrivateLocationsOnMapMenu.Search.InMemory">Szukaj w aplikacji</string>
-    <string name="ShowPrivateLocationsOnMapMenu.Search.Online">Szukaj online</string>
-    <string name="ShowPrivateLocationsOnMapMenu.Search.Title">Szukaj</string>
-    <string name="ShowPrivateLocationsOnMapMenu.Setting.Title">Ustawienia</string>
-    <string name="ShowPrivateLocationsOnMapMenu.Title">Pokaż moje lokalizacje na mapie</string>
-    <string name="ShowTrips.TripItem.DatesSeparator">-</string>
     <string name="ShowTrips.TripDetails.ShowTripDayDetails">Pokaż dzień wycieczki</string>
-    <string name="ShowTripsMenu.Details.Title">Szczegóły wycieczki</string>
-    <string name="ShowTripsMenu.Title">Pokaż wycieczki</string>
-    <string name="ShowTripsMenu.TripViewMode.All">Wszystkie</string>
-    <string name="ShowTripsMenu.TripViewMode.Current">Aktualne</string>
-    <string name="ShowTripsMenu.TripViewMode.Future">Przeszłe</string>
-    <string name="ShowTripsMenu.TripViewMode.Past">Przyszłe</string>
-    <string name="ShowTripsMenu.TripViewMode.Title">Tryp widoku</string>
     <string name="Synchronization.DownloadLocations">Ściągnij lokalizacje</string>
     <string name="Synchronization.ManageTrips">Zarządzaj wycieczkami</string>
     <string name="Synchronization.ManageTrips.Download">Ściągnij</string>
@@ -103,7 +63,7 @@
     <string name="Synchronization.SendLocations.Private">Prywatne</string>
     <string name="Synchronization.SendLocations.Public">Publiczne</string>
     <string name="Synchronization.SendLocationsButton">Wyslij lokalizacje</string>
-    <string name="SynchronizationMenu.Title">Synchronizacja</string>
     <string name="Settings.LanguageSettings">Ustawienie języka</string>
+    <string name="Settings.DefaultUser">Domyślny użytkownik</string>
 
 </resources>

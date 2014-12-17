@@ -22,8 +22,8 @@ public class HelpElementsListFragment extends AbstractListFragment<HelpElement> 
     protected AbstractAdapter getAdapterInstance() {
 
         ArrayList<HelpElement> helpElementsList = new ArrayList<HelpElement>();
-        helpElementsList.add(new HelpElement("TestHelpElement", R.layout.help_element_test_fragment));
-        helpElementsList.add(new HelpElement("MainMenuElement", R.layout.help_element_main_menu_fragment));
+//        helpElementsList.add(new HelpElement("TestHelpElement", R.layout.help_element_test_fragment));
+        helpElementsList.add(new HelpElement(getString(R.string.HelpElementDescription_MainMenu_Title), R.layout.help_element_main_menu_fragment));
 
         return new HelpElementAdapter(getActivity(), helpElementsList);
     }

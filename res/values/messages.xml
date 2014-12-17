@@ -2,4 +2,10 @@
 <resources>
     <string name="AddLocation.NewLocationAdded">New location has been added</string>
     <string name="AddLocation.NewLocationNotAdded">Sorry! Adding new location failed</string>
+
+    <string name="Setting.Success">Setting has been changed</string>
+
+    <string name="LanguageSetting.Success">Language setting changed</string>
+
+    <string name="DefaultUserSetting.Success">Default user has been set</string>
 </resources>
