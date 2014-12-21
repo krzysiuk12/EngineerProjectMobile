@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_marginLeft="@dimen/WizardPageMainLayout.Margin.Left"
@@ -11,11 +10,13 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_weight="1">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="50dp"
                 android:textAppearance="@style/WizardPage.Title"
                 android:text="@string/TripCreatorInitPage.Title"
                 android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
@@ -35,7 +36,9 @@
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/icon_arrow"
+                android:background="@drawable/shape_filled_green"
+                android:textColor="@android:color/white"
+                android:padding="@dimen/LoginActivity.Button.Padding"
                 android:text="@string/TripCreatorInitPage.StartButton"
                 android:id="@+id/TripCreatorInitPage.StartButton"/>
     </LinearLayout>

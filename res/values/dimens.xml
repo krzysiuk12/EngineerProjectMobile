@@ -47,5 +47,6 @@
     <dimen name="WizardPageSmallText.Margin.Bottom">5dp</dimen>
     <dimen name="WizardPageMainLayout.Margin.Left">20dp</dimen>
     <dimen name="WizardPageMainLayout.Margin.Right">20dp</dimen>
+    <dimen name="WizardPageMainLayout.Margin.Top">10dp</dimen>
 
 </resources>
