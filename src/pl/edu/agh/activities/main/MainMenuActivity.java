@@ -21,6 +21,8 @@ import pl.edu.agh.activities.locations.AddLocationActivity;
 import pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity;
 import pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity;
 import pl.edu.agh.activities.settings.SettingsActivity;
+import pl.edu.agh.activities.tripcreator.TripCreatorActivity;
+import pl.edu.agh.activities.tripcreator.TripCreatorWizardPageActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.SynchronizationService;
@@ -129,6 +131,14 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 		    }
 	    });
 
+        getCreateTripButton().setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                showWizardCreatorActivity(view);
+            }
+        });
+
     }
     //</editor-fold>
 
@@ -192,6 +202,7 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 	private Button getLogoutButton() {
 		return (Button) findViewById(R.id.MainMenu_LogoutButton);
 	}
+
 	//</editor-fold>
 
     //<editor-fold desc="Actions">
@@ -222,9 +233,9 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 
     private void showSettings(View view) { startActivity(new Intent(this, SettingsActivity.class ));}
 
-    private void showSynchronizationActivity(View view) {
-        startActivity(new Intent(this, SynchronizationActivity.class));
-    }
+    private void showSynchronizationActivity(View view) { startActivity(new Intent(this, SynchronizationActivity.class)); }
+
+    private void showWizardCreatorActivity(View view) { startActivity(new Intent(this, TripCreatorActivity.class )); }
 
 	private void logOut(View view) {
 		new UserAccountManagementService(this).logOut();

@@ -21,8 +21,9 @@
 
             <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="@dimen/WizardPageMainLayout.Margin.Top">
 
                 <Button
                         android:layout_width="wrap_content"
@@ -36,9 +37,9 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/WizardPage.Title"
                         android:text="@string/TripCreatorMainSettingsPage.Title"
-                        android:gravity="center"
                         android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
                         android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
                         android:id="@+id/TripCreatorMainSettingsPage.Title"/>
 
                 <Button
@@ -49,61 +50,72 @@
                         android:id="@+id/TripCreatorMainSettingsPage.GoNextButton"/>
             </LinearLayout>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/WizardPage.SmallText"
-                    android:text="@string/TripCreatorMainSettingsPage.TripNameLabel"
-                    android:layout_marginBottom="@dimen/WizardPageSmallText.Margin.Bottom"
-                    android:id="@+id/TripCreatorMainSettingsPage.TripNameLabel"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="@dimen/WizardPageMainLayout.Margin.Left"
+                    android:layout_marginRight="@dimen/WizardPageMainLayout.Margin.Right"
+                    android:gravity="center">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/WizardPage.SmallText"
+                        android:text="@string/TripCreatorMainSettingsPage.TripNameLabel"
+                        android:layout_marginBottom="@dimen/WizardPageSmallText.Margin.Bottom"
+                        android:id="@+id/TripCreatorMainSettingsPage.TripNameLabel"/>
 
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
-                    android:id="@+id/TripCreatorMainSettingsPage.TripNameTextView"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
+                        android:id="@+id/TripCreatorMainSettingsPage.TripNameTextView"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/WizardPage.SmallText"
-                    android:text="@string/TripCreatorMainSettingPage.TripDescriptionLabel"
-                    android:layout_marginBottom="@dimen/WizardPageSmallText.Margin.Bottom"
-                    android:id="@+id/TripCreatorMainSettingPage.TripDescriptionLabel"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/WizardPage.SmallText"
+                        android:text="@string/TripCreatorMainSettingPage.TripDescriptionLabel"
+                        android:layout_marginBottom="@dimen/WizardPageSmallText.Margin.Bottom"
+                        android:id="@+id/TripCreatorMainSettingPage.TripDescriptionLabel"/>
 
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
-                    android:id="@+id/TripCreatorMainSettingPage.TripDescriptionTextView"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
+                        android:id="@+id/TripCreatorMainSettingPage.TripDescriptionTextView"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/WizardPage.SmallText"
-                    android:text="@string/TripCreatorMainSettingsPage.TripStartDate"
-                    android:id="@+id/textView7"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/WizardPage.SmallText"
+                        android:text="@string/TripCreatorMainSettingsPage.TripStartDate"
+                        android:id="@+id/textView7"/>
 
-            <DatePicker
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
-                    android:id="@+id/datePicker"/>
+                <DatePicker
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
+                        android:id="@+id/datePicker"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/WizardPage.SmallText"
-                    android:text="@string/TripCreatorMainSettingsPage.TripEndDate"
-                    android:id="@+id/textView8"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/WizardPage.SmallText"
+                        android:text="@string/TripCreatorMainSettingsPage.TripEndDate"
+                        android:id="@+id/textView8"/>
 
-            <DatePicker
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
-                    android:id="@+id/datePicker2"/>
+                <DatePicker
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
+                        android:id="@+id/datePicker2"/>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
     </ScrollView>
