@@ -30,8 +30,8 @@ public class OrmLiteLocationRepository implements ILocationRepository {
     }
 
     @Override
-    public void saveLocation(Location location) {
-        ((TestDatabaseHelper)openHelper).getLocationsRuntimeExceptionDao().create(location);
+    public int saveLocation(Location location) {
+        return ((TestDatabaseHelper)openHelper).getLocationsRuntimeExceptionDao().create(location);
     }
 
 	@Override

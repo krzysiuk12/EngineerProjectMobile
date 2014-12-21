@@ -2,6 +2,7 @@ package pl.edu.agh.asynctasks.builders.requests;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -12,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 public class HttpRequestBuilder {
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
+
+    private static final int TIMEOUT = 10 * 1000;
 
     public static HttpHeaders getHttpHeadersWithHeader(String token) {
         HttpHeaders headers = new HttpHeaders();
@@ -28,12 +31,14 @@ public class HttpRequestBuilder {
 
     public static RestTemplate getRestTemplateWithJacksonConverter() {
         RestTemplate restTemplate = new RestTemplate();
+        ((SimpleClientHttpRequestFactory) restTemplate.getRequestFactory()).setConnectTimeout(TIMEOUT);
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         return restTemplate;
     }
 
     public static RestTemplate getRestTemplateWithJacksonAndStringConverter() {
         RestTemplate restTemplate = new RestTemplate();
+        ((SimpleClientHttpRequestFactory) restTemplate.getRequestFactory()).setConnectTimeout(TIMEOUT);
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
         return restTemplate;

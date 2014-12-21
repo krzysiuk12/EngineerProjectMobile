@@ -1,6 +1,7 @@
 package pl.edu.agh.services.implementation;
 
 import android.content.Context;
+import org.springframework.web.client.RestClientException;
 import pl.edu.agh.asynctasks.authorization.LogInAsyncTask;
 import pl.edu.agh.asynctasks.authorization.LogOutAsyncTask;
 import pl.edu.agh.domain.accounts.UserAccount;
@@ -12,6 +13,7 @@ import pl.edu.agh.serializers.common.ResponseStatus;
 import pl.edu.agh.services.interfaces.IApplicationSettingsService;
 import pl.edu.agh.services.interfaces.IUserAccountManagementService;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -54,12 +56,14 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 				saveUserInSession(login, password);
 				return true;
 			}
+		} catch (RestClientException e ) {
+			getLogService().error(e.toString());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-		// todo: error handling : return List<ErrorMessage> ?
+		// todo: error handling : return List<ErrorMessage> ? Rather : throw exceptions
 		return false;
 	}
 

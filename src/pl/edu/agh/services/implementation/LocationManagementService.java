@@ -62,13 +62,21 @@ public class LocationManagementService extends BaseService implements ILocationM
 	}
 
 	@Override
-	public void saveLocation(Location location) throws LocationException {
+	public int saveLocation(Location location) throws LocationException {
 		location.setCreationDate(new Date());
 		List<FormValidationError> errors = validateLocation(location);
 		if ( !errors.isEmpty() ) {
 			throw new LocationException(errors);
 		}
-		locationRepository.saveLocation(location);
+		return locationRepository.saveLocation(location);
+	}
+
+	@Override
+	public int saveNewLocation(Location location) throws LocationException {
+		location.setSynced(false);
+		location.setCreationDate(new Date());
+		location.setCreatedByAccount(UserAccountManagementService.getUserAccount());
+		return saveLocation(location);
 	}
 
 	@Override
@@ -124,6 +132,16 @@ public class LocationManagementService extends BaseService implements ILocationM
 	}
 
 	@Override
+	public List<Location> getAllNewLocations() throws LocationException {
+		List<Location> privateLocations = getAllNewPrivateLocations();
+		List<Location> publicLocations = getAllNewPublicLocations();
+		List<Location> allLocations = new ArrayList<>();
+		allLocations.addAll(privateLocations);
+		allLocations.addAll(publicLocations);
+		return allLocations;
+	}
+
+	@Override
 	public List<Location> getAllNewPrivateLocations() throws LocationException {
 		return locationRepository.getAllNewPrivateLocations();
 	}
@@ -135,6 +153,10 @@ public class LocationManagementService extends BaseService implements ILocationM
 
 	private List<FormValidationError> validateAddress(Address address) {
 		List<FormValidationError> errors = new ArrayList<>();
+		if ( address == null ) {
+			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_ADDRESS_IS_REQUIRED.getStringResourceId()));
+			return errors;
+		}
 		if ( StringTools.isNullOrEmpty(address.getCountry()) ) {
 			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_COUNTRY_IS_REQUIRED.getStringResourceId()));
 		}

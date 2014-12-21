@@ -38,6 +38,7 @@ public class UserAccount extends BaseObject implements Serializable {
     private Language language;
 
     public UserAccount() {
+        language = Language.EN;
     }
 
     public String getToken() {

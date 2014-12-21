@@ -314,11 +314,7 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
             new ErrorToastBuilder(this, getString(R.string.LocationException_ValidationError_LocationOnMapIsRequired)).build().show();  // todo: do sth with stack so the back button will work correctly
         } else {
             try {
-                getLocation().setCreationDate(new Date());
-                getLocation().setSynced(false);
-                getLocation().setCreatedByAccount(UserAccountManagementService.getUserAccount());
-
-                getLocationManagementService().saveLocation(location);
+                getLocationManagementService().saveNewLocation(location);
 
                 new InfoToastBuilder(this, StringUtils.getString(this, R.string.AddLocation_NewLocationAdded)).build().show();
                 finish();

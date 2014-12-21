@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ILocationRepository {
 
-    public void saveLocation(Location location) throws LocationException;
+    public int saveLocation(Location location) throws LocationException;
 
     public void saveOrUpdateLocation(Location location) throws LocationException;
 

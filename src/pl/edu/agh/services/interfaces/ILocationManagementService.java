@@ -14,7 +14,9 @@ public interface ILocationManagementService {
 
     public List<FormValidationError> validateLocation(Location location) throws LocationException;
 
-    public void saveLocation(Location location) throws LocationException;
+    public int saveLocation(Location location) throws LocationException;
+
+    public int saveNewLocation(Location location) throws LocationException;
 
     public void updateLocation(Location location) throws LocationException;
 
@@ -31,6 +33,8 @@ public interface ILocationManagementService {
     public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException;
 
     public List<Location> getAllUserPrivateLocations(String token) throws LocationException;
+
+    public List<Location> getAllNewLocations() throws LocationException;
 
     public List<Location> getAllNewPrivateLocations() throws LocationException;
 

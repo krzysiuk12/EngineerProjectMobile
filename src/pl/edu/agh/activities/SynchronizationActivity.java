@@ -65,6 +65,7 @@ public class SynchronizationActivity extends OrmLiteBaseActivity<TestDatabaseHel
 				break;
 
 			case BOTH:
+				synchronizationService.sendAllNewLocations();
 				break;
 
 		}

@@ -202,8 +202,14 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	}
 
 	@Override
-	public void sendTrips() {
+	public void sendAllNewLocations() {
+		sendNewPrivateLocations();
+		sendNewPublicLocations();
+	}
 
+	@Override
+	public void sendTrips() {
+		// TODO: sending trips
 	}
 
 	public class LocalBinder extends Binder {
