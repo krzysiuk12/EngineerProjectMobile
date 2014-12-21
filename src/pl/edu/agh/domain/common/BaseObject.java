@@ -2,10 +2,12 @@ package pl.edu.agh.domain.common;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.io.Serializable;
+
 /**
  * Created by Krzysiu on 2014-09-14.
  */
-public abstract class BaseObject {
+public abstract class BaseObject implements Serializable {
 
     @DatabaseField(columnName = "id", generatedId = true)
     private int id;

@@ -30,12 +30,30 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final ILogService logService = new AndroidLogService();
     private static final String LOGGER_TAG = TestDatabaseHelper.class.getName();
 
+    // <editor-fold description="Daos">
+
     private Dao<Location, Long> locationsDao;
     private RuntimeExceptionDao<Location, Long> locationsRuntimeExceptionDao;
+
     private Dao<Trip, Long> tripDao;
     private RuntimeExceptionDao<Trip, Long> tripRuntimeExceptionDao;
+
+    private Dao<TripDay, Long> tripDayDao;
+    private RuntimeExceptionDao<TripDay, Long> tripDayRuntimeExceptionDao;
+
+    private Dao<TripDayLocation, Long> tripDayLocationDao;
+    private RuntimeExceptionDao<TripDayLocation, Long> tripDayLocationRuntimeExceptionDao;
+
+    private Dao<TripStep, Long> tripStepDao;
+    private RuntimeExceptionDao<TripStep, Long> tripStepRuntimeExceptionDao;
+
+    private Dao<TripDirection, Long> tripDirectionDao;
+    private RuntimeExceptionDao<TripDirection, Long> tripDirectionRuntimeExceptionDao;
+
     private Dao<UserAccount, Long> userAccountDao;
     private RuntimeExceptionDao<UserAccount, Long> userAccountRuntimeExceptionDao;
+
+    // </editor-fold>
 
     public TestDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -82,6 +100,8 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    // <editor-fold description="DAO - getters">
+
     public Dao<Location, Long> getLocationsDao() throws SQLException {
         if(locationsDao == null) {
             locationsDao = getDao(Location.class);
@@ -110,6 +130,62 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
         return tripRuntimeExceptionDao;
     }
 
+    public Dao<TripDay, Long> getTripDayDao() throws SQLException {
+        if ( tripDayDao == null ) {
+            tripDayDao = getDao(TripDay.class);
+        }
+        return tripDayDao;
+    }
+
+    public RuntimeExceptionDao<TripDay, Long> getTripDayRuntimeExceptionDao() {
+        if ( tripDayRuntimeExceptionDao == null ) {
+            tripDayRuntimeExceptionDao = getRuntimeExceptionDao(TripDay.class);
+        }
+        return tripDayRuntimeExceptionDao;
+    }
+
+    public Dao<TripDayLocation, Long> getTripDayLocationDao() throws SQLException{
+        if ( tripDayLocationDao == null ) {
+            tripDayLocationDao = getDao(TripDayLocation.class);
+        }
+        return tripDayLocationDao;
+    }
+
+    public RuntimeExceptionDao<TripDayLocation, Long> getTripDayLocationRuntimeExceptionDao() {
+        if ( tripDayLocationRuntimeExceptionDao == null ) {
+            tripDayLocationRuntimeExceptionDao = getRuntimeExceptionDao(TripDayLocation.class);
+        }
+        return tripDayLocationRuntimeExceptionDao;
+    }
+
+    public Dao<TripStep, Long> getTripStepDao() throws SQLException{
+        if ( tripStepDao == null ) {
+            tripStepDao = getDao(TripStep.class);
+        }
+        return tripStepDao;
+    }
+
+    public RuntimeExceptionDao<TripStep, Long> getTripStepRuntimeExceptionDao() {
+        if ( tripStepRuntimeExceptionDao == null ) {
+            tripStepRuntimeExceptionDao = getRuntimeExceptionDao(TripStep.class);
+        }
+        return tripStepRuntimeExceptionDao;
+    }
+
+    public Dao<TripDirection, Long> getTripDirectionDao() throws SQLException {
+        if ( tripDirectionDao == null ) {
+            tripDirectionDao = getDao(TripDirection.class);
+        }
+        return tripDirectionDao;
+    }
+
+    public RuntimeExceptionDao<TripDirection, Long> getTripDirectionRuntimeExceptionDao() {
+        if ( tripDirectionRuntimeExceptionDao == null ) {
+            tripDirectionRuntimeExceptionDao = getRuntimeExceptionDao(TripDirection.class);
+        }
+        return tripDirectionRuntimeExceptionDao;
+    }
+
     public Dao<UserAccount, Long> getUserAccountDao() throws SQLException {
         if ( userAccountDao == null ) {
             userAccountDao = getDao(UserAccount.class);
@@ -123,6 +199,8 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
         return userAccountRuntimeExceptionDao;
     }
+
+    // </editor-fold>
 
     @Override
     public void close() {

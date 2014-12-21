@@ -8,10 +8,12 @@ import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.GetAllPrivateLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewPrivateLocationAsyncTask;
+import pl.edu.agh.asynctasks.trips.GetAllTripDayDetailsAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetMyTripsAsyncTask;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.domain.trips.Trip;
+import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
@@ -37,30 +39,14 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 	ILocationManagementService locationManagementService;
 	ITripManagementService tripManagementService;
-	OrmLiteLocationRepository locationRepository;
-	OrmLiteTripRepository tripRepository;
 	IBinder binder = new LocalBinder();
-
-	public SynchronizationService() {
-		super();
-		tripManagementService = new TripManagementService();
-		locationManagementService = new LocationManagementService();
-		locationRepository = new OrmLiteLocationRepository(getHelper());
-		tripRepository = new OrmLiteTripRepository(getHelper());
-	}
 
 	public SynchronizationService(Context context) {
 		tripManagementService = new TripManagementService(context);
 		locationManagementService = new LocationManagementService(context);
 	}
 
-	public SynchronizationService(OrmLiteLocationRepository locationRepository) {
-		this.locationRepository = locationRepository;
-	}
-
-	public SynchronizationService(OrmLiteTripRepository tripRepository) {
-		this.tripRepository = tripRepository;
-	}
+	// <editor-fold description="Downloading Locations">
 
 	// TODO : remove, testing purposes (small db)
 	@Override
@@ -113,6 +99,15 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	}
 
 	@Override
+	public void downloadLocationsInScope(double latitude, double longitute) {
+		// TODO: main download method - uses map!
+	}
+
+	// </editor-fold>
+
+	// <editor-fold="Downloading trips">
+
+	@Override
 	public void downloadTrips() {
 		getLogService().debug("SynchronizationService", "downloadTrips start");
 		ArrayList<Trip> trips = new ArrayList<>();
@@ -126,11 +121,14 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		}
 
 		getLogService().debug("SynchronizationService", "downloaded trips: " + trips.size());
-		if ( !trips.isEmpty() )
-			getLogService().debug((trips.get(0)).toString());
+		if ( !trips.isEmpty() ) {
+			for ( Trip trip : trips ) {
+//				downloadTripDetails(trip);
+			}
+		}
 
 		for ( Trip trip : trips ) {
-			trip.setAuthor(UserAccountManagementService.getUserAccount());
+			trip.setAuthor(UserAccountManagementService.getUserAccount());  // TODO: move up to create downloadTripsForUser
 			try {
 				tripManagementService.saveTrip(trip);
 			} catch (TripException e) {
@@ -139,6 +137,28 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		}
 		getLogService().debug("SynchronizationService", "downloadTrips end");
 	}
+
+	public void downloadTripDetails(Trip trip) {
+		if ( trip.getDays() != null ) {
+			List<TripDay> newTripDays = new ArrayList<>();
+			for ( TripDay day : trip.getDays() ) {
+				try {
+					TripDay allTripDayData = new GetAllTripDayDetailsAsyncTask(UserAccountManagementService.getToken(), day.getId()).execute().get();
+					newTripDays.add(allTripDayData);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
+				getLogService().debug(day.toString());
+			}
+			trip.setDays(newTripDays);
+		}
+	}
+
+	// </editor-fold>
+
+	// <editor-fold description="Sending Locations">
 
 	@Override
 	public void sendNewPublicLocations() {
@@ -176,7 +196,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		try {
 			locations = locationManagementService.getAllNewPrivateLocations();
 		} catch (LocationException e) {
-			e.printStackTrace();
+			getLogService().error(getClass().getName(), e.toString());
 		}
 		if ( locations == null )
 			return;
@@ -206,6 +226,8 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		sendNewPrivateLocations();
 		sendNewPublicLocations();
 	}
+
+	// </editor-fold>
 
 	@Override
 	public void sendTrips() {

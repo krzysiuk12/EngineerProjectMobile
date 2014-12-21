@@ -2,8 +2,12 @@ package pl.edu.agh.services.implementation;
 
 import android.content.Context;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import pl.edu.agh.configuration.TestDatabaseManager;
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.trips.Trip;
+import pl.edu.agh.domain.trips.TripDay;
+import pl.edu.agh.domain.trips.TripDayLocation;
+import pl.edu.agh.domain.trips.TripDirection;
+import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.FormValidationError;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
@@ -12,6 +16,7 @@ import pl.edu.agh.services.interfaces.ITripManagementService;
 import pl.edu.agh.tools.StringTools;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -62,6 +67,18 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		if ( !errors.isEmpty() ) {
 			throw new TripException(errors);
 		}
+		saveTripDays(trip);
+		tripRepository.saveTrip(trip);
+	}
+
+	@Override
+	public void saveNewTrip(Trip trip, UserAccount userAccount) throws TripException {
+		trip.setAuthor(userAccount);
+
+		List<FormValidationError> errors = validateTrip(trip);
+		if ( !errors.isEmpty() ) {
+			throw new TripException(errors);
+		}
 
 		tripRepository.saveTrip(trip);
 	}
@@ -87,6 +104,11 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	}
 
 	@Override
+	public List<Trip> getNewUserTrips(String token) {
+		return null;
+	}
+
+	@Override
 	public Trip getTripById(long id) throws TripException {
 		return tripRepository.getTripById(id);
 	}
@@ -95,4 +117,50 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	public Trip getTripByName(String name) throws TripException {
 		return tripRepository.getTripByName(name);
 	}
+
+	@Override
+	public void saveTripDays(Trip trip) throws TripException {
+		for ( TripDay tripDay : trip.getDays() ) {
+			tripDay.setTrip(trip);
+			saveTripDay(tripDay);
+		}
+	}
+
+	@Override
+	public void saveTripDay(TripDay tripDay) throws TripException {
+		Collection<TripDayLocation> locations = tripDay.getLocations();
+		Collection<TripStep> tripSteps = tripDay.getTripSteps();
+		tripRepository.saveTripDay(tripDay);
+
+		tripDay.setLocations(null);
+		for (TripDayLocation dayLocation : locations) {
+			dayLocation.setTripDay(tripDay);
+			tripRepository.saveTripDayLocation(dayLocation);
+		}
+		tripDay.setLocations(locations);
+
+		if ( tripSteps != null ) {
+			tripDay.setTripSteps(null);
+			for (TripStep step : tripSteps) {
+				step.setTripDay(tripDay);
+				saveTripStep(step);
+
+			}
+			tripDay.setTripSteps(tripSteps);
+		}
+	}
+
+	public void saveTripStep(TripStep step) throws TripException {
+		Collection<TripDirection> directions = step.getDirections();
+		tripRepository.saveTripStep(step);
+		step.setDirections(null);
+		if ( directions != null ) {
+			for (TripDirection direction : directions) {
+				direction.setTripStep(step);
+				tripRepository.saveTripDirection(direction);
+			}
+		}
+		step.setDirections(directions);
+	}
+
 }

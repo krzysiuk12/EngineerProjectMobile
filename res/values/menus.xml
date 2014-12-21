@@ -45,4 +45,6 @@
     <string name="ShowTripsMenu.TripViewMode.Future">Future</string>
     <string name="ShowTripsMenu.Details.Title">Trip Details</string>
 
+    <string name="TripCreatorMenu.Title">Trip Creator</string>
+
 </resources>

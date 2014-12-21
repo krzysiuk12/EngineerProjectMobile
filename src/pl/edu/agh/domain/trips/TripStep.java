@@ -41,6 +41,14 @@ public class TripStep extends BaseObject {
     public TripStep() {
     }
 
+    public TripDay getTripDay() {
+        return tripDay;
+    }
+
+    public void setTripDay(TripDay tripDay) {
+        this.tripDay = tripDay;
+    }
+
     public Location getStartLocation() {
         return startLocation;
     }

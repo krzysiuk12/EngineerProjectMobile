@@ -15,7 +15,7 @@ public class TripDayLocation extends BaseObject {
     @DatabaseField(columnName = TripDayLocationMapping.TRIP_DAY_COLUMN_NAME, foreign = true, canBeNull = false)
     private TripDay tripDay;
 
-    @DatabaseField(columnName = TripDayLocationMapping.LOCATION_COLUMN_NAME, foreign = true, canBeNull = false)
+    @DatabaseField(columnName = TripDayLocationMapping.LOCATION_COLUMN_NAME, foreign = true, canBeNull = false, foreignAutoCreate = true, foreignAutoRefresh = true)    // TODO: fix me
     private Location location;
 
     @DatabaseField(columnName = TripDayLocationMapping.ORDINAL_COLUMN_NAME, canBeNull = false)

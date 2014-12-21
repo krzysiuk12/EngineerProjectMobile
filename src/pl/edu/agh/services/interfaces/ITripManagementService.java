@@ -1,6 +1,8 @@
 package pl.edu.agh.services.interfaces;
 
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.trips.Trip;
+import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.FormValidationError;
 
@@ -15,6 +17,8 @@ public interface ITripManagementService {
 
 	public void saveTrip(Trip trip) throws TripException;
 
+	void saveNewTrip(Trip trip, UserAccount userAccount) throws TripException;
+
 	public List<Trip> getAllTrips() throws TripException;
 
 	public List<Trip> getPastTrips() throws TripException;
@@ -23,8 +27,13 @@ public interface ITripManagementService {
 
 	public List<Trip> getFutureTrips() throws TripException;
 
+	public List<Trip> getNewUserTrips(String token);
+
 	public Trip getTripById(long id) throws TripException;
 
 	public Trip getTripByName(String name) throws TripException;
 
+	void saveTripDays(Trip trip) throws TripException;
+
+	void saveTripDay(TripDay tripDay) throws TripException;
 }

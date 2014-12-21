@@ -1,6 +1,10 @@
 package pl.edu.agh.repositories.interfaces;
 
 import pl.edu.agh.domain.trips.Trip;
+import pl.edu.agh.domain.trips.TripDay;
+import pl.edu.agh.domain.trips.TripDayLocation;
+import pl.edu.agh.domain.trips.TripDirection;
+import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 
 import java.util.List;
@@ -11,6 +15,14 @@ import java.util.List;
 public interface ITripRepository {
 
 	public void saveTrip(Trip trip) throws TripException;
+
+	public void saveTripDay(TripDay tripDay) throws TripException;
+
+	public void saveTripDayLocation(TripDayLocation tripDayLocation) throws TripException;
+
+	public void saveTripStep(TripStep tripStep) throws TripException;
+
+	public void saveTripDirection(TripDirection tripDirection) throws TripException;
 
 	public List<Trip> getAllTrips() throws TripException;
 

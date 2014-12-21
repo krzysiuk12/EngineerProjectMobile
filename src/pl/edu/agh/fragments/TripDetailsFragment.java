@@ -54,8 +54,9 @@ public class TripDetailsFragment extends AbstractDescriptionFragment<Trip> {
 	}
 
 	public void showTripDayDetails(View view) {
-		TripDayDetailsFragment details = new TripDayDetailsFragment();
+		TripDayDetailsFragment details = TripDayDetailsFragment.newInstance((Trip) getArguments().getSerializable(KEY_ITEM), 0);
 		getFragmentManager().beginTransaction().replace(android.R.id.content, details).commit();
+		details.showDetails();
 	}
 
 }

@@ -9,6 +9,8 @@ public interface ISynchronizationService {
 
 	public void downloadAllPrivateLocations();
 
+	void downloadLocationsInScope(double latitude, double longitute);
+
 	public void downloadTrips();
 
 	public void sendNewPublicLocations();

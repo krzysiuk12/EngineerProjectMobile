@@ -1,10 +1,16 @@
 package pl.edu.agh.repositories.implementation;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.stmt.QueryBuilder;
+import junit.framework.Test;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.dbmodel.trips.TripMapping;
 import pl.edu.agh.domain.trips.Trip;
+import pl.edu.agh.domain.trips.TripDay;
+import pl.edu.agh.domain.trips.TripDayLocation;
+import pl.edu.agh.domain.trips.TripDirection;
+import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.ExceptionType;
 import pl.edu.agh.exceptions.common.FormValidationError;
@@ -31,6 +37,26 @@ public class OrmLiteTripRepository implements ITripRepository {
 	@Override
 	public void saveTrip(Trip trip) throws TripException {
 		((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().create(trip);
+	}
+
+	@Override
+	public void saveTripDay(TripDay tripDay) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDayRuntimeExceptionDao().create(tripDay);
+	}
+
+	@Override
+	public void saveTripDayLocation(TripDayLocation tripDayLocation) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDayLocationRuntimeExceptionDao().create(tripDayLocation);
+	}
+
+	@Override
+	public void saveTripStep(TripStep tripStep) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripStepRuntimeExceptionDao().create(tripStep);
+	}
+
+	@Override
+	public void saveTripDirection(TripDirection tripDirection) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDirectionRuntimeExceptionDao().create(tripDirection);
 	}
 
 	@Override

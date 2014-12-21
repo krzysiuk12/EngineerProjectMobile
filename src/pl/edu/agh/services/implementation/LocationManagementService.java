@@ -72,10 +72,10 @@ public class LocationManagementService extends BaseService implements ILocationM
 	}
 
 	@Override
-	public int saveNewLocation(Location location) throws LocationException {
+	public int saveNewLocation(Location location, UserAccount userAccount) throws LocationException {
 		location.setSynced(false);
 		location.setCreationDate(new Date());
-		location.setCreatedByAccount(UserAccountManagementService.getUserAccount());
+		location.setCreatedByAccount(userAccount);
 		return saveLocation(location);
 	}
 
@@ -95,8 +95,6 @@ public class LocationManagementService extends BaseService implements ILocationM
 
 	@Override
 	public Location getLocationByName(String name) throws LocationException {
-//		if ( StringTools.isNullOrEmpty(name) )
-//			throw new LocationException(0);
 		return locationRepository.getLocationByName(name);
 	}
 
@@ -107,7 +105,6 @@ public class LocationManagementService extends BaseService implements ILocationM
 
 	@Override
 	public List<Location> getAllLocations() throws LocationException {
-//		return locationRepository.getAllLocations();
 		List<Location> publicLocations = locationRepository.getAllPublicLocations();
 		List<Location> privateLocations = locationRepository.getAllUserPrivateLocations(UserAccountManagementService.getToken());
 		List<Location> locations = new ArrayList<>();

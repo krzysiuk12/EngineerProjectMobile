@@ -1,6 +1,7 @@
 package pl.edu.agh.services.implementation;
 
 import android.content.Context;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import org.springframework.web.client.RestClientException;
 import pl.edu.agh.asynctasks.authorization.LogInAsyncTask;
 import pl.edu.agh.asynctasks.authorization.LogOutAsyncTask;
@@ -37,6 +38,11 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 
 	public UserAccountManagementService(Context context) {
 		userAccountRepository = new OrmLiteUserAccountRepository(getHelperInternal(context));
+		applicationSettingsService = new ApplicationSettingsService();
+	}
+
+	public UserAccountManagementService(OrmLiteSqliteOpenHelper helper) {
+		userAccountRepository = new OrmLiteUserAccountRepository(helper);
 		applicationSettingsService = new ApplicationSettingsService();
 	}
 

@@ -16,7 +16,7 @@ public interface ILocationManagementService {
 
     public int saveLocation(Location location) throws LocationException;
 
-    public int saveNewLocation(Location location) throws LocationException;
+    public int saveNewLocation(Location location, UserAccount userAccount) throws LocationException;
 
     public void updateLocation(Location location) throws LocationException;
 
