@@ -5,6 +5,7 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.stmt.QueryBuilder;
 import junit.framework.Test;
 import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.dbmodel.accounts.UserAccountMapping;
 import pl.edu.agh.dbmodel.trips.TripDayLocationMapping;
 import pl.edu.agh.dbmodel.trips.TripDayMapping;
 import pl.edu.agh.dbmodel.trips.TripDirectionMapping;
@@ -41,6 +42,11 @@ public class OrmLiteTripRepository implements ITripRepository {
 	@Override
 	public void saveTrip(Trip trip) throws TripException {
 		((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().create(trip);
+	}
+
+	@Override
+	public void updateTrip(Trip trip) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().update(trip);
 	}
 
 	@Override
@@ -100,6 +106,20 @@ public class OrmLiteTripRepository implements ITripRepository {
 		try {
 			queryBuilder.where().gt(TripMapping.START_DATE_COLUMN_NAME, new Date());
 			return ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().query(queryBuilder.prepare());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Trip> getNewUserTrips(String token) throws TripException {
+		QueryBuilder tripQueryBuilder = ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryBuilder();
+		QueryBuilder userQueryBuilder = ((TestDatabaseHelper) openHelper).getUserAccountRuntimeExceptionDao().queryBuilder();
+		try {
+			tripQueryBuilder.where().eq(TripMapping.IS_SYNCED_COLUMN_NAME, false);
+			userQueryBuilder.where().eq(UserAccountMapping.TOKEN_COLUMN_NAME, token);
+			return tripQueryBuilder.join(userQueryBuilder).query();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

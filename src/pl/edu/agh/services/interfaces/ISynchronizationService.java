@@ -1,5 +1,7 @@
 package pl.edu.agh.services.interfaces;
 
+import pl.edu.agh.exceptions.SynchronizationException;
+
 /**
  * Created by Magda on 2014-11-21.
  */
@@ -13,12 +15,12 @@ public interface ISynchronizationService {
 
 	public void downloadTrips();
 
-	public void sendNewPublicLocations();
+	public void sendNewPublicLocations() throws SynchronizationException;
 
-	public void sendNewPrivateLocations();
+	public void sendNewPrivateLocations() throws SynchronizationException;
 
-	public void sendAllNewLocations();
+	public void sendAllNewLocations() throws SynchronizationException;
 
-	public void sendTrips();
+	public void sendTrips() throws SynchronizationException;
 
 }

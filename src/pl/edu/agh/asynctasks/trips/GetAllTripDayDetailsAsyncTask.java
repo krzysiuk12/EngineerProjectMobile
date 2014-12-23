@@ -10,9 +10,7 @@ import pl.edu.agh.asynctasks.builders.requests.HttpRequestBuilder;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.serializers.common.ResponseSerializer;
-import pl.edu.agh.services.implementation.AndroidLogService;
 
-import java.util.List;
 
 /**
  * Created by Magda on 2014-12-21.

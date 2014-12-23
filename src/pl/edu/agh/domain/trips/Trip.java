@@ -99,6 +99,14 @@ public class Trip extends BaseObject {
         this.endDate = endDate;
     }
 
+    public boolean isSynced() {
+        return isSynced;
+    }
+
+    public void setSynced(boolean isSynced) {
+        this.isSynced = isSynced;
+    }
+
     @Override
     public String toString() {
         return "Trip{" +

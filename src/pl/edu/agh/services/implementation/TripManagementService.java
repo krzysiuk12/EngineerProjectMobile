@@ -8,10 +8,12 @@ import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.domain.trips.TripDayLocation;
 import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
+import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.FormValidationError;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
 import pl.edu.agh.repositories.interfaces.ITripRepository;
+import pl.edu.agh.services.interfaces.ILocationManagementService;
 import pl.edu.agh.services.interfaces.ITripManagementService;
 import pl.edu.agh.tools.StringTools;
 
@@ -25,6 +27,7 @@ import java.util.List;
 public class TripManagementService extends BaseService implements ITripManagementService {
 
 	private ITripRepository tripRepository;
+	private ILocationManagementService locationManagementService;
 
 	@Deprecated
 	public TripManagementService() {
@@ -33,10 +36,12 @@ public class TripManagementService extends BaseService implements ITripManagemen
 
 	public TripManagementService(Context context) {
 		tripRepository = new OrmLiteTripRepository(getHelperInternal(context));
+		locationManagementService = new LocationManagementService(context);
 	}
 
 	public TripManagementService(OrmLiteSqliteOpenHelper helper) {
 		tripRepository = new OrmLiteTripRepository(helper);
+		locationManagementService = new LocationManagementService(helper);
 	}
 
 	@Override
@@ -82,6 +87,12 @@ public class TripManagementService extends BaseService implements ITripManagemen
 
 		tripRepository.saveTrip(trip);
 	}
+
+	@Override
+	public void updateTrip(Trip trip) throws TripException {
+		tripRepository.updateTrip(trip);
+	}
+
 	@Override
 	public void saveTripDays(Trip trip) throws TripException {
 		for ( TripDay tripDay : trip.getDays() ) {
@@ -100,7 +111,12 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		for (TripDayLocation dayLocation : locations) {
 			dayLocation.setTripDay(tripDay);
 			tripRepository.saveTripDayLocation(dayLocation);
-			// TODO: saving locations if they don't exist in DB
+			try {
+				// TODO: saving locations if they don't exist in DB
+				locationManagementService.saveLocation(dayLocation.getLocation());
+			} catch (LocationException e) {
+				e.printStackTrace();
+			}
 		}
 		tripDay.setLocations(locations);
 
@@ -128,6 +144,7 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		}
 	}
 
+	// <editor-fold description="getTrips methods">
 
 	@Override
 	public List<Trip> getAllTrips() throws TripException {
@@ -150,9 +167,11 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	}
 
 	@Override
-	public List<Trip> getNewUserTrips(String token) {
-		return null;
+	public List<Trip> getNewUserTrips(String token) throws TripException {
+		return tripRepository.getNewUserTrips(token);
 	}
+
+	// </editor-fold>
 
 	@Override
 	public Trip getTripById(long id) throws TripException {

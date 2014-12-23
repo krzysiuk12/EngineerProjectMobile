@@ -16,6 +16,8 @@ public interface ITripRepository {
 
 	public void saveTrip(Trip trip) throws TripException;
 
+	void updateTrip(Trip trip) throws TripException;
+
 	public void saveTripDay(TripDay tripDay) throws TripException;
 
 	public void saveTripDayLocation(TripDayLocation tripDayLocation) throws TripException;
@@ -31,6 +33,8 @@ public interface ITripRepository {
 	public List<Trip> getCurrentTrips() throws TripException;
 
 	public List<Trip> getFutureTrips() throws TripException;
+
+	List<Trip> getNewUserTrips(String token) throws TripException;
 
 	public Trip getTripById(long id) throws TripException;
 

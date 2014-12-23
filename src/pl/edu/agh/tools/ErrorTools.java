@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.common.FormValidationError;
+import pl.edu.agh.exceptions.common.IExceptionDefinition;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.AndroidLogService;
 
@@ -22,6 +23,10 @@ public class ErrorTools {
 			stringBuilder.append(resources.getString(error.getStringResourceId())).append(NEW_LINE);
 		}
 		return stringBuilder.toString();
+	}
+
+	public static String createExceptionString(Resources resources, IExceptionDefinition exceptionDefinition) {
+		return resources.getString(exceptionDefinition.getStringResourceId());
 	}
 
 }

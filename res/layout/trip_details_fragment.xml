@@ -58,7 +58,6 @@
               android:text="@string/TripDetails.TripDays"
               android:textAppearance="@style/LocationDescription.Name"/>
 
-    <!-- todo: create TripDayListFragment -->
     <RelativeLayout android:id="@+id/TripDetails.TripDayList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

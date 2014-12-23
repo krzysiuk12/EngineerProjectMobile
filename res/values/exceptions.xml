@@ -23,4 +23,9 @@
     <string name="TripException.ValidationError.AuthorIsRequired">Author is required</string>
     <string name="TripException.ValidationError.TripDaysIsRequired">Trip Days cannot be empty</string>
     <string name="TripException.ValidationError.StartDateBeforeEndDate">Start Date must be before End Date</string>
+
+    <string name="SynchronizationException.DatabaseSaveError">Failed to save information about sync in database</string>
+    <string name="SynchronizationException.ServerError">Server-side error occurred. Failed to synchronize</string>
+    <string name="SynchronizationException.ServerUnreachable">Server unreachable</string>
+
 </resources>

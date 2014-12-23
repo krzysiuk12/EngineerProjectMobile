@@ -7,9 +7,12 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.exceptions.SynchronizationException;
+import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
+import pl.edu.agh.tools.ErrorTools;
 
 /**
  * Created by Magda on 2014-11-26.
@@ -55,19 +58,23 @@ public class SynchronizationActivity extends OrmLiteBaseActivity<TestDatabaseHel
 	}
 
 	public void onSendLocationsButtonClicked(View view) {
-		switch ( selectedMode ) {
-			case PRIVATE:
-				synchronizationService.sendNewPrivateLocations();
-				break;
+		try {
+			switch (selectedMode) {
+				case PRIVATE:
+					synchronizationService.sendNewPrivateLocations();
+					break;
 
-			case PUBLIC:
-				synchronizationService.sendNewPublicLocations();
-				break;
+				case PUBLIC:
+					synchronizationService.sendNewPublicLocations();
+					break;
 
-			case BOTH:
-				synchronizationService.sendAllNewLocations();
-				break;
+				case BOTH:
+					synchronizationService.sendAllNewLocations();
+					break;
 
+			}
+		} catch ( SynchronizationException e) {
+			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition()));
 		}
 	}
 

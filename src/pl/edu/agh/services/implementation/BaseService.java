@@ -14,10 +14,6 @@ public class BaseService extends OrmLiteBaseService<TestDatabaseHelper> implemen
 
     private ILogService logService = new AndroidLogService();
 
-    protected BaseService() {
-//        onCreate(); // todo: ugly, find another way
-    }
-
     @Override
     public ILogService getLogService() {
         return logService;

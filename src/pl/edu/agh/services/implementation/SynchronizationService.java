@@ -10,11 +10,13 @@ import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewPrivateLocationAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetAllTripDayDetailsAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetMyTripsAsyncTask;
+import pl.edu.agh.asynctasks.trips.PostAddTripAsyncTask;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.ToastBuilder;
@@ -150,7 +152,6 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 				} catch (ExecutionException e) {
 					e.printStackTrace();
 				}
-				getLogService().debug(day.toString());
 			}
 			trip.setDays(newTripDays);
 		}
@@ -161,16 +162,16 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	// <editor-fold description="Sending Locations">
 
 	@Override
-	public void sendNewPublicLocations() {
+	public void sendNewPublicLocations() throws SynchronizationException {
 		List<Location> locations = null;
 		try {
 			locations = locationManagementService.getAllNewPublicLocations();
 		} catch (LocationException e) {
 			e.printStackTrace();
 		}
-		getLogService().debug("SynchronizationService", locations.size() + " ");
 		if ( locations == null )
-			return; // TODO: toast if nothing to send
+			return;
+		getLogService().debug("SynchronizationService", locations.size() + " ");
 
 		for ( Location location : locations) {
 			try {
@@ -178,19 +179,21 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 				if ( response.getStatus() == ResponseStatus.OK ) {
 					location.setSynced(true);
 					locationManagementService.updateLocation(location);
+				} else {
+					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_ERROR);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();    // TODO: error handling
 			} catch (ExecutionException e) {
 				e.printStackTrace();
 			} catch (LocationException e) {
-				e.printStackTrace();
+				throw new SynchronizationException(SynchronizationException.PredefinedExceptions.DATABASE_ERROR);
 			}
 		}
 	}
 
 	@Override
-	public void sendNewPrivateLocations() {
+	public void sendNewPrivateLocations() throws SynchronizationException {
 		List<Location> locations = null;
 		getLogService().debug("sendNewPrivateLocations()");
 		try {
@@ -208,21 +211,20 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 					location.setSynced(true);
 					locationManagementService.updateLocation(location);
 				} else {
-//					new ErrorToastBuilder(getApplicationContext(), )
-					// TODO: error handling
+					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_ERROR);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {
 				e.printStackTrace();
 			} catch (LocationException e) {
-				e.printStackTrace();
+				throw new SynchronizationException(SynchronizationException.PredefinedExceptions.DATABASE_ERROR);
 			}
 		}
 	}
 
 	@Override
-	public void sendAllNewLocations() {
+	public void sendAllNewLocations() throws SynchronizationException {
 		sendNewPrivateLocations();
 		sendNewPublicLocations();
 	}
@@ -230,8 +232,36 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	// </editor-fold>
 
 	@Override
-	public void sendTrips() {
-		// TODO: sending trips
+	public void sendTrips() throws SynchronizationException {
+		List<Trip> trips = null;
+		try {
+			trips = tripManagementService.getNewUserTrips(UserAccountManagementService.getToken());
+		} catch (TripException e) {
+			e.printStackTrace();
+		}
+		if ( trips == null )
+			return;
+
+		for ( Trip trip : trips ) {
+			try {
+				ResponseSerializer response = new PostAddTripAsyncTask(UserAccountManagementService.getToken(), trip).execute().get();
+				if ( response.getStatus() == ResponseStatus.OK ) {
+					trip.setSynced(true);
+					tripManagementService.updateTrip(trip);
+				} else {
+					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_ERROR);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			} catch (TripException e) {
+				throw new SynchronizationException(SynchronizationException.PredefinedExceptions.DATABASE_ERROR);
+			}
+		}
+
+		// TODO: test
+
 	}
 
 	public class LocalBinder extends Binder {
