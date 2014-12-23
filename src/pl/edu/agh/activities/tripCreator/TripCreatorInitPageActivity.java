@@ -16,7 +16,8 @@ public class TripCreatorInitPageActivity extends AbstractWizardPageActivity {
     }
 
     @Override
-    protected AbstractWizardPage getWizardPageFragment() {
+    protected AbstractWizardPage getWizardPageFragment(int pageIndex) {
         return new TripCreatorInitPage();
     }
+
 }

@@ -136,6 +136,7 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		for (TripDayLocation dayLocation : locations) {
 			dayLocation.setTripDay(tripDay);
 			tripRepository.saveTripDayLocation(dayLocation);
+			// TODO: saving locations if they don't exist in DB
 		}
 		tripDay.setLocations(locations);
 
