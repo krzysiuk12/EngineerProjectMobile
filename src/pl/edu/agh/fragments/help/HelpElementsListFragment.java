@@ -1,7 +1,10 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.help;
 
-import pl.edu.agh.activities.HelpElementDescriptionActivity;
+import pl.edu.agh.activities.help.HelpElementDescriptionActivity;
 import pl.edu.agh.activities.help.HelpElement;
+import pl.edu.agh.fragments.AbstractAdapter;
+import pl.edu.agh.fragments.AbstractDescriptionFragment;
+import pl.edu.agh.fragments.AbstractListFragment;
 import pl.edu.agh.main.R;
 
 import java.util.ArrayList;

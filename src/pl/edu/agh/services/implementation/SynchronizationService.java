@@ -123,7 +123,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		getLogService().debug("SynchronizationService", "downloaded trips: " + trips.size());
 		if ( !trips.isEmpty() ) {
 			for ( Trip trip : trips ) {
-//				downloadTripDetails(trip);
+				downloadTripDetails(trip);
 			}
 		}
 

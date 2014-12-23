@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import pl.edu.agh.activities.settings.SettingsIssue;
+import pl.edu.agh.services.implementation.AndroidLogService;
 
 import java.io.Serializable;
 
@@ -48,4 +49,5 @@ public abstract class AbstractDescriptionFragment<T extends Serializable> extend
 	protected abstract int getLayoutId();
 
 	protected abstract void showDetails();
+
 }

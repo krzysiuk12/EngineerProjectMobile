@@ -1,19 +1,11 @@
 package pl.edu.agh.activities.main;
 
-import android.app.Activity;
-import android.app.IntentService;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import pl.edu.agh.activities.ShowLocationsActivity;
+import pl.edu.agh.activities.locations.ShowLocationsActivity;
 import pl.edu.agh.activities.ShowTripsActivity;
 import pl.edu.agh.activities.SynchronizationActivity;
 import pl.edu.agh.activities.help.HelpActivity;
@@ -22,7 +14,6 @@ import pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity;
 import pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity;
 import pl.edu.agh.activities.settings.SettingsActivity;
 import pl.edu.agh.activities.tripcreator.TripCreatorActivity;
-import pl.edu.agh.activities.tripcreator.TripCreatorWizardPageActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.SynchronizationService;

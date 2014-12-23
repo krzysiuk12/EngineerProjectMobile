@@ -6,15 +6,17 @@
               android:layout_height="match_parent"
               android:weightSum="2">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/TripDayDetail.Map"
-              android:layout_width="match_parent"
-              android:layout_height="0dp"
-              android:layout_weight="1"
-              android:padding="@dimen/Layout.Padding"
-              android:name="com.google.android.gms.maps.MapFragment"/>
+    <!-- Container for Map Fragment -->
+    <RelativeLayout android:id="@+id/TripDayDetail.Map"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="@dimen/Layout.Padding"/>
 
-
-
+    <Button android:id="@+id/TripDetails.TripDay.TripDirectionsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SynchronizationButton"
+            android:text="@string/ShowTripsMenu.Directions.Title"/>
 
 </LinearLayout>

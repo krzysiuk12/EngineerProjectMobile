@@ -1,11 +1,12 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.locations;
 
-import pl.edu.agh.activities.LocationDescriptionActivity;
-import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.activities.locations.LocationDescriptionActivity;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.fragments.AbstractAdapter;
+import pl.edu.agh.fragments.AbstractDescriptionFragment;
+import pl.edu.agh.fragments.AbstractListFragment;
 import pl.edu.agh.main.R;
-import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.services.implementation.LocationManagementService;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
 

@@ -1,14 +1,16 @@
 package pl.edu.agh.fragments;
 
+import android.annotation.TargetApi;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import pl.edu.agh.domain.locations.Location;
-import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.domain.trips.TripDayLocation;
 import pl.edu.agh.main.R;
@@ -16,26 +18,47 @@ import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Magda on 2014-12-12.
+ * Created by Magda on 2014-12-22.
  */
-public class TripDayDetailsFragment extends AbstractDescriptionFragment<Trip> {
+public class TripDayDetailsFragment extends AbstractDescriptionFragment<TripDay> {
 
 	IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
+	private MapFragment mapFragment;
 	private GoogleMap googleMap;
-	private Trip trip;
+	private TripDay tripDay;
 
-	public static TripDayDetailsFragment newInstance(Trip trip, long index) {
+	public static TripDayDetailsFragment newInstance(TripDay tripDay, long index) {
 		TripDayDetailsFragment fragment = new TripDayDetailsFragment();
-		fragment.setInitialArguments(index, trip);
+		fragment.setInitialArguments(index, tripDay);
 		return fragment;
 	}
 
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.trip_details_tripday, container, false);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		FragmentManager fm = getFragmentManager();
+		mapFragment = (MapFragment) fm.findFragmentById(R.id.TripDayDetail_Map);
+		if (mapFragment == null) {
+			mapFragment = MapFragment.newInstance();
+			FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+			fragmentTransaction.add(R.id.TripDayDetail_Map, mapFragment, "map");
+			fragmentTransaction.commit();
+		}
+		MapsInitializer.initialize(getActivity());
+		getGoogleMap();
+		tripDay = (TripDay) getArguments().getSerializable(KEY_ITEM);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		googleMapsManagementService.setMyLocationEnabled(getGoogleMap());
+		drawTrip();
 	}
 
 	@Override
@@ -45,42 +68,43 @@ public class TripDayDetailsFragment extends AbstractDescriptionFragment<Trip> {
 
 	@Override
 	protected void showDetails() {
-		trip = (Trip) getArguments().getSerializable(KEY_ITEM);
-		drawTrip();
+		tripDay = (TripDay) getArguments().getSerializable(KEY_ITEM);
 	}
-
 
 	public GoogleMap getGoogleMap() {
 		if ( googleMap == null ) {
-			googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.TripDayDetail_Map)).getMap();
+			googleMap = mapFragment.getMap();
 		}
 		return googleMap;
 	}
 
 	private void drawTrip() {
-//		getLogService().debug(this.getClass().getName(), "draw trips");
-		Collection<TripDay> tripDays = trip.getDays();
-		if ( tripDays != null ) {
-			new AndroidLogService().debug("tripdays not null:" + tripDays.size());
-			new AndroidLogService().debug(tripDays.toString());
-			for ( TripDay tripDay : tripDays ) {
-				if ( tripDay.getLocations() != null ) {
-					new AndroidLogService().debug("trip locations");
+		if ( tripDay.getLocations() != null ) {
+			new AndroidLogService().debug("trip locations");
 
-					for ( TripDayLocation location : tripDay.getLocations() ) {
-//						drawLocation(location.getLocation());
-					}
-				}
-				if ( tripDay.getTripSteps() != null ) {
-					new AndroidLogService().debug("tripsteeeps");
-				}
+			for ( TripDayLocation location : tripDay.getLocations() ) {
+				drawLocation(location.getLocation());
 			}
+
+			setMapPosition();
+		}
+		if ( tripDay.getTripSteps() != null ) {
+			new AndroidLogService().debug("tripsteeeps");
 		}
 	}
 
 	private void drawLocation(Location location) {
 		MarkerOptions markerOptions = googleMapsManagementService.createLocationMarker(location);
 		getGoogleMap().addMarker(markerOptions);
+	}
+
+	private void setMapPosition() {
+		List<TripDayLocation> tripDayLocations = new ArrayList<>(tripDay.getLocations());
+		if ( !tripDayLocations.isEmpty() ) {
+			Location location = tripDayLocations.get(0).getLocation();
+			LatLng postition = new LatLng(location.getLatitude(), location.getLongitude());
+			googleMapsManagementService.setMapPositionWithZoom(getGoogleMap(), postition, 10);
+		}
 	}
 
 }

@@ -1,7 +1,8 @@
-package pl.edu.agh.activities;
+package pl.edu.agh.activities.locations;
 
+import pl.edu.agh.activities.AbstractDetailsActivity;
 import pl.edu.agh.fragments.AbstractDescriptionFragment;
-import pl.edu.agh.fragments.LocationDescriptionFragment;
+import pl.edu.agh.fragments.locations.LocationDescriptionFragment;
 import pl.edu.agh.main.R;
 
 /**

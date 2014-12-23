@@ -1,4 +1,4 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.locations;
 
 import android.app.Fragment;
 import android.os.Bundle;

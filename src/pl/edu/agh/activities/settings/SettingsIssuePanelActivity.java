@@ -1,9 +1,8 @@
-package pl.edu.agh.activities;
+package pl.edu.agh.activities.settings;
 
-import android.app.Activity;
-import android.os.Bundle;
+import pl.edu.agh.activities.AbstractDetailsActivity;
 import pl.edu.agh.fragments.AbstractDescriptionFragment;
-import pl.edu.agh.fragments.SettingsIssuePanelFragment;
+import pl.edu.agh.fragments.settings.SettingsIssuePanelFragment;
 import pl.edu.agh.main.R;
 
 /**

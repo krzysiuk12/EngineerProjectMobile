@@ -2,7 +2,7 @@ package pl.edu.agh.activities.settings;
 
 import android.view.View;
 import pl.edu.agh.domain.common.BaseObject;
-import pl.edu.agh.fragments.SettingsIssuePanelFragment;
+import pl.edu.agh.fragments.settings.SettingsIssuePanelFragment;
 
 import java.io.Serializable;
 

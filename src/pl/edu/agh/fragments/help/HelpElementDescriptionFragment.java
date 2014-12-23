@@ -1,12 +1,11 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.help;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import pl.edu.agh.activities.help.HelpElement;
-import pl.edu.agh.tools.RenderingTools;
+import pl.edu.agh.fragments.AbstractDescriptionFragment;
 
 /**
  * Created by Sławek on 2014-10-15.

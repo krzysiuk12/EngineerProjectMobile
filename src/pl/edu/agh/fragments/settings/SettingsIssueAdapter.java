@@ -1,8 +1,9 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.settings;
 
 import android.content.Context;
 import android.view.View;
 import pl.edu.agh.activities.settings.SettingsIssue;
+import pl.edu.agh.fragments.AbstractAdapter;
 import pl.edu.agh.main.R;
 import pl.edu.agh.tools.RenderingTools;
 

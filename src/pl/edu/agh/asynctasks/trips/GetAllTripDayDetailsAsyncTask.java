@@ -34,9 +34,6 @@ public class GetAllTripDayDetailsAsyncTask extends AsyncTask<Void, Void, TripDay
 						HttpMethod.GET,
 						new HttpEntity<Trip>(HttpRequestBuilder.getHttpHeadersWithHeader(token)),
 						new ParameterizedTypeReference<ResponseSerializer<TripDay>>() {});
-		new AndroidLogService().error(responseEntity.getStatusCode() + " ");
-		new AndroidLogService().error(responseEntity.getBody().getStatus() + "");
-		new AndroidLogService().error(responseEntity.getBody().getResult() + "");
 		return (TripDay) responseEntity.getBody().getResult();
 	}
 }

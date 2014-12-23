@@ -1,9 +1,12 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.settings;
 
-import pl.edu.agh.activities.SettingsIssuePanelActivity;
+import pl.edu.agh.activities.settings.SettingsIssuePanelActivity;
 import pl.edu.agh.activities.settings.DefaultUserSettingsIssue;
 import pl.edu.agh.activities.settings.LanguageSettingsIssue;
 import pl.edu.agh.activities.settings.SettingsIssue;
+import pl.edu.agh.fragments.AbstractAdapter;
+import pl.edu.agh.fragments.AbstractDescriptionFragment;
+import pl.edu.agh.fragments.AbstractListFragment;
 import pl.edu.agh.main.R;
 
 import java.util.ArrayList;

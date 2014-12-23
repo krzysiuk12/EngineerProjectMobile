@@ -28,6 +28,8 @@ public interface IGoogleMapsManagementService {
 
     public void setMapPosition(GoogleMap map, LatLng latlng);
 
+    void setMapPositionWithZoom(GoogleMap map, LatLng latLng, float zoom);
+
     public void setMapPosition(GoogleMap map, LatLng latlng, int zoom);
 
     public LatLng getMyLocation(GoogleMap map);

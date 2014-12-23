@@ -72,6 +72,7 @@ public class TestDatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, TripDayLocation.class);
             TableUtils.createTable(connectionSource, TripDay.class);
             TableUtils.createTable(connectionSource, Trip.class);
+            TableUtils.createTable(connectionSource, Coordinate.class);
             TableUtils.createTable(connectionSource, Comment.class);
         } catch(SQLException ex) {
             Log.e(LOGGER_TAG, "Cannot create database", ex);

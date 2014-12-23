@@ -29,7 +29,7 @@
             <fragment
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:name="pl.edu.agh.fragments.AddLocationFragment"
+                    android:name="pl.edu.agh.fragments.locations.AddLocationFragment"
                     android:id="@+id/AddLocation.LocationProperties"
                     tools:layout="@layout/add_location_fragment"/>
 

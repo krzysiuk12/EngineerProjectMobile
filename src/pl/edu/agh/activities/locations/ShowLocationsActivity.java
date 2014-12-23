@@ -1,4 +1,4 @@
-package pl.edu.agh.activities;
+package pl.edu.agh.activities.locations;
 
 import android.app.Activity;
 import android.os.Bundle;

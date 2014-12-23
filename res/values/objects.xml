@@ -28,7 +28,10 @@
     <string name="TripDay">Day of trip</string>
     <string name="TripDay.Date">Date</string>
 
-
+    <string name="TripDirection">Trip Direction</string>
+    <string name="TripDirection.Instruction">Instruction</string>
+    <string name="TripDirection.Distance">Distance</string>
+    <string name="TripDirection.Duration">Duration</string>
 
 
 </resources>

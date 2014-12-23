@@ -1,6 +1,7 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.locations;
 
 import pl.edu.agh.domain.locations.Location;
+import pl.edu.agh.fragments.AbstractDescriptionFragment;
 import pl.edu.agh.main.R;
 import pl.edu.agh.tools.RenderingTools;
 

@@ -1,8 +1,9 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.locations;
 
 import android.content.Context;
 import android.view.View;
 import pl.edu.agh.domain.locations.Location;
+import pl.edu.agh.fragments.AbstractAdapter;
 import pl.edu.agh.main.R;
 import pl.edu.agh.tools.RenderingTools;
 

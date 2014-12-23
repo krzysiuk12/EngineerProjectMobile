@@ -51,6 +51,9 @@
     <string name="ShowTrips.TripItem.DatesSeparator"> - </string>
     <string name="ShowTrips.TripDetails.ShowTripDayDetails">Show trip days</string>
 
+    <string name="TripDetails.TripDays">Trip Days</string>
+    <string name="TripDetails.TripDirection.Separator">, </string>
+
     <string name="Settings.Language.Title">Language</string>
     <string name="Settings.Language.Button">Change</string>
     <string name="Settings.LanguageSettings">Language Settings</string>

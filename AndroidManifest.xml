@@ -41,15 +41,16 @@
 		<activity android:name="pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity" android:label="@string/ShowAllLocationsOnMapMenu.Title" android:windowSoftInputMode="stateUnchanged"/>
         <activity android:name="pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity" android:label="@string/ShowPrivateLocationsOnMapMenu.Title"/>
         <activity android:name="pl.edu.agh.activities.locations.AddLocationActivity" android:label="@string/AddLocationMenu.Title"/>
-		<activity android:name="pl.edu.agh.activities.ShowLocationsActivity" android:label="@string/ShowLocationsMenu.Title"/>
-		<activity android:name="pl.edu.agh.activities.LocationDescriptionActivity" android:label="@string/ShowLocationsMenu.Description.Title"/>
+		<activity android:name="pl.edu.agh.activities.locations.ShowLocationsActivity" android:label="@string/ShowLocationsMenu.Title"/>
+		<activity android:name="pl.edu.agh.activities.locations.LocationDescriptionActivity" android:label="@string/ShowLocationsMenu.Description.Title"/>
         <activity android:name="pl.edu.agh.activities.settings.SettingsActivity" android:label="@string/SettingsMenu.Title"/>
-        <activity android:name="pl.edu.agh.activities.SettingsIssuePanelActivity" android:label="@string/SettingsMenu.Issue.Title"/>
+        <activity android:name="pl.edu.agh.activities.settings.SettingsIssuePanelActivity" android:label="@string/SettingsMenu.Issue.Title"/>
         <activity android:name="pl.edu.agh.activities.help.HelpActivity" android:label="@string/HelpMenu.Title"/>
-        <activity android:name="pl.edu.agh.activities.HelpElementDescriptionActivity" android:label="@string/HelpMenu.Element.Title"/>
+        <activity android:name="pl.edu.agh.activities.help.HelpElementDescriptionActivity" android:label="@string/HelpMenu.Element.Title"/>
         <activity android:name="pl.edu.agh.activities.SynchronizationActivity" android:label="@string/SynchronizationMenu.Title"/>
         <activity android:name="pl.edu.agh.activities.ShowTripsActivity" android:label="@string/ShowTripsMenu.Title"/>
         <activity android:name="pl.edu.agh.activities.TripDetailsActivity" android:label="@string/ShowTripsMenu.Details.Title"/>
+        <activity android:name="pl.edu.agh.activities.TripDayDetailsActivity" android:label="@string/ShowTripsMenu.DayDetails.Title"/>
         <activity android:name="pl.edu.agh.activities.tripcreator.TripCreatorActivity" android:label="@string/TripCreatorMenu.Title"/>
         <activity android:name="pl.edu.agh.activities.tripcreator.TripCreatorWizardPageActivity" android:label="@string/TripCreatorMenu.Title"/>
 

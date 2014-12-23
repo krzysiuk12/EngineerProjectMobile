@@ -1,11 +1,11 @@
-package pl.edu.agh.fragments;
+package pl.edu.agh.fragments.settings;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import pl.edu.agh.activities.settings.SettingsIssue;
+import pl.edu.agh.fragments.AbstractDescriptionFragment;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
