@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 /**
  * Created by Sławek on 2014-12-20.
  */
-public class TripCreatorWizardPageFragment extends AbstractWizardPage {
+public class TripCreatorWizardPageFragment extends AbstractWizardPage<TripCreatorWizardElement> {
 
     private TripCreatorWizardElement displayedWizardElement;
 
@@ -18,6 +18,13 @@ public class TripCreatorWizardPageFragment extends AbstractWizardPage {
         return fragment;
     }
 
+//    public static TripCreatorWizardPageFragment newInstance(TripCreatorWizardElement wizardElement, long index, TripCreatorWizardPageFragment fragment {
+//        if (fragment instanceof TripCreatorInitPageFragment) {
+//            fragment = new TripCreatorInitPageFragment();
+//            fragment.setInitialArguments(index, wizardElement);
+//        }
+//        return fragment;
+//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         displayedWizardElement = (TripCreatorWizardElement) getArguments().getSerializable(KEY_ITEM);

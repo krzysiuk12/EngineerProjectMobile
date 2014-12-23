@@ -25,12 +25,6 @@
                     android:layout_height="fill_parent"
                     android:layout_marginTop="@dimen/WizardPageMainLayout.Margin.Top">
 
-                <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:drawableTop="@drawable/icon_arrow_left"
-                        android:id="@+id/TripCreatorMainSettingsPage.GoBackButton"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -42,12 +36,6 @@
                         android:layout_gravity="center"
                         android:id="@+id/TripCreatorMainSettingsPage.Title"/>
 
-                <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:drawableTop="@drawable/icon_arrow"
-                        android:id="@+id/TripCreatorMainSettingsPage.GoNextButton"/>
             </LinearLayout>
 
             <LinearLayout
