@@ -1,10 +1,12 @@
 package pl.edu.agh.fragments;
 
-import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapsInitializer;
@@ -37,21 +39,35 @@ public class TripDayDetailsFragment extends AbstractDescriptionFragment<TripDay>
 		return fragment;
 	}
 
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+//	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		FragmentManager fm = getFragmentManager();
-		mapFragment = (MapFragment) fm.findFragmentById(R.id.TripDayDetail_Map);
+		mapFragment = (MapFragment) fm.findFragmentById(R.id.TripDayDetails_Map);
 		if (mapFragment == null) {
 			mapFragment = MapFragment.newInstance();
 			FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-			fragmentTransaction.add(R.id.TripDayDetail_Map, mapFragment, "map");
+			fragmentTransaction.add(R.id.TripDayDetails_Map, mapFragment, "map");
 			fragmentTransaction.commit();
 		}
 		MapsInitializer.initialize(getActivity());
 		getGoogleMap();
 		tripDay = (TripDay) getArguments().getSerializable(KEY_ITEM);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = super.onCreateView(inflater, container, savedInstanceState);
+
+		((Button) view.findViewById(R.id.TripDayDetails_TripDirectionsButton)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showTripDirections(v);
+			}
+		});
+
+		return view;
 	}
 
 	@Override
@@ -63,7 +79,7 @@ public class TripDayDetailsFragment extends AbstractDescriptionFragment<TripDay>
 
 	@Override
 	protected int getLayoutId() {
-		return R.layout.trip_details_tripday;
+		return R.layout.tripday_details_fragment;
 	}
 
 	@Override
@@ -80,16 +96,10 @@ public class TripDayDetailsFragment extends AbstractDescriptionFragment<TripDay>
 
 	private void drawTrip() {
 		if ( tripDay.getLocations() != null ) {
-			new AndroidLogService().debug("trip locations");
-
 			for ( TripDayLocation location : tripDay.getLocations() ) {
 				drawLocation(location.getLocation());
 			}
-
 			setMapPosition();
-		}
-		if ( tripDay.getTripSteps() != null ) {
-			new AndroidLogService().debug("tripsteeeps");
 		}
 	}
 
@@ -105,6 +115,11 @@ public class TripDayDetailsFragment extends AbstractDescriptionFragment<TripDay>
 			LatLng postition = new LatLng(location.getLatitude(), location.getLongitude());
 			googleMapsManagementService.setMapPositionWithZoom(getGoogleMap(), postition, 10);
 		}
+	}
+
+	private void showTripDirections(View view) {
+		TripDirectionsFragment details = TripDirectionsFragment.newInstance((TripDay) getArguments().getSerializable(KEY_ITEM));
+		getFragmentManager().beginTransaction().replace(android.R.id.content, details).commit();
 	}
 
 }

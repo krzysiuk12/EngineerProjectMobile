@@ -5,7 +5,11 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.stmt.QueryBuilder;
 import junit.framework.Test;
 import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.dbmodel.trips.TripDayLocationMapping;
+import pl.edu.agh.dbmodel.trips.TripDayMapping;
+import pl.edu.agh.dbmodel.trips.TripDirectionMapping;
 import pl.edu.agh.dbmodel.trips.TripMapping;
+import pl.edu.agh.dbmodel.trips.TripStepMapping;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.domain.trips.TripDayLocation;
@@ -113,4 +117,23 @@ public class OrmLiteTripRepository implements ITripRepository {
 		return results.size() > 0 ? results.get(0) : null;
 	}
 
+	@Override
+	public List<TripDirection> getTripDirections(TripStep step) throws TripException {
+		return ((TestDatabaseHelper) openHelper).getTripDirectionRuntimeExceptionDao().queryForEq(TripDirectionMapping.TRIP_STEP_COLUMN_NAME, step);
+	}
+
+	@Override
+	public List<TripStep> getTripSteps(TripDay tripDay) throws TripException {
+		return ((TestDatabaseHelper) openHelper).getTripStepRuntimeExceptionDao().queryForEq(TripStepMapping.TRIP_DAY_COLUMN_NAME, tripDay);
+	}
+
+	@Override
+	public List<TripDayLocation> getTripDayLocations(TripDay tripDay) throws TripException {
+		return ((TestDatabaseHelper) openHelper).getTripDayLocationRuntimeExceptionDao().queryForEq(TripDayLocationMapping.TRIP_DAY_COLUMN_NAME, tripDay);
+	}
+
+	@Override
+	public List<TripDay> getTripDays(Trip trip) throws TripException {
+		return ((TestDatabaseHelper) openHelper).getTripDayRuntimeExceptionDao().queryForEq(TripDayMapping.TRIP_COLUMN_NAME, trip);
+	}
 }

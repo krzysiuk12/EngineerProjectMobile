@@ -36,4 +36,11 @@ public interface ITripRepository {
 
 	public Trip getTripByName(String name) throws TripException;
 
+	public List<TripDirection> getTripDirections(TripStep step) throws TripException;
+
+	List<TripStep> getTripSteps(TripDay day) throws TripException;
+
+	List<TripDayLocation> getTripDayLocations(TripDay tripDay) throws TripException;
+
+	List<TripDay> getTripDays(Trip trip) throws TripException;
 }

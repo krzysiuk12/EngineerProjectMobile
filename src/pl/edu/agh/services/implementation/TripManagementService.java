@@ -82,6 +82,52 @@ public class TripManagementService extends BaseService implements ITripManagemen
 
 		tripRepository.saveTrip(trip);
 	}
+	@Override
+	public void saveTripDays(Trip trip) throws TripException {
+		for ( TripDay tripDay : trip.getDays() ) {
+			tripDay.setTrip(trip);
+			saveTripDay(tripDay);
+		}
+	}
+
+	@Override
+	public void saveTripDay(TripDay tripDay) throws TripException {
+		Collection<TripDayLocation> locations = tripDay.getLocations();
+		Collection<TripStep> tripSteps = tripDay.getTripSteps();
+		tripRepository.saveTripDay(tripDay);
+
+		tripDay.setLocations(null);
+		for (TripDayLocation dayLocation : locations) {
+			dayLocation.setTripDay(tripDay);
+			tripRepository.saveTripDayLocation(dayLocation);
+			// TODO: saving locations if they don't exist in DB
+		}
+		tripDay.setLocations(locations);
+
+		if ( tripSteps != null ) {
+			tripDay.setTripSteps(null);
+			for (TripStep step : tripSteps) {
+				step.setTripDay(tripDay);
+				saveTripStep(step);
+
+			}
+			tripDay.setTripSteps(tripSteps);
+		}
+	}
+
+	public void saveTripStep(TripStep step) throws TripException {
+		Collection<TripDirection> directions = step.getDirections();
+		tripRepository.saveTripStep(step);
+		if ( directions != null ) {
+			step.setDirections(null);
+			for (TripDirection direction : directions) {
+				direction.setTripStep(step);
+				tripRepository.saveTripDirection(direction);
+			}
+			step.setDirections(directions);
+		}
+	}
+
 
 	@Override
 	public List<Trip> getAllTrips() throws TripException {
@@ -119,49 +165,23 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	}
 
 	@Override
-	public void saveTripDays(Trip trip) throws TripException {
-		for ( TripDay tripDay : trip.getDays() ) {
-			tripDay.setTrip(trip);
-			saveTripDay(tripDay);
-		}
+	public List<TripDirection> getTripDirections(TripStep step) throws TripException {
+		return tripRepository.getTripDirections(step);
 	}
 
 	@Override
-	public void saveTripDay(TripDay tripDay) throws TripException {
-		Collection<TripDayLocation> locations = tripDay.getLocations();
-		Collection<TripStep> tripSteps = tripDay.getTripSteps();
-		tripRepository.saveTripDay(tripDay);
-
-		tripDay.setLocations(null);
-		for (TripDayLocation dayLocation : locations) {
-			dayLocation.setTripDay(tripDay);
-			tripRepository.saveTripDayLocation(dayLocation);
-			// TODO: saving locations if they don't exist in DB
-		}
-		tripDay.setLocations(locations);
-
-		if ( tripSteps != null ) {
-			tripDay.setTripSteps(null);
-			for (TripStep step : tripSteps) {
-				step.setTripDay(tripDay);
-				saveTripStep(step);
-
-			}
-			tripDay.setTripSteps(tripSteps);
-		}
+	public List<TripStep> getTripSteps(TripDay tripDay) throws TripException {
+		return tripRepository.getTripSteps(tripDay);
 	}
 
-	public void saveTripStep(TripStep step) throws TripException {
-		Collection<TripDirection> directions = step.getDirections();
-		tripRepository.saveTripStep(step);
-		step.setDirections(null);
-		if ( directions != null ) {
-			for (TripDirection direction : directions) {
-				direction.setTripStep(step);
-				tripRepository.saveTripDirection(direction);
-			}
-		}
-		step.setDirections(directions);
+	@Override
+	public List<TripDayLocation> getTripDayLocations(TripDay tripDay) throws TripException {
+		return tripRepository.getTripDayLocations(tripDay);
+	}
+
+	@Override
+	public List<TripDay> getTripDays(Trip trip) throws TripException {
+		return tripRepository.getTripDays(trip);
 	}
 
 }
