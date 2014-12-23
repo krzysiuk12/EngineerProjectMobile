@@ -10,8 +10,18 @@ public class TripCreatorWizardPageActivity extends AbstractWizardPageActivity {
     @Override
     protected int getWizardPageId() { return R.id.TripCreatorActivity_WizardPageView; }
 
+//    @Override
+//    protected AbstractWizardPage getWizardPageFragment() {
+//        return new TripCreatorWizardPageFragment();
+//    }
+
     @Override
-    protected AbstractWizardPage getWizardPageFragment() {
-        return new TripCreatorWizardPageFragment();
+    protected AbstractWizardPage getWizardPageFragment(int index) {
+        if(index == 0) {
+            return new TripCreatorInitPageFragment();
+        }
+        else {
+            return new TripCreatorWizardPageFragment();
+        }
     }
 }

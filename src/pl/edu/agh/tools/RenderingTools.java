@@ -1,5 +1,6 @@
 package pl.edu.agh.tools;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,5 +33,10 @@ public class RenderingTools {
 	public static String formatDateWithTime(Date date) {
 		return simpleDateWithTimeFormat.format(date);
 	}
+
+    public static void setTextViewColor(View view, int textViewId, int color) {
+        TextView tvName = (TextView) view.findViewById(textViewId);
+        tvName.setTextColor(color);
+    }
 
 }

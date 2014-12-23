@@ -33,7 +33,7 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
         getActionBar().hide();
 
 	    // TODO: move to appropriate place
-        new SynchronizationService(this).downloadAllLocations();
+        //new SynchronizationService(this).downloadAllLocations();
 
         try {
 /*            Location origin = new Location();

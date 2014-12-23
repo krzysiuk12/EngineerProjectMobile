@@ -22,7 +22,7 @@ public abstract class AbstractWizardPageActivity extends OrmLiteBaseActivity<Tes
         }
 
         if(savedInstanceState == null) {
-            AbstractWizardPage wizardPage = getWizardPageFragment();
+            AbstractWizardPage wizardPage = getWizardPageFragment(0);
             wizardPage.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().add(android.R.id.content, wizardPage).commit();
         }
@@ -30,5 +30,8 @@ public abstract class AbstractWizardPageActivity extends OrmLiteBaseActivity<Tes
     }
 
     protected abstract int getWizardPageId();
-    protected abstract AbstractWizardPage getWizardPageFragment();
+    //protected abstract AbstractWizardPage getWizardPageFragment();
+
+    protected abstract AbstractWizardPage getWizardPageFragment(int pageIndex);
+
 }

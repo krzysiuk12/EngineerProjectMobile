@@ -1,15 +1,15 @@
 package pl.edu.agh.activities.tripcreator;
 
-import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import pl.edu.agh.fragments.AbstractAdapter;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Sławek on 2014-12-09.
@@ -27,12 +27,20 @@ public abstract class AbstractWizardModel<T extends Serializable> extends ListFr
         View wizardPageView = getActivity().findViewById(getWizardPageId());
         setListAdapter(getAdapterInstance());
 
+
         if(savedInstanceState != null) {
             currentPageIndex = savedInstanceState.getInt(KEY_CURRENT_PAGE_INDEX, 0);
         }
 
-        currentPageIndex = 0;
-        showWizardPage(currentPageIndex);
+//        currentPageIndex = 0;
+//        showWizardPage(currentPageIndex);
+    }
+
+    @Override
+        public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        getListView().setItemChecked(position, true);
+        showWizardPage(position);
     }
 
     @Override
@@ -46,10 +54,24 @@ public abstract class AbstractWizardModel<T extends Serializable> extends ListFr
         currentPageIndex = index;
 
         Intent intent = new Intent();
-        intent.setClass(getActivity(), getClassForDetailsIntent());
+        intent.setClass(getActivity(), getClassForWizardPageIntent());
         intent.putExtra(pl.edu.agh.activities.tripcreator.AbstractWizardPage.KEY_INDEX, getListAdapter().getItemId(currentPageIndex));
         intent.putExtra(pl.edu.agh.activities.tripcreator.AbstractWizardPage.KEY_ITEM, (Serializable) getListAdapter().getItem(currentPageIndex));
         startActivity(intent);
+
+
+//        getListView().setItemChecked(index, true);
+//
+//        AbstractWizardPage wizardPageFragment = (AbstractWizardPage)
+//                getFragmentManager().findFragmentById(getWizardPageId());
+//
+//        if ( wizardPageFragment == null || wizardPageFragment.getDisplayedWizardPageIndex() != index ) {
+//            wizardPageFragment = getWizardPageFragmentInstance((T) getListAdapter().getItem(index), index);
+//            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//            ft.replace(getWizardPageId(), wizardPageFragment);
+//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//            ft.commit();
+//        }
     }
 
     protected abstract AbstractAdapter getAdapterInstance();
@@ -58,6 +80,6 @@ public abstract class AbstractWizardModel<T extends Serializable> extends ListFr
 
     protected abstract AbstractWizardPage getWizardPageFragmentInstance(T listItem, int index);
 
-    protected abstract Class getClassForDetailsIntent();
+    protected abstract Class getClassForWizardPageIntent();
 
 }

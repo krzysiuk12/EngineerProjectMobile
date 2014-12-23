@@ -20,8 +20,7 @@
                 android:textAppearance="@style/WizardPage.Title"
                 android:text="@string/TripCreatorInitPage.Title"
                 android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
-                android:id="@+id/TripCreatorInitPage.Title"
-                android:layout_gravity="center_horizontal"/>
+                android:id="@+id/TripCreatorInitPage.Title"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -29,7 +28,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/TripCreatorInitPage.IntroductionText"
                 android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
-                android:gravity="center"
                 android:id="@+id/textView4"
                 android:layout_gravity="center_horizontal"/>
 
@@ -39,8 +37,8 @@
                 android:background="@drawable/shape_filled_green"
                 android:textColor="@android:color/white"
                 android:padding="@dimen/LoginActivity.Button.Padding"
-                android:text="@string/TripCreatorInitPage.StartButton"
-                android:id="@+id/TripCreatorInitPage.StartButton"/>
+                android:text="@string/TripCreatorInitPage.ReturnButton"
+                android:id="@+id/TripCreatorInitPage.ReturnToStepsViewButton"/>
     </LinearLayout>
 
 </LinearLayout>
