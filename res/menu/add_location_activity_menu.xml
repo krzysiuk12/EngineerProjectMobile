@@ -2,12 +2,12 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/AddLocationMenu.Search"
+    <item android:id="@+id/AddLocationMenu_Search"
           android:icon="@drawable/ic_search"
           android:title="@string/AddLocationMenu.Search.Title"
           android:showAsAction="always"/>
 
-    <item android:id="@+id/AddLocationMenu.Help"
+    <item android:id="@+id/MapMenu_Help"
           android:icon="@drawable/ic_help"
           android:title="@string/AddLocationMenu.Help.Title"
           android:showAsAction="always"/>
@@ -16,20 +16,20 @@
           android:title="@string/AddLocationMenu.Settings.Title"
           android:showAsAction="always">
         <menu>
-            <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType"
+            <item android:id="@+id/MapMenu_Settings_GoogleMapsType"
                   android:title="@string/Menu.GoogleType"
                   android:showAsAction="always">
                 <menu>
-                    <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType.Normal"
+                    <item android:id="@+id/MapMenu_Settings_GoogleMapsType_Normal"
                           android:title="@string/Menu.GoogleType.Normal"
                           android:showAsAction="always"/>
-                    <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType.Hybrid"
+                    <item android:id="@+id/MapMenu_Settings_GoogleMapsType_Hybrid"
                           android:title="@string/Menu.GoogleType.Hybrid"
                           android:showAsAction="always"/>
-                    <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType.Satellite"
+                    <item android:id="@+id/MapMenu_Settings_GoogleMapsType_Satellite"
                           android:title="@string/Menu.GoogleType.Satellite"
                           android:showAsAction="always"/>
-                    <item android:id="@+id/AddLocationMenu.Settings.GoogleMapsType.Terrain"
+                    <item android:id="@+id/MapMenu_Settings_GoogleMapsType_Terrain"
                           android:title="@string/Menu.GoogleType.Terrain"
                           android:showAsAction="always"/>
                 </menu>

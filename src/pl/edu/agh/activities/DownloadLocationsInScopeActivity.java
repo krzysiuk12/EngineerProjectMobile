@@ -1,10 +1,7 @@
 package pl.edu.agh.activities;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,19 +9,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.implementation.SynchronizationService;
-import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
 
@@ -33,7 +26,7 @@ import java.io.Serializable;
 /**
  * Created by Magda on 2014-12-26.
  */
-public class DownloadLocationsInScopeActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
+public class DownloadLocationsInScopeActivity extends ActivityWithMapMenu {
 
 	public enum MetricUnitType implements Serializable {
 		KM,
@@ -108,37 +101,8 @@ public class DownloadLocationsInScopeActivity extends OrmLiteBaseActivity<TestDa
 
 	// </editor-fold>
 
-	//<editor-fold desc="ActionBar Menu - Methods">
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.simple_map_menu, menu);
-		return true;
-	}
 
-	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		switch(item.getItemId()) {
-			case R.id.SimpleMapMenu_Help:
-				helpMenuAction();
-				return true;
-			case R.id.SimpleMapMenu_Settings_GoogleMapsType_Hybrid:
-				getGoogleMapsManagementService().setHybridMapType(getGoogleMap());
-				return true;
-			case R.id.SimpleMapMenu_Settings_GoogleMapsType_Normal:
-				getGoogleMapsManagementService().setNormalMapType(getGoogleMap());
-				return true;
-			case R.id.SimpleMapMenu_Settings_GoogleMapsType_Satellite:
-				getGoogleMapsManagementService().setSatelliteMapType(getGoogleMap());
-				return true;
-			case R.id.SimpleMapMenu_Settings_GoogleMapsType_Terrain:
-				getGoogleMapsManagementService().setTerrainMapType(getGoogleMap());
-				return true;
-		}
-		return super.onMenuItemSelected(featureId, item);
-	}
-	//</editor-fold>
-
-	private void helpMenuAction() {
+	protected void helpMenuAction() {
 		// TODO: redirect to help
 	}
 

@@ -2,7 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/SimpleMapMenu.Help"
+    <item android:id="@+id/MapMenu_Help"
           android:icon="@drawable/ic_help"
           android:title="@string/AddLocationMenu.Help.Title"
           android:showAsAction="always"/>
@@ -11,20 +11,20 @@
           android:title="@string/AddLocationMenu.Settings.Title"
           android:showAsAction="always">
         <menu>
-            <item android:id="@+id/SimpleMapMenu.Settings.GoogleMapsType"
+            <item android:id="@+id/SimpleMapMenu_Settings_GoogleMapsType"
                   android:title="@string/Menu.GoogleType"
                   android:showAsAction="always">
                 <menu>
-                    <item android:id="@+id/SimpleMapMenu.Settings.GoogleMapsType.Normal"
+                    <item android:id="@+id/MapMenu_Settings_GoogleMapsType_Normal"
                           android:title="@string/Menu.GoogleType.Normal"
                           android:showAsAction="always"/>
-                    <item android:id="@+id/SimpleMapMenu.Settings.GoogleMapsType.Hybrid"
+                    <item android:id="@+id/MapMenu_Settings_GoogleMapsType_Hybrid"
                           android:title="@string/Menu.GoogleType.Hybrid"
                           android:showAsAction="always"/>
-                    <item android:id="@+id/SimpleMapMenu.Settings.GoogleMapsType.Satellite"
+                    <item android:id="@+id/MapMenu_Settings_GoogleMapsType_Satellite"
                           android:title="@string/Menu.GoogleType.Satellite"
                           android:showAsAction="always"/>
-                    <item android:id="@+id/SimpleMapMenu.Settings.GoogleMapsType.Terrain"
+                    <item android:id="@+id/MapMenu_Settings_GoogleMapsType_Terrain"
                           android:title="@string/Menu.GoogleType.Terrain"
                           android:showAsAction="always"/>
                 </menu>

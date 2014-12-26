@@ -2,7 +2,6 @@ package pl.edu.agh.activities.locations;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,16 +10,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.activities.ActivityWithMapMenu;
 import pl.edu.agh.domain.accounts.Address;
-import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
 import pl.edu.agh.exceptions.LocationException;
@@ -29,9 +25,7 @@ import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
-import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
-import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.GoogleGeocodingService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.implementation.LocationManagementService;
@@ -43,13 +37,11 @@ import pl.edu.agh.tools.ErrorTools;
 import pl.edu.agh.utils.StringUtils;
 import pl.edu.agh.views.ScrollViewWithMap;
 
-import java.util.Date;
-
 /**
  * Created by Sławomir on 19.06.14.
  * Edited by Krzysiu on 16.09.14
  */
-public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper> implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
+public class AddLocationActivity extends ActivityWithMapMenu implements GeocodeSearchDialogFragment.GeocodeSearchDialogListener {
 
     //<editor-fold desc="Fields">
     private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
@@ -165,32 +157,17 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
     //</editor-fold>
 
     //<editor-fold desc="ActionBar Menu - Creation and Actions">
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_location_activity_menu, menu);
-        return true;
+    protected int getMenuLayoutId() {
+        return R.menu.add_location_activity_menu;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch( item.getItemId() ) {
             case R.id.AddLocationMenu_Search:
                 searchMenuAction();
-                return true;
-            case R.id.AddLocationMenu_Help:
-                helpMenuAction();
-                return true;
-            case R.id.AddLocationMenu_Settings_GoogleMapsType_Hybrid:
-                getGoogleMapsManagementService().setHybridMapType(getGoogleMap());
-                return true;
-            case R.id.AddLocationMenu_Settings_GoogleMapsType_Normal:
-                getGoogleMapsManagementService().setNormalMapType(getGoogleMap());
-                return true;
-            case R.id.AddLocationMenu_Settings_GoogleMapsType_Satellite:
-                getGoogleMapsManagementService().setSatelliteMapType(getGoogleMap());
-                return true;
-            case R.id.AddLocationMenu_Settings_GoogleMapsType_Terrain:
-                getGoogleMapsManagementService().setTerrainMapType(getGoogleMap());
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -303,7 +280,7 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
         new GeocodeSearchDialogFragment().show(getFragmentManager(), "GeocodeFragment");
     }
 
-    private void helpMenuAction() {
+    protected void helpMenuAction() {
         new InfoToastBuilder(this, "Wybrano help").build().show();
     }
 
