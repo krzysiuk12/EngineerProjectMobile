@@ -45,6 +45,8 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		locationManagementService = new LocationManagementService(helper);
 	}
 
+	// <editor-fold desc="Validation">
+
 	@Override
 	public List<FormValidationError> validateTrip(Trip trip) throws TripException {
 		List<FormValidationError> errors = new ArrayList<>();
@@ -57,15 +59,47 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		if ( trip.getEndDate() == null ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_END_DATE_IS_REQUIRED.getStringResourceId()));
 		}
-		if ( trip.getStartDate().after(trip.getEndDate()) ) {
+		if ( trip.getStartDate() != null && trip.getEndDate() != null && trip.getStartDate().after(trip.getEndDate()) ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_START_DATE_BEFORE_END_DATE.getStringResourceId()));
 		}
 		if ( trip.getDays() == null || trip.getDays().isEmpty() ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAYS_IS_REQUIRED.getStringResourceId()));
 		}
 
+		if ( trip.getDays() != null ) {
+			for ( TripDay tripDay : trip.getDays() ) {
+				errors.addAll(validateTripDay(tripDay, trip));
+			}
+		}
+
 		return errors;
 	}
+
+	public List<FormValidationError> validateTripDay(TripDay tripDay, Trip trip) {
+		List<FormValidationError> errors = new ArrayList<>();
+		if ( tripDay.getDate() == null ) {
+			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_END_DATE_IS_REQUIRED.getStringResourceId()));
+		}
+		if ( tripDay.getDate() != null && trip.getStartDate() != null && trip.getEndDate() != null &&
+				(tripDay.getDate().before(trip.getStartDate()) || tripDay.getDate().after(trip.getEndDate())) ) {
+			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_INVALID_DATE.getStringResourceId()));
+		}
+		if ( tripDay.getLocations() == null || tripDay.getLocations().isEmpty() ) {
+			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_LOCATIONS_ARE_REQUIRED.getStringResourceId()));
+		}
+		return errors;
+	}
+
+	public List<FormValidationError> validateTripDayLocation(TripDayLocation tripDayLocation) {
+		List<FormValidationError> errors = new ArrayList<>();
+		if ( tripDayLocation.getLocation() == null ) {
+			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_LOCATION_LOCATION_IS_REQUIRED.getStringResourceId()));
+		}
+
+		return errors;
+	}
+
+	// </editor-fold>
 
 	// <editor-fold desc="Save Trip">
 

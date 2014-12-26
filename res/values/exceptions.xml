@@ -17,15 +17,27 @@
     <string name="LocationException.ValidationError.CityIsRequired">City is required</string>
     <string name="LocationException.ValidationError.CountryIsRequired">Country is required</string>
 
-    <string name="TripException.ValidationError.NameIsRequired">Trip name is required</string>
-    <string name="TripException.ValidationError.StartDateIsRequired">Start date is required</string>
-    <string name="TripException.ValidationError.EndDateIsRequired">End date is required</string>
-    <string name="TripException.ValidationError.AuthorIsRequired">Author is required</string>
-    <string name="TripException.ValidationError.TripDaysIsRequired">Trip Days cannot be empty</string>
-    <string name="TripException.ValidationError.StartDateBeforeEndDate">Start Date must be before End Date</string>
+    <string name="TripException.ValidationError.Trip.NameIsRequired">Trip name is required</string>
+    <string name="TripException.ValidationError.Trip.StartDateIsRequired">Start date is required</string>
+    <string name="TripException.ValidationError.Trip.EndDateIsRequired">End date is required</string>
+    <string name="TripException.ValidationError.Trip.AuthorIsRequired">Author is required</string>
+    <string name="TripException.ValidationError.Trip.TripDaysIsRequired">Trip Days cannot be empty</string>
+    <string name="TripException.ValidationError.Trip.StartDateBeforeEndDate">Start Date must be before End Date</string>
 
-    <string name="SynchronizationException.DatabaseSaveError">Failed to save information about sync in database</string>
+    <string name="TripException.ValidationError.TripDay.InvalidDate">Invalid TripDay\'s date</string>
+    <string name="TripException.ValidationError.TripDay.DateIsRequired">Date is required</string>
+    <string name="TripException.ValidationError.TripDay.TripDayLocationsAreRequired">Locations are required</string>
+
+    <string name="TripException.ValidationError.TripDayLocation.LocationIsRequired">Locations is required</string>
+    <string name="TripException.ValidationError.TripDayLocation.OrdinalIsRequired">Ordinal is required</string>
+
+    <string name="SynchronizationException.DatabaseSaveError">Failed to save information about synchronized object</string>
     <string name="SynchronizationException.ServerError">Server-side error occurred. Failed to synchronize</string>
-    <string name="SynchronizationException.ServerUnreachable">Server unreachable</string>
+
+    <string name="ServerException.ServerUnreachable">Server unreachable</string>
+    <string name="ServerException.UnknownError">Unknown Error occurred</string>
+    <string name="ServerException.ZeroResults">Request came with zero results</string>
+    <string name="ServerException.AccessDenied">Access Denied</string>
+    <string name="ServerException.RequestDenied">Request Denied</string>
 
 </resources>

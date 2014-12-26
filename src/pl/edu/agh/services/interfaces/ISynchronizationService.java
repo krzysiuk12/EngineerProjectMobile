@@ -1,6 +1,7 @@
 package pl.edu.agh.services.interfaces;
 
 import pl.edu.agh.exceptions.SynchronizationException;
+import pl.edu.agh.serializers.common.ResponseSerializer;
 
 /**
  * Created by Magda on 2014-11-21.

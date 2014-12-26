@@ -54,7 +54,7 @@ public class LanguageSettingsIssue extends SettingsIssue {
 
 	private void onLanguageChange(View view) {
 		// TODO: combine this into one method!
-		new ApplicationSettingsService().changeLanguagePreference(view, currentLanguage);
+		new ApplicationSettingsService().changeLanguagePreference(view.getContext(), currentLanguage);
 		new UserAccountManagementService(view.getContext()).changeLanguagePreferenceForUser(UserAccountManagementService.getUserAccount(), currentLanguage);
 		getFragment().showSuccessToastAndFinish();
 	}

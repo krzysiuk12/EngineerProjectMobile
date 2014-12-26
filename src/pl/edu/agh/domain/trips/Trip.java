@@ -76,7 +76,7 @@ public class Trip extends GlobalBaseObject {
     }
 
     public Collection<TripDay> getDays() {
-        return new ArrayList<>(days);
+        return days;
     }
 
     public void setDays(Collection<TripDay> days) {

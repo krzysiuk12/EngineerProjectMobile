@@ -1,5 +1,6 @@
 package pl.edu.agh.services.interfaces;
 
+import android.content.Context;
 import android.view.View;
 import pl.edu.agh.domain.accounts.UserAccount;
 
@@ -8,6 +9,6 @@ import pl.edu.agh.domain.accounts.UserAccount;
  */
 public interface IApplicationSettingsService {
 
-	public void changeLanguagePreference(View view, UserAccount.Language language);
+	public void changeLanguagePreference(Context context, UserAccount.Language language);
 
 }

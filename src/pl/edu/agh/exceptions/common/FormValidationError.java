@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Krzysiu on 2014-09-14.
  */
-public class FormValidationError {
+public class FormValidationError extends Exception {
 
     private int stringResourceId;
     private List<Object> parameters;

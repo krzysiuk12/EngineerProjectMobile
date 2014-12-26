@@ -9,7 +9,7 @@ import pl.edu.agh.dbmodel.common.BaseObjectMapping;
  */
 public abstract class GlobalBaseObject extends BaseObject {
 
-    @DatabaseField(columnName = BaseObjectMapping.GLOBAL_ID_COLUMN_NAME, canBeNull = true, unique = true)
+    @DatabaseField(columnName = BaseObjectMapping.GLOBAL_ID_COLUMN_NAME, canBeNull = true)
     private long globalId;
 
     @JsonProperty(value = "id")

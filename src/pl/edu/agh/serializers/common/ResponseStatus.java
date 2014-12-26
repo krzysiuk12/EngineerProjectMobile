@@ -10,6 +10,7 @@ public enum ResponseStatus {
     ACCESS_DENIED,
     REQUEST_DENIED,
     VALIDATION_ERROR,
-    UNKNOWN_ERROR
+    UNKNOWN_ERROR,
+    SERVER_SIDE_ERROR
 
 }

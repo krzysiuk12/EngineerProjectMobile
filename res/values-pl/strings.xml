@@ -40,12 +40,12 @@
         mapie!</string>
     <string name="ShowAllLocationsOnMapActivity.NoLocationFoundError">Wystąpił błąd. Nie ma takiej lokalizacji.</string>
     <string name="ShowAllLocationsOnMapActivity.SearchError">Wystąpił błąd w trakcie wyszukiwania, bardzo przepraszamy.</string>
-    <string name="TripException.ValidationError.AuthorIsRequired">Autor jest wymagany</string>
-    <string name="TripException.ValidationError.EndDateIsRequired">Data zakończenia jest wymagana</string>
-    <string name="TripException.ValidationError.NameIsRequired">Nazwa wycieczki jest wymagana</string>
-    <string name="TripException.ValidationError.StartDateBeforeEndDate">Data rozpoczęcia musi być przed datą zakończenia</string>
-    <string name="TripException.ValidationError.StartDateIsRequired">Data rozpoczęcia jest wymagana</string>
-    <string name="TripException.ValidationError.TripDaysIsRequired">Musisz dodać jakiś dzień wycieczki</string>
+    <string name="TripException.ValidationError.Trip.AuthorIsRequired">Autor jest wymagany</string>
+    <string name="TripException.ValidationError.Trip.EndDateIsRequired">Data zakończenia jest wymagana</string>
+    <string name="TripException.ValidationError.Trip.NameIsRequired">Nazwa wycieczki jest wymagana</string>
+    <string name="TripException.ValidationError.Trip.StartDateBeforeEndDate">Data rozpoczęcia musi być przed datą zakończenia</string>
+    <string name="TripException.ValidationError.Trip.StartDateIsRequired">Data rozpoczęcia jest wymagana</string>
+    <string name="TripException.ValidationError.Trip.TripDaysIsRequired">Musisz dodać jakiś dzień wycieczki</string>
     <string name="TripDay.Date">Data</string>
     <string name="TripDay">Dzień wycieczki</string>
     <string name="Trip.EndDate">Data zakończenia</string>

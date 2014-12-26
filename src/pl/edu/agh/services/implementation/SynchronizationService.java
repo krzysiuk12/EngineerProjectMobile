@@ -13,18 +13,12 @@ import pl.edu.agh.asynctasks.locations.PostAddNewPrivateLocationAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetAllTripDayDetailsAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetMyTripsAsyncTask;
 import pl.edu.agh.asynctasks.trips.PostAddTripAsyncTask;
-import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.exceptions.TripException;
-import pl.edu.agh.layout.toast.ErrorToastBuilder;
-import pl.edu.agh.layout.toast.ToastBuilder;
-import pl.edu.agh.main.R;
-import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
-import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
 import pl.edu.agh.serializers.TripCreationSerializer;
 import pl.edu.agh.serializers.TripDayCreationSerializer;
 import pl.edu.agh.serializers.common.ResponseSerializer;
@@ -162,7 +156,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		for ( Trip trip : trips ) {
 			trip.setAuthor(UserAccountManagementService.getUserAccount());  // TODO: move up to create downloadTripsForUser
 			try {
-				tripManagementService.saveTrip(trip);
+				tripManagementService.saveOrUpdateTrip(trip);
 			} catch (TripException e) {
 				e.printStackTrace();
 			}
@@ -206,12 +200,12 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		for ( Location location : locations) {
 			try {
 				ResponseSerializer<Long> response = new PostAddNewLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
-				if ( response.getStatus() == ResponseStatus.OK ) {
+				if ( validateServerResponse(response) && response.getResult() != null ) {
 					location.setGlobalId(response.getResult());
 					location.setSynced(true);
 					locationManagementService.updateLocation(location);
 				} else {
-					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_ERROR);
+					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_SIDE_ERROR);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();    // TODO: error handling
@@ -238,12 +232,13 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		for ( Location location : locations) {
 			try {
 				ResponseSerializer<Long> response = new PostAddNewPrivateLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
-				if ( response.getStatus() == ResponseStatus.OK ) {
+				if ( validateServerResponse(response) && response.getResult() != null ) {
 					location.setGlobalId(response.getResult());
 					location.setSynced(true);
 					locationManagementService.updateLocation(location);
 				} else {
-					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_ERROR);
+					// no result returned by server
+					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_SIDE_ERROR);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -277,11 +272,9 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		for ( Trip trip : trips ) {
 			try {
 				ResponseSerializer response = new PostAddTripAsyncTask(UserAccountManagementService.getToken(), buildTripSerializer(trip)).execute().get();
-				if ( response.getStatus() == ResponseStatus.OK ) {
+				if ( validateServerResponse(response) ) {
 					trip.setSynced(true);
 					tripManagementService.updateTrip(trip);
-				} else {
-					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_ERROR);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

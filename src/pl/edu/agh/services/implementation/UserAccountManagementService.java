@@ -2,10 +2,12 @@ package pl.edu.agh.services.implementation;
 
 import android.content.Context;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import pl.edu.agh.asynctasks.authorization.LogInAsyncTask;
 import pl.edu.agh.asynctasks.authorization.LogOutAsyncTask;
 import pl.edu.agh.domain.accounts.UserAccount;
+import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.repositories.implementation.OrmLiteUserAccountRepository;
 import pl.edu.agh.repositories.interfaces.IUserAccountRepository;
 import pl.edu.agh.serializers.LoginSerializer;
@@ -54,34 +56,36 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 		return USER_ACCOUNT;
 	}
 
-	public boolean logIn(String login, String password) {
+	public boolean logIn(String login, String password) throws SynchronizationException {
 		try {
 			ResponseSerializer<LoginSerializer> response = new LogInAsyncTask(login, password).execute().get();
-			if ( response.getStatus() == ResponseStatus.OK ) {
+			if ( validateServerResponse(response) ) {
 				TOKEN = response.getResult().getToken();
 				saveUserInSession(login, password);
 				return true;
 			}
 		} catch (RestClientException e ) {
 			getLogService().error(e.toString());
+			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
+			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 		}
-		// todo: error handling : return List<ErrorMessage> ? Rather : throw exceptions
 		return false;
 	}
 
 	@Override
-	public boolean logAsDefault() {
-		UserAccount defaultUser = userAccountRepository.getDefaultUser();
+	public boolean logAsDefault() throws SynchronizationException {
+		UserAccount defaultUser = getDefaultUser();
 		if ( defaultUser != null)
 			return logIn(defaultUser.getLogin(), defaultUser.getPassword());
 		else
 			return false;
 	}
 
+	@Override
 	public void logOut() {
 		new LogOutAsyncTask(getToken()).execute();
 	}
@@ -89,6 +93,11 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 	@Override
 	public void saveUserAccount(UserAccount userAccount) {
 		userAccountRepository.saveUserAccount(userAccount);
+	}
+
+	@Override
+	public void updateUserAccount(UserAccount userAccount) {
+		userAccountRepository.updateUserAccount(userAccount);
 	}
 
 	@Override
@@ -102,6 +111,11 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 	}
 
 	@Override
+	public UserAccount getDefaultUser() {
+		return userAccountRepository.getDefaultUser();
+	}
+
+	@Override
 	public void setAsDefaultUser(UserAccount user, boolean isDefault) {
 		if ( isDefault ) {
 			// set other users to false - only one user can be a default user
@@ -109,18 +123,18 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 
 			for (UserAccount userAccount : userAccounts) {
 				userAccount.setDefaultUser(false);
-				userAccountRepository.updateUserAccount(userAccount);
+				updateUserAccount(userAccount);
 			}
 		}
 
 		user.setDefaultUser(isDefault);
-		userAccountRepository.updateUserAccount(user);
+		updateUserAccount(user);
 	}
 
 	@Override
 	public void changeLanguagePreferenceForUser(UserAccount user, UserAccount.Language language) {
 		user.setLanguage(language);
-		userAccountRepository.updateUserAccount(user);
+		updateUserAccount(user);
 	}
 
 	// <editor-fold description="Private methods">
@@ -130,11 +144,11 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 		if ( USER_ACCOUNT == null ) {
 			// save in database - first login
 			USER_ACCOUNT = createUserAccount(login, password);
-			userAccountRepository.saveUserAccount(USER_ACCOUNT);
+			saveUserAccount(USER_ACCOUNT);
 		} else {
 			// update token in database
 			USER_ACCOUNT.setToken(getToken());
-			userAccountRepository.updateUserAccount(USER_ACCOUNT);
+			updateUserAccount(USER_ACCOUNT);
 		}
 	}
 

@@ -7,10 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.services.interfaces.IUserAccountManagementService;
+import pl.edu.agh.tools.ErrorTools;
 
 
 /**
@@ -51,7 +53,12 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 	// <editor-fold description="Actions">
 
 	public void loginButtonAction(View view) {
-		boolean loginResult = userAccountManagementService.logIn(getLoginEditText().getText().toString(), getPasswordEditText().getText().toString());
+		boolean loginResult = false;
+		try {
+			loginResult = userAccountManagementService.logIn(getLoginEditText().getText().toString(), getPasswordEditText().getText().toString());
+		} catch (SynchronizationException e) {
+			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition())).build().show();
+		}
 		if ( loginResult ) {
 			goToMainMenu();
 		} else {
@@ -60,7 +67,12 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
     }
 
 	private void logAsDefaultAction(View view) {
-		boolean loginResult = userAccountManagementService.logAsDefault();
+		boolean loginResult = false;
+		try {
+			loginResult = userAccountManagementService.logAsDefault();
+		} catch (SynchronizationException e) {
+			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition())).build().show();
+		}
 		if ( loginResult ) {
 			goToMainMenu();
 		} else {
