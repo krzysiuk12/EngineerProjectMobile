@@ -38,6 +38,8 @@ public interface ITripRepository {
 
 	public Trip getTripById(long id) throws TripException;
 
+	Trip getTripByGlobalId(long id) throws TripException;
+
 	public Trip getTripByName(String name) throws TripException;
 
 	public List<TripDirection> getTripDirections(TripStep step) throws TripException;

@@ -18,9 +18,9 @@ import pl.edu.agh.serializers.common.ResponseSerializer;
 public class GetAllTripDayDetailsAsyncTask extends AsyncTask<Void, Void, TripDay> {
 
 	private String token;
-	private int id;
+	private long id;
 
-	public GetAllTripDayDetailsAsyncTask(String token, int id) {
+	public GetAllTripDayDetailsAsyncTask(String token, long id) {
 		this.token = token;
 		this.id = id;
 	}

@@ -6,18 +6,17 @@ import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.locations.LocationMapping;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.accounts.UserAccount;
-import pl.edu.agh.domain.common.BaseObject;
+import pl.edu.agh.domain.common.GlobalBaseObject;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Krzysiu on 2014-06-08.
  */
 @DatabaseTable(tableName = LocationMapping.TABLE_NAME)
-public class Location extends BaseObject implements Serializable {
+public class Location extends GlobalBaseObject implements Serializable {
 
     public enum Status implements Serializable {
         /**
@@ -37,9 +36,6 @@ public class Location extends BaseObject implements Serializable {
          */
         REMOVED
     }
-
-    @DatabaseField(columnName = LocationMapping.GLOBAL_ID_COLUMN_NAME, canBeNull = true, unique = true)
-    private long globalId;
 
     @DatabaseField(columnName = LocationMapping.NAME_COLUMN_NAME, canBeNull = false)
     private String name;
@@ -85,15 +81,6 @@ public class Location extends BaseObject implements Serializable {
     }
 
 // <editor-fold desc="Geters and Setters">
-
-
-    public long getGlobalId() {
-        return globalId;
-    }
-
-    public void setGlobalId(long globalId) {
-        this.globalId = globalId;
-    }
 
     public String getName() {
         return name;

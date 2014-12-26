@@ -5,6 +5,7 @@ package pl.edu.agh.dbmodel.common;
  */
 public class BaseObjectMapping {
 
-    private static final String ID_COLUMN_NAME = "id";
+    public static final String ID_COLUMN_NAME = "id";
+    public static final String GLOBAL_ID_COLUMN_NAME = "global_id";
 
 }

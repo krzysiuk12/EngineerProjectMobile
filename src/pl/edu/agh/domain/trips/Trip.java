@@ -6,7 +6,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.trips.TripMapping;
 import pl.edu.agh.domain.accounts.UserAccount;
-import pl.edu.agh.domain.common.BaseObject;
+import pl.edu.agh.domain.common.GlobalBaseObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,10 +16,7 @@ import java.util.Date;
  * Created by Krzysiu on 2014-09-14.
  */
 @DatabaseTable(tableName = TripMapping.TABLE_NAME)
-public class Trip extends BaseObject {
-
-    @DatabaseField(columnName = TripMapping.GLOBAL_ID_COLUMN_NAME, canBeNull = true, unique = true)
-    private long globalId;
+public class Trip extends GlobalBaseObject {
 
     @DatabaseField(columnName = TripMapping.NAME_COLUMN_NAME, width = 100, canBeNull = false)
     private String name;
@@ -52,14 +49,6 @@ public class Trip extends BaseObject {
         this.author = author;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    public long getGlobalId() {
-        return globalId;
-    }
-
-    public void setGlobalId(long globalId) {
-        this.globalId = globalId;
     }
 
     public String getName() {

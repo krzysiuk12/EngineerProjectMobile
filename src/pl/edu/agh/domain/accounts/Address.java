@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 
 @DatabaseTable(tableName = AddressMapping.TABLE_NAME)
-public class Address extends BaseObject implements Serializable{
+public class Address extends BaseObject implements Serializable {
 
     @DatabaseField(columnName = AddressMapping.STREET_COLUMN_NAME)
     private String street;

@@ -9,7 +9,7 @@ import pl.edu.agh.domain.common.BaseObject;
  * Created by Magda on 2014-12-03.
  */
 @DatabaseTable(tableName = CoordinateMapping.TABLE_NAME)
-public class Coordinate extends BaseObject{
+public class Coordinate extends BaseObject {
 
 	@DatabaseField(columnName = CoordinateMapping.LATITUDE_COLUMN_NAME, canBeNull = false)
 	private double latitude;

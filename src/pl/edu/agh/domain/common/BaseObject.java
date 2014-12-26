@@ -1,22 +1,26 @@
 package pl.edu.agh.domain.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
 
 /**
- * Created by Krzysiu on 2014-09-14.
+ * Created by Magda on 2014-12-26.
  */
+
 public abstract class BaseObject implements Serializable {
 
-    @DatabaseField(columnName = "id", generatedId = true)
-    private int id;
+	@JsonIgnore
+	@DatabaseField(columnName = "id", generatedId = true)
+	private int id;
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
+
 }

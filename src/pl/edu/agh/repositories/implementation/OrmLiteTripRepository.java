@@ -6,6 +6,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import junit.framework.Test;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.dbmodel.accounts.UserAccountMapping;
+import pl.edu.agh.dbmodel.common.BaseObjectMapping;
 import pl.edu.agh.dbmodel.trips.TripDayLocationMapping;
 import pl.edu.agh.dbmodel.trips.TripDayMapping;
 import pl.edu.agh.dbmodel.trips.TripDirectionMapping;
@@ -129,6 +130,15 @@ public class OrmLiteTripRepository implements ITripRepository {
 	@Override
 	public Trip getTripById(long id) throws TripException {
 		return ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryForId(id);
+	}
+
+	@Override
+	public Trip getTripByGlobalId(long id) throws TripException {
+		List<Trip> trips = ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryForEq(BaseObjectMapping.GLOBAL_ID_COLUMN_NAME, id);
+		if ( !trips.isEmpty() ) {
+			return trips.get(0);
+		}
+		return null;
 	}
 
 	@Override

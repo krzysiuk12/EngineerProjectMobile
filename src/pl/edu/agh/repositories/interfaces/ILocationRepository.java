@@ -19,6 +19,8 @@ public interface ILocationRepository {
 
     public Location getLocationById(Long id) throws LocationException;
 
+    public Location getLocationByGlobalId(Long id) throws LocationException;
+
     public Location getLocationByName(String name) throws LocationException;
 
     public Location getLocationByCoordinates(double longitude, double latitude) throws LocationException;
@@ -36,5 +38,4 @@ public interface ILocationRepository {
     public List<Location> getAllNewPublicLocations() throws LocationException;
 
     public List<Location> getAllNewPrivateLocations() throws LocationException;
-
 }

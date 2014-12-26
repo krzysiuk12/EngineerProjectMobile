@@ -4,6 +4,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.stmt.QueryBuilder;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.dbmodel.accounts.UserAccountMapping;
+import pl.edu.agh.dbmodel.common.BaseObjectMapping;
 import pl.edu.agh.dbmodel.locations.LocationMapping;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
@@ -57,6 +58,15 @@ public class OrmLiteLocationRepository implements ILocationRepository {
     @Override
     public Location getLocationById(Long id) throws LocationException {
         return ((TestDatabaseHelper)openHelper).getLocationsRuntimeExceptionDao().queryForId(id);
+    }
+
+    @Override
+    public Location getLocationByGlobalId(Long id) throws LocationException {
+        List<Location> locations = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryForEq(BaseObjectMapping.GLOBAL_ID_COLUMN_NAME, id);
+        if ( !locations.isEmpty() ) {
+            return locations.get(0);
+        }
+        return null;
     }
 
     @Override

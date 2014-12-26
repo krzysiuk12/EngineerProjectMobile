@@ -126,7 +126,8 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 		for ( Location location : locations ) {
 			try {
-				locationManagementService.saveLocation(location);
+//				locationManagementService.saveLocation(location);
+				locationManagementService.saveOrUpdateLocation(location);
 			} catch (LocationException e) {
 				e.printStackTrace();
 			}
@@ -174,7 +175,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 			List<TripDay> newTripDays = new ArrayList<>();
 			for ( TripDay day : trip.getDays() ) {
 				try {
-					TripDay allTripDayData = new GetAllTripDayDetailsAsyncTask(UserAccountManagementService.getToken(), day.getId()).execute().get();
+					TripDay allTripDayData = new GetAllTripDayDetailsAsyncTask(UserAccountManagementService.getToken(), day.getGlobalId()).execute().get();
 					newTripDays.add(allTripDayData);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -204,8 +205,9 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 		for ( Location location : locations) {
 			try {
-				ResponseSerializer response = new PostAddNewLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
+				ResponseSerializer<Long> response = new PostAddNewLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
 				if ( response.getStatus() == ResponseStatus.OK ) {
+					location.setGlobalId(response.getResult());
 					location.setSynced(true);
 					locationManagementService.updateLocation(location);
 				} else {
@@ -235,8 +237,9 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 		for ( Location location : locations) {
 			try {
-				ResponseSerializer response = new PostAddNewPrivateLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
+				ResponseSerializer<Long> response = new PostAddNewPrivateLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
 				if ( response.getStatus() == ResponseStatus.OK ) {
+					location.setGlobalId(response.getResult());
 					location.setSynced(true);
 					locationManagementService.updateLocation(location);
 				} else {

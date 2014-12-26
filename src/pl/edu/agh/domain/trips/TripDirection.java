@@ -3,13 +3,13 @@ package pl.edu.agh.domain.trips;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.trips.TripDirectionMapping;
-import pl.edu.agh.domain.common.BaseObject;
+import pl.edu.agh.domain.common.GlobalBaseObject;
 
 /**
  * Created by Krzysiu on 2014-09-14.
  */
 @DatabaseTable(tableName = TripDirectionMapping.TABLE_NAME)
-public class TripDirection extends BaseObject  {
+public class TripDirection extends GlobalBaseObject {
 
     @DatabaseField(columnName = TripDirectionMapping.ORDINAL_COLUMN_NAME, canBeNull = false)
     private int ordinal;

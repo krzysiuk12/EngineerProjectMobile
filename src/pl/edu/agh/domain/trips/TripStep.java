@@ -1,12 +1,10 @@
 package pl.edu.agh.domain.trips;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.trips.TripStepMapping;
-import pl.edu.agh.domain.common.BaseObject;
+import pl.edu.agh.domain.common.GlobalBaseObject;
 import pl.edu.agh.domain.locations.Location;
 
 import java.util.Collection;
@@ -15,7 +13,7 @@ import java.util.Collection;
  * Created by Krzysiu on 2014-09-14.
  */
 @DatabaseTable(tableName = TripStepMapping.TABLE_NAME)
-public class TripStep extends BaseObject {
+public class TripStep extends GlobalBaseObject {
 
     @DatabaseField(columnName = TripStepMapping.TRIP_DAY_COLUMN_NAME, foreign = true, canBeNull = false)
     private TripDay tripDay;

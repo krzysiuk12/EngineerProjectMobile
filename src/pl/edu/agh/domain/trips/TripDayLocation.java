@@ -3,14 +3,14 @@ package pl.edu.agh.domain.trips;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.trips.TripDayLocationMapping;
-import pl.edu.agh.domain.common.BaseObject;
+import pl.edu.agh.domain.common.GlobalBaseObject;
 import pl.edu.agh.domain.locations.Location;
 
 /**
  * Created by Krzysiu on 2014-09-14.
  */
 @DatabaseTable(tableName = TripDayLocationMapping.TABLE_NAME)
-public class TripDayLocation extends BaseObject {
+public class TripDayLocation extends GlobalBaseObject implements Comparable<TripDayLocation> {
 
     @DatabaseField(columnName = TripDayLocationMapping.TRIP_DAY_COLUMN_NAME, foreign = true, canBeNull = false)
     private TripDay tripDay;
@@ -46,5 +46,16 @@ public class TripDayLocation extends BaseObject {
 
     public void setOrdinal(int ordinal) {
         this.ordinal = ordinal;
+    }
+
+    @Override
+    public int compareTo(TripDayLocation another) {
+        if ( this.ordinal < another.getOrdinal() ) {
+            return -1;
+        } else if ( this.ordinal > another.getOrdinal() ) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

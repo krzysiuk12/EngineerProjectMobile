@@ -5,9 +5,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import pl.edu.agh.dbmodel.trips.TripDayMapping;
-import pl.edu.agh.domain.common.BaseObject;
+import pl.edu.agh.domain.common.GlobalBaseObject;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -15,7 +14,7 @@ import java.util.Date;
  * Created by Krzysiu on 2014-09-14.
  */
 @DatabaseTable(tableName = TripDayMapping.TABLE_NAME)
-public class TripDay extends BaseObject {
+public class TripDay extends GlobalBaseObject {
 
     @DatabaseField(columnName = TripDayMapping.TRIP_COLUMN_NAME, foreign = true, canBeNull = false)
     private Trip trip;
