@@ -18,6 +18,9 @@ import java.util.Date;
 @DatabaseTable(tableName = TripMapping.TABLE_NAME)
 public class Trip extends BaseObject {
 
+    @DatabaseField(columnName = TripMapping.GLOBAL_ID_COLUMN_NAME, canBeNull = true, unique = true)
+    private long globalId;
+
     @DatabaseField(columnName = TripMapping.NAME_COLUMN_NAME, width = 100, canBeNull = false)
     private String name;
 
@@ -49,6 +52,14 @@ public class Trip extends BaseObject {
         this.author = author;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public long getGlobalId() {
+        return globalId;
+    }
+
+    public void setGlobalId(long globalId) {
+        this.globalId = globalId;
     }
 
     public String getName() {

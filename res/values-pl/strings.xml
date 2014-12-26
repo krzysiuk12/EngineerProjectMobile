@@ -54,15 +54,15 @@
     <string name="ShowTrips.TripDetails.ShowTripDayDetails">Pokaż dzień wycieczki</string>
     <string name="Synchronization.DownloadLocations">Ściągnij lokalizacje</string>
     <string name="Synchronization.ManageTrips">Zarządzaj wycieczkami</string>
-    <string name="Synchronization.ManageTrips.Download">Ściągnij</string>
-    <string name="Synchronization.ManageTrips.Send">Wyslij</string>
+    <string name="Synchronization.Download">Ściągnij</string>
+    <string name="Synchronization.Send">Wyslij</string>
     <string name="Synchronization.ManageTripsButton">Zarządzaj wycieczkami</string>
     <string name="Synchronization.NoUserAccountFoundError">Wystąpił błąd, spróbuj ponownie.</string>
     <string name="Synchronization.SendLocations">Wyslij lokalizacje</string>
     <string name="Synchronization.SendLocations.Both">Wszystkie</string>
     <string name="Synchronization.SendLocations.Private">Prywatne</string>
     <string name="Synchronization.SendLocations.Public">Publiczne</string>
-    <string name="Synchronization.SendLocationsButton">Wyslij lokalizacje</string>
+    <string name="Synchronization.SendLocations.Button">Wyslij lokalizacje</string>
     <string name="Settings.LanguageSettings">Ustawienie języka</string>
     <string name="Settings.DefaultUser">Domyślny użytkownik</string>
 

@@ -35,7 +35,7 @@ public class GetAllLocationsInAreaAsyncTask extends AsyncTask<Void, Void,List<Lo
 						HttpMethod.GET,
 						new HttpEntity<Location>(HttpRequestBuilder.getHttpHeadersWithHeader(token)),
 						new ParameterizedTypeReference<ResponseSerializer<List<Location>>>() {});
-		return (List<Location>) responseEntity.getBody().getResult();
+		return responseEntity.getBody().getResult();
 	}
 
 }

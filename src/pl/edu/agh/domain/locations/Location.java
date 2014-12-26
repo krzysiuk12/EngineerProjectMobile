@@ -38,6 +38,9 @@ public class Location extends BaseObject implements Serializable {
         REMOVED
     }
 
+    @DatabaseField(columnName = LocationMapping.GLOBAL_ID_COLUMN_NAME, canBeNull = true, unique = true)
+    private long globalId;
+
     @DatabaseField(columnName = LocationMapping.NAME_COLUMN_NAME, canBeNull = false)
     private String name;
 
@@ -82,6 +85,15 @@ public class Location extends BaseObject implements Serializable {
     }
 
 // <editor-fold desc="Geters and Setters">
+
+
+    public long getGlobalId() {
+        return globalId;
+    }
+
+    public void setGlobalId(long globalId) {
+        this.globalId = globalId;
+    }
 
     public String getName() {
         return name;

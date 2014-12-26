@@ -133,8 +133,6 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
         getUsersPrivateCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 	        @Override
 	        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-		        AndroidLogService service = new AndroidLogService();
-		        service.error("is Checked fired");
 		        getLocation().setUsersPrivate(!isChecked);
 	        }
         });
@@ -336,9 +334,7 @@ public class AddLocationActivity extends OrmLiteBaseActivity<TestDatabaseHelper>
             Location location = getGeocodingService().deserializeLocationDescription(serializer);
             updateFormFields(location);
         } catch(GoogleGeocodingException ex) {
-	        CharSequence error = "Error downloading location description";
-	        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-	        //TODO: error dialog, toast
+            new ErrorToastBuilder(this, "Error downloading location description").build().show();
         }
     }
     //</editor-fold>

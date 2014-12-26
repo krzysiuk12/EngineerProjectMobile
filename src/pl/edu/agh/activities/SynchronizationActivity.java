@@ -1,6 +1,6 @@
 package pl.edu.agh.activities;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -9,6 +9,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
+import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
@@ -73,6 +74,7 @@ public class SynchronizationActivity extends OrmLiteBaseActivity<TestDatabaseHel
 					break;
 
 			}
+			new InfoToastBuilder(this, getString(R.string.Synchronization_SendLocations_Success)).build().show();
 		} catch ( SynchronizationException e) {
 			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition()));
 		}
@@ -85,9 +87,19 @@ public class SynchronizationActivity extends OrmLiteBaseActivity<TestDatabaseHel
 		}
 
 		if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Send)).isChecked() ) {
-			// TODO: sending trips
+			try {
+				synchronizationService.sendTrips();
+				new InfoToastBuilder(this, getString(R.string.Synchronization_ManageTrips_Send_Success)).build().show();
+			} catch (SynchronizationException e) {
+				new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition())).build().show();
+			}
 		}
 
+	}
+
+	public void onDownloadLocationsButtonClicked(View view) {
+		// show view with map
+		startActivity(new Intent(this, DownloadLocationsInScopeActivity.class));
 	}
 
 }

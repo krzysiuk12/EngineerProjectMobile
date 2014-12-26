@@ -8,6 +8,7 @@ import pl.edu.agh.dbmodel.common.BaseMapping;
 public class LocationMapping extends BaseMapping {
 
     public static final String TABLE_NAME = "locations";
+    public static final String GLOBAL_ID_COLUMN_NAME = "globalid";
     public static final String NAME_COLUMN_NAME = "name";
     public static final String DESCRIPTION_COLUMN_NAME = "description";
     public static final String LONGITUDE_COLUMN_NAME = "longitude";

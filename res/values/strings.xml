@@ -30,21 +30,25 @@
     <string name="ShowAllLocationsOnMapActivity.NoLocationFoundError">Error occurred. No such location found.</string>
     <string name="ShowAllLocationsOnMapActivity.SearchError">Error occurred while searching. We\'re very sorry!</string>
 
-    <string name="ShowPrivateLocationsOnMapActivity.Button.ShowDescription">Show My Location Description</string>
-    <string name="ShowPrivateLocationsOnMapActivity.Button.DownloadLocations">Download My Locations</string>
-
 	<string name="LocationDescription.Image">Image</string>
 
     <string name="Synchronization.SendLocations">Send Locations</string>
     <string name="Synchronization.SendLocations.Private">Private</string>
     <string name="Synchronization.SendLocations.Public">Public</string>
     <string name="Synchronization.SendLocations.Both">Both</string>
-    <string name="Synchronization.SendLocationsButton">Send Locations</string>
+    <string name="Synchronization.SendLocations.Button">Send Locations</string>
+    <string name="Synchronization.SendLocations.Success">Locations has been sent successfully</string>
     <string name="Synchronization.DownloadLocations">Download Locations</string>
+    <string name="Synchronization.DownloadLocationsInScope">Download Locations in Scope</string>
+    <string name="Synchronization.DownloadLocationsInScope.Radius">Radius</string>
+    <string name="Synchronization.DownloadLocationsInScope.DefaultRadius">Default radius is 50 km</string>
+    <string name="Synchronization.DownloadLocations.Success">Locations has been downloaded successfully</string>
     <string name="Synchronization.ManageTrips">Manage Trips</string>
-    <string name="Synchronization.ManageTrips.Download">Download</string>
-    <string name="Synchronization.ManageTrips.Send">Send</string>
     <string name="Synchronization.ManageTripsButton">Manage Trips</string>
+    <string name="Synchronization.ManageTrips.Send.Success">Trips has been sent successfully</string>
+    <string name="Synchronization.ManageTrips.Download.Success">Trips has been downloaded successfully</string>
+    <string name="Synchronization.Download">Download</string>
+    <string name="Synchronization.Send">Send</string>
 
     <string name="Synchronization.NoUserAccountFoundError">Error occurred. Please try again.</string>
 

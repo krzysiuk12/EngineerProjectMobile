@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
+import pl.edu.agh.asynctasks.locations.GetAllLocationsInAreaAsyncTask;
+import pl.edu.agh.asynctasks.locations.GetAllLocationsInAreaInScopeAsyncTask;
 import pl.edu.agh.asynctasks.locations.GetAllPrivateLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewLocationAsyncTask;
 import pl.edu.agh.asynctasks.locations.PostAddNewPrivateLocationAsyncTask;
@@ -23,6 +25,8 @@ import pl.edu.agh.layout.toast.ToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
+import pl.edu.agh.serializers.TripCreationSerializer;
+import pl.edu.agh.serializers.TripDayCreationSerializer;
 import pl.edu.agh.serializers.common.ResponseSerializer;
 import pl.edu.agh.serializers.common.ResponseStatus;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
@@ -30,6 +34,7 @@ import pl.edu.agh.services.interfaces.ISynchronizationService;
 import pl.edu.agh.services.interfaces.ITripManagementService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -101,8 +106,32 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	}
 
 	@Override
-	public void downloadLocationsInScope(double latitude, double longitute) {
-		// TODO: main download method - uses map!
+	public void downloadLocationsInScope(double latitude, double longitude, double scope) {
+		List<Location> locations = null;
+
+		try {
+			if ( scope != 0.0 ) {
+				locations = new GetAllLocationsInAreaInScopeAsyncTask(UserAccountManagementService.getToken(), latitude, longitude, scope).execute().get();
+			} else {
+				locations = new GetAllLocationsInAreaAsyncTask(UserAccountManagementService.getToken(), latitude, longitude).execute().get();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+
+		if ( locations == null )
+			return;
+
+		for ( Location location : locations ) {
+			try {
+				locationManagementService.saveLocation(location);
+			} catch (LocationException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	// </editor-fold>
@@ -244,7 +273,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 		for ( Trip trip : trips ) {
 			try {
-				ResponseSerializer response = new PostAddTripAsyncTask(UserAccountManagementService.getToken(), trip).execute().get();
+				ResponseSerializer response = new PostAddTripAsyncTask(UserAccountManagementService.getToken(), buildTripSerializer(trip)).execute().get();
 				if ( response.getStatus() == ResponseStatus.OK ) {
 					trip.setSynced(true);
 					tripManagementService.updateTrip(trip);
@@ -262,6 +291,22 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 		// TODO: test
 
+	}
+
+	public TripCreationSerializer buildTripSerializer(Trip trip) {
+		Collection<TripDay> tripDays = trip.getDays();
+		List<TripDayCreationSerializer> tripDayCreationSerializers = new ArrayList<>();
+		for ( TripDay tripDay : tripDays) {
+
+		}
+//		TripCreationSerializer tripCreationSerializer = new TripCreationSerializer(
+//				trip.getName(),
+//				trip.getDescription(),
+//				trip.getStartDate(),
+//				trip.getEndDate(),
+//				trip.g
+//		);
+		return new TripCreationSerializer();
 	}
 
 	public class LocalBinder extends Binder {

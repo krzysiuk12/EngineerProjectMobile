@@ -11,7 +11,7 @@ public interface ISynchronizationService {
 
 	public void downloadAllPrivateLocations();
 
-	void downloadLocationsInScope(double latitude, double longitute);
+	public void downloadLocationsInScope(double latitude, double longitude, double scope);
 
 	public void downloadTrips();
 

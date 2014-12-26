@@ -64,6 +64,7 @@ public class LocationManagementService extends BaseService implements ILocationM
 	@Override
 	public int saveLocation(Location location) throws LocationException {
 		location.setCreationDate(new Date());
+		location.setGlobalId(location.getId()); // if id is set - location has been downloaded - it's location id in server's database
 		List<FormValidationError> errors = validateLocation(location);
 		if ( !errors.isEmpty() ) {
 			throw new LocationException(errors);

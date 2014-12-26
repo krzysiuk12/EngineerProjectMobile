@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/Synchronization.Container"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -12,6 +13,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+            <!-- Downloading locations -->
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/Synchronization.Option.Title"
+                    android:text="@string/Synchronization.DownloadLocationsInScope"/>
+            <Button
+                    android:id="@+id/Synchronization.DownloadLocationsInScope.Button"
+                    android:text="@string/Synchronization.DownloadLocations"
+                    android:onClick="onDownloadLocationsButtonClicked"
+                    style="@style/SynchronizationButton"/>
+
+            <View style="@style/Divider"/>
+
+            <!-- Send Locations-->
 
             <TextView
                     android:layout_width="wrap_content"
@@ -53,7 +71,7 @@
 
             <Button
                     android:id="@+id/Synchronization.SendLocations.Button"
-                    android:text="@string/Synchronization.SendLocationsButton"
+                    android:text="@string/Synchronization.SendLocations.Button"
                     android:onClick="onSendLocationsButtonClicked"
                     style="@style/SynchronizationButton"/>
 
@@ -74,14 +92,14 @@
                           android:layout_width="0dp"
                           android:layout_height="wrap_content"
                           android:layout_weight="1"
-                          android:text="@string/Synchronization.ManageTrips.Download"
+                          android:text="@string/Synchronization.Download"
                           android:checked="false"/>
 
                 <CheckBox android:id="@+id/Synchronization.ManageTrips.Send"
                           android:layout_width="0dp"
                           android:layout_height="wrap_content"
                           android:layout_weight="1"
-                          android:text="@string/Synchronization.ManageTrips.Send"
+                          android:text="@string/Synchronization.Send"
                           android:checked="false"/>
 
             </LinearLayout>

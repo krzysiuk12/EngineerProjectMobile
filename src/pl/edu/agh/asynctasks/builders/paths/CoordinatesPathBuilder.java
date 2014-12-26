@@ -5,7 +5,7 @@ package pl.edu.agh.asynctasks.builders.paths;
  */
 public class CoordinatesPathBuilder extends PathBuilder {
 
-	private static final String COORDINATES_PATH = "/coordinates";
+	private static final String COORDINATES_PATH = SERVER_PATH + "/coordinates";
 	private static final String LOCATIONS_SUFFIX = "/locations";
 
 	public String buildLocationsInAreaPath(double latitue, double longitude) {
