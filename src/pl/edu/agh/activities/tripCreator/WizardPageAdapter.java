@@ -1,11 +1,10 @@
-package pl.edu.agh.activities.tripcreator;
+package pl.edu.agh.activities.tripCreator;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import pl.edu.agh.domain.common.BaseObject;
 import pl.edu.agh.fragments.AbstractAdapter;
 import pl.edu.agh.main.R;
 import pl.edu.agh.tools.RenderingTools;

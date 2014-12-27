@@ -13,10 +13,9 @@ import pl.edu.agh.activities.locations.AddLocationActivity;
 import pl.edu.agh.activities.locations.ShowAllLocationsOnMapActivity;
 import pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity;
 import pl.edu.agh.activities.settings.SettingsActivity;
-import pl.edu.agh.activities.tripcreator.TripCreatorActivity;
+import pl.edu.agh.activities.tripCreator.TripCreatorActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.main.R;
-import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 /**

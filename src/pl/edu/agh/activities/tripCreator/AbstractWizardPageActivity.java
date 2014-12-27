@@ -1,11 +1,8 @@
-package pl.edu.agh.activities.tripcreator;
+package pl.edu.agh.activities.tripCreator;
 
-import android.app.Activity;
 import android.os.Bundle;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import pl.edu.agh.configuration.TestDatabaseHelper;
-import pl.edu.agh.repositories.implementation.OrmLiteLocationRepository;
 
 /**
  * Created by Sławek on 2014-12-13.

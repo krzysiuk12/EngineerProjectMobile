@@ -1,4 +1,4 @@
-package pl.edu.agh.activities.tripcreator;
+package pl.edu.agh.activities.tripCreator;
 
 /**
  * Created by Sławek on 2014-12-09.

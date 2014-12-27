@@ -1,4 +1,4 @@
-package pl.edu.agh.activities.tripcreator;
+package pl.edu.agh.activities.tripCreator;
 
 import pl.edu.agh.domain.common.BaseObject;
 

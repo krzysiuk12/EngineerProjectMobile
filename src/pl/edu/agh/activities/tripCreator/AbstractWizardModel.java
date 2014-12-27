@@ -1,6 +1,5 @@
-package pl.edu.agh.activities.tripcreator;
+package pl.edu.agh.activities.tripCreator;
 
-import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -32,8 +31,8 @@ public abstract class AbstractWizardModel<T extends Serializable> extends ListFr
             currentPageIndex = savedInstanceState.getInt(KEY_CURRENT_PAGE_INDEX, 0);
         }
 
-//        currentPageIndex = 0;
-//        showWizardPage(currentPageIndex);
+        currentPageIndex = 0;
+        showWizardPage(currentPageIndex);
     }
 
     @Override
@@ -42,6 +41,8 @@ public abstract class AbstractWizardModel<T extends Serializable> extends ListFr
         getListView().setItemChecked(position, true);
         showWizardPage(position);
     }
+
+    public abstract void goNextPage(int position);
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -54,9 +55,9 @@ public abstract class AbstractWizardModel<T extends Serializable> extends ListFr
         currentPageIndex = index;
 
         Intent intent = new Intent();
-        intent.setClass(getActivity(), getClassForWizardPageIntent());
-        intent.putExtra(pl.edu.agh.activities.tripcreator.AbstractWizardPage.KEY_INDEX, getListAdapter().getItemId(currentPageIndex));
-        intent.putExtra(pl.edu.agh.activities.tripcreator.AbstractWizardPage.KEY_ITEM, (Serializable) getListAdapter().getItem(currentPageIndex));
+        intent.setClass(getActivity(), getClassForWizardPageIntent(index));
+        intent.putExtra(pl.edu.agh.activities.tripCreator.AbstractWizardPage.KEY_INDEX, getListAdapter().getItemId(currentPageIndex));
+        intent.putExtra(pl.edu.agh.activities.tripCreator.AbstractWizardPage.KEY_ITEM, (Serializable) getListAdapter().getItem(currentPageIndex));
         startActivity(intent);
 
 
@@ -80,6 +81,6 @@ public abstract class AbstractWizardModel<T extends Serializable> extends ListFr
 
     protected abstract AbstractWizardPage getWizardPageFragmentInstance(T listItem, int index);
 
-    protected abstract Class getClassForWizardPageIntent();
+    protected abstract Class getClassForWizardPageIntent(int index);
 
 }
