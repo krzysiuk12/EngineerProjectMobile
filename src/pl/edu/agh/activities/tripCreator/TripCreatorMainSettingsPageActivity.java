@@ -4,19 +4,18 @@ import android.os.Bundle;
 import pl.edu.agh.main.R;
 
 /**
- * Created by Sławek on 2014-12-13.
+ * Created by Sławek on 2014-12-26.
  */
-public class TripCreatorInitPageActivity extends TripCreatorWizardPageActivity {
+public class TripCreatorMainSettingsPageActivity extends TripCreatorWizardPageActivity {
 
     @Override
     protected AbstractWizardPage getWizardPageFragment(int pageIndex) {
-        return new TripCreatorInitPageFragment();
+        return new TripCreatorMainSettingsPageFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.trip_creator_init_page);
+        setContentView(R.layout.trip_creator_main_settings_page);
     }
-
 }

@@ -1,6 +1,5 @@
-package pl.edu.agh.activities.tripcreator;
+package pl.edu.agh.activities.tripCreator;
 
-import android.content.Context;
 import pl.edu.agh.main.R;
 
 import java.util.ArrayList;
@@ -18,6 +17,11 @@ public class TripCreatorWizardModel extends AbstractWizardModel<TripCreatorWizar
     }
 
     @Override
+    public void goNextPage(int position) {
+        showWizardPage(position);
+    }
+
+    @Override
     protected WizardPageAdapter getAdapterInstance() {
         ArrayList<TripCreatorWizardElement> wizardPagesList = new ArrayList<>();
         wizardPagesList.add(new TripCreatorWizardElement(R.layout.trip_creator_init_page, getString(R.string.TripCreatorInitPage_Title), true));
@@ -32,7 +36,9 @@ public class TripCreatorWizardModel extends AbstractWizardModel<TripCreatorWizar
     }
 
     @Override
-    protected Class getClassForWizardPageIntent() {
+    protected Class getClassForWizardPageIntent(int index) {
+        if(index == 0) return TripCreatorInitPageActivity.class;
+        else if(index == 1) return TripCreatorMainSettingsPageActivity.class;
         return TripCreatorWizardPageActivity.class;
     }
 

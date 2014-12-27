@@ -7,13 +7,13 @@
     <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="pl.edu.agh.activities.tripcreator.TripCreatorWizardModel"
+            android:name="pl.edu.agh.activities.tripCreator.TripCreatorWizardModel"
             android:id="@+id/TripCreatorActivity.WizardPages" />
 
     <FrameLayout
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:id="@+id/TripCreatorActivity.WizardPageView"/>
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:id="@+id/TripCreatorActivity.WizardPageView"/>
 
 </LinearLayout>

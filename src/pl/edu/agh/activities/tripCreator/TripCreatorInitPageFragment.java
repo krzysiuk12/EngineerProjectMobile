@@ -1,14 +1,10 @@
-package pl.edu.agh.activities.tripcreator;
+package pl.edu.agh.activities.tripCreator;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import pl.edu.agh.activities.main.MainMenuActivity;
 import pl.edu.agh.main.R;
 
 /**
@@ -16,16 +12,21 @@ import pl.edu.agh.main.R;
  */
 public class TripCreatorInitPageFragment extends TripCreatorWizardPageFragment {
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        ((Button) getView().findViewById(R.id.TripCreatorInitPage_ReturnToStepsViewButton)).setOnClickListener(new View.OnClickListener() {
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        ((Button) view.findViewById(R.id.TripCreatorInitPage_ReturnToStepsViewButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getFragmentManager().popBackStack();
+                //getFragmentManager().beginTransaction().add(R.id.TripCreatorActivity_WizardPageView, new TripCreatorInitPageFragment()).commit();
+                //getFragmentManager().beginTransaction().add(android.R.id.content, new TripCreatorMainSettingsPageFragment()).commit();
+                TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
+                //Bundle oldBundle = getArguments();
+                //fragment.setArguments(getArguments());
+                //getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
+                getFragmentManager().beginTransaction().replace(((ViewGroup)(getView().getParent())).getId(), fragment).commit();
             }
         });
+        return view;
     }
-
 }
