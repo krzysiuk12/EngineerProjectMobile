@@ -1,10 +1,9 @@
 package pl.edu.agh.tools;
 
-import android.graphics.Color;
+import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import pl.edu.agh.main.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +19,11 @@ public class RenderingTools {
 	public static void setTextViewText(View view, int textViewId, String value) {
 		TextView tvName = (TextView) view.findViewById(textViewId);
 		tvName.setText(value);
+	}
+
+	public static void setHtmlTextViewText(View view, int textViewId, String value) {
+		TextView tvName = (TextView) view.findViewById(textViewId);
+		tvName.setText(Html.fromHtml(value));
 	}
 
 	public static String getValueFromEditText(View view, int editTextId) {

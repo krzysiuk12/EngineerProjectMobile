@@ -18,6 +18,7 @@
     <string name="LocationException.ValidationError.CountryIsRequired">Country is required</string>
 
     <string name="TripException.ValidationError.Trip.NameIsRequired">Trip name is required</string>
+    <string name="TripException.ValidationError.Trip.DescriptionIsRequired">Description is required</string>
     <string name="TripException.ValidationError.Trip.StartDateIsRequired">Start date is required</string>
     <string name="TripException.ValidationError.Trip.EndDateIsRequired">End date is required</string>
     <string name="TripException.ValidationError.Trip.AuthorIsRequired">Author is required</string>

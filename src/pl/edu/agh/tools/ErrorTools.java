@@ -1,12 +1,10 @@
 package pl.edu.agh.tools;
 
-import android.app.Activity;
 import android.content.res.Resources;
-import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.exceptions.ErrorMessages;
+import pl.edu.agh.exceptions.common.BaseException;
 import pl.edu.agh.exceptions.common.FormValidationError;
 import pl.edu.agh.exceptions.common.IExceptionDefinition;
-import pl.edu.agh.main.R;
-import pl.edu.agh.services.implementation.AndroidLogService;
 
 import java.util.List;
 
@@ -17,6 +15,16 @@ public class ErrorTools {
 
 	public static final String NEW_LINE = "\n";
 
+	public static String createExceptionString(Resources resources, BaseException exception) {
+		if ( exception.getExceptionDefinition() != null ) {
+			return createExceptionDefinitionString(resources, exception.getExceptionDefinition());
+		} else if ( exception.getFormValidationErrors() != null ) {
+			return  createFormValidationErrorString(resources, exception.getFormValidationErrors());
+		} else {
+			return null;
+		}
+	}
+
 	public static String createFormValidationErrorString(Resources resources, List<FormValidationError> errors) {
 		StringBuilder stringBuilder = new StringBuilder();
 		for ( FormValidationError error : errors ) {
@@ -25,7 +33,7 @@ public class ErrorTools {
 		return stringBuilder.toString();
 	}
 
-	public static String createExceptionString(Resources resources, IExceptionDefinition exceptionDefinition) {
+	public static String createExceptionDefinitionString(Resources resources, IExceptionDefinition exceptionDefinition) {
 		return resources.getString(exceptionDefinition.getStringResourceId());
 	}
 

@@ -180,6 +180,8 @@ public class Location extends GlobalBaseObject implements Serializable {
     @Override
     public String toString() {
         return "Location{" +
+                ", id=" + getId() +
+                ", globalId=" + getGlobalId() +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", longitude=" + longitude +

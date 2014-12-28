@@ -1,9 +1,7 @@
 package pl.edu.agh.repositories.implementation;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.stmt.QueryBuilder;
-import junit.framework.Test;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.dbmodel.accounts.UserAccountMapping;
 import pl.edu.agh.dbmodel.common.BaseObjectMapping;
@@ -18,14 +16,9 @@ import pl.edu.agh.domain.trips.TripDayLocation;
 import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
-import pl.edu.agh.exceptions.common.ExceptionType;
-import pl.edu.agh.exceptions.common.FormValidationError;
-import pl.edu.agh.exceptions.common.IExceptionDefinition;
 import pl.edu.agh.repositories.interfaces.ITripRepository;
-import pl.edu.agh.tools.StringTools;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +35,26 @@ public class OrmLiteTripRepository implements ITripRepository {
 
 	@Override
 	public void saveTrip(Trip trip) throws TripException {
-		((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().create(trip);
+		((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().createOrUpdate(trip);
+	}
+	@Override
+	public void saveTripDay(TripDay tripDay) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDayRuntimeExceptionDao().createOrUpdate(tripDay);
+	}
+
+	@Override
+	public void saveTripDayLocation(TripDayLocation tripDayLocation) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDayLocationRuntimeExceptionDao().createOrUpdate(tripDayLocation);
+	}
+
+	@Override
+	public void saveTripStep(TripStep tripStep) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripStepRuntimeExceptionDao().createOrUpdate(tripStep);
+	}
+
+	@Override
+	public void saveTripDirection(TripDirection tripDirection) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDirectionRuntimeExceptionDao().createOrUpdate(tripDirection);
 	}
 
 	@Override
@@ -51,23 +63,48 @@ public class OrmLiteTripRepository implements ITripRepository {
 	}
 
 	@Override
-	public void saveTripDay(TripDay tripDay) throws TripException {
-		((TestDatabaseHelper) openHelper).getTripDayRuntimeExceptionDao().create(tripDay);
+	public void updateTripDay(TripDay tripDay) throws TripException {
+		int result = ((TestDatabaseHelper) openHelper).getTripDayRuntimeExceptionDao().update(tripDay);
 	}
 
 	@Override
-	public void saveTripDayLocation(TripDayLocation tripDayLocation) throws TripException {
-		((TestDatabaseHelper) openHelper).getTripDayLocationRuntimeExceptionDao().create(tripDayLocation);
+	public void updateTripDayLocation(TripDayLocation tripDayLocation) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDayLocationRuntimeExceptionDao().update(tripDayLocation);
 	}
 
 	@Override
-	public void saveTripStep(TripStep tripStep) throws TripException {
-		((TestDatabaseHelper) openHelper).getTripStepRuntimeExceptionDao().create(tripStep);
+	public void updateTripStep(TripStep tripStep) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripStepRuntimeExceptionDao().update(tripStep);
 	}
 
 	@Override
-	public void saveTripDirection(TripDirection tripDirection) throws TripException {
-		((TestDatabaseHelper) openHelper).getTripDirectionRuntimeExceptionDao().create(tripDirection);
+	public void updateTripDirection(TripDirection tripDirection) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDirectionRuntimeExceptionDao().update(tripDirection);
+	}
+
+	@Override
+	public void deleteTrip(Trip trip) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().delete(trip);
+	}
+
+	@Override
+	public void deleteTripDay(TripDay tripDay) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDayRuntimeExceptionDao().delete(tripDay);
+	}
+
+	@Override
+	public void deleteTripDayLocation(TripDayLocation tripDayLocation) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDayLocationRuntimeExceptionDao().delete(tripDayLocation);
+	}
+
+	@Override
+	public void deleteTripStep(TripStep tripStep) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripStepRuntimeExceptionDao().delete(tripStep);
+	}
+
+	@Override
+	public void deleteTripDirection(TripDirection tripDirection) throws TripException {
+		((TestDatabaseHelper) openHelper).getTripDirectionRuntimeExceptionDao().delete(tripDirection);
 	}
 
 	@Override

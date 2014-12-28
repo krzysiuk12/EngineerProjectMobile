@@ -12,6 +12,7 @@ import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.SynchronizationService;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
 import pl.edu.agh.tools.ErrorTools;
 
@@ -76,22 +77,22 @@ public class SynchronizationActivity extends OrmLiteBaseActivity<TestDatabaseHel
 			}
 			new InfoToastBuilder(this, getString(R.string.Synchronization_SendLocations_Success)).build().show();
 		} catch ( SynchronizationException e) {
-			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition()));
+			new ErrorToastBuilder(this, ErrorTools.createExceptionDefinitionString(getResources(), e.getExceptionDefinition()));
 		}
 	}
 
 	public void onManageTripsButtonClicked(View view) {
 
 		if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Download)).isChecked() ) {
-			synchronizationService.downloadTrips();
+			synchronizationService.downloadTrips(UserAccountManagementService.getToken());
 		}
 
 		if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Send)).isChecked() ) {
 			try {
-				synchronizationService.sendTrips();
+				synchronizationService.sendTrips(UserAccountManagementService.getToken());
 				new InfoToastBuilder(this, getString(R.string.Synchronization_ManageTrips_Send_Success)).build().show();
 			} catch (SynchronizationException e) {
-				new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition())).build().show();
+				new ErrorToastBuilder(this, ErrorTools.createExceptionDefinitionString(getResources(), e.getExceptionDefinition())).build().show();
 			}
 		}
 

@@ -8,7 +8,6 @@ import pl.edu.agh.dbmodel.trips.TripMapping;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.common.GlobalBaseObject;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -38,6 +37,12 @@ public class Trip extends GlobalBaseObject {
 
     @DatabaseField(columnName = TripMapping.IS_SYNCED_COLUMN_NAME, dataType = DataType.BOOLEAN, canBeNull = false)
     private boolean isSynced;
+
+    @DatabaseField(columnName = TripMapping.TRAVEL_MODE_COLUMN_NAME, canBeNull = true)
+    private TravelMode travelMode;
+
+    @DatabaseField(columnName = TripMapping.DISTANCE_UNIT_COLUMN_NAME, canBeNull = true)
+    private DistanceUnit distanceUnit;
 
     public Trip() {
         isSynced = true;
@@ -105,6 +110,22 @@ public class Trip extends GlobalBaseObject {
 
     public void setSynced(boolean isSynced) {
         this.isSynced = isSynced;
+    }
+
+    public TravelMode getTravelMode() {
+        return travelMode;
+    }
+
+    public void setTravelMode(TravelMode travelMode) {
+        this.travelMode = travelMode;
+    }
+
+    public DistanceUnit getDistanceUnit() {
+        return distanceUnit;
+    }
+
+    public void setDistanceUnit(DistanceUnit distanceUnit) {
+        this.distanceUnit = distanceUnit;
     }
 
     @Override

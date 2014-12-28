@@ -57,7 +57,7 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 		try {
 			loginResult = userAccountManagementService.logIn(getLoginEditText().getText().toString(), getPasswordEditText().getText().toString());
 		} catch (SynchronizationException e) {
-			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition())).build().show();
+			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e)).build().show();
 		}
 		if ( loginResult ) {
 			goToMainMenu();
@@ -71,7 +71,7 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 		try {
 			loginResult = userAccountManagementService.logAsDefault();
 		} catch (SynchronizationException e) {
-			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e.getExceptionDefinition())).build().show();
+			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e)).build().show();
 		}
 		if ( loginResult ) {
 			goToMainMenu();

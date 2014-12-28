@@ -19,7 +19,7 @@ public class TripDirectionAdapter extends AbstractAdapter<TripDirection> {
 
 	@Override
 	protected void setLabels(View view, TripDirection item) {
-		RenderingTools.setTextViewText(view, R.id.TripDetails_TripDirection_Instruction, item.getInstruction());
+		RenderingTools.setHtmlTextViewText(view, R.id.TripDetails_TripDirection_Instruction, item.getInstruction());
 		RenderingTools.setTextViewText(view, R.id.TripDetails_TripDirection_Distance, item.getDistance());
 		RenderingTools.setTextViewText(view, R.id.TripDetails_TripDirection_Duration, item.getDuration());
 	}

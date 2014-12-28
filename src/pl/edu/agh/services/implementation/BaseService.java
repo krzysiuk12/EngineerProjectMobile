@@ -34,7 +34,8 @@ public class BaseService extends OrmLiteBaseService<TestDatabaseHelper> implemen
                 throw new SynchronizationException(SynchronizationException.PredefinedExceptions.REQUEST_DENIED);
 
             case VALIDATION_ERROR:
-                throw new SynchronizationException(response.getErrorMessage()); // should never occur
+//                throw new SynchronizationException(response.getErrorMessage()); // should never occur
+                throw new SynchronizationException(SynchronizationException.PredefinedExceptions.UNKNOWN_ERROR);    // TODO: fixme
 
             case ZERO_RESULTS:
                 throw new SynchronizationException(SynchronizationException.PredefinedExceptions.ZERO_RESULT);

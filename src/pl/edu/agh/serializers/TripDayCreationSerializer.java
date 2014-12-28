@@ -1,5 +1,10 @@
 package pl.edu.agh.serializers;
 
+import pl.edu.agh.domain.trips.TripDayLocation;
+import pl.edu.agh.services.implementation.AndroidLogService;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,6 +23,21 @@ public class TripDayCreationSerializer {
 		this.originLocationId = originLocationId;
 		this.destinationLocationId = destinationLocationId;
 		this.waypointLocationIds = waypointLocationIds;
+	}
+
+	public TripDayCreationSerializer(List<TripDayLocation> tripDayLocations) {
+		Collections.sort(tripDayLocations);
+		if ( !tripDayLocations.isEmpty() ) {
+			this.originLocationId = tripDayLocations.remove(0).getLocation().getGlobalId();
+		}
+		if ( !tripDayLocations.isEmpty() ) {
+			this.destinationLocationId = tripDayLocations.remove(tripDayLocations.size() - 1).getLocation().getGlobalId();
+		}
+
+		this.waypointLocationIds = new ArrayList<>();
+		for ( TripDayLocation location : tripDayLocations ) {
+			this.waypointLocationIds.add(location.getLocation().getGlobalId());
+		}
 	}
 
 	public long getOriginLocationId() {
@@ -44,4 +64,11 @@ public class TripDayCreationSerializer {
 		this.waypointLocationIds = waypointLocationIds;
 	}
 
+	@Override
+	public String toString() {
+		return "TripDayCreationSerializer["
+				+ originLocationId + ", "
+				+ waypointLocationIds + ", "
+				+ destinationLocationId + "]";
+	}
 }

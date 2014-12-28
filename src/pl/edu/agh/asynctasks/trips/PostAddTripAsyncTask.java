@@ -1,6 +1,7 @@
 package pl.edu.agh.asynctasks.trips;
 
 import android.os.AsyncTask;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import pl.edu.agh.services.implementation.AndroidLogService;
 /**
  * Created by Magda on 2014-12-13.
  */
-public class PostAddTripAsyncTask extends AsyncTask<Void, Void, ResponseSerializer> {
+public class PostAddTripAsyncTask extends AsyncTask<Void, Void, ResponseSerializer<Trip>> {
 
 	private String token;
 	private TripCreationSerializer serializer;
@@ -25,15 +26,12 @@ public class PostAddTripAsyncTask extends AsyncTask<Void, Void, ResponseSerializ
 	}
 
 	@Override
-	protected ResponseSerializer doInBackground(Void... params) {
-		ResponseEntity<ResponseSerializer> responseEntity = HttpRequestBuilder.getRestTemplateWithJacksonConverter()
+	protected ResponseSerializer<Trip> doInBackground(Void... params) {
+		ResponseEntity<ResponseSerializer<Trip>> responseEntity = HttpRequestBuilder.getRestTemplateWithJacksonConverter()
 				.exchange(new TripsPathBuilder().buildAddNewTripPath(),
 						HttpMethod.POST,
 						new HttpEntity<TripCreationSerializer>(serializer, HttpRequestBuilder.getHttpHeadersWithHeaderAndJsonContent(token)),
-						ResponseSerializer.class);
-		AndroidLogService service = new AndroidLogService();    // TODO: test, error handling
-		service.error(responseEntity.getStatusCode().toString());
-		service.error(responseEntity.getBody().toString());
+						new ParameterizedTypeReference<ResponseSerializer<Trip>>() {});
 		return responseEntity.getBody();
 	}
 

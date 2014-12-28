@@ -18,19 +18,43 @@ public interface ITripManagementService {
 
 	public List<FormValidationError> validateTrip(Trip trip) throws TripException;
 
+	public void saveTripCascade(Trip trip) throws TripException;
+
+	public void saveNewTrip(Trip trip, UserAccount userAccount) throws TripException;
+
+	public void saveTripStep(TripStep step) throws TripException;
+
+	public void saveTripDirection(TripDirection tripDirection) throws TripException;
+
+	public void updateTripCascade(Trip trip) throws TripException;
+
+	public void saveOrUpdateTrip(Trip trip) throws TripException;
+
 	public void saveTrip(Trip trip) throws TripException;
 
-	void saveNewTrip(Trip trip, UserAccount userAccount) throws TripException;
+	public void saveTripDay(TripDay tripDay) throws TripException;
 
-	void updateTrip(Trip trip) throws TripException;
+	public void saveTripDayLocation(TripDayLocation dayLocation) throws TripException;
 
-	void saveOrUpdateTrip(Trip trip) throws TripException;
+	public void updateTrip(Trip trip) throws TripException;
 
-	void saveTripDays(Trip trip) throws TripException;
+	public void updateTripDay(TripDay tripDay) throws TripException;
 
-	void saveTripDay(TripDay tripDay) throws TripException;
+	public void updateTripDayLocation(TripDayLocation dayLocation) throws TripException;
 
-	void saveTripDayLocation(TripDayLocation dayLocation) throws TripException;
+	public void updateTripStep(TripStep step) throws TripException;
+
+	public void updateTripDirection(TripDirection tripDirection) throws TripException;
+
+	void deleteTrip(Trip trip) throws TripException;
+
+	void deleteTripDay(TripDay tripDay) throws TripException;
+
+	void deleteTripDayLocation(TripDayLocation tripDayLocation) throws TripException;
+
+	void deleteTripStep(TripStep tripStep) throws TripException;
+
+	void deleteTripDirection(TripDirection tripDirection) throws TripException;
 
 	public List<Trip> getAllTrips() throws TripException;
 
@@ -44,7 +68,7 @@ public interface ITripManagementService {
 
 	public Trip getTripById(long id) throws TripException;
 
-	Trip getTripByGlobalId(long id) throws TripException;
+	public Trip getTripByGlobalId(long id) throws TripException;
 
 	public Trip getTripByName(String name) throws TripException;
 

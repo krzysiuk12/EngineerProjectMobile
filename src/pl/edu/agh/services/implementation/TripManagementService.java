@@ -3,23 +3,22 @@ package pl.edu.agh.services.implementation;
 import android.content.Context;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import pl.edu.agh.domain.accounts.UserAccount;
-import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.domain.trips.TripDayLocation;
 import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
-import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.FormValidationError;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
 import pl.edu.agh.repositories.interfaces.ITripRepository;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
 import pl.edu.agh.services.interfaces.ITripManagementService;
+import pl.edu.agh.methods.SaveTripDatabaseMethod;
+import pl.edu.agh.methods.UpdateTripDatabaseMethod;
 import pl.edu.agh.tools.StringTools;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -52,6 +51,9 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		List<FormValidationError> errors = new ArrayList<>();
 		if ( StringTools.isNullOrEmpty(trip.getName()) ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_NAME_IS_REQUIRED.getStringResourceId()));
+		}
+		if ( trip.getDescription() == null ) {
+			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_DESCRIPTION_IS_REQUIRED.getStringResourceId()));
 		}
 		if ( trip.getStartDate() == null ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_START_DATE_IS_REQUIRED.getStringResourceId()));
@@ -104,20 +106,65 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	// <editor-fold desc="Save Trip">
 
 	@Override
-	public void saveTrip(Trip trip) throws TripException {
+	public void saveTripCascade(Trip trip) throws TripException {
 		List<FormValidationError> errors = validateTrip(trip);
 		if ( !errors.isEmpty() ) {
 			throw new TripException(errors);
 		}
-		tripRepository.saveTrip(trip);
-		saveTripDays(trip);
+		new SaveTripDatabaseMethod(this, locationManagementService).performAction(trip);
+//		tripRepository.saveTripCascade(trip);
+//		saveTripDays(trip);
 	}
 
 	@Override
 	public void saveNewTrip(Trip trip, UserAccount userAccount) throws TripException {
 		trip.setAuthor(userAccount);
 
-		saveTrip(trip);
+		saveTripCascade(trip);
+	}
+
+	@Override
+	public void saveOrUpdateTrip(Trip trip) throws TripException {
+		Trip tripInDatabase = getTripByGlobalId(trip.getGlobalId());
+		if ( tripInDatabase == null ) {
+			saveTripCascade(trip);
+		} else {
+			updateTripCascade(trip);
+		}
+	}
+
+	@Override
+	public void saveTrip(Trip trip) throws TripException {
+		tripRepository.saveTrip(trip);
+	}
+
+	@Override
+	public void saveTripDay(TripDay tripDay) throws TripException {
+		tripRepository.saveTripDay(tripDay);
+	}
+
+	@Override
+	public void saveTripDayLocation(TripDayLocation tripDayLocation) throws TripException {
+		tripRepository.saveTripDayLocation(tripDayLocation);
+	}
+
+	@Override
+	public void saveTripStep(TripStep step) throws TripException {
+		tripRepository.saveTripStep(step);
+	}
+
+	@Override
+	public void saveTripDirection(TripDirection tripDirection) throws TripException {
+		tripRepository.saveTripDirection(tripDirection);
+	}
+
+	// </editor-fold>
+
+	// <editor-fold desc="Update Trip">
+
+	@Override
+	public void updateTripCascade(Trip trip) throws TripException {
+		new UpdateTripDatabaseMethod(this, locationManagementService).performAction(trip);
 	}
 
 	@Override
@@ -126,71 +173,51 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	}
 
 	@Override
-	public void saveOrUpdateTrip(Trip trip) throws TripException {
-		Trip tripInDatabase = getTripByGlobalId(trip.getGlobalId());
-		if ( tripInDatabase == null ) {
-			saveTrip(trip);
-		} else {
-			updateTrip(trip);
-		}
+	public void updateTripDay(TripDay tripDay) throws TripException {
+		tripRepository.updateTripDay(tripDay);
 	}
 
 	@Override
-	public void saveTripDays(Trip trip) throws TripException {
-		for ( TripDay tripDay : trip.getDays() ) {
-			tripDay.setTrip(trip);
-			saveTripDay(tripDay);
-		}
+	public void updateTripDayLocation(TripDayLocation tripDayLocation) throws TripException {
+		tripRepository.updateTripDayLocation(tripDayLocation);
 	}
 
 	@Override
-	public void saveTripDay(TripDay tripDay) throws TripException {
-		Collection<TripDayLocation> locations = tripDay.getLocations();
-		Collection<TripStep> tripSteps = tripDay.getTripSteps();
-		tripRepository.saveTripDay(tripDay);
-
-		tripDay.setLocations(null);
-		for (TripDayLocation dayLocation : locations) {
-			dayLocation.setTripDay(tripDay);
-			saveTripDayLocation(dayLocation);
-		}
-		tripDay.setLocations(locations);
-
-		if ( tripSteps != null ) {
-			tripDay.setTripSteps(null);
-			for (TripStep step : tripSteps) {
-				step.setTripDay(tripDay);
-				saveTripStep(step);
-
-			}
-			tripDay.setTripSteps(tripSteps);
-		}
+	public void updateTripStep(TripStep tripStep) throws TripException {
+		tripRepository.updateTripStep(tripStep);
 	}
 
 	@Override
-	public void saveTripDayLocation(TripDayLocation dayLocation) throws TripException {
-		try {
-			locationManagementService.saveOrUpdateLocation(dayLocation.getLocation());  // save if location doesn't exist in local database
-			Location location = locationManagementService.getLocationByGlobalId(dayLocation.getLocation().getGlobalId());
-			dayLocation.setLocation(location);
-		} catch (LocationException e) {
-			e.printStackTrace();
-			throw new TripException(e);
-		}
-		tripRepository.saveTripDayLocation(dayLocation);
+	public void updateTripDirection(TripDirection tripDirection) throws TripException {
+		tripRepository.updateTripDirection(tripDirection);
+	}
+	// </editor-fold>
+
+	// <editor-fold desc="Delete Trip">
+
+	@Override
+	public void deleteTrip(Trip trip) throws TripException {
+		tripRepository.deleteTrip(trip);
 	}
 
-	public void saveTripStep(TripStep step) throws TripException {
-		Collection<TripDirection> directions = step.getDirections();
-		tripRepository.saveTripStep(step);
-		if ( directions != null ) {
-			step.setDirections(null);
-			for (TripDirection direction : directions) {
-				direction.setTripStep(step);
-				tripRepository.saveTripDirection(direction);
-			}
-			step.setDirections(directions);
-		}
+	@Override
+	public void deleteTripDay(TripDay tripDay) throws TripException {
+		tripRepository.deleteTripDay(tripDay);
+	}
+
+	@Override
+	public void deleteTripDayLocation(TripDayLocation tripDayLocation) throws TripException {
+		tripRepository.deleteTripDayLocation(tripDayLocation);
+	}
+
+	@Override
+	public void deleteTripStep(TripStep tripStep) throws TripException {
+		tripRepository.deleteTripStep(tripStep);
+	}
+
+	@Override
+	public void deleteTripDirection(TripDirection tripDirection) throws TripException {
+		tripRepository.deleteTripDirection(tripDirection);
 	}
 
 	// </editor-fold>

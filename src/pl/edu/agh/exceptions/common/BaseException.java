@@ -1,5 +1,7 @@
 package pl.edu.agh.exceptions.common;
 
+import pl.edu.agh.exceptions.ErrorMessages;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ public abstract class BaseException extends Exception {
 
     private IExceptionDefinition exceptionDefinition;
     private List<FormValidationError> formValidationErrors;
+    private ErrorMessages errorMessages;
 
     protected BaseException(IExceptionDefinition exceptionDefinition) {
         this.exceptionDefinition = exceptionDefinition;
@@ -16,6 +19,10 @@ public abstract class BaseException extends Exception {
 
     protected BaseException(List<FormValidationError> formValidationErrors) {
         this.formValidationErrors = formValidationErrors;
+    }
+
+    protected BaseException(ErrorMessages errorMessages) {
+        this.errorMessages = errorMessages;
     }
 
     protected BaseException(String detailMessage, IExceptionDefinition exceptionDefinition) {
@@ -49,5 +56,13 @@ public abstract class BaseException extends Exception {
 
     public void setFormValidationErrors(List<FormValidationError> formValidationErrors) {
         this.formValidationErrors = formValidationErrors;
+    }
+
+    public ErrorMessages getErrorMessages() {
+        return errorMessages;
+    }
+
+    public void setErrorMessages(ErrorMessages errorMessages) {
+        this.errorMessages = errorMessages;
     }
 }

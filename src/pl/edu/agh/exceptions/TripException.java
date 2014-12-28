@@ -17,6 +17,7 @@ public class TripException extends BaseException {
 
 		// TODO: add missing exceptions
 		VALIDATION_NAME_IS_REQUIRED(R.string.TripException_ValidationError_Trip_NameIsRequired, ExceptionType.WARNING),
+		VALIDATION_DESCRIPTION_IS_REQUIRED(R.string.TripException_ValidationError_Trip_DescriptionIsRequired, ExceptionType.WARNING),
 		VALIDATION_START_DATE_IS_REQUIRED(R.string.TripException_ValidationError_Trip_StartDateIsRequired, ExceptionType.WARNING),
 		VALIDATION_END_DATE_IS_REQUIRED(R.string.TripException_ValidationError_Trip_EndDateIsRequired, ExceptionType.WARNING),
 		VALIDATION_TRIP_DAYS_IS_REQUIRED(R.string.TripException_ValidationError_Trip_TripDaysIsRequired, ExceptionType.WARNING),

@@ -14,7 +14,7 @@ public interface ISynchronizationService {
 
 	public void downloadLocationsInScope(double latitude, double longitude, double scope);
 
-	public void downloadTrips();
+	public void downloadTrips(String token);
 
 	public void sendNewPublicLocations() throws SynchronizationException;
 
@@ -22,6 +22,5 @@ public interface ISynchronizationService {
 
 	public void sendAllNewLocations() throws SynchronizationException;
 
-	public void sendTrips() throws SynchronizationException;
-
+	public void sendTrips(String token) throws SynchronizationException;
 }

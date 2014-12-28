@@ -49,4 +49,7 @@ public class SynchronizationException extends BaseException {
 		super(formValidationErrors);
 	}
 
+	protected SynchronizationException(ErrorMessages errorMessages) {
+		super(errorMessages);
+	}
 }

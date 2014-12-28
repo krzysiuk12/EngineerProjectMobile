@@ -76,4 +76,15 @@ public class TripCreationSerializer {
 	public void setTripDays(List<TripDayCreationSerializer> tripDays) {
 		this.tripDays = tripDays;
 	}
+
+	@Override
+	public String toString() {
+		return "TripCreationSerializer["
+				+ "name=" + name + ", "
+				+ "desc=" + description + ", "
+				+ "startDate=" + startDate + ", "
+				+ "distanceUnit=" + distanceUnit + ", "
+				+ "travelMode=" + travelMode + ", "
+				+ "days=" + tripDays + "]";
+	}
 }

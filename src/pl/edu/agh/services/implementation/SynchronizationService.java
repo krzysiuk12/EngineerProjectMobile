@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsAsyncTask;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsInAreaAsyncTask;
 import pl.edu.agh.asynctasks.locations.GetAllLocationsInAreaInScopeAsyncTask;
@@ -14,22 +15,28 @@ import pl.edu.agh.asynctasks.trips.GetAllTripDayDetailsAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetMyTripsAsyncTask;
 import pl.edu.agh.asynctasks.trips.PostAddTripAsyncTask;
 import pl.edu.agh.domain.locations.Location;
+import pl.edu.agh.domain.trips.DistanceUnit;
+import pl.edu.agh.domain.trips.TravelMode;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
+import pl.edu.agh.domain.trips.TripDayLocation;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.serializers.TripCreationSerializer;
 import pl.edu.agh.serializers.TripDayCreationSerializer;
 import pl.edu.agh.serializers.common.ResponseSerializer;
-import pl.edu.agh.serializers.common.ResponseStatus;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
 import pl.edu.agh.services.interfaces.ITripManagementService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -45,6 +52,11 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	public SynchronizationService(Context context) {
 		tripManagementService = new TripManagementService(context);
 		locationManagementService = new LocationManagementService(context);
+	}
+
+	public SynchronizationService(OrmLiteSqliteOpenHelper openHelper) {
+		tripManagementService = new TripManagementService(openHelper);
+		locationManagementService = new LocationManagementService(openHelper);
 	}
 
 	// <editor-fold description="Downloading Locations">
@@ -67,7 +79,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 		for ( Location location : locations ){
 			try {
-				locationManagementService.saveLocation(location);
+				locationManagementService.saveOrUpdateLocation(location);
 			} catch (LocationException e) {
 				e.printStackTrace();
 			}
@@ -92,7 +104,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		for ( Location location : locations ) {
 			location.setCreatedByAccount(UserAccountManagementService.getUserAccount());
 			try {
-				locationManagementService.saveLocation(location);
+				locationManagementService.saveOrUpdateLocation(location);
 			} catch (LocationException e) {
 				e.printStackTrace();
 			}
@@ -131,14 +143,14 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 	// </editor-fold>
 
-	// <editor-fold="Downloading trips">
+	// <editor-fold desc="Downloading trips">
 
 	@Override
-	public void downloadTrips() {
+	public void downloadTrips(String token) {
 		getLogService().debug("SynchronizationService", "downloadTrips start");
 		ArrayList<Trip> trips = new ArrayList<>();
 		try {
-			List<Trip> tripList = new GetMyTripsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+			List<Trip> tripList = new GetMyTripsAsyncTask(token).execute().get();
 			trips = new ArrayList<>(tripList);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -183,7 +195,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 	// </editor-fold>
 
-	// <editor-fold description="Sending Locations">
+	// <editor-fold desc="Sending Locations">
 
 	@Override
 	public void sendNewPublicLocations() throws SynchronizationException {
@@ -258,11 +270,62 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 	// </editor-fold>
 
+	// <editor-fold desc="Sending Trips">
+
+	private void addTestTrip() throws TripException {
+
+		// TripDayLocations
+		TripDayLocation tripDayLocation1 = new TripDayLocation();
+		TripDayLocation tripDayLocation2 = new TripDayLocation();
+		try {
+			Location location1 = locationManagementService.getLocationByGlobalId(1L);
+			tripDayLocation1.setLocation(location1);
+			tripDayLocation1.setOrdinal(1);
+
+			Location location2 = locationManagementService.getLocationByGlobalId(2L);
+			tripDayLocation2.setLocation(location2);
+			tripDayLocation2.setOrdinal(2);
+		} catch (LocationException e) {
+			e.printStackTrace();
+		}
+		List<TripDayLocation> tripDayLocationList = new ArrayList<>();
+		tripDayLocationList.add(tripDayLocation1);
+		tripDayLocationList.add(tripDayLocation2);
+
+		// TripDay
+		TripDay tripDay1 = new TripDay();
+		tripDay1.setDate(new Date());
+		tripDay1.setLocations(tripDayLocationList);
+
+		List<TripDay> tripDayList = new ArrayList<>();
+		tripDayList.add(tripDay1);
+
+		// Trip
+		Trip trip = new Trip();
+		trip.setName("name");
+		trip.setDescription("desc");
+		trip.setDays(tripDayList);
+		trip.setStartDate(new Date());
+		trip.setEndDate(new Date());
+		trip.setAuthor(UserAccountManagementService.getUserAccount());
+		trip.setSynced(false);
+		trip.setTravelMode(TravelMode.WALKING);
+		trip.setDistanceUnit(DistanceUnit.METRIC);
+
+		tripManagementService.saveTripCascade(trip);
+	}
+
 	@Override
-	public void sendTrips() throws SynchronizationException {
+	public void sendTrips(String token) throws SynchronizationException {
+		getLogService().debug("sendTrips - start");
+		try {
+			addTestTrip();  // TODO: REMOVE
+		} catch (TripException e) {
+			throw new SynchronizationException(e.getFormValidationErrors());
+		}
 		List<Trip> trips = null;
 		try {
-			trips = tripManagementService.getNewUserTrips(UserAccountManagementService.getToken());
+			trips = tripManagementService.getNewUserTrips(token);
 		} catch (TripException e) {
 			e.printStackTrace();
 		}
@@ -270,11 +333,30 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 			return;
 
 		for ( Trip trip : trips ) {
+			TripCreationSerializer tripCreationSerializer = buildTripCreationSerializer(trip);
 			try {
-				ResponseSerializer response = new PostAddTripAsyncTask(UserAccountManagementService.getToken(), buildTripSerializer(trip)).execute().get();
+				ResponseSerializer<Trip> response = new PostAddTripAsyncTask(UserAccountManagementService.getToken(), tripCreationSerializer).execute().get();
+
 				if ( validateServerResponse(response) ) {
-					trip.setSynced(true);
-					tripManagementService.updateTrip(trip);
+					Trip tripFromServer = response.getResult();
+
+					tripFromServer.setId(trip.getId());
+					tripFromServer.setAuthor(trip.getAuthor());
+					tripFromServer.setSynced(true);
+
+					Map<Date, Integer> tripDayToIdMap = buildDayToIdMap(trip.getDays());
+					getLogService().debug(tripDayToIdMap.toString());
+
+					tripManagementService.updateTripCascade(tripFromServer);
+
+					downloadTripDetails(tripFromServer);
+					updateTripDayIds(tripFromServer.getDays(), tripDayToIdMap);
+
+					tripManagementService.updateTripCascade(tripFromServer);
+
+					getLogService().debug("updated trip: " + tripFromServer);
+				} else {
+					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_SIDE_ERROR);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -287,23 +369,51 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 		// TODO: test
 
+		getLogService().debug("sendTrips - end");
 	}
 
-	public TripCreationSerializer buildTripSerializer(Trip trip) {
-		Collection<TripDay> tripDays = trip.getDays();
-		List<TripDayCreationSerializer> tripDayCreationSerializers = new ArrayList<>();
-		for ( TripDay tripDay : tripDays) {
-
+	private Map<Date, Integer> buildDayToIdMap(Collection<TripDay> tripDays) {
+		Map<Date, Integer> tripDayToIdMap = new HashMap<>();
+		for ( TripDay tripDay : tripDays ) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(tripDay.getDate());
+			// todo: dirty hack, test if it always works
+			calendar.set(Calendar.MILLISECOND, 0);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.HOUR_OF_DAY, 19);
+			tripDayToIdMap.put(calendar.getTime(), tripDay.getId());
 		}
-//		TripCreationSerializer tripCreationSerializer = new TripCreationSerializer(
-//				trip.getName(),
-//				trip.getDescription(),
-//				trip.getStartDate(),
-//				trip.getEndDate(),
-//				trip.g
-//		);
-		return new TripCreationSerializer();
+		return tripDayToIdMap;
 	}
+
+	private void updateTripDayIds(Collection<TripDay> tripDays, Map<Date, Integer> tripDayToIdMap) {
+		for ( TripDay tripDay : tripDays ) {
+			getLogService().debug(tripDay.getDate().toString());
+			tripDay.setId(tripDayToIdMap.get(tripDay.getDate()));
+		}
+	}
+
+	private TripCreationSerializer buildTripCreationSerializer(Trip trip) {
+		List<TripDayCreationSerializer> tripDayCreationSerializers = new ArrayList<>();
+		for ( TripDay tripDay : trip.getDays() ) {
+			if ( tripDay.getLocations() != null ) {
+				tripDayCreationSerializers.add(new TripDayCreationSerializer(new ArrayList<TripDayLocation>(tripDay.getLocations())));
+			}
+		}
+		TripCreationSerializer tripCreationSerializer = new TripCreationSerializer(
+				trip.getName(),
+				trip.getDescription(),
+				trip.getStartDate(),
+				trip.getTravelMode(),
+				trip.getDistanceUnit(),
+				tripDayCreationSerializers);
+
+		return tripCreationSerializer;
+	}
+
+	// </editor-fold>
+
 
 	public class LocalBinder extends Binder {
 		public SynchronizationService getService() {

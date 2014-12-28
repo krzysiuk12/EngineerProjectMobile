@@ -15,5 +15,7 @@ public class TripMapping extends BaseMapping {
     public static final String START_DATE_COLUMN_NAME = "startdate";
     public static final String END_DATE_COLUMN_NAME = "enddate";
     public static final String IS_SYNCED_COLUMN_NAME = "issynced";
+    public static final String TRAVEL_MODE_COLUMN_NAME = "tavelmode";
+    public static final String DISTANCE_UNIT_COLUMN_NAME = "distanceunit";
 
 }
