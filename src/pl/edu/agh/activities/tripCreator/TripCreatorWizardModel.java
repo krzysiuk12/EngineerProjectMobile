@@ -10,10 +10,14 @@ import java.util.ArrayList;
 public class TripCreatorWizardModel extends AbstractWizardModel<TripCreatorWizardElement> {
 
     private int wizardPageId;
+    private ArrayList<Class> tripCreatorPagesActivityClasses;
 
     public TripCreatorWizardModel() {
         super();
         wizardPageId = R.id.TripCreatorActivity_WizardPageView;
+        tripCreatorPagesActivityClasses = new ArrayList<Class>() {
+
+        };
     }
 
     @Override
