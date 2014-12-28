@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Magda on 2014-11-25.
  */
-public class GetAllLocationsInAreaInScopeAsyncTask extends AsyncTask<Void, Void,List<Location>> {
+public class GetAllLocationsInAreaInScopeAsyncTask extends AsyncTask<Void, Void,ResponseSerializer<List<Location>>> {
 
 	private String token;
 	private double latitude;
@@ -32,17 +32,13 @@ public class GetAllLocationsInAreaInScopeAsyncTask extends AsyncTask<Void, Void,
 	}
 
 	@Override
-	protected List<Location> doInBackground(Void... params) {
+	protected ResponseSerializer<List<Location>> doInBackground(Void... params) {
 		ResponseEntity<ResponseSerializer<List<Location>>> responseEntity = HttpRequestBuilder.getRestTemplateWithJacksonConverter()
 				.exchange(new CoordinatesPathBuilder().buildLocationsInAreaInScopePath(latitude, longitude, scope),
 						HttpMethod.GET,
 						new HttpEntity<Location>(HttpRequestBuilder.getHttpHeadersWithHeader(token)),
 						new ParameterizedTypeReference<ResponseSerializer<List<Location>>>() {});
-		if ( responseEntity.getStatusCode() ==  HttpStatus.OK && responseEntity.getBody() != null && responseEntity.getBody().getStatus() == ResponseStatus.OK ) {
-			return (List<Location>) responseEntity.getBody().getResult();
-		} else {
-			return null;    // todo: errorhandling (all GetLocationsAsyncTasks)
-		}
+		return responseEntity.getBody();
 	}
 
 }

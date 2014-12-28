@@ -15,7 +15,7 @@ import pl.edu.agh.serializers.common.ResponseSerializer;
 /**
  * Created by Magda on 2014-12-21.
  */
-public class GetAllTripDayDetailsAsyncTask extends AsyncTask<Void, Void, TripDay> {
+public class GetAllTripDayDetailsAsyncTask extends AsyncTask<Void, Void, ResponseSerializer<TripDay>> {
 
 	private String token;
 	private long id;
@@ -26,12 +26,12 @@ public class GetAllTripDayDetailsAsyncTask extends AsyncTask<Void, Void, TripDay
 	}
 
 	@Override
-	protected TripDay doInBackground(Void... voids) {
+	protected ResponseSerializer<TripDay> doInBackground(Void... voids) {
 		ResponseEntity<ResponseSerializer<TripDay>> responseEntity = HttpRequestBuilder.getRestTemplateWithJacksonConverter()
 				.exchange(new TripsPathBuilder().buildAllTripDayDetailsPath(id),
 						HttpMethod.GET,
 						new HttpEntity<Trip>(HttpRequestBuilder.getHttpHeadersWithHeader(token)),
 						new ParameterizedTypeReference<ResponseSerializer<TripDay>>() {});
-		return (TripDay) responseEntity.getBody().getResult();
+		return responseEntity.getBody();
 	}
 }

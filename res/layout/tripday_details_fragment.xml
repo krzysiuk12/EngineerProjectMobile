@@ -3,15 +3,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:weightSum="5">
+              android:layout_height="match_parent">
 
     <!-- Container for Map Fragment -->
     <RelativeLayout android:id="@+id/TripDayDetails.Map"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4"
-                    android:padding="@dimen/Layout.Padding"/>
+                    android:layout_weight="1"/>
 
     <Button android:id="@+id/TripDayDetails.TripDirectionsButton"
             android:layout_width="wrap_content"

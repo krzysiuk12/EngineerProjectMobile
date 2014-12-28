@@ -9,17 +9,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
+import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
+import pl.edu.agh.tools.ErrorTools;
 
 import java.io.Serializable;
 
@@ -33,11 +37,12 @@ public class DownloadLocationsInScopeActivity extends ActivityWithMapMenu {
 		MILES
 	}
 
-	ISynchronizationService synchronizationService;
-	IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
+	private ISynchronizationService synchronizationService;
+	private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
 	private GoogleMap googleMap;
 	private Marker marker;
-	private double radius;
+	private Circle circle;
+	private double radius = 50;
 	private Spinner unitSpinner;
 
 	@Override
@@ -107,10 +112,18 @@ public class DownloadLocationsInScopeActivity extends ActivityWithMapMenu {
 	}
 
 	public void onDownloadLocationsButtonClicked(View view) {
+		if ( marker == null ) {
+			new ErrorToastBuilder(this, getString(R.string.Synchronization_DownloadLocations_LocationIsRequired)).build().show();
+			return;
+		}
 		LatLng position = marker.getPosition();
-		synchronizationService.downloadLocationsInScope(position.latitude, position.longitude, calculateRadiusInKilometers());
-		new InfoToastBuilder(this, getString(R.string.Synchronization_DownloadLocations_Success)).build().show();
-		// TODO: error handling
+		try {
+			synchronizationService.downloadLocationsInScope(position.latitude, position.longitude, calculateRadiusInKilometers());
+			new InfoToastBuilder(this, getString(R.string.Synchronization_DownloadLocations_Success)).build().show();
+		} catch (SynchronizationException e) {
+			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e)).build().show();
+			e.printStackTrace();
+		}
 	}
 
 	// <editor-fold desc="Drawing on map">
@@ -125,6 +138,29 @@ public class DownloadLocationsInScopeActivity extends ActivityWithMapMenu {
 		renderScope();
 	}
 
+	private void renderScope() {
+		if ( marker != null && radius > 0 ) {
+			renderCircle();
+		}
+	}
+
+	private void renderCircle() {
+		if ( circle == null ) {
+			CircleOptions circleOptions = new CircleOptions();
+			circleOptions.center(marker.getPosition());
+			circleOptions.radius(calculateRadiusInMeters());
+			circleOptions.strokeWidth(3);
+			circle = getGoogleMap().addCircle(circleOptions);
+		} else {
+			circle.setCenter(marker.getPosition());
+			circle.setRadius(calculateRadiusInMeters());
+		}
+	}
+
+	// </editor-fold>
+
+	// <editor-fold desc="Radius calculations">
+
 	private double calculateRadiusInMeters() {
 		if ( unitSpinner.getSelectedItem() == MetricUnitType.MILES )
 			return radius * 1609.3;
@@ -138,21 +174,6 @@ public class DownloadLocationsInScopeActivity extends ActivityWithMapMenu {
 			return radius * 1.6093;
 		else
 			return radius;
-	}
-
-	private void renderScope() {
-		if ( marker != null && radius > 0 ) {
-			getGoogleMap().clear();
-			renderCircle();
-		}
-	}
-
-	private void renderCircle() {
-		CircleOptions circleOptions = new CircleOptions();
-		circleOptions.center(marker.getPosition());
-		circleOptions.radius(calculateRadiusInMeters());
-		circleOptions.strokeWidth(3);
-		getGoogleMap().addCircle(circleOptions);
 	}
 
 	// </editor-fold>

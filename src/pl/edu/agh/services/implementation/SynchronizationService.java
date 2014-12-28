@@ -14,6 +14,7 @@ import pl.edu.agh.asynctasks.locations.PostAddNewPrivateLocationAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetAllTripDayDetailsAsyncTask;
 import pl.edu.agh.asynctasks.trips.GetMyTripsAsyncTask;
 import pl.edu.agh.asynctasks.trips.PostAddTripAsyncTask;
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.domain.trips.DistanceUnit;
 import pl.edu.agh.domain.trips.TravelMode;
@@ -63,11 +64,14 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 	// TODO : remove, testing purposes (small db)
 	@Override
-	public void downloadAllLocations() {
+	public void downloadAllLocations() throws SynchronizationException {
 		getLogService().debug("downloadAllLocations start");
 		List<Location> locations = new ArrayList<Location>();
 		try {
-			locations = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+			ResponseSerializer<List<Location>> response = new GetAllLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+			if (validateServerResponse(response) ) {
+				locations = response.getResult();
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
@@ -88,10 +92,13 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	}
 
 	@Override
-	public void downloadAllPrivateLocations(String token) {
+	public void downloadAllPrivateLocations(String token) throws SynchronizationException {
 		List<Location> locations = null;
 		try {
-			locations = new GetAllPrivateLocationsAsyncTask(token).execute().get();
+			ResponseSerializer<List<Location>> response = new GetAllPrivateLocationsAsyncTask(token).execute().get();
+			if ( validateServerResponse(response) ) {
+				locations = response.getResult();
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
@@ -112,14 +119,18 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	}
 
 	@Override
-	public void downloadLocationsInScope(double latitude, double longitude, double scope) {
+	public void downloadLocationsInScope(double latitude, double longitude, double scope) throws SynchronizationException {
 		List<Location> locations = null;
 
 		try {
+			ResponseSerializer<List<Location>> response;
 			if ( scope != 0.0 ) {
-				locations = new GetAllLocationsInAreaInScopeAsyncTask(UserAccountManagementService.getToken(), latitude, longitude, scope).execute().get();
+				response = new GetAllLocationsInAreaInScopeAsyncTask(UserAccountManagementService.getToken(), latitude, longitude, scope).execute().get();
 			} else {
-				locations = new GetAllLocationsInAreaAsyncTask(UserAccountManagementService.getToken(), latitude, longitude).execute().get();
+				response = new GetAllLocationsInAreaAsyncTask(UserAccountManagementService.getToken(), latitude, longitude).execute().get();
+			}
+			if ( validateServerResponse(response) ) {
+				locations = response.getResult();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -132,7 +143,6 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 		for ( Location location : locations ) {
 			try {
-//				locationManagementService.saveLocation(location);
 				locationManagementService.saveOrUpdateLocation(location);
 			} catch (LocationException e) {
 				e.printStackTrace();
@@ -146,16 +156,24 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	// <editor-fold desc="Downloading trips">
 
 	@Override
-	public void downloadTrips(String token) {
+	public void downloadTrips(UserAccount userAccount) throws SynchronizationException {
 		getLogService().debug("SynchronizationService", "downloadTrips start");
-		ArrayList<Trip> trips = new ArrayList<>();
+		List<Trip> trips = null;
 		try {
-			List<Trip> tripList = new GetMyTripsAsyncTask(token).execute().get();
-			trips = new ArrayList<>(tripList);
+			ResponseSerializer<List<Trip>> response = new GetMyTripsAsyncTask(userAccount.getToken()).execute().get();
+			if ( validateServerResponse(response) ) {
+				trips = response.getResult();
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 		} catch (ExecutionException e) {
 			e.printStackTrace();
+			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
+		}
+
+		if ( trips == null ) {
+			return;
 		}
 
 		getLogService().debug("SynchronizationService", "downloaded trips: " + trips.size());
@@ -166,27 +184,33 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		}
 
 		for ( Trip trip : trips ) {
-			trip.setAuthor(UserAccountManagementService.getUserAccount());  // TODO: move up to create downloadTripsForUser
+			trip.setAuthor(userAccount);  // TODO: move up to create downloadTripsForUser
 			try {
 				tripManagementService.saveOrUpdateTrip(trip);
 			} catch (TripException e) {
 				e.printStackTrace();
+				throw new SynchronizationException(SynchronizationException.PredefinedExceptions.DATABASE_ERROR);
 			}
 		}
 		getLogService().debug("SynchronizationService", "downloadTrips end");
 	}
 
-	public void downloadTripDetails(Trip trip) {
+	public void downloadTripDetails(Trip trip) throws SynchronizationException {
 		if ( trip.getDays() != null ) {
 			List<TripDay> newTripDays = new ArrayList<>();
 			for ( TripDay day : trip.getDays() ) {
 				try {
-					TripDay allTripDayData = new GetAllTripDayDetailsAsyncTask(UserAccountManagementService.getToken(), day.getGlobalId()).execute().get();
-					newTripDays.add(allTripDayData);
+					ResponseSerializer<TripDay> response = new GetAllTripDayDetailsAsyncTask(UserAccountManagementService.getToken(), day.getGlobalId()).execute().get();
+					if ( validateServerResponse(response) ) {
+						TripDay allTripDayData = response.getResult();
+						newTripDays.add(allTripDayData);
+					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 				} catch (ExecutionException e) {
 					e.printStackTrace();
+					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 				}
 			}
 			trip.setDays(newTripDays);
@@ -363,6 +387,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 			} catch (ExecutionException e) {
 				e.printStackTrace();
 			} catch (TripException e) {
+				e.printStackTrace();
 				throw new SynchronizationException(SynchronizationException.PredefinedExceptions.DATABASE_ERROR);
 			}
 		}

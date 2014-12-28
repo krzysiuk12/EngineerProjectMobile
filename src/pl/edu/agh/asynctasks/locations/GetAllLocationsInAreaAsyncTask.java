@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Magda on 2014-11-25.
  */
-public class GetAllLocationsInAreaAsyncTask extends AsyncTask<Void, Void,List<Location>> {
+public class GetAllLocationsInAreaAsyncTask extends AsyncTask<Void, Void, ResponseSerializer<List<Location>>> {
 
 	private String token;
 	private double latitude;
@@ -29,13 +29,13 @@ public class GetAllLocationsInAreaAsyncTask extends AsyncTask<Void, Void,List<Lo
 	}
 
 	@Override
-	protected List<Location> doInBackground(Void... params) {
+	protected ResponseSerializer<List<Location>> doInBackground(Void... params) {
 		ResponseEntity<ResponseSerializer<List<Location>>> responseEntity = HttpRequestBuilder.getRestTemplateWithJacksonConverter()
 				.exchange(new CoordinatesPathBuilder().buildLocationsInAreaPath(latitude, longitude),
 						HttpMethod.GET,
 						new HttpEntity<Location>(HttpRequestBuilder.getHttpHeadersWithHeader(token)),
 						new ParameterizedTypeReference<ResponseSerializer<List<Location>>>() {});
-		return responseEntity.getBody().getResult();
+		return responseEntity.getBody();
 	}
 
 }

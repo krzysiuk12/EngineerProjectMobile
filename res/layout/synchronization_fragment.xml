@@ -20,12 +20,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/Synchronization.Option.Title"
-                    android:text="@string/Synchronization.DownloadLocationsInScope"/>
+                    android:text="@string/Synchronization.DownloadLocations"/>
             <Button
                     android:id="@+id/Synchronization.DownloadLocationsInScope.Button"
-                    android:text="@string/Synchronization.DownloadLocations"
+                    android:text="@string/Synchronization.DownloadLocationsInScope"
                     android:onClick="onDownloadLocationsButtonClicked"
                     style="@style/SynchronizationButton"/>
+
+            <Button
+                android:id="@+id/Synchronization.DownloadPrivateLocations.Button"
+                android:text="@string/Synchronization.DownloadPrivateLocations"
+                android:onClick="onDownloadPrivateLocationsButtonClicked"
+                style="@style/SynchronizationButton"/>
 
             <View style="@style/Divider"/>
 

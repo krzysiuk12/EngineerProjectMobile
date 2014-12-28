@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Magda on 2014-12-08.
  */
-public class GetMyTripsAsyncTask extends AsyncTask<Void, Void, List<Trip>> {
+public class GetMyTripsAsyncTask extends AsyncTask<Void, Void, ResponseSerializer<List<Trip>>>{
 
 	private String token;
 
@@ -25,13 +25,13 @@ public class GetMyTripsAsyncTask extends AsyncTask<Void, Void, List<Trip>> {
 	}
 
 	@Override
-	protected List<Trip> doInBackground(Void... voids) {
+	protected ResponseSerializer<List<Trip>> doInBackground(Void... voids) {
 		ResponseEntity<ResponseSerializer<List<Trip>>> responseEntity = HttpRequestBuilder.getRestTemplateWithJacksonConverter()
 				.exchange(new TripsPathBuilder().buildMyTripsPath(),
 						HttpMethod.GET,
 						new HttpEntity(HttpRequestBuilder.getHttpHeadersWithHeader(token)),
 						new ParameterizedTypeReference<ResponseSerializer<List<Trip>>>() {});
-		return (List<Trip>) responseEntity.getBody().getResult();
+		return responseEntity.getBody();
 	}
 
 }

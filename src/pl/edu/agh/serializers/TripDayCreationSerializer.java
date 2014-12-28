@@ -34,9 +34,11 @@ public class TripDayCreationSerializer {
 			this.destinationLocationId = tripDayLocations.remove(tripDayLocations.size() - 1).getLocation().getGlobalId();
 		}
 
-		this.waypointLocationIds = new ArrayList<>();
-		for ( TripDayLocation location : tripDayLocations ) {
-			this.waypointLocationIds.add(location.getLocation().getGlobalId());
+		if ( tripDayLocations.size() > 0 ) {
+			this.waypointLocationIds = new ArrayList<>();
+			for (TripDayLocation location : tripDayLocations) {
+				this.waypointLocationIds.add(location.getLocation().getGlobalId());
+			}
 		}
 	}
 

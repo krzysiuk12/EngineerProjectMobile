@@ -1,5 +1,6 @@
 package pl.edu.agh.services.interfaces;
 
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.serializers.common.ResponseSerializer;
 
@@ -8,13 +9,13 @@ import pl.edu.agh.serializers.common.ResponseSerializer;
  */
 public interface ISynchronizationService {
 
-	public void downloadAllLocations();
+	public void downloadAllLocations() throws SynchronizationException;
 
-	public void downloadAllPrivateLocations(String token);
+	public void downloadAllPrivateLocations(String token) throws SynchronizationException;
 
-	public void downloadLocationsInScope(double latitude, double longitude, double scope);
+	public void downloadLocationsInScope(double latitude, double longitude, double scope) throws SynchronizationException;
 
-	public void downloadTrips(String token);
+	public void downloadTrips(UserAccount userAccount) throws SynchronizationException;
 
 	public void sendNewPublicLocations() throws SynchronizationException;
 

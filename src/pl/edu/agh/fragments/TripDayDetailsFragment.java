@@ -113,7 +113,7 @@ public class TripDayDetailsFragment extends AbstractDescriptionFragment<TripDay>
 		if ( !tripDayLocations.isEmpty() ) {
 			Location location = tripDayLocations.get(0).getLocation();
 			LatLng postition = new LatLng(location.getLatitude(), location.getLongitude());
-			googleMapsManagementService.setMapPositionWithZoom(getGoogleMap(), postition, 10);
+			googleMapsManagementService.setMapPosition(getGoogleMap(), postition, 12);
 		}
 	}
 

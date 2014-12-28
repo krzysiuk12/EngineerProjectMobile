@@ -11,6 +11,7 @@ import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.services.interfaces.ISynchronizationService;
@@ -77,23 +78,25 @@ public class SynchronizationActivity extends OrmLiteBaseActivity<TestDatabaseHel
 			}
 			new InfoToastBuilder(this, getString(R.string.Synchronization_SendLocations_Success)).build().show();
 		} catch ( SynchronizationException e) {
-			new ErrorToastBuilder(this, ErrorTools.createExceptionDefinitionString(getResources(), e.getExceptionDefinition()));
+			new ErrorToastBuilder(this, ErrorTools.createExceptionDefinitionString(getResources(), e.getExceptionDefinition())).build().show();
 		}
 	}
 
 	public void onManageTripsButtonClicked(View view) {
 
-		if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Download)).isChecked() ) {
-			synchronizationService.downloadTrips(UserAccountManagementService.getToken());
-		}
+		try {
+			if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Download)).isChecked() ) {
+				synchronizationService.downloadTrips(UserAccountManagementService.getUserAccount());
+				new InfoToastBuilder(this, getString(R.string.Synchronization_ManageTrips_Download_Success)).build().show();
+			}
 
-		if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Send)).isChecked() ) {
-			try {
+			if ( ((CheckBox) findViewById(R.id.Synchronization_ManageTrips_Send)).isChecked() ) {
 				synchronizationService.sendTrips(UserAccountManagementService.getToken());
 				new InfoToastBuilder(this, getString(R.string.Synchronization_ManageTrips_Send_Success)).build().show();
-			} catch (SynchronizationException e) {
-				new ErrorToastBuilder(this, ErrorTools.createExceptionDefinitionString(getResources(), e.getExceptionDefinition())).build().show();
+
 			}
+		} catch (SynchronizationException e) {
+			new ErrorToastBuilder(this, ErrorTools.createExceptionDefinitionString(getResources(), e.getExceptionDefinition())).build().show();
 		}
 
 	}
@@ -101,6 +104,16 @@ public class SynchronizationActivity extends OrmLiteBaseActivity<TestDatabaseHel
 	public void onDownloadLocationsButtonClicked(View view) {
 		// show view with map
 		startActivity(new Intent(this, DownloadLocationsInScopeActivity.class));
+	}
+
+	public void onDownloadPrivateLocationsButtonClicked(View view) {
+		try {
+			synchronizationService.downloadAllPrivateLocations(UserAccountManagementService.getToken());
+			new InfoToastBuilder(this, getString(R.string.Synchronization_DownloadLocations_Success)).build().show();
+		} catch (SynchronizationException e) {
+			e.printStackTrace();
+			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e)).build().show();
+		}
 	}
 
 }

@@ -99,14 +99,7 @@ public class GoogleMapsManagementService extends BaseService implements IGoogleM
     }
 
     @Override
-    public void setMapPositionWithZoom(GoogleMap map, LatLng latLng, float zoom) {
-        if (map != null && latLng != null) {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-        }
-    }
-
-    @Override
-    public void setMapPosition(GoogleMap map, LatLng latLng, int zoom) {
+    public void setMapPosition(GoogleMap map, LatLng latLng, float zoom) {
         if (map != null && latLng != null && zoom > 0) {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
         }
