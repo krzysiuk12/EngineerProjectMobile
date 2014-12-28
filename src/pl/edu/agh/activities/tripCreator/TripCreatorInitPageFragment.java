@@ -13,20 +13,22 @@ import pl.edu.agh.main.R;
 public class TripCreatorInitPageFragment extends TripCreatorWizardPageFragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         ((Button) view.findViewById(R.id.TripCreatorInitPage_ReturnToStepsViewButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getFragmentManager().beginTransaction().add(R.id.TripCreatorActivity_WizardPageView, new TripCreatorInitPageFragment()).commit();
-                //getFragmentManager().beginTransaction().add(android.R.id.content, new TripCreatorMainSettingsPageFragment()).commit();
                 TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
-                //Bundle oldBundle = getArguments();
-                //fragment.setArguments(getArguments());
-                //getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
-                getFragmentManager().beginTransaction().replace(((ViewGroup)(getView().getParent())).getId(), fragment).commit();
+                getFragmentManager().beginTransaction().replace(container.getId(), fragment).commit();
             }
         });
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        ViewGroup mContainer = (ViewGroup) getActivity().findViewById(((ViewGroup)(getView().getParent())).getId());
+        mContainer.removeAllViews();
+        super.onDestroyView();
     }
 }
