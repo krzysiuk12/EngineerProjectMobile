@@ -17,6 +17,7 @@ import pl.edu.agh.services.interfaces.ITripManagementService;
 import pl.edu.agh.methods.SaveTripDatabaseMethod;
 import pl.edu.agh.methods.UpdateTripDatabaseMethod;
 import pl.edu.agh.tools.StringTools;
+import pl.edu.agh.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,16 +110,16 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	public void saveTripCascade(Trip trip) throws TripException {
 		List<FormValidationError> errors = validateTrip(trip);
 		if ( !errors.isEmpty() ) {
+			getLogService().error("Errors: " + errors);
 			throw new TripException(errors);
 		}
 		new SaveTripDatabaseMethod(this, locationManagementService).performAction(trip);
-//		tripRepository.saveTripCascade(trip);
-//		saveTripDays(trip);
 	}
 
 	@Override
 	public void saveNewTrip(Trip trip, UserAccount userAccount) throws TripException {
 		trip.setAuthor(userAccount);
+		trip.setSynced(false);
 
 		saveTripCascade(trip);
 	}
@@ -135,11 +136,14 @@ public class TripManagementService extends BaseService implements ITripManagemen
 
 	@Override
 	public void saveTrip(Trip trip) throws TripException {
+		trip.setStartDate(TimeUtils.formatDateForDatabase(trip.getStartDate()));
+		trip.setEndDate(TimeUtils.formatDateForDatabase(trip.getEndDate()));
 		tripRepository.saveTrip(trip);
 	}
 
 	@Override
 	public void saveTripDay(TripDay tripDay) throws TripException {
+		tripDay.setDate(TimeUtils.formatDateForDatabase(tripDay.getDate()));
 		tripRepository.saveTripDay(tripDay);
 	}
 

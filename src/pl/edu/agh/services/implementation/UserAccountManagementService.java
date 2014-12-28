@@ -16,6 +16,7 @@ import pl.edu.agh.serializers.common.ResponseStatus;
 import pl.edu.agh.services.interfaces.IApplicationSettingsService;
 import pl.edu.agh.services.interfaces.IUserAccountManagementService;
 
+import java.io.InterruptedIOException;
 import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -69,6 +70,7 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);

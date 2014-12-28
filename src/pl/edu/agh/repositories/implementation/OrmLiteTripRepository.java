@@ -2,6 +2,7 @@ package pl.edu.agh.repositories.implementation;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.dbmodel.accounts.UserAccountMapping;
 import pl.edu.agh.dbmodel.common.BaseObjectMapping;
@@ -17,6 +18,7 @@ import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.repositories.interfaces.ITripRepository;
+import pl.edu.agh.utils.TimeUtils;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -116,7 +118,8 @@ public class OrmLiteTripRepository implements ITripRepository {
 	public List<Trip> getPastTrips() throws TripException {
 		QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryBuilder();
 		try {
-			queryBuilder.where().lt(TripMapping.END_DATE_COLUMN_NAME, new Date());
+			Date currentDate = TimeUtils.formatDateForDatabase(new Date());
+			queryBuilder.where().lt(TripMapping.END_DATE_COLUMN_NAME, currentDate);
 			return ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().query(queryBuilder.prepare());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,9 +131,12 @@ public class OrmLiteTripRepository implements ITripRepository {
 	public List<Trip> getCurrentTrips() throws TripException {
 		QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryBuilder();
 		try {
-			Date currentDate = new Date();
-			queryBuilder.where().lt(TripMapping.START_DATE_COLUMN_NAME, currentDate);
-			queryBuilder.where().gt(TripMapping.END_DATE_COLUMN_NAME, currentDate);
+			Date currentDate = TimeUtils.formatDateForDatabase(new Date());
+
+			Where where = queryBuilder.where();
+			where.le(TripMapping.START_DATE_COLUMN_NAME, currentDate);
+			where.and();
+			where.ge(TripMapping.END_DATE_COLUMN_NAME, currentDate);
 			return ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().query(queryBuilder.prepare());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -142,7 +148,8 @@ public class OrmLiteTripRepository implements ITripRepository {
 	public List<Trip> getFutureTrips() throws TripException {
 		QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryBuilder();
 		try {
-			queryBuilder.where().gt(TripMapping.START_DATE_COLUMN_NAME, new Date());
+			Date currentDate = TimeUtils.formatDateForDatabase(new Date());
+			queryBuilder.where().gt(TripMapping.START_DATE_COLUMN_NAME, currentDate);
 			return ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().query(queryBuilder.prepare());
 		} catch (SQLException e) {
 			e.printStackTrace();

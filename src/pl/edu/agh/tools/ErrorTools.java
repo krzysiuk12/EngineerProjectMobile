@@ -21,7 +21,7 @@ public class ErrorTools {
 		} else if ( exception.getFormValidationErrors() != null ) {
 			return  createFormValidationErrorString(resources, exception.getFormValidationErrors());
 		} else {
-			return null;
+			return "";
 		}
 	}
 
