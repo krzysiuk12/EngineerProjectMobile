@@ -119,9 +119,11 @@ public class LocationManagementService extends BaseService implements ILocationM
 	}
 
 	@Override
-	public List<Location> getAllLocations() throws LocationException {
+	public List<Location> getAllLocations(String token) throws LocationException {
 		List<Location> publicLocations = locationRepository.getAllPublicLocations();
-		List<Location> privateLocations = locationRepository.getAllUserPrivateLocations(UserAccountManagementService.getToken());
+		List<Location> privateLocations = locationRepository.getAllUserPrivateLocations(token);
+		getLogService().error("public locations: " + publicLocations.size());
+		getLogService().error("private locations: " + privateLocations.size());
 		List<Location> locations = new ArrayList<>();
 		locations.addAll(publicLocations);
 		locations.addAll(privateLocations);
@@ -131,11 +133,6 @@ public class LocationManagementService extends BaseService implements ILocationM
 	@Override
 	public List<Location> getAllUserLocations(UserAccount account) throws LocationException {
 		return locationRepository.getAllUserLocations(account);
-	}
-
-	@Override
-	public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException {
-		return locationRepository.getAllUserPrivateLocations(account);
 	}
 
 	@Override

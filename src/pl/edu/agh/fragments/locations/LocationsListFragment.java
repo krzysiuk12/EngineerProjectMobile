@@ -8,6 +8,7 @@ import pl.edu.agh.fragments.AbstractDescriptionFragment;
 import pl.edu.agh.fragments.AbstractListFragment;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.LocationManagementService;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class LocationsListFragment extends AbstractListFragment<Location> {
 
 		List<Location> locations = new ArrayList<>();
 		try {
-			List<Location> locationsFromDatabase = locationManagementService.getAllLocations();
+			List<Location> locationsFromDatabase = locationManagementService.getAllLocations(UserAccountManagementService.getToken());
 			if ( locationsFromDatabase != null )
 				locations = locationsFromDatabase;
 		} catch (LocationException e) {

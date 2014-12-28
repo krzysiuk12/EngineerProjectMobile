@@ -30,11 +30,9 @@ public interface ILocationManagementService {
 
     public Location getLocationByCoordinates(double latitude, double longitude) throws LocationException;
 
-    public List<Location> getAllLocations() throws LocationException;
+    public List<Location> getAllLocations(String token) throws LocationException;
 
     public List<Location> getAllUserLocations(UserAccount account) throws LocationException;
-
-    public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException;
 
     public List<Location> getAllUserPrivateLocations(String token) throws LocationException;
 

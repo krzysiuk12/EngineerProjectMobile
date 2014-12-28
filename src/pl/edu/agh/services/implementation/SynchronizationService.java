@@ -88,10 +88,10 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 	}
 
 	@Override
-	public void downloadAllPrivateLocations() {
+	public void downloadAllPrivateLocations(String token) {
 		List<Location> locations = null;
 		try {
-			locations = new GetAllPrivateLocationsAsyncTask(UserAccountManagementService.getToken()).execute().get();
+			locations = new GetAllPrivateLocationsAsyncTask(token).execute().get();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {

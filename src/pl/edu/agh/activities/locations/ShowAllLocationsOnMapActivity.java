@@ -2,6 +2,7 @@ package pl.edu.agh.activities.locations;
 
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class ShowAllLocationsOnMapActivity extends AbstractShowLocationsOnMapAct
 
     @Override
     protected List<Location> getLocations() throws LocationException {
-        return getLocationManagementService().getAllLocations();
+        return getLocationManagementService().getAllLocations(UserAccountManagementService.getToken());
 
     }
 }

@@ -10,7 +10,7 @@ public interface ISynchronizationService {
 
 	public void downloadAllLocations();
 
-	public void downloadAllPrivateLocations();
+	public void downloadAllPrivateLocations(String token);
 
 	public void downloadLocationsInScope(double latitude, double longitude, double scope);
 
