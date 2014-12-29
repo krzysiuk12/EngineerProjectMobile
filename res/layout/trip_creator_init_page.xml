@@ -37,8 +37,8 @@
                 android:background="@drawable/shape_filled_green"
                 android:textColor="@android:color/white"
                 android:padding="@dimen/LoginActivity.Button.Padding"
-                android:text="@string/TripCreatorInitPage.ReturnButton"
-                android:id="@+id/TripCreatorInitPage.ReturnToStepsViewButton"/>
+                android:text="@string/TripCreatorInitPage.StartButton"
+                android:id="@+id/TripCreatorInitPage.CreateTripButton"/>
     </LinearLayout>
 
 </LinearLayout>

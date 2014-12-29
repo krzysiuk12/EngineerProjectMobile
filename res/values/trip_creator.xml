@@ -6,7 +6,6 @@
         Click the button below to begin.
     </string>
     <string name="TripCreatorInitPage.StartButton">Create Trip</string>
-    <string name="TripCreatorInitPage.ReturnButton">Return To Steps List</string>
     <string name="TripCreatorMainSettingsPage.Title">Step One: Main Trip Settings</string>
     <string name="TripCreatorMainSettingsPage.TripNameLabel">Write name of the trip</string>
     <string name="TripCreatorMainSettingPage.TripDescriptionLabel">Provide description</string>

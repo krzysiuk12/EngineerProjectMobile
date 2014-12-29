@@ -1,6 +1,5 @@
 package pl.edu.agh.activities.tripCreator;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,28 +8,20 @@ import android.widget.Button;
 import pl.edu.agh.main.R;
 
 /**
- * Created by Sławek on 2014-12-21.
+ * Created by Sławek on 2014-12-28.
  */
-public class TripCreatorInitPageFragment extends TripCreatorWizardPageFragment {
+public class TripCreatorDaysListPageFragment extends TripCreatorWizardPageFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        ((Button) view.findViewById(R.id.TripCreatorInitPage_CreateTripButton)).setOnClickListener(new View.OnClickListener() {
+        ((Button)view.findViewById(R.id.TripCreatorDaysListPage_PageBackButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
-                ft.addToBackStack(null);
-                ft.commit();
-
-
-                //getFragmentManager().beginTransaction().replace(container.getId(), fragment).commit();
+                getFragmentManager().beginTransaction().replace(container.getId(), fragment).commit();
             }
         });
         return view;
     }
-
-
 }

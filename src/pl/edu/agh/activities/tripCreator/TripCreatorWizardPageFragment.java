@@ -44,4 +44,11 @@ public class TripCreatorWizardPageFragment extends AbstractWizardPage<TripCreato
     protected void showWizardPage() {
 
     }
+
+    @Override
+    public void onDestroyView() {
+        ViewGroup mContainer = (ViewGroup) getActivity().findViewById(((ViewGroup)(getView().getParent())).getId());
+        mContainer.removeAllViews();
+        super.onDestroyView();
+    }
 }

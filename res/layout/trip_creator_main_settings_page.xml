@@ -26,15 +26,28 @@
                     android:layout_marginTop="@dimen/WizardPageMainLayout.Margin.Top">
 
 
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableBottom="@drawable/icon_arrow_left"
+                        android:id="@+id/TripCreatorMainSettingsPage.PageBackButton"/>
+
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:textAppearance="@style/WizardPage.Title"
                         android:text="@string/TripCreatorMainSettingsPage.Title"
                         android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center"
                         android:id="@+id/TripCreatorMainSettingsPage.Title"/>
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableBottom="@drawable/icon_arrow"
+                        android:id="@+id/TripCreatorMainSettingsPage.PageForwardButton"/>
 
             </LinearLayout>
 
@@ -86,6 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
+                        android:calendarViewShown="false"
                         android:id="@+id/datePicker"/>
 
                 <TextView
@@ -99,6 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
+                        android:calendarViewShown="false"
                         android:id="@+id/datePicker2"/>
 
             </LinearLayout>

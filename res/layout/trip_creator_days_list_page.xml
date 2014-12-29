@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:drawableTop="@drawable/icon_arrow_left"
-                android:id="@+id/TripCreatorDaysListPage.GoBackButton"/>
+                android:id="@+id/TripCreatorDaysListPage.PageBackButton"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:drawableTop="@drawable/icon_arrow"
-                android:id="@+id/TripCreatorDaysListPage.GoNextButton"/>
+                android:id="@+id/TripCreatorDaysListPage.PageForwardButton"/>
     </LinearLayout>
 
     <LinearLayout

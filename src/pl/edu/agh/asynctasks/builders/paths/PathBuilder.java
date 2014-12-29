@@ -5,7 +5,7 @@ package pl.edu.agh.asynctasks.builders.paths;
  */
 public class PathBuilder {
 
-    protected static final String SERVER_PATH = "http://192.168.1.101:8080/TourTrip";
+    protected static final String SERVER_PATH = "http://192.168.0.11:8080/TourTrip";
 
     protected StringBuilder pathBuilder = new StringBuilder();
     protected boolean firstRequestParameter = true;
