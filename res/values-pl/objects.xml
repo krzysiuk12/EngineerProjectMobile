@@ -3,6 +3,8 @@
 
     <string name="Location.Name">Nazwa</string>
     <string name="Location.Description">Opis</string>
+    <string name="Location.Longitude">Długość geograficzna</string>
+    <string name="Location.Latitude">Szerokość geograficzna</string>
     <string name="Location.CreatedByAccount">Stworzone przez</string>
     <string name="Location.CreationDate">Data utworzenia</string>
     <string name="Location.Address">Adres</string>
@@ -16,7 +18,19 @@
     <string name="Address.PostalCode">Kod pocztowy</string>
     <string name="Address.Street">Ulica</string>
 
+    <string name="Trip.Name">Nazwa</string>
     <string name="Trip.Description">Opis</string>
     <string name="Trip.Author">Autor</string>
+    <string name="Trip.StartDate">Data rozpoczęcia</string>
+    <string name="Trip.EndDate">Data zakończenia</string>
+
+    <string name="TripDay">Dzień wycieczki</string>
+    <string name="TripDay.Date">Data</string>
+
+    <string name="TripDirection">Instrukcja wycieczki</string>
+    <string name="TripDirection.Instruction">Instrukcja</string>
+    <string name="TripDirection.Distance">Odległość</string>
+    <string name="TripDirection.Duration">Czas trwania</string>
+
 
 </resources>

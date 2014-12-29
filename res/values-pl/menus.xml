@@ -37,12 +37,16 @@
 
     <string name="SynchronizationMenu.Title">Synchronizacja</string>
 
-    <string name="ShowTripsMenu.Details.Title">Szczegóły wycieczki</string>
     <string name="ShowTripsMenu.Title">Pokaż wycieczki</string>
     <string name="ShowTripsMenu.TripViewMode.All">Wszystkie</string>
     <string name="ShowTripsMenu.TripViewMode.Current">Aktualne</string>
     <string name="ShowTripsMenu.TripViewMode.Future">Przeszłe</string>
     <string name="ShowTripsMenu.TripViewMode.Past">Przyszłe</string>
     <string name="ShowTripsMenu.TripViewMode.Title">Tryp widoku</string>
+    <string name="ShowTripsMenu.Details.Title">Szczegóły wycieczki</string>
+    <string name="ShowTripsMenu.DayDetails.Title">Szczegóły dnia wycieczki</string>
+    <string name="ShowTripsMenu.Directions.Title">Intrukcje</string>
+    <string name="ShowTripsMenu.TripGuide">Przewodnik</string>
 
+    <string name="TripCreatorMenu.Title">Kreator wycieczki</string>
 </resources>

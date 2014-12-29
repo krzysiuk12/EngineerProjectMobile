@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="GoogleDirectionsException.NOT_DEFINED">Nieznany błąd</string>
+
+    <string name="GoogleGeocodingException.FAILED_TO_GET_LOCATION_DESCRIPTION">Nie udało się pobrać opisu lokalizacji.</string>
+    <string name="GoogleGeocodingException.NOT_DEFINED">Nieznany błąd</string>
+
     <string name="LocationException.ValidationError.NameIsRequired">Pole "Nazwa" jest wymagane</string>
     <string name="LocationException.ValidationError.LongitudeIsRequired">Długość geograficzna jest wymagana</string>
     <string name="LocationException.ValidationError.LatitudeIsRequired">Szerokość geograficzna jest wymagana</string>
@@ -12,5 +17,29 @@
     <string name="LocationException.ValidationError.AddressIsRequired">Adres jest wymagany</string>
     <string name="LocationException.ValidationError.CreatedByAccountIsRequired">Pole "Utworzone przez" jest wymagane</string>
     <string name="LocationException.ValidationError.StatusIsRequired">Status jest wymagany</string>
+
+    <string name="TripException.ValidationError.Trip.NameIsRequired">Nazwa wycieczki jest wymagana</string>
+    <string name="TripException.ValidationError.Trip.DescriptionIsRequired">Opis jest wymagany</string>
+    <string name="TripException.ValidationError.Trip.StartDateIsRequired">Data rozpoczęcia jest wymagana</string>
+    <string name="TripException.ValidationError.Trip.EndDateIsRequired">Data zakończenia jest wymagana</string>
+    <string name="TripException.ValidationError.Trip.AuthorIsRequired">Autor jest wymagany</string>
+    <string name="TripException.ValidationError.Trip.TripDaysIsRequired">Wycieczka musi trwać minimum jeden dzień</string>
+    <string name="TripException.ValidationError.Trip.StartDateBeforeEndDate">Data rozpoczęcia musi występować przed datą zakończenia</string>
+
+    <string name="TripException.ValidationError.TripDay.InvalidDate">Niepoprawna data dnia wycieczki</string>
+    <string name="TripException.ValidationError.TripDay.DateIsRequired">Data jest wymagana</string>
+    <string name="TripException.ValidationError.TripDay.TripDayLocationsAreRequired">Lokalizacje są wymagane</string>
+
+    <string name="TripException.ValidationError.TripDayLocation.LocationIsRequired">Lokalizacja jest wymagana</string>
+    <string name="TripException.ValidationError.TripDayLocation.OrdinalIsRequired">Numer porządkowy jest wymagany</string>
+
+    <string name="SynchronizationException.DatabaseSaveError">Błąd bazy danych. Nie udało się zapisać informacji o synchronizacji.</string>
+    <string name="SynchronizationException.ServerError">Błąd serwera. Nie udało się dokonać synchronizacji</string>
+
+    <string name="ServerException.ServerUnreachable">Serwer jest nieosiągalny</string>
+    <string name="ServerException.UnknownError">Nieznany błąd</string>
+    <string name="ServerException.ZeroResults">Brak obiektów w bazie odpowiadających zapytaniu</string>
+    <string name="ServerException.AccessDenied">Zabroniony dostęp</string>
+    <string name="ServerException.RequestDenied">Zapytanie odrzucone</string>
 
 </resources>

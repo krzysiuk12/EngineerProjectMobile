@@ -26,44 +26,44 @@
 
 	<string name="ShowAllLocationsOnMapActivity.Button.ShowDescription">Opis lokacji</string>
 	<string name="ShowAllLocationsOnMapActivity.Button.DownloadLocations">Ściągnij lokacje</string>
-
-    <string name="ShowPrivateLocationsOnMapActivity.Button.ShowDescription">Opis mojej lokacji</string>
-    <string name="ShowPrivateLocationsOnMapActivity.Button.DownloadLocations">Ściągnij lokacje</string>
-
-    <string name="LocationDescription.Image">Obrazek</string>
-
-    <string name="Location.Latitude">Szerokość geograficzna</string>
-    <string name="Location.Longitude">Długość geograficzna</string>
-    <string name="Settings.Language.Button">Zmień</string>
-    <string name="Settings.Language.Title">Język</string>
     <string name="ShowAllLocationsOnMapActivity.LocationNullError">Najpierw musisz wybrać istniejącą lokalizację na
         mapie!</string>
     <string name="ShowAllLocationsOnMapActivity.NoLocationFoundError">Wystąpił błąd. Nie ma takiej lokalizacji.</string>
     <string name="ShowAllLocationsOnMapActivity.SearchError">Wystąpił błąd w trakcie wyszukiwania, bardzo przepraszamy.</string>
-    <string name="TripException.ValidationError.Trip.AuthorIsRequired">Autor jest wymagany</string>
-    <string name="TripException.ValidationError.Trip.EndDateIsRequired">Data zakończenia jest wymagana</string>
-    <string name="TripException.ValidationError.Trip.NameIsRequired">Nazwa wycieczki jest wymagana</string>
-    <string name="TripException.ValidationError.Trip.StartDateBeforeEndDate">Data rozpoczęcia musi być przed datą zakończenia</string>
-    <string name="TripException.ValidationError.Trip.StartDateIsRequired">Data rozpoczęcia jest wymagana</string>
-    <string name="TripException.ValidationError.Trip.TripDaysIsRequired">Musisz dodać jakiś dzień wycieczki</string>
-    <string name="TripDay.Date">Data</string>
-    <string name="TripDay">Dzień wycieczki</string>
-    <string name="Trip.EndDate">Data zakończenia</string>
-    <string name="Trip.Name">Nazwa</string>
-    <string name="Trip.StartDate">Data rozpoczęcia</string>
-    <string name="ShowTrips.TripDetails.ShowTripDayDetails">Pokaż dzień wycieczki</string>
-    <string name="Synchronization.DownloadLocations">Ściągnij lokalizacje</string>
-    <string name="Synchronization.ManageTrips">Zarządzaj wycieczkami</string>
-    <string name="Synchronization.Download">Ściągnij</string>
-    <string name="Synchronization.Send">Wyslij</string>
-    <string name="Synchronization.ManageTripsButton">Zarządzaj wycieczkami</string>
-    <string name="Synchronization.NoUserAccountFoundError">Wystąpił błąd, spróbuj ponownie.</string>
+
+    <string name="LocationDescription.Image">Obrazek</string>
+
     <string name="Synchronization.SendLocations">Wyslij lokalizacje</string>
     <string name="Synchronization.SendLocations.Both">Wszystkie</string>
     <string name="Synchronization.SendLocations.Private">Prywatne</string>
     <string name="Synchronization.SendLocations.Public">Publiczne</string>
     <string name="Synchronization.SendLocations.Button">Wyslij lokalizacje</string>
+    <string name="Synchronization.SendLocations.Success">Lokalizacje zostały wysłane</string>
+
+    <string name="Synchronization.DownloadLocations">Pobierz lokalizacje</string>
+    <string name="Synchronization.DownloadPrivateLocations">Pobierz prywatne lokalizacje</string>
+    <string name="Synchronization.DownloadLocationsInScope">Pobierz lokalizacje w rejonie</string>
+    <string name="Synchronization.DownloadLocationsInScope.Radius">Promień</string>
+    <string name="Synchronization.DownloadLocationsInScope.DefaultRadius">Domyślny promień wynosi 50 km</string>
+    <string name="Synchronization.DownloadLocations.Success">Lokalizacje zostały pobrane</string>
+    <string name="Synchronization.DownloadLocations.LocationIsRequired">Musisz zaznaczyc lokalizację na mapie</string>
+
+    <string name="Synchronization.ManageTrips">Zarządzaj wycieczkami</string>
+    <string name="Synchronization.ManageTripsButton">Zarządzaj wycieczkami</string>
+    <string name="Synchronization.ManageTrips.Send.Success">Wycieczki zostały wysłane</string>
+    <string name="Synchronization.ManageTrips.Download.Success">Wycieczki zostały pobrane</string>
+    <string name="Synchronization.Download">Pobierz</string>
+    <string name="Synchronization.Send">Wyslij</string>
+
+    <string name="Synchronization.NoUserAccountFoundError">Wystąpił błąd, spróbuj ponownie.</string>
+
+    <string name="ShowTrips.TripDetails.ShowTripDayDetails">Pokaż szczegóły dnia wycieczki</string>
+    <string name="TripDetails.TripDays">Dni wycieczki</string>
+
     <string name="Settings.LanguageSettings">Ustawienie języka</string>
+    <string name="Settings.Language.Button">Zmień</string>
+    <string name="Settings.Language.Title">Język</string>
+
     <string name="Settings.DefaultUser">Domyślny użytkownik</string>
 
 </resources>

@@ -37,7 +37,7 @@
 
     <string name="ServerException.ServerUnreachable">Server unreachable</string>
     <string name="ServerException.UnknownError">Unknown Error occurred</string>
-    <string name="ServerException.ZeroResults">Request came with zero results</string>
+    <string name="ServerException.ZeroResults">Response came with zero results</string>
     <string name="ServerException.AccessDenied">Access Denied</string>
     <string name="ServerException.RequestDenied">Request Denied</string>
 

@@ -38,12 +38,15 @@
     <string name="Synchronization.SendLocations.Both">Both</string>
     <string name="Synchronization.SendLocations.Button">Send Locations</string>
     <string name="Synchronization.SendLocations.Success">Locations has been sent successfully</string>
+
     <string name="Synchronization.DownloadLocations">Download Locations</string>
     <string name="Synchronization.DownloadPrivateLocations">Download Private Locations</string>
     <string name="Synchronization.DownloadLocationsInScope">Download Locations in Scope</string>
     <string name="Synchronization.DownloadLocationsInScope.Radius">Radius</string>
     <string name="Synchronization.DownloadLocationsInScope.DefaultRadius">Default radius is 50 km</string>
     <string name="Synchronization.DownloadLocations.Success">Locations has been downloaded successfully</string>
+    <string name="Synchronization.DownloadLocations.LocationIsRequired">You need to choose location on map first</string>
+
     <string name="Synchronization.ManageTrips">Manage Trips</string>
     <string name="Synchronization.ManageTripsButton">Manage Trips</string>
     <string name="Synchronization.ManageTrips.Send.Success">Trips have been sent successfully</string>
@@ -54,7 +57,7 @@
     <string name="Synchronization.NoUserAccountFoundError">Error occurred. Please try again.</string>
 
     <string name="ShowTrips.TripItem.DatesSeparator"> - </string>
-    <string name="ShowTrips.TripDetails.ShowTripDayDetails">Show trip days</string>
+    <string name="ShowTrips.TripDetails.ShowTripDayDetails">Show trip day details</string>
 
     <string name="TripDetails.TripDays">Trip Days</string>
     <string name="TripDetails.TripDirection.Separator">, </string>
