@@ -43,7 +43,7 @@ public class LocationsListFragment extends AbstractListFragment<Location> {
 
 		List<Location> locations = new ArrayList<>();
 		try {
-			List<Location> locationsFromDatabase = locationManagementService.getAllLocations(UserAccountManagementService.getToken());
+			List<Location> locationsFromDatabase = locationManagementService.getAllLocations(UserAccountManagementService.getUserAccount());
 			if ( locationsFromDatabase != null )
 				locations = locationsFromDatabase;
 		} catch (LocationException e) {

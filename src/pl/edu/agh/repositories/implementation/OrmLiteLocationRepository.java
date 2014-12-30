@@ -9,6 +9,7 @@ import pl.edu.agh.dbmodel.locations.LocationMapping;
 import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.repositories.interfaces.ILocationRepository;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 
@@ -35,12 +36,7 @@ public class OrmLiteLocationRepository implements ILocationRepository {
         return ((TestDatabaseHelper)openHelper).getLocationsRuntimeExceptionDao().create(location);
     }
 
-	@Override
-	public void saveOrUpdateLocation(Location location) {
-		((TestDatabaseHelper)openHelper).getLocationsRuntimeExceptionDao().createOrUpdate(location);
-	}
-
-	@Override
+    @Override
 	public void updateLocation(Location location) {
 		((TestDatabaseHelper)openHelper).getLocationsRuntimeExceptionDao().update(location);
 	}
@@ -90,41 +86,15 @@ public class OrmLiteLocationRepository implements ILocationRepository {
 
     @Override
     public List<Location> getAllUserLocations(UserAccount account) throws LocationException {
-        QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryBuilder();
-        try {
-            queryBuilder.where().eq(LocationMapping.CREATED_BY_ACCOUNT_COLUMN_NAME, account);
-            return ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().query(queryBuilder.prepare());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Location> getAllUserPrivateLocations(String token) throws LocationException {
-        QueryBuilder userAccountQueryBuilder = ((TestDatabaseHelper) openHelper).getUserAccountRuntimeExceptionDao().queryBuilder();
-        QueryBuilder locationQueryBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryBuilder();
-        try {
-            userAccountQueryBuilder.where().eq(UserAccountMapping.TOKEN_COLUMN_NAME, UserAccountManagementService.getToken());
-            locationQueryBuilder.where().eq(LocationMapping.USERS_PRIVATE_COLUMN_NAME, true);
-            return locationQueryBuilder.join(userAccountQueryBuilder).query();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryForEq(LocationMapping.CREATED_BY_ACCOUNT_COLUMN_NAME, account);
     }
 
     @Override
     public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException {
-        QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryBuilder();
-        try {
-            queryBuilder.where().eq(LocationMapping.CREATED_BY_ACCOUNT_COLUMN_NAME, account);
-            queryBuilder.where().eq(LocationMapping.USERS_PRIVATE_COLUMN_NAME, true);
-            return ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().query(queryBuilder.prepare());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        Map<String, Object> fieldValues = new HashMap<>();
+        fieldValues.put(LocationMapping.USERS_PRIVATE_COLUMN_NAME, true);
+        fieldValues.put(LocationMapping.CREATED_BY_ACCOUNT_COLUMN_NAME, account);
+       return ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().queryForFieldValues(fieldValues);
     }
 
     @Override

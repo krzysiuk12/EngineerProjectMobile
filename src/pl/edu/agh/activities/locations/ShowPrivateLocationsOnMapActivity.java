@@ -13,7 +13,7 @@ public class ShowPrivateLocationsOnMapActivity extends AbstractShowLocationsOnMa
 
     @Override
     protected List<Location> getLocations() throws LocationException {
-        return getLocationManagementService().getAllUserPrivateLocations(UserAccountManagementService.getToken());
+        return getLocationManagementService().getAllUserPrivateLocations(UserAccountManagementService.getUserAccount());
 
     }
 }

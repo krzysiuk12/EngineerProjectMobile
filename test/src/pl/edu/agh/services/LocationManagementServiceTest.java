@@ -40,6 +40,8 @@ public class LocationManagementServiceTest extends AndroidTestCase {
 		getContext().deleteDatabase(TestDatabaseHelper.DATABASE_NAME);
 	}
 
+	// <editor-fold desc="CRUDs">
+
 	public void testSaveLocation() throws Exception {
 		Location location = BaseTestObject.createLocation();
 
@@ -76,6 +78,32 @@ public class LocationManagementServiceTest extends AndroidTestCase {
 		TestTools.assertEquals(location1, savedLocation);
 	}
 
+	public void testUpdateLocation() throws Exception {
+		Location location = BaseTestObject.createLocation();
+		long id = locationManagementService.saveLocation(location);
+
+		Location savedLocation = locationManagementService.getLocationById(id);
+		assertNotNull(savedLocation);
+		assertEquals(location.getDescription(), savedLocation.getDescription());
+
+		location.setDescription("new description");
+		locationManagementService.updateLocation(location);
+
+		savedLocation = locationManagementService.getLocationById(id);
+		assertEquals(location.getDescription(), savedLocation.getDescription());
+
+		// test validation for update
+		location.setAddress(null);
+		try {
+			locationManagementService.updateLocation(location);
+			fail("Location Exception should be thrown");
+		} catch ( LocationException e) {
+			assertNotNull(e.getFormValidationErrors());
+			assertFalse(e.getFormValidationErrors().isEmpty());
+		}
+	}
+	// </editor-fold>
+
 	public void testValidation() throws Exception {
 		expectValidationError(
 				BaseTestObject.createLocation(null, 0.002, 0.1, BaseTestObject.createAddress("Poland", "Cracow")),
@@ -94,21 +122,6 @@ public class LocationManagementServiceTest extends AndroidTestCase {
 		expectValidationError(location, new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_LATITUDE_IS_REQUIRED.getStringResourceId()));
 		expectValidationError(location, new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_LONGITUDE_IS_REQUIRED.getStringResourceId()));
 		expectValidationError(location, new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_STATUS_IS_REQUIRED.getStringResourceId()));
-	}
-
-	public void testUpdateLocation() throws Exception {
-		Location location = BaseTestObject.createLocation();
-		long id = locationManagementService.saveLocation(location);
-
-		Location savedLocation = locationManagementService.getLocationById(id);
-		assertNotNull(savedLocation);
-		assertEquals(location.getDescription(), savedLocation.getDescription());
-
-		location.setDescription("new description");
-		locationManagementService.updateLocation(location);
-
-		savedLocation = locationManagementService.getLocationById(id);
-		assertEquals(location.getDescription(), savedLocation.getDescription());
 	}
 
 	public void testGetLocationById() throws Exception {
@@ -135,19 +148,24 @@ public class LocationManagementServiceTest extends AndroidTestCase {
 	public void testGetLocationByName() throws Exception {
 		Location location = BaseTestObject.createLocation();
 
+		Location location1 = locationManagementService.getLocationByName(location.getName());
+		TestTools.assertNull(location1);
+
 		locationManagementService.saveLocation(location);
 
-		Location location1 = locationManagementService.getLocationByName(location.getName());
-		TestTools.assertEquals(location, location1);
+		Location location2 = locationManagementService.getLocationByName(location.getName());
+		TestTools.assertEquals(location, location2);
 	}
 
 	public void testGetLocationByCoordinates() throws Exception {
 		Location location = BaseTestObject.createLocation();
+		Location location1 = locationManagementService.getLocationByCoordinates(location.getLatitude(), location.getLongitude());
+		TestTools.assertNull(location1);
 
 		locationManagementService.saveLocation(location);
 
-		Location location1 = locationManagementService.getLocationByCoordinates(location.getLatitude(), location.getLongitude());
-		TestTools.assertEquals(location, location1);
+		Location location2 = locationManagementService.getLocationByCoordinates(location.getLatitude(), location.getLongitude());
+		TestTools.assertEquals(location, location2);
 	}
 
 	public void testGetAllLocationsAvailableForUser() throws Exception {
@@ -176,12 +194,22 @@ public class LocationManagementServiceTest extends AndroidTestCase {
 		location4.setUsersPrivate(true);
 		locationManagementService.saveLocation(location4);  // private, created by different user
 
-		List<Location> locations = locationManagementService.getAllLocations(userAccount1.getToken());
-//		assertEquals(3, locations.size());  // TODO: fails
+		List<Location> locations = locationManagementService.getAllLocations(userAccount1);
+		assertEquals(3, locations.size());
 	}
 
 	public void testGetAllLocations() throws Exception {
-		// TODO
+		Location location1 = BaseTestObject.createLocation("New 1", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
+		location1.setUsersPrivate(true);
+		locationManagementService.saveLocation(location1);  // private location
+
+		Location location2 = BaseTestObject.createLocation("New 2", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
+		location1.setUsersPrivate(false);
+		locationManagementService.saveLocation(location2);  // public locations
+
+		List<Location> locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
+		assertEquals(2, locations.size());
 	}
 
 	public void testGetAllUserLocations() throws Exception {
@@ -231,9 +259,9 @@ public class LocationManagementServiceTest extends AndroidTestCase {
 
 		Thread.sleep(3000);
 
-		List<Location> locations = locationManagementService.getAllUserPrivateLocations(userAccount1.getToken());
+		List<Location> locations = locationManagementService.getAllUserPrivateLocations(userAccount1);
 		assertNotNull(locations);
-//		assertEquals(1, locations.size());  // TODO: fails
+		assertEquals(1, locations.size());
 	}
 
 	public void testGetAllNewPrivateLocations() throws Exception {

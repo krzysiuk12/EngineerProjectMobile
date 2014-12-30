@@ -23,10 +23,6 @@ public class LocationManagementService extends BaseService implements ILocationM
 
 	private ILocationRepository locationRepository;
 
-	public LocationManagementService() {
-		locationRepository = new OrmLiteLocationRepository(getHelper());
-	}
-
 	public LocationManagementService(Context context) {
 		locationRepository = new OrmLiteLocationRepository(getHelperInternal(context));
 	}
@@ -53,9 +49,9 @@ public class LocationManagementService extends BaseService implements ILocationM
 		if ( location.getAddress() == null ) {
 			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_ADDRESS_IS_REQUIRED.getStringResourceId()));
 		}
-		if ( location.getCreationDate() == null ) {
-			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_CREATION_DATE_IS_REQUIRED.getStringResourceId()));
-		}
+//		if ( location.getCreationDate() == null ) {
+//			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_CREATION_DATE_IS_REQUIRED.getStringResourceId()));
+//		}
 
 		errors.addAll(validateAddress(location.getAddress()));
 		return errors;
@@ -119,9 +115,14 @@ public class LocationManagementService extends BaseService implements ILocationM
 	}
 
 	@Override
-	public List<Location> getAllLocations(String token) throws LocationException {
+	public List<Location> getAllLocations() throws LocationException {
+		return locationRepository.getAllLocations();
+	}
+
+	@Override
+	public List<Location> getAllLocations(UserAccount userAccount) throws LocationException {
 		List<Location> publicLocations = locationRepository.getAllPublicLocations();
-		List<Location> privateLocations = locationRepository.getAllUserPrivateLocations(token);
+		List<Location> privateLocations = getAllUserPrivateLocations(userAccount);
 		getLogService().error("public locations: " + publicLocations.size());
 		getLogService().error("private locations: " + privateLocations.size());
 		List<Location> locations = new ArrayList<>();
@@ -136,8 +137,8 @@ public class LocationManagementService extends BaseService implements ILocationM
 	}
 
 	@Override
-	public List<Location> getAllUserPrivateLocations(String token) throws LocationException {
-		return locationRepository.getAllUserPrivateLocations(token);
+	public List<Location> getAllUserPrivateLocations(UserAccount userAccount) throws LocationException {
+		return locationRepository.getAllUserPrivateLocations(userAccount);
 	}
 
 	@Override

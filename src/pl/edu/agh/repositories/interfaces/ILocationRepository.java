@@ -13,9 +13,7 @@ public interface ILocationRepository {
 
     public int saveLocation(Location location) throws LocationException;
 
-    public void saveOrUpdateLocation(Location location) throws LocationException;
-
-	public void updateLocation(Location loation) throws LocationException;
+    public void updateLocation(Location loation) throws LocationException;
 
     public Location getLocationById(Long id) throws LocationException;
 
@@ -30,8 +28,6 @@ public interface ILocationRepository {
     public List<Location> getAllPublicLocations() throws LocationException;
 
     public List<Location> getAllUserLocations(UserAccount account) throws LocationException;
-
-    public List<Location> getAllUserPrivateLocations(String token) throws LocationException;
 
     public List<Location> getAllUserPrivateLocations(UserAccount account) throws LocationException;
 
