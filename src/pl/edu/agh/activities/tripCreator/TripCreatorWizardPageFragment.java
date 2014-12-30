@@ -23,14 +23,16 @@ public class TripCreatorWizardPageFragment extends AbstractWizardPage<TripCreato
         return new WizardPageAdapter(getActivity(), wizardPagesList);
     }
 
-    public static TripCreatorWizardPageFragment newInstance(TripCreatorWizardElement wizardElement, long index) {
-        TripCreatorWizardPageFragment fragment = new TripCreatorWizardPageFragment();
-        fragment.setInitialArguments(index, wizardElement);
-        return fragment;
-    }
+//    public static TripCreatorWizardPageFragment newInstance(TripCreatorWizardElement wizardElement, long index) {
+//        TripCreatorWizardPageFragment fragment = new TripCreatorWizardPageFragment();
+//        fragment.setInitialArguments(index, wizardElement);
+//        return fragment;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        onAttach(new TripCreatorWizardPageActivity());
+
         displayedWizardElement = (TripCreatorWizardElement) getArguments().getSerializable(KEY_ITEM);
         return super.onCreateView(inflater, container, savedInstanceState);
     }

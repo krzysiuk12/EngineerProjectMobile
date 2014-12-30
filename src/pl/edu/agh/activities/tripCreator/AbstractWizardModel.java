@@ -79,7 +79,7 @@ public abstract class AbstractWizardModel<T extends Serializable> extends ListFr
 
     protected abstract int getWizardPageId();
 
-    protected abstract AbstractWizardPage getWizardPageFragmentInstance(T listItem, int index);
+    //protected abstract AbstractWizardPage getWizardPageFragmentInstance(T listItem, int index);
 
     protected abstract Class getClassForWizardPageIntent(int index);
 

@@ -9,6 +9,7 @@ import pl.edu.agh.main.R;
 public class TripCreatorDaysListPageActivity extends TripCreatorWizardPageActivity {
     @Override
     protected AbstractWizardPage getWizardPageFragment(int pageIndex) {
+
         return new TripCreatorInitPageFragment();
     }
 

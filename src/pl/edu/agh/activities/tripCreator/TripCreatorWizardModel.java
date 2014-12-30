@@ -46,10 +46,10 @@ public class TripCreatorWizardModel extends AbstractWizardModel<TripCreatorWizar
         return TripCreatorWizardPageActivity.class;
     }
 
-    @Override
-    protected AbstractWizardPage getWizardPageFragmentInstance(TripCreatorWizardElement element, int index) {
-
-        return TripCreatorWizardPageFragment.newInstance(element, index);
-    }
+//    @Override
+//    protected AbstractWizardPage getWizardPageFragmentInstance(TripCreatorWizardElement element, int index) {
+//
+//        return TripCreatorWizardPageFragment.newInstance(element, index);
+//    }
 
 }

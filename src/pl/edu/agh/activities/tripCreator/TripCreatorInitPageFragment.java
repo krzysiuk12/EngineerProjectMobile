@@ -19,10 +19,11 @@ public class TripCreatorInitPageFragment extends TripCreatorWizardPageFragment {
         ((Button) view.findViewById(R.id.TripCreatorInitPage_CreateTripButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
+                //TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
+                TripCreatorMainSettingsPageFragment fragment = (TripCreatorMainSettingsPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
-                ft.addToBackStack(null);
+                //ft.addToBackStack(null);
                 ft.commit();
 
 
@@ -30,6 +31,13 @@ public class TripCreatorInitPageFragment extends TripCreatorWizardPageFragment {
             }
         });
         return view;
+    }
+
+
+    public static TripCreatorInitPageFragment newInstance(TripCreatorWizardElement wizardElement, long index) {
+        TripCreatorInitPageFragment fragment = new TripCreatorInitPageFragment();
+        fragment.setInitialArguments(index, wizardElement);
+        return fragment;
     }
 
 

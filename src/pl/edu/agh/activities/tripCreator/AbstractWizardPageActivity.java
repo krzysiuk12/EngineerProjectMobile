@@ -26,6 +26,10 @@ public abstract class AbstractWizardPageActivity extends OrmLiteBaseActivity<Tes
 
     }
 
+    public void create(Bundle savedInstanceState) {
+        onCreate(savedInstanceState);
+    }
+
     protected abstract int getWizardPageId();
     //protected abstract AbstractWizardPage getWizardPageFragment();
 

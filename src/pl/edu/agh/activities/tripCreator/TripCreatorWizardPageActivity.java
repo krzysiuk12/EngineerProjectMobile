@@ -1,5 +1,6 @@
 package pl.edu.agh.activities.tripCreator;
 
+import android.os.Bundle;
 import pl.edu.agh.main.R;
 
 /**
@@ -13,5 +14,10 @@ public class TripCreatorWizardPageActivity extends AbstractWizardPageActivity {
     @Override
     protected AbstractWizardPage getWizardPageFragment(int index) {
         return new TripCreatorWizardPageFragment();
+    }
+
+    @Override
+    public void create(Bundle savedInstanceState) {
+        super.create(savedInstanceState);
     }
 }

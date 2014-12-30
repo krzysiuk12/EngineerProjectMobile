@@ -1,5 +1,6 @@
 package pl.edu.agh.activities.tripCreator;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,19 +19,43 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
         ((Button)view.findViewById(R.id.TripCreatorMainSettingsPage_PageBackButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(0), 0);
-                getFragmentManager().beginTransaction().replace(container.getId(), fragment).commit();
+                TripCreatorInitPageFragment fragment = (TripCreatorInitPageFragment) TripCreatorInitPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(0), 0);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
+                ft.commit();
             }
         });
 
         ((Button)view.findViewById(R.id.TripCreatorMainSettingsPage_PageForwardButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(2), 2);
-                getFragmentManager().beginTransaction().replace(container.getId(), fragment).commit();
+                TripCreatorDaysListPageFragment fragment = (TripCreatorDaysListPageFragment) TripCreatorDaysListPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(2), 2);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
+                ft.commit();
             }
         });
         return view;
     }
+
+
+    public static TripCreatorMainSettingsPageFragment newInstance(TripCreatorWizardElement wizardElement, long index) {
+        TripCreatorMainSettingsPageFragment fragment = new TripCreatorMainSettingsPageFragment();
+        fragment.setInitialArguments(index, wizardElement);
+        return fragment;
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package pl.edu.agh.activities.tripCreator;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,18 @@ public class TripCreatorDaysListPageFragment extends TripCreatorWizardPageFragme
         ((Button)view.findViewById(R.id.TripCreatorDaysListPage_PageBackButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
-                getFragmentManager().beginTransaction().replace(container.getId(), fragment).commit();
+                TripCreatorMainSettingsPageFragment fragment = (TripCreatorMainSettingsPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
+                ft.commit();
             }
         });
         return view;
+    }
+
+    public static TripCreatorDaysListPageFragment newInstance(TripCreatorWizardElement wizardElement, long index) {
+        TripCreatorDaysListPageFragment fragment = new TripCreatorDaysListPageFragment();
+        fragment.setInitialArguments(index, wizardElement);
+        return fragment;
     }
 }
