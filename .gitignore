@@ -1,3 +1,10 @@
 res/values/apikey.xml
 out/
-test/
+build/
+.gradle/
+.navigation/
+.idea/dictionaries/
+.idea/artifacts/
+.idea/libraries/
+.idea/gradle.xml
+.idea/workspace.xml

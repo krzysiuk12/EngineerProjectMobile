@@ -4,6 +4,8 @@
       <root url="jar://$PROJECT_DIR$/lib/spring-android-rest-template-2.0.0.M1.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/spring-android-rest-template-2.0.0.M1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
