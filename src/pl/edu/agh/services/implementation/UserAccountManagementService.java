@@ -34,11 +34,6 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 
 	private IUserAccountRepository userAccountRepository;
 
-	public UserAccountManagementService() {
-		userAccountRepository = new OrmLiteUserAccountRepository(getHelper());
-		applicationSettingsService = new ApplicationSettingsService();
-	}
-
 	public UserAccountManagementService(Context context) {
 		userAccountRepository = new OrmLiteUserAccountRepository(getHelperInternal(context));
 		applicationSettingsService = new ApplicationSettingsService();
@@ -65,14 +60,8 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 				saveUserInSession(login, password);
 				return true;
 			}
-		} catch (RestClientException e ) {
+		} catch (RestClientException | InterruptedException | ExecutionException e ) {
 			getLogService().error(e.toString());
-			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
-		} catch (ExecutionException e) {
-			e.printStackTrace();
 			throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 		}
 		return false;
@@ -88,8 +77,16 @@ public class UserAccountManagementService extends BaseService implements IUserAc
 	}
 
 	@Override
-	public void logOut() {
-		new LogOutAsyncTask(getToken()).execute();
+	public void logOut(String token) throws SynchronizationException {
+		try {
+			ResponseSerializer response = new LogOutAsyncTask(token).execute().get();
+			if ( validateServerResponse(response) ) {
+				TOKEN = null;
+				USER_ACCOUNT = null;
+			}
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

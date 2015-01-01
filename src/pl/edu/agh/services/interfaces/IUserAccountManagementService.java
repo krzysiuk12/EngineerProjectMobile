@@ -12,7 +12,7 @@ public interface IUserAccountManagementService {
 
 	public boolean logAsDefault() throws SynchronizationException;
 
-	public void logOut();
+	void logOut(String token) throws SynchronizationException;
 
 	public void saveUserAccount(UserAccount userAccount);
 

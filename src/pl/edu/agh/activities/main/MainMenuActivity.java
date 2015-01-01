@@ -15,8 +15,11 @@ import pl.edu.agh.activities.locations.ShowPrivateLocationsOnMapActivity;
 import pl.edu.agh.activities.settings.SettingsActivity;
 import pl.edu.agh.activities.tripCreator.TripCreatorActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
+import pl.edu.agh.exceptions.SynchronizationException;
+import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
+import pl.edu.agh.tools.ErrorTools;
 
 /**
  * Created by Krzysiu on 2014-06-10.
@@ -228,8 +231,12 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
     private void showWizardCreatorActivity(View view) { startActivity(new Intent(this, TripCreatorActivity.class )); }
 
 	private void logOut(View view) {
-		new UserAccountManagementService(this).logOut();
-		Intent logOutIntent = new Intent(this, LoginActivity.class);
+        try {
+            new UserAccountManagementService(this).logOut(UserAccountManagementService.getToken());
+        } catch (SynchronizationException e) {
+            new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e)).build().show();
+        }
+        Intent logOutIntent = new Intent(this, LoginActivity.class);
 		logOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(logOutIntent);
 		finish();

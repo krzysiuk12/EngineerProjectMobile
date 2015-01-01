@@ -31,7 +31,7 @@ public class OrmLiteUserAccountRepository implements IUserAccountRepository {
 
 	public UserAccount getUserAccountByLogin(String login) {
 		List<UserAccount> userAccountList = ((TestDatabaseHelper) openHelper).getUserAccountRuntimeExceptionDao().queryForEq(UserAccountMapping.LOGIN_COLUMN_NAME, login);
-		if ( userAccountList != null && !userAccountList.isEmpty() ) {
+		if ( !userAccountList.isEmpty() ) {
 			return userAccountList.get(0);
 		}
 		return null;
@@ -39,7 +39,7 @@ public class OrmLiteUserAccountRepository implements IUserAccountRepository {
 
 	public UserAccount getUserAccountByToken(String token) {
 		List<UserAccount> userAccountList = ((TestDatabaseHelper) openHelper).getUserAccountRuntimeExceptionDao().queryForEq(UserAccountMapping.TOKEN_COLUMN_NAME,token);
-		if ( userAccountList != null && !userAccountList.isEmpty() ) {
+		if ( !userAccountList.isEmpty() ) {
 			return userAccountList.get(0);
 		}
 		return null;

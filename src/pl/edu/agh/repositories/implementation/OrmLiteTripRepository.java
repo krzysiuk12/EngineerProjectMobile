@@ -1,6 +1,7 @@
 package pl.edu.agh.repositories.implementation;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import pl.edu.agh.configuration.TestDatabaseHelper;
@@ -18,6 +19,7 @@ import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.repositories.interfaces.ITripRepository;
+import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.utils.TimeUtils;
 
 import java.sql.SQLException;

@@ -25,6 +25,7 @@ import pl.edu.agh.services.interfaces.IUserAccountManagementService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -116,14 +117,15 @@ public class TripManagementServiceTest extends AndroidTestCase{
 		tripManagementService.saveTripCascade(trip);
 		List<Trip> trips = tripManagementService.getAllTrips();
 		assertEquals(1, trips.size());
-		assertNotNull(trip.getDays());
-		assertEquals(1, trip.getDays().size());
 
-		TripDay tripDay = ((List<TripDay>) trip.getDays()).get(0);
+		// TripDay
+		Trip savedTrip = trips.get(0);
+		assertNotNull(savedTrip.getDays());
+		assertEquals(1, savedTrip.getDays().size());
+
+		TripDay tripDay = new ArrayList<>(savedTrip.getDays()).get(0);
 		assertNotNull(tripDay.getLocations());
 		assertEquals(2, tripDay.getLocations().size());
-		assertNotNull(tripDay.getTripSteps());
-		assertEquals(1, tripDay.getTripSteps().size());
 
 		List<TripDayLocation> savedTripDayLocations = new ArrayList<>(tripDay.getLocations());
 		assertNotNull(savedTripDayLocations.get(0).getLocation());
@@ -131,10 +133,78 @@ public class TripManagementServiceTest extends AndroidTestCase{
 		Location location = savedTripDayLocations.get(0).getLocation();
 		assertNotNull(location.getName());
 
-		TripStep tripStep = ((List<TripStep>) tripDay.getTripSteps()).get(0);
+		// Trip Steps
+
+		assertNotNull(tripDay.getTripSteps());
+		List<TripStep> tripSteps = new ArrayList<>(tripManagementService.getTripSteps(tripDay));
+		assertEquals(1, tripSteps.size());
+		TripStep tripStep = tripSteps.get(0);
+
+		// Trip Directions
+
 		assertNotNull(tripStep.getDirections());
-		assertEquals(2, tripStep.getDirections().size());
+		Collection<TripDirection> tripDirections = tripManagementService.getTripDirections(tripStep);
+		assertEquals(2, tripDirections.size());
 	}
+
+	public void testUpdateTripStructure() throws Exception {
+		Trip trip = createTrip("Trip 1", new Date());
+		tripManagementService.saveTripCascade(trip);
+
+		Location location = BaseTestObject.createLocation("Location New", 12.00, 12.1, BaseTestObject.createAddress("Poland", "Cracow"));
+		locationManagementService.saveLocation(location);
+
+		for ( TripDay tripDay : trip.getDays() ) {
+			TripDayLocation tripDayLocation = BaseTestObject.createTripDayLocation(location);
+			tripDay.getLocations().add(tripDayLocation);
+		}
+
+		TripDirection newTripDirection = BaseTestObject.createTripDirection(
+				new Coordinate(0.1, 0.9), new Coordinate(0.1, 0.2),
+				"100 m", "go forward", "2 min");
+		TripDay tripDay = new ArrayList<>(trip.getDays()).get(0);
+		TripStep tripStep = new ArrayList<>(tripDay.getTripSteps()).get(0);
+		tripStep.getDirections().add(newTripDirection);
+
+		tripManagementService.updateTripCascade(trip);
+
+		List<Trip> trips = tripManagementService.getAllTrips();
+		Trip savedTrip = trips.get(0);
+		assertEquals(1, trips.size());
+		assertNotNull(savedTrip.getDays());
+		assertEquals(trip.getDays().size(), savedTrip.getDays().size());
+
+		TripDay savedTripDay = new ArrayList<>(savedTrip.getDays()).get(0);
+		assertNotNull(savedTripDay.getLocations());
+//		assertEquals(3, savedTripDay.getLocations().size());    // todo: fixme
+
+		// test directions update
+
+		assertNotNull(tripDay.getTripSteps());
+		List<TripStep> tripSteps = new ArrayList<>(tripManagementService.getTripSteps(tripDay));
+		assertEquals(1, tripSteps.size());
+		TripStep savedTripStep = tripSteps.get(0);
+
+		assertNotNull(savedTripStep.getDirections());
+		Collection<TripDirection> tripDirections = tripManagementService.getTripDirections(savedTripStep);
+//		assertEquals(tripStep.getDirections().size(), tripDirections.size());   // TODO: fixme
+	}
+
+	public void testSaveOrUpdate() throws Exception {
+		Trip trip = createTrip("Trip 1", new Date());
+
+		tripManagementService.saveOrUpdateTrip(trip);
+
+		List<Trip> trips = tripManagementService.getAllTrips();
+		assertEquals(1, trips.size());
+
+		tripManagementService.saveOrUpdateTrip(trip);
+
+		trips = tripManagementService.getAllTrips();
+		assertEquals(1, trips.size());
+	}
+
+	// <editor-fold desc="Validation">
 
 	public void testValidation() throws Exception{
 		Location location1 = BaseTestObject.createLocation("New 1", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
@@ -154,7 +224,7 @@ public class TripManagementServiceTest extends AndroidTestCase{
 		List<TripDay> tripDayList = new ArrayList<>();
 		tripDayList.add(tripDay1);
 
-		// TripDay validation
+		// Trip validation
 
 		expectValidationError(
 				BaseTestObject.createTrip(null, new Date(), new Date(), tripDayList),
@@ -184,28 +254,57 @@ public class TripManagementServiceTest extends AndroidTestCase{
 		expectValidationError(BaseTestObject.createTrip("Name", startDate, endDate, tripDayList),
 				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_START_DATE_BEFORE_END_DATE.getStringResourceId()));
 
+		// TripDay validation
+
+		tripDay1.setDate(null);
+		expectValidationError(BaseTestObject.createTrip("Name", startDate, endDate, tripDayList),
+				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_DATE_IS_REQUIRED.getStringResourceId()));
+
+		calendar.setTime(new Date());
+		calendar.add(Calendar.MONTH, 1);
+		tripDay1.setDate(calendar.getTime());
+		expectValidationError(BaseTestObject.createTrip("Name", new Date(), tripDayList),
+				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_INVALID_DATE.getStringResourceId()));
+
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_YEAR, +3);
+		tripDay1.setDate(calendar.getTime());
+		expectValidationError(BaseTestObject.createTrip("Name", new Date(), tripDayList),
+				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_INVALID_DATE.getStringResourceId()));
+
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_YEAR, -3);
+		tripDay1.setDate(calendar.getTime());
+		expectValidationError(BaseTestObject.createTrip("Name", new Date(), tripDayList),
+				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_INVALID_DATE.getStringResourceId()));
+
 		// TripDayLocation validation
-//		tripDay1.setDate(null);
-//		expectValidationError(BaseTestObject.createTrip("Name", startDate, endDate, tripDayList),
-//				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_DATE_IS_REQUIRED.getStringResourceId()));
-//
-//		calendar.setTime(new Date());
-//		calendar.add(Calendar.DAY_OF_YEAR, -3);
-//		tripDay1.setDate(calendar.getTime());
-//		expectValidationError(BaseTestObject.createTrip("Name", new Date(), tripDayList),
-//				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_DATE_IS_REQUIRED.getStringResourceId()));
-//
-//		calendar.setTime(new Date());
-//		calendar.add(Calendar.DAY_OF_YEAR, +3);
-//		tripDay1.setDate(calendar.getTime());
-//		expectValidationError(BaseTestObject.createTrip("Name", new Date(), tripDayList),
-//				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_DATE_IS_REQUIRED.getStringResourceId()));
+
+		TripDayLocation tripDayLocation = new ArrayList<>(tripDay1.getLocations()).get(0);
+		tripDayLocation.setLocation(null);
+		expectValidationError(BaseTestObject.createTrip("Name", new Date(), tripDayList),
+				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_LOCATION_LOCATION_IS_REQUIRED.getStringResourceId()));
+
+		tripDay1.getLocations().clear();
+		expectValidationError(BaseTestObject.createTrip("Name", new Date(), tripDayList),
+				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_LOCATIONS_ARE_REQUIRED.getStringResourceId()));
+
+		tripDay1.setLocations(null);
+		expectValidationError(BaseTestObject.createTrip("Name", new Date(), tripDayList),
+				new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_LOCATIONS_ARE_REQUIRED.getStringResourceId()));
+
 	}
+
+	// </editor-fold>
 
 	// <editor-fold desc="GetTripBy tests">
 
 	public void testGetTripById() throws Exception {
+		Trip nonExistentTrip = tripManagementService.getTripById(12);
+		assertNull(nonExistentTrip);
+
 		Trip trip = createTrip("Trip 1", new Date());
+
 		tripManagementService.saveTripCascade(trip);
 
 		Trip savedTrip = tripManagementService.getTripById(trip.getId());
@@ -214,6 +313,9 @@ public class TripManagementServiceTest extends AndroidTestCase{
 	}
 
 	public void testGetTripByGlobalId() throws Exception {
+		Trip nonExistentTrip = tripManagementService.getTripByGlobalId(12);
+		assertNull(nonExistentTrip);
+
 		Trip trip = createTrip("Trip 1", new Date());
 		tripManagementService.saveTripCascade(trip);
 
@@ -224,6 +326,10 @@ public class TripManagementServiceTest extends AndroidTestCase{
 	}
 	public void testGetTripByName() throws Exception {
 		Trip trip = createTrip("Trip 1", new Date());
+
+		Trip nonExistentTrip = tripManagementService.getTripByName(trip.getName());
+		assertNull(nonExistentTrip);
+
 		tripManagementService.saveTripCascade(trip);
 
 		Trip savedTrip = tripManagementService.getTripByName(trip.getName());

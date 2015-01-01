@@ -30,11 +30,6 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	private ITripRepository tripRepository;
 	private ILocationManagementService locationManagementService;
 
-	@Deprecated
-	public TripManagementService() {
-		tripRepository = new OrmLiteTripRepository(getHelper());
-	}
-
 	public TripManagementService(Context context) {
 		tripRepository = new OrmLiteTripRepository(getHelperInternal(context));
 		locationManagementService = new LocationManagementService(context);
@@ -81,7 +76,7 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	public List<FormValidationError> validateTripDay(TripDay tripDay, Trip trip) {
 		List<FormValidationError> errors = new ArrayList<>();
 		if ( tripDay.getDate() == null ) {
-			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_END_DATE_IS_REQUIRED.getStringResourceId()));
+			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_DATE_IS_REQUIRED.getStringResourceId()));
 		}
 		if ( tripDay.getDate() != null && trip.getStartDate() != null && trip.getEndDate() != null &&
 				(tripDay.getDate().before(trip.getStartDate()) || tripDay.getDate().after(trip.getEndDate())) ) {
@@ -90,6 +85,13 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		if ( tripDay.getLocations() == null || tripDay.getLocations().isEmpty() ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_LOCATIONS_ARE_REQUIRED.getStringResourceId()));
 		}
+
+		if ( tripDay.getLocations() != null && !tripDay.getLocations().isEmpty() ) {
+			for ( TripDayLocation tripDayLocation : tripDay.getLocations() ) {
+				errors.addAll(validateTripDayLocation(tripDayLocation));
+			}
+		}
+
 		return errors;
 	}
 
