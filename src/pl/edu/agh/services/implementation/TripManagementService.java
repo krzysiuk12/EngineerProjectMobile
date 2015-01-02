@@ -10,6 +10,7 @@ import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.FormValidationError;
+import pl.edu.agh.methods.DeleteTripDatabaseMethod;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
 import pl.edu.agh.repositories.interfaces.ITripRepository;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
@@ -200,6 +201,11 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	// </editor-fold>
 
 	// <editor-fold desc="Delete Trip">
+
+	@Override
+	public void deleteTripCascade(Trip trip) throws TripException {
+		new DeleteTripDatabaseMethod(this, locationManagementService).performAction(trip);
+	}
 
 	@Override
 	public void deleteTrip(Trip trip) throws TripException {

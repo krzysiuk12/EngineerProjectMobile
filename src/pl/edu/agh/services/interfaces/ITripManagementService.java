@@ -46,6 +46,8 @@ public interface ITripManagementService {
 
 	public void updateTripDirection(TripDirection tripDirection) throws TripException;
 
+	void deleteTripCascade(Trip trip) throws TripException;
+
 	void deleteTrip(Trip trip) throws TripException;
 
 	void deleteTripDay(TripDay tripDay) throws TripException;

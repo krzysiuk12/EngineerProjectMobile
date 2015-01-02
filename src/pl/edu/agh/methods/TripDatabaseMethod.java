@@ -38,21 +38,25 @@ public abstract class TripDatabaseMethod {
 
 	protected abstract void tripDirectionMethod(TripDirection tripDirection) throws TripException;
 
-	public ITripManagementService getTripManagementService() {
+	// <editor-fold desc="Getters and Setters">
+
+	protected ITripManagementService getTripManagementService() {
 		return tripManagementService;
 	}
 
-	public void setTripManagementService(ITripManagementService tripManagementService) {
+	protected void setTripManagementService(ITripManagementService tripManagementService) {
 		this.tripManagementService = tripManagementService;
 	}
 
-	public ILocationManagementService getLocationManagementService() {
+	protected ILocationManagementService getLocationManagementService() {
 		return locationManagementService;
 	}
 
-	public void setLocationManagementService(ILocationManagementService locationManagementService) {
+	protected void setLocationManagementService(ILocationManagementService locationManagementService) {
 		this.locationManagementService = locationManagementService;
 	}
+
+	// </editor-fold>
 
 	public void performAction(Trip trip) throws TripException {
 		performTripAction(trip);
@@ -64,7 +68,6 @@ public abstract class TripDatabaseMethod {
 	}
 
 	private void performTripDayAction(Trip trip) throws TripException {
-		new AndroidLogService().debug(trip.getDays() + "");
 		for ( TripDay tripDay : trip.getDays() ) {
 			tripDay.setTrip(trip);
 			performTripDayAction(tripDay);
@@ -94,7 +97,7 @@ public abstract class TripDatabaseMethod {
 		}
 	}
 
-	public void performTripDayLocationAction(TripDayLocation dayLocation) throws TripException {
+	private void performTripDayLocationAction(TripDayLocation dayLocation) throws TripException {
 		try {
 			locationManagementService.saveOrUpdateLocation(dayLocation.getLocation());  // save if location doesn't exist in local database
 			Location location = locationManagementService.getLocationByGlobalId(dayLocation.getLocation().getGlobalId());
@@ -106,7 +109,7 @@ public abstract class TripDatabaseMethod {
 		tripDayLocationMethod(dayLocation);
 	}
 
-	public void performTripStepAction(TripStep step) throws TripException {
+	private void performTripStepAction(TripStep step) throws TripException {
 		Collection<TripDirection> directions = step.getDirections();
 		tripStepMethod(step);
 		if ( directions != null ) {

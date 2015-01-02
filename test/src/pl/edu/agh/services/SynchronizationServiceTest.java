@@ -11,6 +11,9 @@ import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.domain.trips.TripDayLocation;
 import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
+import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.exceptions.SynchronizationException;
+import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.services.implementation.LocationManagementService;
 import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.implementation.TripManagementService;
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Magda on 2014-12-27.
@@ -40,6 +45,8 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 
 	private ISynchronizationService synchronizationService;
 
+	private CountDownLatch signal;
+
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -48,6 +55,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 		locationManagementService = new LocationManagementService(helper);
 		userAccountManagementService = new UserAccountManagementService(helper);
 		synchronizationService = new SynchronizationService(helper);
+		signal = new CountDownLatch(1);
 	}
 
 	@Override
@@ -57,9 +65,11 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 		getContext().deleteDatabase(TestDatabaseHelper.DATABASE_NAME);
 	}
 
+	// <editor-fold desc="Send">
+
 	public void testSendTrip() throws Exception {
 		// Prepare data
-		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		final UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
 		userAccountManagementService.saveUserAccount(userAccount);
 		Location location1 = BaseTestObject.createLocation("New 1", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
 		location1.setGlobalId(1L);
@@ -107,25 +117,214 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 		tripDayList.add(tripDay1);
 
 		// Trip
-		Trip trip = BaseTestObject.createTrip("Trip", new Date(), new Date(), tripDayList);
+		final Trip trip = BaseTestObject.createTrip("Trip", new Date(), new Date(), tripDayList);
 		trip.setAuthor(userAccount);
 
 		tripManagementService.saveTripCascade(trip);
 
-		// Test
-		synchronizationService.sendTrips(userAccount.getToken());
+		signal = new CountDownLatch(1);
 
-		Trip savedTrip = tripManagementService.getTripById(trip.getId());
-		Collection<TripDay> savedTripDays = savedTrip.getDays();
-		assertNotNull(savedTripDays);
-		for ( TripDay tripDay : tripManagementService.getTripDays(savedTrip) ) {
-			assertNotNull(tripDay.getTripSteps());
-			for ( TripStep tripStep : tripManagementService.getTripSteps(tripDay) ) {
-				assertNotNull(tripStep.getDirections());
-				Collection<TripDirection> savedTripDirections = tripManagementService.getTripDirections(tripStep);
-				assertNotNull(savedTripDirections);
-				assertTrue(savedTripDirections.size() > 0);
+		// Test
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					synchronizationService.sendTrips(userAccount.getToken());
+
+					Trip savedTrip = tripManagementService.getTripById(trip.getId());
+					Collection<TripDay> savedTripDays = savedTrip.getDays();
+					assertNotNull(savedTripDays);
+					for ( TripDay tripDay : tripManagementService.getTripDays(savedTrip) ) {
+						assertNotNull(tripDay.getTripSteps());
+						for ( TripStep tripStep : tripManagementService.getTripSteps(tripDay) ) {
+							assertNotNull(tripStep.getDirections());
+							Collection<TripDirection> savedTripDirections = tripManagementService.getTripDirections(tripStep);
+							assertNotNull(savedTripDirections);
+							assertTrue(savedTripDirections.size() > 0);
+						}
+					}
+					signal.countDown();
+				} catch (SynchronizationException | TripException e) {
+					e.printStackTrace();
+					fail("Synchronization Exception : " + e.toString());
+				}
 			}
+		}).start();
+
+		awaitResponse();
+	}
+
+	public void testSendPublicLocation() throws Exception {
+		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		userAccountManagementService.saveUserAccount(userAccount);
+
+		Location location = BaseTestObject.createLocation("new location", 25.01, 25.01, BaseTestObject.createAddress("Poland", "Cracow"));
+		locationManagementService.saveNewLocation(location, userAccount);
+
+		signal = new CountDownLatch(1);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					userAccountManagementService.logIn(userAccount.getLogin(), userAccount.getPassword());
+					synchronizationService.sendNewPublicLocations();
+					signal.countDown();
+				} catch (SynchronizationException e) {
+					fail("SynchronizationException : " + e.toString());
+				}
+			}
+		}).start();
+
+		awaitResponse();
+	}
+
+	public void testSendPrivateLocation() throws Exception {
+		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		userAccountManagementService.saveUserAccount(userAccount);
+
+		signal = new CountDownLatch(1);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					userAccountManagementService.logIn(userAccount.getLogin(), userAccount.getPassword());
+					synchronizationService.sendNewPrivateLocations();
+
+					Location location = BaseTestObject.createLocation("new location", 25.01, 25.01, BaseTestObject.createAddress("Poland", "Cracow"));
+					location.setUsersPrivate(true);
+					locationManagementService.saveNewLocation(location, userAccount);
+
+					synchronizationService.sendNewPrivateLocations();
+					signal.countDown();
+				} catch (SynchronizationException e) {
+					fail("SynchronizationException : " + e.toString());
+				} catch (LocationException e) {
+					fail("Location Exception : " + e.toString());
+				}
+			}
+		}).start();
+
+		awaitResponse();
+	}
+
+	public void testSendAllNewLocations() throws Exception {
+		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		userAccountManagementService.saveUserAccount(userAccount);
+
+		Location location = BaseTestObject.createLocation("new location", 25.01, 25.01, BaseTestObject.createAddress("Poland", "Cracow"));
+		locationManagementService.saveNewLocation(location, userAccount);
+
+		signal = new CountDownLatch(1);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					userAccountManagementService.logIn(userAccount.getLogin(), userAccount.getPassword());
+
+					synchronizationService.sendAllNewLocations();
+					signal.countDown();
+				} catch (SynchronizationException e) {
+					fail("SynchronizationException : " + e.toString());
+				}
+			}
+		}).start();
+
+		awaitResponse();
+	}
+
+	// </editor-fold>
+
+	public void testDownloadLocationsInScope() throws Exception {
+		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		userAccountManagementService.saveUserAccount(userAccount);
+		signal = new CountDownLatch(1);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					userAccountManagementService.logIn(userAccount.getLogin(), userAccount.getPassword());
+
+					synchronizationService.downloadLocationsInScope(50, 20, 40);
+					signal.countDown();
+				} catch (SynchronizationException e) {
+					fail("SynchronizationException : " + e.toString());
+				}
+			}
+		}).start();
+
+		awaitResponse();
+
+		List<Location> locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
+		assertFalse(locations.isEmpty());
+	}
+
+	public void testDownloadLocationsInDefaultScope() throws Exception {
+		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		userAccountManagementService.saveUserAccount(userAccount);
+		signal = new CountDownLatch(1);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					userAccountManagementService.logIn(userAccount.getLogin(), userAccount.getPassword());
+
+					synchronizationService.downloadLocationsInScope(50, 20, 0);
+					signal.countDown();
+				} catch (SynchronizationException e) {
+					fail("SynchronizationException : " + e.toString());
+				}
+			}
+		}).start();
+
+		awaitResponse();
+
+		List<Location> locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
+		assertFalse(locations.isEmpty());
+	}
+
+	public void testDownloadPrivateLocations() throws Exception {
+		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		userAccountManagementService.saveUserAccount(userAccount);
+		signal = new CountDownLatch(1);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					userAccountManagementService.logIn(userAccount.getLogin(), userAccount.getPassword());
+
+					synchronizationService.downloadAllPrivateLocations(UserAccountManagementService.getToken());
+					signal.countDown();
+				} catch (SynchronizationException e) {
+					fail("SynchronizationException : " + e.toString());
+				}
+			}
+		}).start();
+
+		awaitResponse();
+
+		List<Location> locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
+		assertFalse(locations.isEmpty());
+		for ( Location location : locations ) {
+			assertTrue(location.isUsersPrivate());
+		}
+	}
+
+	private void awaitResponse() throws Exception {
+		try {
+			signal.await(10, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			fail("Timeout");
+			e.printStackTrace();
 		}
 	}
 

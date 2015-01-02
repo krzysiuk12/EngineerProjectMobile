@@ -204,6 +204,43 @@ public class TripManagementServiceTest extends AndroidTestCase{
 		assertEquals(1, trips.size());
 	}
 
+	public void testDeleteTripStructure() throws Exception {
+		Trip trip = createTrip("Trip 1", new Date());
+
+		tripManagementService.saveTripCascade(trip);
+		tripManagementService.deleteTripCascade(trip);
+
+		// Test
+		List<Trip> trips = tripManagementService.getAllTrips();
+		assertNotNull(trip);
+		assertEquals(0, trips.size());
+
+		List<TripDay> tripDays = tripManagementService.getTripDays(trip);
+		assertNotNull(tripDays);
+		assertEquals(0, tripDays.size());
+
+		for ( TripDay tripDay : trip.getDays() ) {
+			List<TripDayLocation> tripDayLocations = tripManagementService.getTripDayLocations(tripDay);
+			assertNotNull(tripDayLocations);
+			assertEquals(0, tripDayLocations.size());
+
+			List<TripStep> tripSteps = tripManagementService.getTripSteps(tripDay);
+			assertNotNull(tripSteps);
+			assertEquals(0, tripSteps.size());
+
+			for ( TripStep tripStep : tripDay.getTripSteps() ) {
+				List<TripDirection> tripDirections = tripManagementService.getTripDirections(tripStep);
+				assertNotNull(tripDirections);
+				assertEquals(0, tripDirections.size());
+			}
+		}
+
+		// Assert locations haven't been deleted
+		List<Location> locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
+		assertEquals(2, locations.size());
+	}
+
 	// <editor-fold desc="Validation">
 
 	public void testValidation() throws Exception{

@@ -10,36 +10,37 @@ import pl.edu.agh.services.interfaces.ILocationManagementService;
 import pl.edu.agh.services.interfaces.ITripManagementService;
 
 /**
- * Created by Magda on 2014-12-27.
+ * Created by Magda on 2014-12-28.
  */
-public class UpdateTripDatabaseMethod extends TripDatabaseMethod {
+public class DeleteTripDatabaseMethod extends TripDatabaseMethod {
 
-	public UpdateTripDatabaseMethod(ITripManagementService tripManagementService, ILocationManagementService locationManagementService) {
+	public DeleteTripDatabaseMethod(ITripManagementService tripManagementService, ILocationManagementService locationManagementService) {
 		super(tripManagementService, locationManagementService);
 	}
 
 	@Override
 	protected void tripMethod(Trip trip) throws TripException {
-		getTripManagementService().updateTrip(trip);
+		tripManagementService.deleteTrip(trip);
 	}
 
 	@Override
 	protected void tripDayMethod(TripDay tripDay) throws TripException {
-		getTripManagementService().updateTripDay(tripDay);
+		tripManagementService.deleteTripDay(tripDay);
 	}
 
 	@Override
 	protected void tripDayLocationMethod(TripDayLocation tripDayLocation) throws TripException {
-		getTripManagementService().updateTripDayLocation(tripDayLocation);
+		tripManagementService.deleteTripDayLocation(tripDayLocation);
 	}
 
 	@Override
 	protected void tripStepMethod(TripStep tripStep) throws TripException {
-		getTripManagementService().updateTripStep(tripStep);
+		tripManagementService.deleteTripStep(tripStep);
 	}
 
 	@Override
 	protected void tripDirectionMethod(TripDirection tripDirection) throws TripException {
-		getTripManagementService().updateTripDirection(tripDirection);
+		tripManagementService.deleteTripDirection(tripDirection);
 	}
+
 }

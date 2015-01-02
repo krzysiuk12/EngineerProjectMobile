@@ -229,8 +229,6 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		} catch (LocationException e) {
 			e.printStackTrace();
 		}
-		if ( locations == null )
-			return;
 		getLogService().debug("SynchronizationService", locations.size() + " ");
 
 		for ( Location location : locations) {
@@ -262,8 +260,6 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		} catch (LocationException e) {
 			getLogService().error(getClass().getName(), e.toString());
 		}
-		if ( locations == null )
-			return;
 
 		for ( Location location : locations) {
 			try {
