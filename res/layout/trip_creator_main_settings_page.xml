@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
-                        android:id="@+id/TripCreatorMainSettingsPage.TripNameTextView"/>
+                        android:id="@+id/TripCreatorMainSettingsPage.TripNameEditText"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
                         android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
-                        android:id="@+id/TripCreatorMainSettingPage.TripDescriptionTextView"/>
+                        android:id="@+id/TripCreatorMainSettingPage.TripDescriptionEditText"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
                         android:calendarViewShown="false"
-                        android:id="@+id/datePicker"/>
+                        android:id="@+id/TripCreatorMainSettingsPage.TripStartDatePicker"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -114,7 +114,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
                         android:calendarViewShown="false"
-                        android:id="@+id/datePicker2"/>
+                        android:id="@+id/TripCreatorMainSettingsPage.TripEndDatePicker"/>
+
+                <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/TripCreatorMainSettingsPage.DistanceUnitSpinner"/>
+
+                <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/TripCreatorMainSettingsPage.TravelModeSpinner"/>
 
             </LinearLayout>
 
