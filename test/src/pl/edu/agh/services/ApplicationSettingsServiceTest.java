@@ -22,8 +22,8 @@ public class ApplicationSettingsServiceTest extends AndroidTestCase {
 
 	@UiThreadTest
 	public void testChangeLanguagePreference() throws Exception {
-//		assertEquals("Cancel", getContext().getResources().getString(R.string.cancel));
+		assertEquals("City", getContext().getResources().getString(R.string.Address_City));
 		applicationSettingsService.changeLanguagePreference(getContext(), UserAccount.Language.PL);
-//		assertEquals("Zrezygnuj", getContext().getResources().getString(R.string.cancel));  // TODO: how to test this?!
+		assertEquals("Miasto", getContext().getResources().getString(R.string.Address_City));
 	}
 }

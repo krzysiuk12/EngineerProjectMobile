@@ -17,7 +17,7 @@ public class SynchronizationException extends BaseException {
 		SERVER_UNREACHABLE(R.string.ServerException_ServerUnreachable, ExceptionType.ERROR),
 		REQUEST_DENIED(R.string.ServerException_RequestDenied, ExceptionType.ERROR),
 		ACCESS_DENIED(R.string.ServerException_AccessDenied, ExceptionType.ERROR),
-		ZERO_RESULT(R.string.ServerException_ZeroResults, ExceptionType.ERROR),
+		ZERO_RESULTS(R.string.ServerException_ZeroResults, ExceptionType.ERROR),
 		UNKNOWN_ERROR(R.string.ServerException_UnknownError, ExceptionType.ERROR),
 		SERVER_SIDE_ERROR(R.string.SynchronizationException_ServerError, ExceptionType.ERROR),
 		DATABASE_ERROR(R.string.SynchronizationException_DatabaseSaveError, ExceptionType.ERROR);

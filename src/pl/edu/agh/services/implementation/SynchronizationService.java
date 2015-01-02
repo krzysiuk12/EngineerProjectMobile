@@ -378,17 +378,14 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 				} else {
 					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_SIDE_ERROR);
 				}
-			} catch (InterruptedException e) {
+			} catch (InterruptedException | ExecutionException e) {
 				e.printStackTrace();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
+				throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_UNREACHABLE);
 			} catch (TripException e) {
 				e.printStackTrace();
 				throw new SynchronizationException(SynchronizationException.PredefinedExceptions.DATABASE_ERROR);
 			}
 		}
-
-		// TODO: test
 
 		getLogService().debug("sendTrips - end");
 	}

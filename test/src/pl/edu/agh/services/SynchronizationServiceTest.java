@@ -238,6 +238,8 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 
 	// </editor-fold>
 
+	// <editor-fold desc="Download Locations">
+
 	public void testDownloadLocationsInScope() throws Exception {
 		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
 		userAccountManagementService.saveUserAccount(userAccount);
@@ -318,6 +320,55 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 			assertTrue(location.isUsersPrivate());
 		}
 	}
+
+	public void testDownloadAllLocations() throws Exception {
+		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		userAccountManagementService.saveUserAccount(userAccount);
+		signal = new CountDownLatch(1);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					userAccountManagementService.logIn(userAccount.getLogin(), userAccount.getPassword());
+
+					synchronizationService.downloadAllLocations();
+					signal.countDown();
+				} catch (SynchronizationException e) {
+					fail("SynchronizationException : " + e.toString());
+				}
+			}
+		}).start();
+
+		awaitResponse();
+	}
+	// </editor-fold>
+
+	// <editor-fold desc="Download trips">
+
+	public void testDownloadTrips() throws Exception {
+		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		userAccountManagementService.saveUserAccount(userAccount);
+		signal = new CountDownLatch(1);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					userAccountManagementService.logIn(userAccount.getLogin(), userAccount.getPassword());
+
+					synchronizationService.downloadTrips(UserAccountManagementService.getUserAccount());
+					signal.countDown();
+				} catch (SynchronizationException e) {
+					fail("SynchronizationException : " + e.toString());
+				}
+			}
+		}).start();
+
+		awaitResponse();
+	}
+
+	// </editor-fold>
 
 	private void awaitResponse() throws Exception {
 		try {

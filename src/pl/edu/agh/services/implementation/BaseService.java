@@ -38,7 +38,7 @@ public class BaseService extends OrmLiteBaseService<TestDatabaseHelper> implemen
                 throw new SynchronizationException(SynchronizationException.PredefinedExceptions.UNKNOWN_ERROR);    // TODO: fixme
 
             case ZERO_RESULTS:
-                throw new SynchronizationException(SynchronizationException.PredefinedExceptions.ZERO_RESULT);
+                throw new SynchronizationException(SynchronizationException.PredefinedExceptions.ZERO_RESULTS);
 
             case SERVER_SIDE_ERROR:
                 throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_SIDE_ERROR);
