@@ -2,14 +2,15 @@ package pl.edu.agh.activities.tripCreator;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.*;
+import pl.edu.agh.domain.trips.DistanceUnit;
+import pl.edu.agh.domain.trips.TravelMode;
 import pl.edu.agh.domain.trips.Trip;
+import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.main.R;
 
 import java.util.Calendar;
@@ -26,11 +27,13 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
     private DatePicker tripEndDatePicker;
     private Spinner distanceUnitSpinner;
     private Spinner travelModeSpinner;
+    private Trip trip;
+    private View view;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        view = super.onCreateView(inflater, container, savedInstanceState);
         ((Button)view.findViewById(R.id.TripCreatorMainSettingsPage_PageBackButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,8 +54,55 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
             }
         });
 
-        Trip trip = new Trip();
-        updateWizardPageFields(view, trip);
+        updateWizardPageFields(view, getTrip());
+
+        ArrayAdapter<DistanceUnit> distanceUnitAdapter = new ArrayAdapter<DistanceUnit>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, DistanceUnit.values());
+        distanceUnitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getDistanceUnitSpinner(view).setAdapter(distanceUnitAdapter);
+
+        ArrayAdapter<TravelMode> travelModeAdapter = new ArrayAdapter<TravelMode>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, TravelMode.values());
+        travelModeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getTravelModeSpinner(view).setAdapter(travelModeAdapter);
+
+        getTripNameEditText(view).addTextChangedListener(new AfterTextChangedTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                getTrip().setName(getTripNameEditText(view).getText().toString());
+            }
+        });
+
+        getTripDescriptionEditText(view).addTextChangedListener(new AfterTextChangedTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                getTrip().setDescription(getTripDescriptionEditText(view).getText().toString());
+            }
+        });
+
+        getDistanceUnitSpinner(view).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getTrip().setDistanceUnit((DistanceUnit) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                getTrip().setDistanceUnit(DistanceUnit.METRIC);  //default
+            }
+        });
+
+        getTravelModeSpinner(view).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getTrip().setTravelMode((TravelMode) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                getTrip().setTravelMode(TravelMode.WALKING);  //default
+            }
+        });
 
         return view;
     }
@@ -111,15 +161,48 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
         return tripEndDatePicker;
     }
 
-    public void setDatePicker(Date date, DatePicker datePicker) {
-        Calendar calendar = dateToCalendar(date);
-        datePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-}
+    public void setDatePicker(final Date date, DatePicker datePicker) {
+        Calendar calendar;
+        if(date != null) {
+            calendar = dateToCalendar(date);
+        }
+        else {
+            calendar = Calendar.getInstance();
+        }
+
+        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                getTrip().setStartDate(date);
+            }
+        });
+    }
 
     private Calendar dateToCalendar(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar;
+    }
+
+    public Spinner getDistanceUnitSpinner(View view) {
+        if(distanceUnitSpinner == null) {
+            distanceUnitSpinner = ((Spinner)view.findViewById(R.id.TripCreatorMainSettingsPage_DistanceUnitSpinner));
+        }
+        return distanceUnitSpinner;
+    }
+
+    public Spinner getTravelModeSpinner(View view) {
+        if(travelModeSpinner == null) {
+            travelModeSpinner = ((Spinner)view.findViewById(R.id.TripCreatorMainSettingsPage_TravelModeSpinner));
+        }
+        return travelModeSpinner;
+    }
+
+    public Trip getTrip() {
+        if(trip == null) {
+            trip = new Trip();
+        }
+        return trip;
     }
 
 }
