@@ -13,10 +13,10 @@ public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment
 
     private Trip trip;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+//
+//    }
 
     public Trip getTrip() {
         if(trip == null) {
