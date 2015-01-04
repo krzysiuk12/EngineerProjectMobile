@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="@dimen/WizardPageMainLayout.Margin.Left"
+              android:layout_marginRight="@dimen/WizardPageMainLayout.Margin.Right">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom">
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:drawableTop="@drawable/icon_arrow_left"
+                android:background="@android:color/transparent"
+                android:id="@+id/TripCreatorFinishPage.PageBackButton"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textAppearance="@style/WizardPage.Title"
+                android:text="@string/TripCreatorFinishPage.Title"
+                android:id="@+id/TripCreatorFinishPage.Title"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:id="@+id/button2"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/WizardPageMainLayout.Margin.Left"
+            android:layout_marginRight="@dimen/WizardPageMainLayout.Margin.Right">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/TripCreatorFinishPage.SummarizationSubtitle"
+                android:id="@+id/textView6"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TripCreatorFinishPage.TripNameLabel"
+                    android:id="@+id/textView2"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TripCreatorFinishPage.TripNameTextView"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TripCreatorFinishPage.TripStartDateLabel"
+                    android:id="@+id/textView4"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TripCreatorFinishPage.TripStartDate"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TripCreatorFinishPage.TripEndDateLabel"
+                    android:id="@+id/textView7"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TripCreatorFinishPage.TripEndDate"/>
+        </LinearLayout>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/TripCreatorFinishPage.FinishButton"
+                android:background="@drawable/shape_filled_green"
+                android:textColor="@android:color/white"
+                android:padding="@dimen/LoginActivity.Button.Padding"
+                android:id="@+id/TripCreatorFinishPage.FinishButton"/>
+    </LinearLayout>
+</LinearLayout>

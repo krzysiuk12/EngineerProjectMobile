@@ -1,6 +1,7 @@
 package pl.edu.agh.activities.tripCreator;
 
 import pl.edu.agh.domain.common.BaseObject;
+import pl.edu.agh.domain.trips.Trip;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ public class TripCreatorWizardElement extends BaseObject implements Serializable
     private int layoutId;
     private String label;
     private boolean isEnabled;
+    private Trip trip;
 
     public TripCreatorWizardElement(int layoutId, String label, boolean isEnabled) {
 
@@ -29,4 +31,7 @@ public class TripCreatorWizardElement extends BaseObject implements Serializable
 
     public void setIsEnabled(boolean isEnabled) { this.isEnabled = isEnabled; }
     public boolean getIsEnabled() { return isEnabled; }
+
+    public void setTrip(Trip trip) { this.trip = trip; }
+    public Trip getTrip() { return trip; }
 }

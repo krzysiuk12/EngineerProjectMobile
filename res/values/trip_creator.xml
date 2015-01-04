@@ -13,4 +13,10 @@
     <string name="TripCreatorMainSettingsPage.TripEndDate">Set end date of your trip</string>
     <string name="TripCreatorDaysListPage.Title">Step Two: Set Locations To Visit For Each Day</string>
     <string name="TripCreatorDaysListPage.DaysListLabel">List of trip days. Click every day to add locations to visit during that day</string>
+    <string name="TripCreatorFinishPage.Title">Step Three: Confirm Trip Creation</string>
+    <string name="TripCreatorFinishPage.SummarizationSubtitle">Trip Summarization</string>
+    <string name="TripCreatorFinishPage.TripNameLabel">Name</string>
+    <string name="TripCreatorFinishPage.TripStartDateLabel">Start Date</string>
+    <string name="TripCreatorFinishPage.TripEndDateLabel">End Date</string>
+    <string name="TripCreatorFinishPage.FinishButton">Finish</string>
 </resources>
