@@ -3,7 +3,7 @@
     <string name="app_name">Trip Tour</string>
 
     <string name="SearchGeocodeDialogFragment.Title">Search for location</string>
-    <string name="SearchGeocodeDialogFragment.Search">Location name</string>
+    <string name="SearchGeocodeDialogFragment.Search">Location name or address</string>
     <string name="SearchGeocodeDialogFragment.Button.Cancel">Cancel</string>
     <string name="SearchGeocodeDialogFragment.Button.Search">Search</string>
 
@@ -69,6 +69,8 @@
     <string name="Settings.DefaultUser">Default User</string>
 
     <string name="Settings.Database.Title">Clear Database</string>
+    <string name="Settings.Database.Locations">Locations</string>
+    <string name="Settings.Database.Trips">Trips</string>
     <string name="Settings.Database.ClearPublic">Public Data</string>
     <string name="Settings.Database.ClearPrivate">Private Data</string>
     <string name="Settings.Database.Success">Database cleared successfully</string>

@@ -9,27 +9,48 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/Synchronization.Option.Title"
             android:text="@string/Settings.Database.Title"/>
-
-    <CheckBox
-            android:id="@+id/Settings_Database_Public"
+    
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Settings.Database.ClearPublic"/>
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
 
-    <CheckBox
-            android:id="@+id/Settings_Database_Private"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Settings.Database.ClearPrivate"/>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textAppearance="@style/General_SubHeader"
+                  android:text="@string/Settings.Database.Locations"/>
+
+        <CheckBox
+                android:id="@+id/Settings_Database_Public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Settings.Database.ClearPublic"/>
+
+        <CheckBox
+                android:id="@+id/Settings_Database_Private"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Settings.Database.ClearPrivate"/>
+
+    </LinearLayout>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:textAppearance="@style/General_SubHeader"
+              android:text="@string/Settings.Database.Trips"/>
 
     <Spinner
             android:id="@+id/Settings_Database_TripsSpinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
 
     <Button android:id="@+id/Settings_Database_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/SynchronizationButton"
             android:text="@string/Settings.Database.Title"/>
 

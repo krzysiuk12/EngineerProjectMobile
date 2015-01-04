@@ -42,4 +42,6 @@
     <string name="ServerException.AccessDenied">Access Denied</string>
     <string name="ServerException.RequestDenied">Request Denied</string>
 
+    <string name="GoogleException.InvalidAddress">Invalid Google Geocode Address</string>
+
 </resources>

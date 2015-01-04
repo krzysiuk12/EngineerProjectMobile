@@ -18,19 +18,22 @@ import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
 import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.fragments.AbstractDescriptionFragment;
 import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
-import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
 import pl.edu.agh.services.implementation.AndroidLogService;
-import pl.edu.agh.services.implementation.GoogleGeocodingService;
+import pl.edu.agh.services.implementation.GoogleGeocodeService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.implementation.LocationManagementService;
-import pl.edu.agh.services.interfaces.IGoogleGeocodingService;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
+import pl.edu.agh.services.interfaces.IGoogleGeocodeService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
+import pl.edu.agh.tools.ErrorTools;
+import pl.edu.agh.tools.RenderingTools;
 
 import java.util.List;
 
@@ -41,7 +44,7 @@ public abstract class AbstractShowLocationsOnMapActivity extends OrmLiteBaseActi
 
 	//<editor-fold desc="Fields">
 	private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
-	private IGoogleGeocodingService googleGeocodingService = new GoogleGeocodingService();
+	private IGoogleGeocodeService googleGeocodeService = new GoogleGeocodeService();
 	private ILocationManagementService locationManagementService = new LocationManagementService(this);
 	private GoogleMap googleMap;
 	private Marker selectedMarker = null;
@@ -172,12 +175,12 @@ public abstract class AbstractShowLocationsOnMapActivity extends OrmLiteBaseActi
 
 
 	//<editor-fold desc="Getters and Setters">
-	public IGoogleGeocodingService getGoogleGeocodingService() {
-		return googleGeocodingService;
+	public IGoogleGeocodeService getGoogleGeocodeService() {
+		return googleGeocodeService;
 	}
 
-	public void setGoogleGeocodingService(IGoogleGeocodingService geocodingService) {
-		this.googleGeocodingService = geocodingService;
+	public void setGoogleGeocodeService(IGoogleGeocodeService geocodingService) {
+		this.googleGeocodeService = geocodingService;
 	}
 
 	public IGoogleMapsManagementService getGoogleMapsManagementService() {
@@ -234,13 +237,26 @@ public abstract class AbstractShowLocationsOnMapActivity extends OrmLiteBaseActi
 
 	//<editor-fold desc="GeocodeSearchDialogListener Implementation">
 	@Override
-	public void onDialogPositiveClick(String locationName) {
+	public void onDialogPositiveClick(String locationInfo) {
 		try {
-			GoogleGeocodingSerializer serializer = getGoogleGeocodingService().getLocationDescription(locationName, null, null);
-			Location location = getGoogleGeocodingService().deserializeLocationForLatLng(serializer);
-			getGoogleMapsManagementService().setMapPosition(getGoogleMap(), getGoogleMapsManagementService().getLatLngFromLocation(location), 15);
+			Location location = getGoogleGeocodeService().getLocationByAddress(UserAccountManagementService.getToken(), locationInfo, null, null);
+			updateView(location);
 		} catch(GoogleGeocodingException ex) {
+			ex.printStackTrace();
 			new ErrorToastBuilder(this, getString(R.string.ShowAllLocationsOnMapActivity_SearchError)).build().show();
+		} catch (SynchronizationException e) {
+			e.printStackTrace();
+			new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e)).build().show();
+		}
+	}
+
+	private void updateView(Location location) {
+		getGoogleMapsManagementService().setMapPosition(getGoogleMap(), getGoogleMapsManagementService().getLatLngFromLocation(location), 15);
+		if ( location.getName() != null ) {
+			getDescriptionNameTextView().setText(location.getName());
+		}
+		if ( location.getStatus() != null ) {
+			getDescriptionStatusTextView().setText(location.getStatus().toString());
 		}
 	}
 	//</editor-fold>

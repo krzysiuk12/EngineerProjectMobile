@@ -20,16 +20,18 @@ import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
 import pl.edu.agh.exceptions.LocationException;
+import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
-import pl.edu.agh.serializers.google.geocoding.GoogleGeocodingSerializer;
 import pl.edu.agh.services.implementation.GoogleGeocodingService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
+import pl.edu.agh.services.implementation.GoogleGeocodeService;
 import pl.edu.agh.services.implementation.LocationManagementService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
+import pl.edu.agh.services.interfaces.IGoogleGeocodeService;
 import pl.edu.agh.services.interfaces.IGoogleGeocodingService;
 import pl.edu.agh.services.interfaces.IGoogleMapsManagementService;
 import pl.edu.agh.services.interfaces.ILocationManagementService;
@@ -45,7 +47,7 @@ public class AddLocationActivity extends ActivityWithMapMenu implements GeocodeS
 
     //<editor-fold desc="Fields">
     private IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
-    private IGoogleGeocodingService geocodingService = new GoogleGeocodingService();
+    private IGoogleGeocodeService geocodingService = new GoogleGeocodeService();
     private ILocationManagementService locationManagementService;
     private GoogleMap googleMap;
     private EditText locationNameEditText;
@@ -143,14 +145,7 @@ public class AddLocationActivity extends ActivityWithMapMenu implements GeocodeS
         getGoogleMap().setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                if ( newLocationMarker == null ) {
-                    MarkerOptions markerOptions = getGoogleMapsManagementService().createNewMarker(latLng);
-                    newLocationMarker = getGoogleMap().addMarker(markerOptions);
-                } else {
-                    newLocationMarker.setPosition(latLng);
-                }
-                getLocation().setLatitude(latLng.latitude);
-                getLocation().setLongitude(latLng.longitude);
+                updateMarker(latLng);
             }
         });
     }
@@ -234,11 +229,11 @@ public class AddLocationActivity extends ActivityWithMapMenu implements GeocodeS
     //</editor-fold>
 
     //<editor-fold desc="Getters and Setters">
-    public IGoogleGeocodingService getGeocodingService() {
+    public IGoogleGeocodeService getGoogleGeocodeService() {
         return geocodingService;
     }
 
-    public void setGeocodingService(IGoogleGeocodingService geocodingService) {
+    public void setGoogleGeocodeService(IGoogleGeocodeService geocodingService) {
         this.geocodingService = geocodingService;
     }
 
@@ -305,25 +300,41 @@ public class AddLocationActivity extends ActivityWithMapMenu implements GeocodeS
 
     //<editor-fold desc="GeocodeSearchDialogListener Implementation">
     @Override
-    public void onDialogPositiveClick(String locationName) {
+    public void onDialogPositiveClick(String locationInfo) {
         try {
-            GoogleGeocodingSerializer serializer = getGeocodingService().getLocationDescription(locationName, null, null);
-            Location location = getGeocodingService().deserializeLocationDescription(serializer);
+            Location location = getGoogleGeocodeService().getLocationByAddress(UserAccountManagementService.getToken(), locationInfo, null, null);
             updateFormFields(location);
         } catch(GoogleGeocodingException ex) {
             new ErrorToastBuilder(this, "Error downloading location description").build().show();
+        } catch (SynchronizationException e) {
+            new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e)).build().show();
+            e.printStackTrace();
         }
     }
     //</editor-fold>
 
     private void updateFormFields(Location location) {
-        getLocationNameEditText().setText(location.getName());
-        getLocationDescriptionEditText().setText(location.getDescription());
-        getLocationAddressCityEditText().setText(location.getAddress().getCity());
-        getLocationAddressCountryEditText().setText(location.getAddress().getCountry());
-        getLocationAddressPostalCodeEditText().setText(location.getAddress().getPostalCode());
-        getLocationAddressStreetEditText().setText(location.getAddress().getStreet());
-        getGoogleMapsManagementService().setMapPosition(getGoogleMap(), getGoogleMapsManagementService().getLatLngFromLocation(location), 15);
+        if (location != null) {
+            getLocationNameEditText().setText(location.getName());
+            getLocationDescriptionEditText().setText(location.getDescription());
+            getLocationAddressCityEditText().setText(location.getAddress().getCity());
+            getLocationAddressCountryEditText().setText(location.getAddress().getCountry());
+            getLocationAddressPostalCodeEditText().setText(location.getAddress().getPostalCode());
+            getLocationAddressStreetEditText().setText(location.getAddress().getStreet());
+            getGoogleMapsManagementService().setMapPosition(getGoogleMap(), getGoogleMapsManagementService().getLatLngFromLocation(location), 15);
+            updateMarker(getGoogleMapsManagementService().getLatLngFromLocation(location));
+        }
+    }
+
+    private void updateMarker(LatLng latLng) {
+        if ( newLocationMarker == null ) {
+            MarkerOptions markerOptions = getGoogleMapsManagementService().createNewMarker(latLng);
+            newLocationMarker = getGoogleMap().addMarker(markerOptions);
+        } else {
+            newLocationMarker.setPosition(latLng);
+        }
+        getLocation().setLatitude(latLng.latitude);
+        getLocation().setLongitude(latLng.longitude);
     }
 
 }

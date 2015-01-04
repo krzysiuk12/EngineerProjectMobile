@@ -33,6 +33,12 @@
         <!--<item name="android:textSize">@dimen/General.HeaderSize</item>-->
     </style>
 
+    <style name="General_SubHeader" parent="android:TextAppearance.Medium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
     <style name="SynchronizationButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:minWidth">100dp</item>

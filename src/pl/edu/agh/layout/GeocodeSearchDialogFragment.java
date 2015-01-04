@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
-import pl.edu.agh.layout.listeners.dialogs.EmptyOnClickListener;
 import pl.edu.agh.main.R;
 
 /**
@@ -22,7 +21,7 @@ public class GeocodeSearchDialogFragment extends DialogFragment {
         public void onDialogPositiveClick(String locationName);
     }
 
-    private String locationName;
+    private String locationInfo;
     private GeocodeSearchDialogListener activityListener;
 
     @Override
@@ -43,7 +42,7 @@ public class GeocodeSearchDialogFragment extends DialogFragment {
         ((EditText)layout.findViewById(R.id.GeocodeSearchDialog_Button_Search_EditText)).addTextChangedListener(new AfterTextChangedTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
-                setLocationName(editable.toString());
+                setLocationInfo(editable.toString());
             }
         });
 
@@ -53,7 +52,7 @@ public class GeocodeSearchDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.SearchGeocodeDialogFragment_Button_Search, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        getActivityListener().onDialogPositiveClick(locationName);
+                        getActivityListener().onDialogPositiveClick(locationInfo);
                         dialog.cancel();
                     }
                 })
@@ -66,12 +65,12 @@ public class GeocodeSearchDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    public String getLocationName() {
-        return locationName;
+    public String getLocationInfo() {
+        return locationInfo;
     }
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setLocationInfo(String locationInfo) {
+        this.locationInfo = locationInfo;
     }
 
     public GeocodeSearchDialogListener getActivityListener() {
