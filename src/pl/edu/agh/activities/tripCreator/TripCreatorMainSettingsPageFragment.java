@@ -136,8 +136,26 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
     private void updateWizardPageFields(View view, Trip trip) {
         getTripNameEditText(view).setText(trip.getName());
         getTripDescriptionEditText(view).setText(trip.getDescription());
-        setDatePicker(trip.getStartDate(), getTripStartDatePicker(view));
-        setDatePicker(trip.getEndDate(), getTripEndDatePicker(view));
+
+        Calendar calendar = dateToCalendar(trip.getStartDate());
+        getTripStartDatePicker(view).init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newCalendar = Calendar.getInstance();
+                newCalendar.set(year, monthOfYear, dayOfMonth);
+                getTrip().setStartDate(newCalendar.getTime());
+            }
+        });
+
+        calendar = dateToCalendar(trip.getEndDate());
+        getTripEndDatePicker(view).init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newCalendar = Calendar.getInstance();
+                newCalendar.set(year, monthOfYear, dayOfMonth);
+                getTrip().setEndDate(newCalendar.getTime());
+            }
+        });
     }
 
     public EditText getTripNameEditText(View view) {
@@ -168,23 +186,6 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
         return tripEndDatePicker;
     }
 
-    public void setDatePicker(final Date date, DatePicker datePicker) {
-        Calendar calendar;
-        if(date != null) {
-            calendar = dateToCalendar(date);
-        }
-        else {
-            calendar = Calendar.getInstance();
-        }
-
-        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                getTrip().setStartDate(date);
-            }
-        });
-    }
-
     private Calendar dateToCalendar(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -208,6 +209,8 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
     public Trip getTrip() {
         if(trip == null) {
             trip = new Trip();
+            trip.setStartDate(new Date());
+            trip.setEndDate(new Date());
         }
         return trip;
     }

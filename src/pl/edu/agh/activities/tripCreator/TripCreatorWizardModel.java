@@ -31,6 +31,7 @@ public class TripCreatorWizardModel extends AbstractWizardModel<TripCreatorWizar
         wizardPagesList.add(new TripCreatorWizardElement(R.layout.trip_creator_init_page, getString(R.string.TripCreatorInitPage_Title), true));
         wizardPagesList.add(new TripCreatorWizardElement(R.layout.trip_creator_main_settings_page, getString(R.string.TripCreatorMainSettingsPage_Title), true));
         wizardPagesList.add(new TripCreatorWizardElement(R.layout.trip_creator_days_list_page, getString(R.string.TripCreatorDaysListPage_Title), false));
+        wizardPagesList.add(new TripCreatorWizardElement(R.layout.trip_creator_finish_page, getString(R.string.TripCreatorFinishPage_Title), false));
         return new WizardPageAdapter(getActivity(), wizardPagesList);
     }
 

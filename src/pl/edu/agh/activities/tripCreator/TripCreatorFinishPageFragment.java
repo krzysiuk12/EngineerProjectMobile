@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.main.R;
+import pl.edu.agh.tools.RenderingTools;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -73,8 +74,8 @@ public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment
         if(trip.getName() != null && !trip.getName().isEmpty()) {
             getTripNameTextView(view).setText(trip.getName());
         }
-        getTripStartDateTextView(view).setText(dateToString(trip.getStartDate()));
-        getTripEndDateTextView(view).setText(dateToString(trip.getEndDate()));
+        getTripStartDateTextView(view).setText(RenderingTools.formatDate(trip.getStartDate()));
+        getTripEndDateTextView(view).setText(RenderingTools.formatDate(trip.getEndDate()));
 
     }
 
@@ -97,11 +98,6 @@ public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment
             tripEndDateTextView = ((TextView)view.findViewById(R.id.TripCreatorFinishPage_TripEndDateTextView));
         }
         return tripEndDateTextView;
-    }
-
-    public String dateToString(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        return sdf.format(date);
     }
 
 }
