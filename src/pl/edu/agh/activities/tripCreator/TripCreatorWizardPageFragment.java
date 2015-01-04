@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.main.R;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class TripCreatorWizardPageFragment extends AbstractWizardPage<TripCreatorWizardElement> {
 
-    private TripCreatorWizardElement displayedWizardElement;
+    protected TripCreatorWizardElement displayedWizardElement;
 
     protected WizardPageAdapter getAdapterInstance() {
         ArrayList<TripCreatorWizardElement> wizardPagesList = new ArrayList<>();

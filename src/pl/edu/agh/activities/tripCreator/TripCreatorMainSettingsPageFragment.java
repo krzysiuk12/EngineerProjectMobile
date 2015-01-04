@@ -34,20 +34,28 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = super.onCreateView(inflater, container, savedInstanceState);
+
+        displayedWizardElement = (TripCreatorWizardElement) getArguments().getSerializable(KEY_ITEM);
+        trip = displayedWizardElement.getTrip();
+
         ((Button)view.findViewById(R.id.TripCreatorMainSettingsPage_PageBackButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TripCreatorInitPageFragment fragment = (TripCreatorInitPageFragment) TripCreatorInitPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(0), 0);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
-                ft.commit();
+//                TripCreatorInitPageFragment fragment = (TripCreatorInitPageFragment) TripCreatorInitPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(0), 0);
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
+//                ft.commit();
             }
         });
 
         ((Button)view.findViewById(R.id.TripCreatorMainSettingsPage_PageForwardButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TripCreatorDaysListPageFragment fragment = (TripCreatorDaysListPageFragment) TripCreatorDaysListPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(2), 2);
+                //TripCreatorDaysListPageFragment fragment = (TripCreatorDaysListPageFragment) TripCreatorDaysListPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(2), 2);
+                TripCreatorWizardElement wizardElement = (TripCreatorWizardElement)getAdapterInstance().getItem(2);
+                wizardElement.setTrip(trip);
+                TripCreatorDaysListPageFragment fragment = (TripCreatorDaysListPageFragment) TripCreatorDaysListPageFragment.newInstance(wizardElement, 2);
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
                 ft.commit();
