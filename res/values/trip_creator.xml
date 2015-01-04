@@ -20,4 +20,6 @@
     <string name="TripCreatorFinishPage.TripEndDateLabel">End Date</string>
     <string name="TripCreatorFinishPage.FinishButton">Finish</string>
     <string name="TripCreatorFinishPage.TripNameNotSet">Trip name was not set</string>
+    <string name="TripCreatorMainSettingsPage.DistanceUnitSpinnerLabel">Choose Distance Unit</string>
+    <string name="TripCreatorMainSettingsPage.TravelModeSpinnerLabel">Choose Travel Mode</string>
 </resources>

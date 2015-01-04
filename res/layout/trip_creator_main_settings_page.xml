@@ -118,14 +118,32 @@
                         android:calendarViewShown="false"
                         android:id="@+id/TripCreatorMainSettingsPage.TripEndDatePicker"/>
 
-                <Spinner
+                <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/TripCreatorMainSettingsPage.DistanceUnitSpinner"/>
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_marginBottom="@dimen/WizardPageSmallText.Margin.Bottom"
+                        android:text="@string/TripCreatorMainSettingsPage.DistanceUnitSpinnerLabel"
+                        android:id="@+id/textView"/>
 
                 <Spinner
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
+                        android:id="@+id/TripCreatorMainSettingsPage.DistanceUnitSpinner"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_marginBottom="@dimen/WizardPageSmallText.Margin.Bottom"
+                        android:text="@string/TripCreatorMainSettingsPage.TravelModeSpinnerLabel"
+                        android:id="@+id/textView2"/>
+
+                <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
                         android:id="@+id/TripCreatorMainSettingsPage.TravelModeSpinner"/>
 
             </LinearLayout>
