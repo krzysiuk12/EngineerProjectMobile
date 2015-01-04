@@ -100,7 +100,7 @@ public abstract class TripDatabaseMethod {
 	private void performTripDayLocationAction(TripDayLocation dayLocation) throws TripException {
 		try {
 			locationManagementService.saveOrUpdateLocation(dayLocation.getLocation());  // save if location doesn't exist in local database
-			Location location = locationManagementService.getLocationByGlobalId(dayLocation.getLocation().getGlobalId());
+			Location location = locationManagementService.getLocationByGlobalId((long) dayLocation.getLocation().getId());
 			dayLocation.setLocation(location);
 		} catch (LocationException e) {
 			e.printStackTrace();

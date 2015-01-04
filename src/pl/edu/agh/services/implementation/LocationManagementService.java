@@ -110,6 +110,7 @@ public class LocationManagementService extends BaseService implements ILocationM
 		if ( locationInDatabase == null ) {
 			saveLocation(location);
 		} else {
+			location.setId(locationInDatabase.getId());
 			updateLocation(location);
 		}
 	}

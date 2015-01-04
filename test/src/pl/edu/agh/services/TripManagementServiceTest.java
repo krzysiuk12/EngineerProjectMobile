@@ -13,10 +13,8 @@ import pl.edu.agh.domain.trips.TripDayLocation;
 import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
-import pl.edu.agh.exceptions.common.ExceptionType;
 import pl.edu.agh.exceptions.common.FormValidationError;
 import pl.edu.agh.fragments.TripSelectionMode;
-import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.LocationManagementService;
 import pl.edu.agh.services.implementation.TripManagementService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
@@ -62,10 +60,10 @@ public class TripManagementServiceTest extends AndroidTestCase{
 
 	private Trip createTrip(String name, Date startDate) throws Exception {
 		Location location1 = BaseTestObject.createLocation("New 1", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
-		location1.setGlobalId(1L);
+//		location1.setGlobalId(1L);
 		locationManagementService.saveLocation(location1);  // private location
 		Location location2 = BaseTestObject.createLocation("New 2", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
-		location2.setGlobalId(2L);
+//		location2.setGlobalId(2L);
 		locationManagementService.saveLocation(location2);
 		location1 = locationManagementService.getLocationById(1L);
 		location2 = locationManagementService.getLocationById(2L);
@@ -592,10 +590,6 @@ public class TripManagementServiceTest extends AndroidTestCase{
 	}
 
 	// </editor-fold>
-
-	public void testGetTripDayLocations() throws Exception {
-		// TODO:
-	}
 
 	public void expectValidationError(Trip trip, FormValidationError expectedError) throws Exception {
 		try {

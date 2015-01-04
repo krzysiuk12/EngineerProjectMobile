@@ -34,6 +34,7 @@
 
     <string name="SynchronizationException.DatabaseSaveError">Failed to save information about synchronized object</string>
     <string name="SynchronizationException.ServerError">Server-side error occurred. Failed to synchronize</string>
+    <string name="SynchronizationException.NoInternetConnection">No Internet connection detected</string>
 
     <string name="ServerException.ServerUnreachable">Server unreachable</string>
     <string name="ServerException.UnknownError">Unknown Error occurred</string>

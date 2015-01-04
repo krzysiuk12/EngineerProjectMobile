@@ -20,7 +20,8 @@ public class SynchronizationException extends BaseException {
 		ZERO_RESULTS(R.string.ServerException_ZeroResults, ExceptionType.ERROR),
 		UNKNOWN_ERROR(R.string.ServerException_UnknownError, ExceptionType.ERROR),
 		SERVER_SIDE_ERROR(R.string.SynchronizationException_ServerError, ExceptionType.ERROR),
-		DATABASE_ERROR(R.string.SynchronizationException_DatabaseSaveError, ExceptionType.ERROR);
+		DATABASE_ERROR(R.string.SynchronizationException_DatabaseSaveError, ExceptionType.ERROR),
+		NO_INTERNET_CONNECTION(R.string.SynchronizationException_NoInternetConnection, ExceptionType.WARNING);
 
 		private int stringResourceId;
 		private ExceptionType exceptionType;

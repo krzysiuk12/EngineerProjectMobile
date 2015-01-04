@@ -7,15 +7,15 @@ public class GooglePathBuilder extends PathBuilder {
 
 	protected static final String GOOGLE_PATH = SERVER_PATH + "/googleapi/geocode";
 
-	public String buildLocationByAddressPath() {
+	public static String buildLocationByAddressPath() {
 		return GOOGLE_PATH + "/location";
 	}
 
-	public String buildLocationByIpPath() {
+	public static String buildLocationByIpPath() {
 		return GOOGLE_PATH + "/ip";
 	}
 
-	public String buildLocationCoordinatesByAddressPath() {
+	public static String buildLocationCoordinatesByAddressPath() {
 		return GOOGLE_PATH + "/coordinates";
 	}
 }
