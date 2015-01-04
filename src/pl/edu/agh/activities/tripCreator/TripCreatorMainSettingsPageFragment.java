@@ -115,7 +115,6 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
         return view;
     }
 
-
     public static TripCreatorMainSettingsPageFragment newInstance(TripCreatorWizardElement wizardElement, long index) {
         TripCreatorMainSettingsPageFragment fragment = new TripCreatorMainSettingsPageFragment();
         fragment.setInitialArguments(index, wizardElement);

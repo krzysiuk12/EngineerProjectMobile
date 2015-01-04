@@ -51,6 +51,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/TripCreatorFinishPage.SummarizationSubtitle"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/WizardPageElement.Margin.Bottom"
                 android:id="@+id/textView6"/>
 
         <LinearLayout
@@ -61,12 +63,15 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="@string/TripCreatorFinishPage.TripNameLabel"
                     android:id="@+id/textView2"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/WizardPageMainLayout.Margin.Left"
+                    android:text="@string/TripCreatorFinishPage.TripNameNotSet"
                     android:id="@+id/TripCreatorFinishPage.TripNameTextView"/>
         </LinearLayout>
 
@@ -79,12 +84,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/TripCreatorFinishPage.TripStartDateLabel"
+                    android:textStyle="bold"
                     android:id="@+id/textView4"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/TripCreatorFinishPage.TripStartDate"/>
+                    android:layout_marginLeft="@dimen/WizardPageMainLayout.Margin.Left"
+                    android:id="@+id/TripCreatorFinishPage.TripStartDateTextView"/>
         </LinearLayout>
 
         <LinearLayout
@@ -96,17 +103,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/TripCreatorFinishPage.TripEndDateLabel"
+                    android:textStyle="bold"
                     android:id="@+id/textView7"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/TripCreatorFinishPage.TripEndDate"/>
+                    android:id="@+id/TripCreatorFinishPage.TripEndDateTextView"/>
         </LinearLayout>
 
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/WizardPageMainLayout.Margin.Top"
+                android:layout_gravity="center"
                 android:text="@string/TripCreatorFinishPage.FinishButton"
                 android:background="@drawable/shape_filled_green"
                 android:textColor="@android:color/white"

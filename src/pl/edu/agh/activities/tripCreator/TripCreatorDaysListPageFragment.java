@@ -25,7 +25,21 @@ public class TripCreatorDaysListPageFragment extends TripCreatorWizardPageFragme
         ((Button)view.findViewById(R.id.TripCreatorDaysListPage_PageBackButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TripCreatorMainSettingsPageFragment fragment = (TripCreatorMainSettingsPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
+                TripCreatorWizardElement wizardElement = (TripCreatorWizardElement)getAdapterInstance().getItem(1);
+                wizardElement.setTrip(trip);
+                TripCreatorMainSettingsPageFragment fragment = (TripCreatorMainSettingsPageFragment) TripCreatorMainSettingsPageFragment.newInstance(wizardElement, 1);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
+                ft.commit();
+            }
+        });
+
+        ((Button)view.findViewById(R.id.TripCreatorDaysListPage_PageForwardButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TripCreatorWizardElement wizardElement = (TripCreatorWizardElement)getAdapterInstance().getItem(3);
+                wizardElement.setTrip(trip);
+                TripCreatorFinishPageFragment fragment = (TripCreatorFinishPageFragment) TripCreatorFinishPageFragment.newInstance(wizardElement, 3);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
                 ft.commit();

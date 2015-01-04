@@ -19,15 +19,10 @@ public class TripCreatorInitPageFragment extends TripCreatorWizardPageFragment {
         ((Button) view.findViewById(R.id.TripCreatorInitPage_CreateTripButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TripCreatorWizardPageFragment fragment = (TripCreatorWizardPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
                 TripCreatorMainSettingsPageFragment fragment = (TripCreatorMainSettingsPageFragment) TripCreatorMainSettingsPageFragment.newInstance((TripCreatorWizardElement)getAdapterInstance().getItem(1), 1);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(((ViewGroup)(getView().getParent())).getId(), fragment);
-                //ft.addToBackStack(null);
                 ft.commit();
-
-
-                //getFragmentManager().beginTransaction().replace(container.getId(), fragment).commit();
             }
         });
         return view;

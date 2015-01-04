@@ -3,9 +3,34 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
-  <component name="IdProvider" IDEtalkID="E9C6F95998099F63583F8D3BFAC1AFA5" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="Android API 17 Platform" project-jdk-type="Android SDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="IdProvider" IDEtalkID="DA73F2B0A0FEEA1B9594BD734BB33FA1" />
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>Scala: General</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>RelativeImport</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="Android API 21 Platform" project-jdk-type="Android SDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
 </project>
 
