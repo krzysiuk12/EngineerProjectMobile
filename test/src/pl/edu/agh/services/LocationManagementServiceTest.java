@@ -1,7 +1,6 @@
 package pl.edu.agh.services;
 
 import android.test.AndroidTestCase;
-import junit.framework.Test;
 import pl.edu.agh.BaseTestObject;
 import pl.edu.agh.TestTools;
 import pl.edu.agh.configuration.TestDatabaseHelper;
@@ -321,6 +320,56 @@ public class LocationManagementServiceTest extends AndroidTestCase {
 		locationManagementService.saveNewLocation(location2, userAccount2);
 
 		List<Location> locations = locationManagementService.getAllNewLocations();
+		assertEquals(2, locations.size());
+	}
+
+	public void testDeleteUnusedPublicLocations() throws Exception {
+		UserAccount userAccount1 = BaseTestObject.createUserAccount("user 1", "test");
+		userAccountManagementService.saveUserAccount(userAccount1);
+
+		// add new locations
+		Location location1 = BaseTestObject.createLocation("New 1", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
+		location1.setUsersPrivate(true);
+		locationManagementService.saveNewLocation(location1, userAccount1); // private
+		Location location2 = BaseTestObject.createLocation("New 2", 1.0, 1.15, BaseTestObject.createAddress("Poland", "warsaw"));
+		location2.setUsersPrivate(true);
+		locationManagementService.saveLocation(location2);  // private
+		Location location3 = BaseTestObject.createLocation("New 3", 1.1, 1.15, BaseTestObject.createAddress("Poland", "warsaw"));
+		locationManagementService.saveNewLocation(location3, userAccount1); // public
+
+		List<Location> locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
+		assertEquals(3, locations.size());
+
+		locationManagementService.deletePublicLocations();
+
+		locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
+		assertEquals(2, locations.size());
+	}
+
+	public void testDeletePrivateLocations() throws Exception {
+		UserAccount userAccount1 = BaseTestObject.createUserAccount("user 1", "test");
+		userAccountManagementService.saveUserAccount(userAccount1);
+
+		// add new locations
+		Location location1 = BaseTestObject.createLocation("New 1", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
+		location1.setUsersPrivate(true);
+		locationManagementService.saveNewLocation(location1, userAccount1); // private, created by userAccount 1
+		Location location2 = BaseTestObject.createLocation("New 2", 1.0, 1.15, BaseTestObject.createAddress("Poland", "warsaw"));
+		location2.setUsersPrivate(true);
+		locationManagementService.saveLocation(location2);  // private
+		Location location3 = BaseTestObject.createLocation("New 3", 1.1, 1.15, BaseTestObject.createAddress("Poland", "warsaw"));
+		locationManagementService.saveNewLocation(location3, userAccount1); // public
+
+		List<Location> locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
+		assertEquals(3, locations.size());
+
+		locationManagementService.deletePrivateLocations(userAccount1);
+
+		locations = locationManagementService.getAllLocations();
+		assertNotNull(locations);
 		assertEquals(2, locations.size());
 	}
 

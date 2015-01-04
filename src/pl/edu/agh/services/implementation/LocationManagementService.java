@@ -31,6 +31,8 @@ public class LocationManagementService extends BaseService implements ILocationM
 		locationRepository = new OrmLiteLocationRepository(helper);
 	}
 
+	// <editor-fold desc="Validation">
+
 	@Override
 	public List<FormValidationError> validateLocation(Location location) throws LocationException {
 		List<FormValidationError> errors = new ArrayList<>();
@@ -56,6 +58,24 @@ public class LocationManagementService extends BaseService implements ILocationM
 		errors.addAll(validateAddress(location.getAddress()));
 		return errors;
 	}
+
+	private List<FormValidationError> validateAddress(Address address) {
+		List<FormValidationError> errors = new ArrayList<>();
+		if ( address == null ) {
+			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_ADDRESS_IS_REQUIRED.getStringResourceId()));
+			return errors;
+		}
+		if ( StringTools.isNullOrEmpty(address.getCountry()) ) {
+			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_COUNTRY_IS_REQUIRED.getStringResourceId()));
+		}
+		if ( StringTools.isNullOrEmpty(address.getCity()) ) {
+			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_CITY_IS_REQUIRED.getStringResourceId()));
+		}
+
+		return errors;
+	}
+
+	// </editor-fold>
 
 	@Override
 	public int saveLocation(Location location) throws LocationException {
@@ -94,6 +114,8 @@ public class LocationManagementService extends BaseService implements ILocationM
 		}
 	}
 
+	// <editor-fold desc="Get Location By">
+
 	@Override
 	public Location getLocationById(Long id) throws LocationException {
 		return locationRepository.getLocationById(id);
@@ -113,6 +135,10 @@ public class LocationManagementService extends BaseService implements ILocationM
 	public Location getLocationByCoordinates(double latitude, double longitude) throws LocationException {
 		return locationRepository.getLocationByCoordinates(longitude, latitude);
 	}
+
+	// </editor-fold>
+
+	// <editor-fold desc="Get Locations">
 
 	@Override
 	public List<Location> getAllLocations() throws LocationException {
@@ -161,20 +187,20 @@ public class LocationManagementService extends BaseService implements ILocationM
 		return locationRepository.getAllNewPublicLocations();
 	}
 
-	private List<FormValidationError> validateAddress(Address address) {
-		List<FormValidationError> errors = new ArrayList<>();
-		if ( address == null ) {
-			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_ADDRESS_IS_REQUIRED.getStringResourceId()));
-			return errors;
-		}
-		if ( StringTools.isNullOrEmpty(address.getCountry()) ) {
-			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_COUNTRY_IS_REQUIRED.getStringResourceId()));
-		}
-		if ( StringTools.isNullOrEmpty(address.getCity()) ) {
-			errors.add(new FormValidationError(LocationException.PredefinedExceptions.VALIDATION_CITY_IS_REQUIRED.getStringResourceId()));
-		}
+	// </editor-fold>
 
-		return errors;
+	// <editor-fold desc="Delete Locations">
+
+	@Override
+	public void deletePublicLocations() throws LocationException {
+		locationRepository.deletePublicLocations();
 	}
+
+	@Override
+	public void deletePrivateLocations(UserAccount userAccount) throws LocationException{
+		locationRepository.deletePrivateLocations(userAccount);
+	}
+
+	// </editor-fold>
 
 }

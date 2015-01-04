@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Synchronization.Option.Title"
+            android:text="@string/Settings.Database.Title"/>
+
+    <CheckBox
+            android:id="@+id/Settings_Database_Public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Settings.Database.ClearPublic"/>
+
+    <CheckBox
+            android:id="@+id/Settings_Database_Private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Settings.Database.ClearPrivate"/>
+
+    <Spinner
+            android:id="@+id/Settings_Database_TripsSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <Button android:id="@+id/Settings_Database_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SynchronizationButton"
+            android:text="@string/Settings.Database.Title"/>
+
+</LinearLayout>

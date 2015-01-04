@@ -12,6 +12,7 @@ import pl.edu.agh.dbmodel.trips.TripDayMapping;
 import pl.edu.agh.dbmodel.trips.TripDirectionMapping;
 import pl.edu.agh.dbmodel.trips.TripMapping;
 import pl.edu.agh.dbmodel.trips.TripStepMapping;
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.domain.trips.TripDayLocation;
@@ -117,12 +118,20 @@ public class OrmLiteTripRepository implements ITripRepository {
 	}
 
 	@Override
-	public List<Trip> getPastTrips() throws TripException {
+	public List<Trip> getAllTrips(UserAccount userAccount) throws TripException {
+		return ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryForEq(TripMapping.AUTHOR_COLUMN_NAME, userAccount);
+	}
+
+	@Override
+	public List<Trip> getPastTrips(UserAccount userAccount) throws TripException {
 		QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryBuilder();
 		try {
 			Date currentDate = TimeUtils.formatDateForDatabase(new Date());
-			queryBuilder.where().lt(TripMapping.END_DATE_COLUMN_NAME, currentDate);
-			return ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().query(queryBuilder.prepare());
+			queryBuilder.where().
+					eq(TripMapping.AUTHOR_COLUMN_NAME, userAccount).
+					and().
+					lt(TripMapping.END_DATE_COLUMN_NAME, currentDate);
+			return queryBuilder.query();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -130,12 +139,14 @@ public class OrmLiteTripRepository implements ITripRepository {
 	}
 
 	@Override
-	public List<Trip> getCurrentTrips() throws TripException {
+	public List<Trip> getCurrentTrips(UserAccount userAccount) throws TripException {
 		QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryBuilder();
 		try {
 			Date currentDate = TimeUtils.formatDateForDatabase(new Date());
 
 			Where where = queryBuilder.where();
+			where.eq(TripMapping.AUTHOR_COLUMN_NAME, userAccount);
+			where.and();
 			where.le(TripMapping.START_DATE_COLUMN_NAME, currentDate);
 			where.and();
 			where.ge(TripMapping.END_DATE_COLUMN_NAME, currentDate);
@@ -147,12 +158,15 @@ public class OrmLiteTripRepository implements ITripRepository {
 	}
 
 	@Override
-	public List<Trip> getFutureTrips() throws TripException {
+	public List<Trip> getFutureTrips(UserAccount userAccount) throws TripException {
 		QueryBuilder queryBuilder = ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().queryBuilder();
 		try {
 			Date currentDate = TimeUtils.formatDateForDatabase(new Date());
-			queryBuilder.where().gt(TripMapping.START_DATE_COLUMN_NAME, currentDate);
-			return ((TestDatabaseHelper) openHelper).getTripRuntimeExceptionDao().query(queryBuilder.prepare());
+			queryBuilder.where().
+					eq(TripMapping.AUTHOR_COLUMN_NAME, userAccount).
+					and().
+					gt(TripMapping.START_DATE_COLUMN_NAME, currentDate);
+			return queryBuilder.query();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

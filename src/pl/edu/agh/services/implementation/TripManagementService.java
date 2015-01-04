@@ -10,6 +10,7 @@ import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.FormValidationError;
+import pl.edu.agh.fragments.TripSelectionMode;
 import pl.edu.agh.methods.DeleteTripDatabaseMethod;
 import pl.edu.agh.repositories.implementation.OrmLiteTripRepository;
 import pl.edu.agh.repositories.interfaces.ITripRepository;
@@ -242,18 +243,23 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	}
 
 	@Override
-	public List<Trip> getPastTrips() throws TripException {
-		return tripRepository.getPastTrips();
+	public List<Trip> getAllTrips(UserAccount userAccount) throws TripException {
+		return tripRepository.getAllTrips(userAccount);
 	}
 
 	@Override
-	public List<Trip> getCurrentTrips() throws TripException {
-		return tripRepository.getCurrentTrips();
+	public List<Trip> getPastTrips(UserAccount userAccount) throws TripException {
+		return tripRepository.getPastTrips(userAccount);
 	}
 
 	@Override
-	public List<Trip> getFutureTrips() throws TripException {
-		return tripRepository.getFutureTrips();
+	public List<Trip> getCurrentTrips(UserAccount userAccount) throws TripException {
+		return tripRepository.getCurrentTrips(userAccount);
+	}
+
+	@Override
+	public List<Trip> getFutureTrips(UserAccount userAccount) throws TripException {
+		return tripRepository.getFutureTrips(userAccount);
 	}
 
 	@Override
@@ -296,6 +302,33 @@ public class TripManagementService extends BaseService implements ITripManagemen
 	@Override
 	public List<TripDay> getTripDays(Trip trip) throws TripException {
 		return tripRepository.getTripDays(trip);
+	}
+
+	@Override
+	public void deleteTrips(UserAccount userAccount, TripSelectionMode tripSelectionMode) throws TripException {
+		List<Trip> tripsToDelete;
+
+		switch ( tripSelectionMode ) {
+			default:
+			case ALL_TRIPS:
+				tripsToDelete = getAllTrips(userAccount);
+				break;
+
+			case FUTURE_TRIPS:
+				tripsToDelete = getFutureTrips(userAccount);
+				break;
+
+			case CURRENT_TRIPS:
+				tripsToDelete = getCurrentTrips(userAccount);
+				break;
+
+			case PAST_TRIPS:
+				tripsToDelete = getPastTrips(userAccount);
+				break;
+		}
+		for ( Trip trip : tripsToDelete ) {
+			new DeleteTripDatabaseMethod(this, locationManagementService).performAction(trip);
+		}
 	}
 
 }

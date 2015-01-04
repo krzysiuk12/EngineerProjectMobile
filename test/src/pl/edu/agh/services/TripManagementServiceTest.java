@@ -15,6 +15,7 @@ import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.ExceptionType;
 import pl.edu.agh.exceptions.common.FormValidationError;
+import pl.edu.agh.fragments.TripSelectionMode;
 import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.LocationManagementService;
 import pl.edu.agh.services.implementation.TripManagementService;
@@ -389,48 +390,81 @@ public class TripManagementServiceTest extends AndroidTestCase{
 		assertEquals(2, trips.size());
 	}
 
+	public void testGetAllTripsForUser() throws Exception {
+		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		userAccountManagementService.saveUserAccount(userAccount);
+
+		Trip trip1 = createTrip("Trip", new Date());
+		trip1.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip1);
+		Trip trip2 = createTrip("Trip", new Date());
+		tripManagementService.saveTripCascade(trip2);
+
+		List<Trip> trips = tripManagementService.getAllTrips(userAccount);
+		assertNotNull(trips);
+		assertEquals(1, trips.size());
+	}
+
 	public void testGetFutureTrips() throws Exception {
+		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		userAccountManagementService.saveUserAccount(userAccount);
+
 		Calendar calendar = Calendar.getInstance();
 		Trip trip1 = createTrip("Trip", calendar.getTime());
+		trip1.setAuthor(userAccount);
 		tripManagementService.saveTripCascade(trip1);       // current trip
 		calendar.add(Calendar.MONTH, 1);
 		Trip trip2 = createTrip("Trip", calendar.getTime());
+		trip2.setAuthor(userAccount);
 		tripManagementService.saveTripCascade(trip2);       // future trip
+		Trip otherUsersTrip = createTrip("Trip", calendar.getTime());
+		tripManagementService.saveTripCascade(otherUsersTrip);       // future trip from another user
 
-		List<Trip> trips = tripManagementService.getFutureTrips();
+		List<Trip> trips = tripManagementService.getFutureTrips(userAccount);
 		assertNotNull(trips);
 		assertEquals(1, trips.size());
 	}
 
 	public void testGetPastTrips() throws Exception {
+		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		userAccountManagementService.saveUserAccount(userAccount);
+
 		Calendar calendar = Calendar.getInstance();
 		Trip trip1 = createTrip("Trip", calendar.getTime());
+		trip1.setAuthor(userAccount);
 		tripManagementService.saveTripCascade(trip1);   // current trip
 		calendar.add(Calendar.MONTH, -1);
 		Trip trip2 = createTrip("Trip", calendar.getTime());
+		trip2.setAuthor(userAccount);
 		tripManagementService.saveTripCascade(trip2);   // past trip
+		Trip otherUsersTrip = createTrip("Trip", calendar.getTime());
+		tripManagementService.saveTripCascade(otherUsersTrip);       // past trip from another user
 
-		List<Trip> trips = tripManagementService.getPastTrips();
+		List<Trip> trips = tripManagementService.getPastTrips(userAccount);
 		assertNotNull(trips);
 		assertEquals(1, trips.size());
 	}
 
 	public void testGetCurrentTrips() throws Exception {
+		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		userAccountManagementService.saveUserAccount(userAccount);
+
 		Calendar calendar = Calendar.getInstance();
 		Trip trip1 = createTrip("Trip", calendar.getTime());
+		trip1.setAuthor(userAccount);
 		tripManagementService.saveTripCascade(trip1);   // current trip
 		calendar.add(Calendar.MONTH, -1);
 		Trip trip2 = createTrip("Trip", calendar.getTime());
+		trip2.setAuthor(userAccount);
 		tripManagementService.saveTripCascade(trip2);   // past trip
 		calendar.add(Calendar.MONTH, 2);
 		Trip trip3 = createTrip("Trip 3", calendar.getTime());
+		trip3.setAuthor(userAccount);
 		tripManagementService.saveTripCascade(trip3);   // future trip
+		Trip otherUsersTrip = createTrip("Trip", calendar.getTime());
+		tripManagementService.saveTripCascade(otherUsersTrip);       // current trip from another user
 
-		List<Trip> allTrips = tripManagementService.getAllTrips();
-		for ( Trip trip : allTrips ) {
-			new AndroidLogService().error(trip.getStartDate() + " " + trip.getEndDate());
-		}
-		List<Trip> trips = tripManagementService.getCurrentTrips();
+		List<Trip> trips = tripManagementService.getCurrentTrips(userAccount);
 		assertNotNull(trips);
 		assertEquals(1, trips.size());
 	}
@@ -446,9 +480,115 @@ public class TripManagementServiceTest extends AndroidTestCase{
 		Trip trip2 = createTrip("Trip", new Date());
 		tripManagementService.saveNewTrip(trip2, userAccount);  // new trip
 
+		Trip trip3 = createTrip("Trip", new Date());
+		tripManagementService.saveTripCascade(trip3); // trip created by other user
+
 		List<Trip> trips = tripManagementService.getNewUserTrips(userAccount.getToken());
 		assertNotNull(trips);
 		assertEquals(1, trips.size());
+	}
+
+	// </editor-fold>
+
+	// <editor-fold desc="Delete Trips">
+
+	public void testDeleteAllTrips() throws Exception {
+		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		userAccountManagementService.saveUserAccount(userAccount);
+
+		Trip trip1 = createTrip("Trip", new Date());
+		trip1.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip1);
+
+		Trip trip2 = createTrip("Trip", new Date());
+		tripManagementService.saveTripCascade(trip2);
+
+		tripManagementService.deleteTrips(userAccount, TripSelectionMode.ALL_TRIPS);
+
+		// test
+		List<Trip> usersTrips = tripManagementService.getAllTrips(userAccount);
+		assertEquals(0, usersTrips.size());
+
+		List<Trip> allTrips = tripManagementService.getAllTrips();
+		assertEquals(1, allTrips.size());
+	}
+
+	public void testDeleteFutureTrips() throws Exception {
+		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		userAccountManagementService.saveUserAccount(userAccount);
+
+		Calendar calendar = Calendar.getInstance();
+		Trip trip1 = createTrip("Trip", calendar.getTime());
+		trip1.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip1);       // current trip
+		calendar.add(Calendar.MONTH, 1);
+		Trip trip2 = createTrip("Trip", calendar.getTime());
+		trip2.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip2);       // future trip
+		Trip otherUsersTrip = createTrip("Trip", calendar.getTime());
+		tripManagementService.saveTripCascade(otherUsersTrip);       // future trip from another user
+
+		tripManagementService.deleteTrips(userAccount, TripSelectionMode.FUTURE_TRIPS);
+
+		// test
+		List<Trip> usersTrips = tripManagementService.getFutureTrips(userAccount);
+		assertEquals(0, usersTrips.size());
+
+		List<Trip> allTrips = tripManagementService.getAllTrips();
+		assertEquals(2, allTrips.size());
+	}
+
+	public void testDeletePastTrips() throws Exception {
+		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		userAccountManagementService.saveUserAccount(userAccount);
+
+		Calendar calendar = Calendar.getInstance();
+		Trip trip1 = createTrip("Trip", calendar.getTime());
+		trip1.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip1);   // current trip
+		calendar.add(Calendar.MONTH, -1);
+		Trip trip2 = createTrip("Trip", calendar.getTime());
+		trip2.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip2);   // past trip
+		Trip otherUsersTrip = createTrip("Trip", calendar.getTime());
+		tripManagementService.saveTripCascade(otherUsersTrip);       // past trip from another user
+
+		tripManagementService.deleteTrips(userAccount, TripSelectionMode.PAST_TRIPS);
+
+		// test
+		List<Trip> usersTrips = tripManagementService.getPastTrips(userAccount);
+		assertEquals(0, usersTrips.size());
+
+		List<Trip> allTrips = tripManagementService.getAllTrips();
+		assertEquals(2, allTrips.size());
+	}
+
+	public void testDeleteCurrentTrips() throws Exception {
+		UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		userAccountManagementService.saveUserAccount(userAccount);
+
+		Calendar calendar = Calendar.getInstance();
+		Trip trip1 = createTrip("Trip", calendar.getTime());
+		trip1.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip1);   // current trip
+		calendar.add(Calendar.MONTH, -1);
+		Trip trip2 = createTrip("Trip", calendar.getTime());
+		trip2.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip2);   // past trip
+		calendar.add(Calendar.MONTH, 2);
+		Trip trip3 = createTrip("Trip 3", calendar.getTime());
+		trip3.setAuthor(userAccount);
+		tripManagementService.saveTripCascade(trip3);   // future trip
+		Trip otherUsersTrip = createTrip("Trip", calendar.getTime());
+		tripManagementService.saveTripCascade(otherUsersTrip);       // current trip from another user
+
+		tripManagementService.deleteTrips(userAccount, TripSelectionMode.CURRENT_TRIPS);
+
+		List<Trip> usersTrips = tripManagementService.getCurrentTrips(userAccount);
+		assertEquals(0, usersTrips.size());
+
+		List<Trip> allTrips = tripManagementService.getAllTrips();
+		assertEquals(3, allTrips.size());
 	}
 
 	// </editor-fold>

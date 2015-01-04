@@ -44,4 +44,7 @@ public interface ILocationManagementService {
 
     public List<Location> getAllNewPublicLocations() throws LocationException;
 
+    void deletePublicLocations() throws LocationException;
+
+    void deletePrivateLocations(UserAccount userAccount) throws LocationException;
 }

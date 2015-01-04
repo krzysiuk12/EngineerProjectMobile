@@ -1,5 +1,6 @@
 package pl.edu.agh.fragments.settings;
 
+import pl.edu.agh.activities.settings.ClearDatabaseSettingsIssue;
 import pl.edu.agh.activities.settings.SettingsIssuePanelActivity;
 import pl.edu.agh.activities.settings.DefaultUserSettingsIssue;
 import pl.edu.agh.activities.settings.LanguageSettingsIssue;
@@ -28,6 +29,7 @@ public class SettingsIssuesListFragment extends AbstractListFragment<SettingsIss
         ArrayList<SettingsIssue> settingsIssuesList = new ArrayList<SettingsIssue>();
         settingsIssuesList.add(new LanguageSettingsIssue(getString(R.string.Settings_LanguageSettings)));
         settingsIssuesList.add(new DefaultUserSettingsIssue(getString(R.string.Settings_DefaultUser)));
+        settingsIssuesList.add(new ClearDatabaseSettingsIssue(getString(R.string.Settings_Database_Title)));
 
         return new SettingsIssueAdapter(getActivity(), settingsIssuesList);
     }

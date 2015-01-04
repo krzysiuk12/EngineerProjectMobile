@@ -8,6 +8,7 @@ import pl.edu.agh.domain.trips.TripDirection;
 import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.exceptions.common.FormValidationError;
+import pl.edu.agh.fragments.TripSelectionMode;
 
 import java.util.List;
 
@@ -60,11 +61,13 @@ public interface ITripManagementService {
 
 	public List<Trip> getAllTrips() throws TripException;
 
-	public List<Trip> getPastTrips() throws TripException;
+	public List<Trip> getAllTrips(UserAccount userAccount) throws TripException;
 
-	public List<Trip> getCurrentTrips() throws TripException;
+	public List<Trip> getPastTrips(UserAccount userAccount) throws TripException;
 
-	public List<Trip> getFutureTrips() throws TripException;
+	public List<Trip> getCurrentTrips(UserAccount userAccount) throws TripException;
+
+	public List<Trip> getFutureTrips(UserAccount userAccount) throws TripException;
 
 	public List<Trip> getNewUserTrips(String token) throws TripException;
 
@@ -81,4 +84,6 @@ public interface ITripManagementService {
 	public List<TripDayLocation> getTripDayLocations(TripDay tripDay) throws TripException;
 
 	public List<TripDay> getTripDays(Trip trip) throws TripException;
+
+	public void deleteTrips(UserAccount userAccount, TripSelectionMode tripSelectionMode) throws TripException;
 }

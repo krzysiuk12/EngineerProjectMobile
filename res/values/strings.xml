@@ -68,4 +68,10 @@
 
     <string name="Settings.DefaultUser">Default User</string>
 
+    <string name="Settings.Database.Title">Clear Database</string>
+    <string name="Settings.Database.ClearPublic">Public Data</string>
+    <string name="Settings.Database.ClearPrivate">Private Data</string>
+    <string name="Settings.Database.Success">Database cleared successfully</string>
+    <string name="Settings.Database.Failure">Error while clearing database</string>
+
 </resources>

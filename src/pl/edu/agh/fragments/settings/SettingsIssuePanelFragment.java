@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import pl.edu.agh.activities.settings.SettingsIssue;
 import pl.edu.agh.fragments.AbstractDescriptionFragment;
+import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
@@ -58,8 +59,16 @@ public class SettingsIssuePanelFragment extends AbstractDescriptionFragment<Sett
     }
 
     public void showSuccessToastAndFinish() {
-        new InfoToastBuilder(this.getActivity(), getString(R.string.Setting_Success)).build().show();
+        showSuccessToast(R.string.Setting_Success);
 		getActivity().finish();
+    }
+
+    public void showSuccessToast(int resourceId) {
+        new InfoToastBuilder(this.getActivity(), getString(resourceId)).build().show();
+    }
+
+    public void showErrorToast(int resourceId) {
+        new ErrorToastBuilder(this.getActivity(), getString(resourceId)).build().show();
     }
 
     // </editor-fold>

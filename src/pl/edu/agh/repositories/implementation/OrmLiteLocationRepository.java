@@ -1,6 +1,8 @@
 package pl.edu.agh.repositories.implementation;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.PreparedDelete;
 import com.j256.ormlite.stmt.QueryBuilder;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.dbmodel.accounts.UserAccountMapping;
@@ -40,6 +42,29 @@ public class OrmLiteLocationRepository implements ILocationRepository {
 	public void updateLocation(Location location) {
 		((TestDatabaseHelper)openHelper).getLocationsRuntimeExceptionDao().update(location);
 	}
+
+    @Override
+    public void deletePublicLocations() {
+        DeleteBuilder<Location, Long> deleteBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().deleteBuilder();
+        try {
+            deleteBuilder.where().eq(LocationMapping.USERS_PRIVATE_COLUMN_NAME, false);
+            deleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deletePrivateLocations(UserAccount userAccount) {
+        DeleteBuilder<Location, Long> deleteBuilder = ((TestDatabaseHelper) openHelper).getLocationsRuntimeExceptionDao().deleteBuilder();
+        try {
+            deleteBuilder.where().eq(LocationMapping.USERS_PRIVATE_COLUMN_NAME, true)
+                    .and().eq(LocationMapping.CREATED_BY_ACCOUNT_COLUMN_NAME, userAccount);
+            deleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public List<Location> getAllLocations() {

@@ -5,11 +5,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import pl.edu.agh.activities.TripDetailsActivity;
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.exceptions.TripException;
 import pl.edu.agh.main.R;
-import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.TripManagementService;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.services.interfaces.ITripManagementService;
 
 import java.util.ArrayList;
@@ -20,20 +21,13 @@ import java.util.List;
  */
 public class TripsListFragment extends AbstractListFragment<Trip> {
 
-	enum TripViewMode {
-		ALL_TRIPS,
-		FUTURE_TRIPS,
-		PAST_TRIPS,
-		CURRENT_TRIPS
-	}
-
 	private int detailsPaneId;
 	private ITripManagementService tripManagementService;
-	protected TripViewMode currentView;
+	protected TripSelectionMode currentView;
 
 	public TripsListFragment() {
 		super();
-		currentView = TripViewMode.ALL_TRIPS;
+		currentView = TripSelectionMode.ALL_TRIPS;
 		detailsPaneId = R.id.ShowTrips_TripDetails;
 		tripManagementService = new TripManagementService(getActivity());
 	}
@@ -47,23 +41,24 @@ public class TripsListFragment extends AbstractListFragment<Trip> {
 	@Override
 	protected AbstractAdapter getAdapterInstance() {
 		List<Trip> trips = new ArrayList<>();
+		UserAccount currentUser = UserAccountManagementService.getUserAccount();
 
 		try {
 			switch ( currentView ) {
 				case ALL_TRIPS :
-					trips = tripManagementService.getAllTrips();
+					trips = tripManagementService.getAllTrips(currentUser);
 					break;
 
 				case PAST_TRIPS :
-					trips = tripManagementService.getPastTrips();
+					trips = tripManagementService.getPastTrips(currentUser);
 					break;
 
 				case CURRENT_TRIPS :
-					trips = tripManagementService.getCurrentTrips();
+					trips = tripManagementService.getCurrentTrips(currentUser);
 					break;
 
 				case FUTURE_TRIPS :
-					trips = tripManagementService.getFutureTrips();
+					trips = tripManagementService.getFutureTrips(currentUser);
 					break;
 			}
 		} catch (TripException e) {
@@ -102,19 +97,19 @@ public class TripsListFragment extends AbstractListFragment<Trip> {
 		super.onOptionsItemSelected(item);
 		switch ( item.getItemId() ) {
 			case R.id.ShowTripsMenu_TripViewMode_All:
-				currentView = TripViewMode.ALL_TRIPS;
+				currentView = TripSelectionMode.ALL_TRIPS;
 				break;
 
 			case R.id.ShowTripsMenu_TripViewMode_Past:
-				currentView = TripViewMode.PAST_TRIPS;
+				currentView = TripSelectionMode.PAST_TRIPS;
 				break;
 
 			case R.id.ShowTripsMenu_TripViewMode_Current:
-				currentView = TripViewMode.CURRENT_TRIPS;
+				currentView = TripSelectionMode.CURRENT_TRIPS;
 				break;
 
 			case R.id.ShowTripsMenu_TripViewMode_Future:
-				currentView = TripViewMode.FUTURE_TRIPS;
+				currentView = TripSelectionMode.FUTURE_TRIPS;
 				break;
 		}
 		setListAdapter(getAdapterInstance());

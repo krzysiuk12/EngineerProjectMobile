@@ -23,7 +23,11 @@ public interface ILocationRepository {
 
     public Location getLocationByCoordinates(double longitude, double latitude) throws LocationException;
 
-	public List<Location> getAllLocations() throws LocationException;
+    void deletePublicLocations();
+
+    void deletePrivateLocations(UserAccount userAccount);
+
+    public List<Location> getAllLocations() throws LocationException;
 
     public List<Location> getAllPublicLocations() throws LocationException;
 

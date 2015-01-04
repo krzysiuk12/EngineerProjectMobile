@@ -1,5 +1,6 @@
 package pl.edu.agh.repositories.interfaces;
 
+import pl.edu.agh.domain.accounts.UserAccount;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.domain.trips.TripDayLocation;
@@ -46,11 +47,13 @@ public interface ITripRepository {
 
 	public List<Trip> getAllTrips() throws TripException;
 
-	public List<Trip> getPastTrips() throws TripException;
+	public List<Trip> getAllTrips(UserAccount userAccount) throws TripException;
 
-	public List<Trip> getCurrentTrips() throws TripException;
+	public List<Trip> getPastTrips(UserAccount userAccount) throws TripException;
 
-	public List<Trip> getFutureTrips() throws TripException;
+	public List<Trip> getCurrentTrips(UserAccount userAccount) throws TripException;
+
+	public List<Trip> getFutureTrips(UserAccount userAccount) throws TripException;
 
 	public List<Trip> getNewUserTrips(String token) throws TripException;
 
