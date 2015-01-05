@@ -22,4 +22,6 @@
     <string name="TripCreatorFinishPage.TripNameNotSet">Trip name was not set</string>
     <string name="TripCreatorMainSettingsPage.DistanceUnitSpinnerLabel">Choose Distance Unit</string>
     <string name="TripCreatorMainSettingsPage.TravelModeSpinnerLabel">Choose Travel Mode</string>
+
+    <string name="TripDayLocation.Name">Name</string>
 </resources>
