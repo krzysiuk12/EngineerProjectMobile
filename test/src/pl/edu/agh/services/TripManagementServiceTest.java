@@ -60,10 +60,10 @@ public class TripManagementServiceTest extends AndroidTestCase{
 
 	private Trip createTrip(String name, Date startDate) throws Exception {
 		Location location1 = BaseTestObject.createLocation("New 1", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
-//		location1.setGlobalId(1L);
+		location1.setGlobalId(1L);
 		locationManagementService.saveLocation(location1);  // private location
 		Location location2 = BaseTestObject.createLocation("New 2", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
-//		location2.setGlobalId(2L);
+		location2.setGlobalId(2L);
 		locationManagementService.saveLocation(location2);
 		location1 = locationManagementService.getLocationById(1L);
 		location2 = locationManagementService.getLocationById(2L);

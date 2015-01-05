@@ -21,6 +21,8 @@ import java.util.List;
  */
 public class BaseTestObject {
 
+	public static String TEST_USER = "admin";
+
 	public static Location createLocation(String name, double latitude, double longitude, Address address) {
 		Location location = new Location();
 		location.setName(name);

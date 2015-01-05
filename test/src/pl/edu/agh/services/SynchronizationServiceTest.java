@@ -69,7 +69,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 
 	public void testSendTrip() throws Exception {
 		// Prepare data
-		final UserAccount userAccount = BaseTestObject.createUserAccount("login", "password");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 		Location location1 = BaseTestObject.createLocation("New 1", 1.0, 1.1, BaseTestObject.createAddress("Poland", "cracow"));
 		location1.setGlobalId(1L);
@@ -156,7 +156,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 	}
 
 	public void testSendPublicLocation() throws Exception {
-		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 
 		Location location = BaseTestObject.createLocation("new location", 25.01, 25.01, BaseTestObject.createAddress("Poland", "Cracow"));
@@ -181,7 +181,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 	}
 
 	public void testSendPrivateLocation() throws Exception {
-		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 
 		signal = new CountDownLatch(1);
@@ -211,7 +211,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 	}
 
 	public void testSendAllNewLocations() throws Exception {
-		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 
 		Location location = BaseTestObject.createLocation("new location", 25.01, 25.01, BaseTestObject.createAddress("Poland", "Cracow"));
@@ -241,7 +241,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 	// <editor-fold desc="Download Locations">
 
 	public void testDownloadLocationsInScope() throws Exception {
-		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 		signal = new CountDownLatch(1);
 
@@ -267,7 +267,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 	}
 
 	public void testDownloadLocationsInDefaultScope() throws Exception {
-		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 		signal = new CountDownLatch(1);
 
@@ -293,7 +293,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 	}
 
 	public void testDownloadPrivateLocations() throws Exception {
-		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 		signal = new CountDownLatch(1);
 
@@ -322,7 +322,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 	}
 
 	public void testDownloadAllLocations() throws Exception {
-		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 		signal = new CountDownLatch(1);
 
@@ -347,7 +347,7 @@ public class SynchronizationServiceTest extends AndroidTestCase {
 	// <editor-fold desc="Download trips">
 
 	public void testDownloadTrips() throws Exception {
-		final UserAccount userAccount = BaseTestObject.createUserAccount("admin", "admin");
+		final UserAccount userAccount = BaseTestObject.createUserAccount(BaseTestObject.TEST_USER, BaseTestObject.TEST_USER);
 		userAccountManagementService.saveUserAccount(userAccount);
 		signal = new CountDownLatch(1);
 
