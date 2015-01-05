@@ -50,4 +50,6 @@
     <dimen name="WizardPageMainLayout.Margin.Top">15dp</dimen>
     <dimen name="WizardPageTextElement.Margin.Left">10dp</dimen>
 
+    <dimen name="TripDayLocation.TripDayLocationItem.NameRowHeight">40dp</dimen>
+
 </resources>
