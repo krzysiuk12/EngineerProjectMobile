@@ -56,7 +56,7 @@
         <activity android:name="pl.edu.agh.activities.tripCreator.TripCreatorWizardPageActivity" android:label="@string/TripCreatorMenu.Title"/>
         <activity android:name="pl.edu.agh.activities.tripCreator.TripCreatorInitPageActivity" android:label="Trip Creator Init Page"/>
         <activity android:name="pl.edu.agh.activities.tripCreator.TripCreatorMainSettingsPageActivity" android:label="Trip Creator Main Settings Page"/>
-
+        <activity android:name="pl.edu.agh.activities.tripCreator.TripCreatorDayLocationsActivity" android:label="@string/TripCreatorMenu.Title"/>
     </application>
 
 </manifest>

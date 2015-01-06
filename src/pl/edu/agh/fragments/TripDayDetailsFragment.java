@@ -30,7 +30,7 @@ public class TripDayDetailsFragment extends AbstractDescriptionFragment<TripDay>
 
 	IGoogleMapsManagementService googleMapsManagementService = new GoogleMapsManagementService();
 	private MapFragment mapFragment;
-    private GoogleMap googleMap;
+	private GoogleMap googleMap;
 	private TripDay tripDay;
 
 	public static TripDayDetailsFragment newInstance(TripDay tripDay, long index) {
