@@ -11,11 +11,12 @@
                     android:layout_height="0dp"
                     android:layout_weight="3"/>
 
-    <!-- Container for List View -->
-    <RelativeLayout android:id="@+id/TripCreator_TripDayLocation_List"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"/>
+    <view
+            class="pl.edu.agh.activities.tripCreator.SortableLocationListView"
+            android:id="@+id/TripCreator_TripDayLocation_List"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
 
     <Button android:id="@+id/TripCreator_TripDayLocation_Button"
             android:layout_width="wrap_content"

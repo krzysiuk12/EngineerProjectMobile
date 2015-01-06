@@ -150,8 +150,6 @@ public class LocationManagementService extends BaseService implements ILocationM
 	public List<Location> getAllLocations(UserAccount userAccount) throws LocationException {
 		List<Location> publicLocations = locationRepository.getAllPublicLocations();
 		List<Location> privateLocations = getAllUserPrivateLocations(userAccount);
-		getLogService().error("public locations: " + publicLocations.size());
-		getLogService().error("private locations: " + privateLocations.size());
 		List<Location> locations = new ArrayList<>();
 		locations.addAll(publicLocations);
 		locations.addAll(privateLocations);

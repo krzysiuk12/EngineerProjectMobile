@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapsInitializer;
@@ -18,7 +19,6 @@ import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.fragments.AbstractDescriptionFragment;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
-import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.implementation.LocationManagementService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
@@ -36,13 +36,16 @@ import java.util.Map;
  */
 public class TripCreatorDayLocationsFragment extends AbstractDescriptionFragment<TripDay> {
 
-    IGoogleMapsManagementService googleMapsManagementService;
-    ILocationManagementService locationManagementService;
-    private TripDay tripDay;
-    private List<TripDayLocation> locationList = new ArrayList<>();
-    private Map<Marker, Location> markerLocationMap = new HashMap<>();
+    private IGoogleMapsManagementService googleMapsManagementService;
+    private ILocationManagementService locationManagementService;
+
     private MapFragment mapFragment;
+    private SortableLocationAdapter adapter;
     private GoogleMap googleMap;
+
+    private TripDay tripDay;
+    private ArrayList<Location> locationList = new ArrayList<Location>();
+    private Map<Marker, Location> markerLocationMap = new HashMap<Marker, Location>();
 
 	public static TripCreatorDayLocationsFragment newInstance(TripDay tripDay, long index) {
 		TripCreatorDayLocationsFragment fragment = new TripCreatorDayLocationsFragment();
@@ -69,11 +72,16 @@ public class TripCreatorDayLocationsFragment extends AbstractDescriptionFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
+        adapter = new SortableLocationAdapter(getActivity(), locationList);
+        SortableLocationListView listView = (SortableLocationListView) view.findViewById(R.id.TripCreator_TripDayLocation_List);
+        listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listView.setLocationList(locationList);
+
         ((Button) view.findViewById(R.id.TripCreator_TripDayLocation_Button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tripDay.setLocations(locationList);
-                new InfoToastBuilder(getActivity(), StringUtils.getString(getActivity(), R.string.TripCreator_TripDayLocation_LocationsSet)).build().show();
+                addLocationsToTripDay();
             }
         });
 
@@ -90,12 +98,7 @@ public class TripCreatorDayLocationsFragment extends AbstractDescriptionFragment
             public boolean onMarkerClick(Marker marker) {
                 Location location = markerLocationMap.get(marker);
 
-                if ( location != null ) {
-                    TripDayLocation tripDayLocation = new TripDayLocation();
-                    tripDayLocation.setLocation(location);
-                    locationList.add(tripDayLocation);
-                    // TODO: order!
-                }
+                addOrDeleteLocationFromTripDay(location);
 
                 return true;
             }
@@ -140,20 +143,52 @@ public class TripCreatorDayLocationsFragment extends AbstractDescriptionFragment
     // </editor-fold>
 
     private void displayLocationsOnMap() {
-        try {
-            List<Location> availableLocations = getLocationManagementService().getAllLocations(UserAccountManagementService.getUserAccount());
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<Location> availableLocations = getLocationManagementService().getAllLocations(UserAccountManagementService.getUserAccount());
 
-            if ( availableLocations != null ) {
-                for ( Location location : availableLocations ) {
-                    MarkerOptions markerOptions = getGoogleMapsManagementService().createLocationMarker(location);
+                    if ( availableLocations != null ) {
+                        for ( Location location : availableLocations ) {
+                            MarkerOptions markerOptions = getGoogleMapsManagementService().createLocationMarker(location);
 
-                    Marker marker = getGoogleMap().addMarker(markerOptions);
-                    markerLocationMap.put(marker, location);
+                            Marker marker = getGoogleMap().addMarker(markerOptions);
+                            markerLocationMap.put(marker, location);
+                        }
+                    }
+                } catch (LocationException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (LocationException e) {
-            e.printStackTrace();
+        });
+    }
+
+    private void addOrDeleteLocationFromTripDay(Location location) {
+        if ( location != null ) {
+            if ( locationList.contains(location) ) {
+                adapter.remove(location);
+            } else {
+                adapter.add(location);
+            }
         }
     }
 
+    private void addLocationsToTripDay() {
+        List<TripDayLocation> tripDayLocations = new ArrayList<TripDayLocation>();
+        int ordinal = 0;
+        for ( Location location : locationList ) {
+            TripDayLocation tripDayLocation = new TripDayLocation();
+            tripDayLocation.setLocation(location);
+            tripDayLocation.setOrdinal(ordinal);
+            tripDayLocation.setTripDay(tripDay);    // unnecessary
+            tripDayLocations.add(tripDayLocation);
+
+            ordinal++;
+        }
+
+        tripDay.setLocations(tripDayLocations);
+
+        new InfoToastBuilder(getActivity(), StringUtils.getString(getActivity(), R.string.TripCreator_TripDayLocation_LocationsSet)).build().show();
+    }
 }

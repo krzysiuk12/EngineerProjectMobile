@@ -3,9 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_marginLeft="@dimen/WizardPageMainLayout.Margin.Left"
-              android:layout_marginRight="@dimen/WizardPageMainLayout.Margin.Right">
+              android:layout_height="match_parent">
 
     <LinearLayout
             android:orientation="horizontal"

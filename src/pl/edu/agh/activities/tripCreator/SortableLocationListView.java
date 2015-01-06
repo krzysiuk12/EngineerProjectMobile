@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,14 +15,14 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import pl.edu.agh.domain.trips.TripDayLocation;
+import pl.edu.agh.domain.locations.Location;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sławek on 2015-01-06.
  */
-public class TripDayLocationsListView extends ListView {
+public class SortableLocationListView extends ListView {
 
     private final int SMOOTH_SCROLL_AMOUNT_AT_EDGE = 15;
     private final int MOVE_DURATION = 150;
@@ -52,10 +53,21 @@ public class TripDayLocationsListView extends ListView {
     private boolean isWaitingForScrollFinish = false;
     private int scrollState = OnScrollListener.SCROLL_STATE_IDLE;
 
-    public ArrayList<TripDayLocation> tripDayLocationsList;
+    public ArrayList<Location> locationList;
 
-    public TripDayLocationsListView(Context context) {
+    public SortableLocationListView(Context context) {
         super(context);
+        init(context);
+    }
+
+    public SortableLocationListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    public SortableLocationListView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init(context);
     }
 
     public void init(Context context) {
@@ -94,7 +106,7 @@ public class TripDayLocationsListView extends ListView {
 
     private void updateNeighborViewsForID(long itemID) {
         int position = getPositionForID(itemID);
-        TripDayLocationAdapter adapter = ((TripDayLocationAdapter)getAdapter());
+        SortableLocationAdapter adapter = ((SortableLocationAdapter)getAdapter());
         aboveItemId = adapter.getItemId(position - 1);
         belowItemId = adapter.getItemId(position + 1);
     }
@@ -109,7 +121,7 @@ public class TripDayLocationsListView extends ListView {
     }
     public View getViewForID (long itemID) {
         int firstVisiblePosition = getFirstVisiblePosition();
-        TripDayLocationAdapter adapter = ((TripDayLocationAdapter)getAdapter());
+        SortableLocationAdapter adapter = ((SortableLocationAdapter)getAdapter());
         for(int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             int position = firstVisiblePosition + i;
@@ -210,7 +222,7 @@ public class TripDayLocationsListView extends ListView {
                 return;
             }
 
-            swapElements(tripDayLocationsList, originalItem, getPositionForView(switchView));
+            swapElements(locationList, originalItem, getPositionForView(switchView));
 
             ((BaseAdapter) getAdapter()).notifyDataSetChanged();
 
@@ -379,12 +391,8 @@ public class TripDayLocationsListView extends ListView {
         return false;
     }
 
-    public void setTripDayLocationsList(ArrayList<TripDayLocation> tripDayLocationsList) {
-        this.tripDayLocationsList = tripDayLocationsList;
-    }
-
-    public void addTripDayLocationToList(TripDayLocation tripDayLocation) {
-        tripDayLocationsList.add(tripDayLocation);
+    public void setLocationList(ArrayList<Location> locationList) {
+        this.locationList = locationList;
     }
 
     private AbsListView.OnScrollListener mScrollListener = new AbsListView.OnScrollListener () {
