@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class TripDayLocationAdapter extends AbstractAdapter<TripDayLocation> {
 
-    public TripDayLocationAdapter(Context context, int layoutId, ArrayList<TripDayLocation> items) {
+    public TripDayLocationAdapter(Context context, ArrayList<TripDayLocation> items) {
         super(context, R.layout.trip_day_location_list_item, items);
     }
 
