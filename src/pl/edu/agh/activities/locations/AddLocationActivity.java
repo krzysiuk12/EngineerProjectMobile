@@ -1,5 +1,6 @@
 package pl.edu.agh.activities.locations;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.MenuItem;
@@ -16,11 +17,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import pl.edu.agh.activities.ActivityWithMapMenu;
+import pl.edu.agh.activities.help.BaseHelpElement;
+import pl.edu.agh.activities.help.HelpElementDescriptionActivity;
 import pl.edu.agh.domain.accounts.Address;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.SynchronizationException;
+import pl.edu.agh.fragments.AbstractDescriptionFragment;
 import pl.edu.agh.layout.GeocodeSearchDialogFragment;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
@@ -274,7 +278,11 @@ public class AddLocationActivity extends ActivityWithMapMenu implements GeocodeS
     }
 
     protected void helpMenuAction() {
-        new InfoToastBuilder(this, "Wybrano help").build().show();
+        Intent intent = new Intent();
+        intent.setClass(this, HelpElementDescriptionActivity.class);
+        intent.putExtra(AbstractDescriptionFragment.KEY_INDEX, 0);
+        intent.putExtra(AbstractDescriptionFragment.KEY_ITEM, BaseHelpElement.ADD_LOCATION.getHelpElement(getResources()));
+        startActivity(intent);
     }
 
     public void addLocationAction() {

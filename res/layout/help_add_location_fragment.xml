@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_AddLocation_Title"
+                    android:textAppearance="@style/HelpElementDescription.Title"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_AddLocation_Map_Subtitle"
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_AddLocation_Map_Description"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_AddLocation_Fields_Subtitle"
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_AddLocation_Form"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <ListView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:entries="@array/Help_AddLocation_Fields"
+                      android:visibility="visible"/>
+
+            <!-- Address -->
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_AddLocation_Address"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <ListView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:entries="@array/Help_AddLocation_AddressFields"
+                      android:scrollbars="none"/>
+
+            <!-- Status -->
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_Status_Info"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <ListView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:entries="@array/Help_Status"
+                      android:scrollbars="none"/>
+
+            <!-- Result -->
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_AddLocation_Success"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_AddLocation_Failure"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

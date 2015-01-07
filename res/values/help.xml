@@ -15,4 +15,42 @@
         Click this button to go to a view presenting a list of all locations created by you.
     </string>
 
+    <!-- Add Location -->
+
+    <string name="Help_AddLocation_Title">Add Location</string>
+    <string name="Help_AddLocation_Map_Subtitle">Map</string>
+    <string name="Help_AddLocation_Map_Description">Map is there for you to choose coordinates for your location - simply click on the map in a desired location, and a small marker will be displayed.</string>
+
+    <string name="Help_AddLocation_Fields_Subtitle">Fields</string>
+    <string name="Help_AddLocation_Form">In this view you have following fields to fill:</string>
+
+    <string-array name="Help_AddLocation_Fields">
+        <item>Name</item>
+        <item>Description</item>
+        <item>Status</item>
+        <item>Address</item>
+        <item>Visible to other users</item>
+    </string-array>
+
+    <string name="Help_AddLocation_Address">Address is made from four fields:</string>
+    <string-array name="Help_AddLocation_AddressFields">
+        <item>Street</item>
+        <item>City</item>
+        <item>Postal code</item>
+        <item>Country</item>
+    </string-array>
+
+    <string name="Help_Status_Info">Status may have following values:</string>
+    <string-array name="Help_Status">
+        <item>Available</item>
+        <item>Unavailable</item>
+        <item>Draft</item>
+        <item>Removed</item>
+    </string-array>
+
+    <string name="Help_AddLocation_Success">If all provided information is correct, a green toast will appear on top of the screen and you will be redirected to Main Menu.</string>
+    <string name="Help_AddLocation_Failure">Otherwise read toast will appear, providing information about what you need to fill in to successfuly create a location.</string>
+
+    <!-- Location List -->
+
 </resources>

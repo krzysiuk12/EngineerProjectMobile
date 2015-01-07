@@ -52,37 +52,44 @@ public class DownloadLocationsInScopeActivity extends ActivityWithMapMenu {
 
 		synchronizationService = new SynchronizationService(this);
 
-		((EditText) findViewById(R.id.Synchronization_DownloadLocationsInScope_RadiusEditText)).addTextChangedListener(new AfterTextChangedTextWatcher() {
+		runOnUiThread(new Runnable() {
 			@Override
-			public void afterTextChanged(Editable s) {
-				try {
-					radius = Double.parseDouble(s.toString());
-				} catch ( NumberFormatException e) {
-					radius = 0;
-				}
-				renderScope();
-			}
-		});
+			public void run() {
 
-		getGoogleMap().setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-			@Override
-			public void onMapClick(LatLng latLng) {
-				onMapClickAction(latLng);
-			}
-		});
+				((EditText) findViewById(R.id.Synchronization_DownloadLocationsInScope_RadiusEditText)).addTextChangedListener(new AfterTextChangedTextWatcher() {
+					@Override
+					public void afterTextChanged(Editable s) {
+						try {
+							radius = Double.parseDouble(s.toString());
+						} catch (NumberFormatException e) {
+							radius = 0;
+						}
+						renderScope();
+					}
+				});
 
-		unitSpinner = (Spinner) findViewById(R.id.Synchronization_DownloadLocationsInScope_UnitSpinner);
-		ArrayAdapter<MetricUnitType> adapter = new ArrayAdapter<MetricUnitType>(this, android.R.layout.simple_spinner_dropdown_item, MetricUnitType.values());
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		unitSpinner.setAdapter(adapter);
-		unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				renderScope();
-			}
+				getGoogleMap().setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+					@Override
+					public void onMapClick(LatLng latLng) {
+						onMapClickAction(latLng);
+					}
+				});
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
+				unitSpinner = (Spinner) findViewById(R.id.Synchronization_DownloadLocationsInScope_UnitSpinner);
+				ArrayAdapter<MetricUnitType> adapter = new ArrayAdapter<MetricUnitType>(DownloadLocationsInScopeActivity.this, android.R.layout.simple_spinner_dropdown_item, MetricUnitType.values());
+				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				unitSpinner.setAdapter(adapter);
+				unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+						renderScope();
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+
+					}
+				});
 
 			}
 		});

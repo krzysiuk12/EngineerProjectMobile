@@ -262,19 +262,23 @@ public abstract class AbstractShowLocationsOnMapActivity extends OrmLiteBaseActi
 	//</editor-fold>
 
 	protected void displayMarkersOnMap() {
-		try {
-			List<Location> locations = getLocations();
-			if ( locations != null ) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					List<Location> locations = getLocations();
+					if ( locations != null ) {
 
-				for ( Location location : locations ) {
-					MarkerOptions markerOptions = getGoogleMapsManagementService().createLocationMarker(location);
-					new AndroidLogService().debug("marker: " + markerOptions.getTitle() + " " + markerOptions.getSnippet());
-					getGoogleMap().addMarker(markerOptions);
+						for ( Location location : locations ) {
+							MarkerOptions markerOptions = getGoogleMapsManagementService().createLocationMarker(location);
+							getGoogleMap().addMarker(markerOptions);
+						}
+					}
+				} catch (LocationException e) {
+					e.printStackTrace();
 				}
 			}
-		} catch (LocationException e) {
-			e.printStackTrace();
-		}
+		});
 	}
 
 	protected abstract List<Location> getLocations() throws LocationException;

@@ -29,7 +29,7 @@
     <string name="TripException.ValidationError.TripDay.DateIsRequired">Date is required</string>
     <string name="TripException.ValidationError.TripDay.TripDayLocationsAreRequired">Locations are required</string>
 
-    <string name="TripException.ValidationError.TripDayLocation.LocationIsRequired">Locations is required</string>
+    <string name="TripException.ValidationError.TripDayLocation.LocationIsRequired">Location is required</string>
     <string name="TripException.ValidationError.TripDayLocation.OrdinalIsRequired">Ordinal is required</string>
 
     <string name="SynchronizationException.DatabaseSaveError">Failed to save information about synchronized object</string>

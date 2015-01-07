@@ -22,6 +22,7 @@ import pl.edu.agh.tools.StringTools;
 import pl.edu.agh.utils.TimeUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,9 +81,13 @@ public class TripManagementService extends BaseService implements ITripManagemen
 		if ( tripDay.getDate() == null ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_DATE_IS_REQUIRED.getStringResourceId()));
 		}
-		if ( tripDay.getDate() != null && trip.getStartDate() != null && trip.getEndDate() != null &&
-				(tripDay.getDate().before(trip.getStartDate()) || tripDay.getDate().after(trip.getEndDate())) ) {
-			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_INVALID_DATE.getStringResourceId()));
+		if ( tripDay.getDate() != null && trip.getStartDate() != null && trip.getEndDate() != null ) {
+			Date startDate = TimeUtils.formatDateForDatabase(trip.getStartDate());
+			Date endDate = TimeUtils.formatDateForDatabase(trip.getEndDate());
+			Date tripDayDate = TimeUtils.formatDateForDatabase(tripDay.getDate());
+			if	( tripDayDate.before(startDate) || tripDayDate.after(endDate) ) {
+				errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_INVALID_DATE.getStringResourceId()));
+			}
 		}
 		if ( tripDay.getLocations() == null || tripDay.getLocations().isEmpty() ) {
 			errors.add(new FormValidationError(TripException.PredefinedExceptions.VALIDATION_TRIP_DAY_LOCATIONS_ARE_REQUIRED.getStringResourceId()));

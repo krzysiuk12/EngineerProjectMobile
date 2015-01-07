@@ -1,5 +1,7 @@
 package pl.edu.agh.fragments.help;
 
+import com.fasterxml.jackson.databind.deser.Deserializers;
+import pl.edu.agh.activities.help.BaseHelpElement;
 import pl.edu.agh.activities.help.HelpElementDescriptionActivity;
 import pl.edu.agh.activities.help.HelpElement;
 import pl.edu.agh.fragments.AbstractAdapter;
@@ -23,10 +25,11 @@ public class HelpElementsListFragment extends AbstractListFragment<HelpElement> 
 
     @Override
     protected AbstractAdapter getAdapterInstance() {
-
         ArrayList<HelpElement> helpElementsList = new ArrayList<HelpElement>();
-//        helpElementsList.add(new HelpElement("TestHelpElement", R.layout.help_element_test_fragment));
-        helpElementsList.add(new HelpElement(getString(R.string.HelpElementDescription_MainMenu_Title), R.layout.help_element_main_menu_fragment));
+
+        for ( BaseHelpElement helpElement : BaseHelpElement.values() ) {
+            helpElementsList.add(helpElement.getHelpElement(getResources()));
+        }
 
         return new HelpElementAdapter(getActivity(), helpElementsList);
     }
