@@ -1,18 +1,24 @@
 package pl.edu.agh.activities.main;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.google.android.gms.common.ConnectionResult;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.BaseService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.services.interfaces.IUserAccountManagementService;
 import pl.edu.agh.tools.ErrorTools;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 
 /**
@@ -28,7 +34,10 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-		//Tests - moved from MainMenuActivity
+        showMessageIfNoInternetConnection();
+        showMessageIfNoGooglePlayServices();
+
+        //Tests - moved from MainMenuActivity
 		this.deleteDatabase(TestDatabaseHelper.DATABASE_NAME);
 		new TestDatabaseHelper(this).getReadableDatabase();
 		userAccountManagementService = new UserAccountManagementService(this);
@@ -38,14 +47,28 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
         ((Button)findViewById(R.id.LoginActivity_LoginButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginButtonAction(view);
+
+                showMessageIfNoGooglePlayServices();
+                showMessageIfNoInternetConnection();
+
+                if(isInternetConnection() && isGooglePlayServicesInstalled()) {
+                    loginButtonAction(view);
+                }
+
             }
         });
 
 		((Button) findViewById(R.id.LoginActivity_LoginAsDefault)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				logAsDefaultAction(view);
+
+                showMessageIfNoGooglePlayServices();
+                showMessageIfNoInternetConnection();
+
+                if(isInternetConnection() && isGooglePlayServicesInstalled()) {
+                    logAsDefaultAction(view);
+                }
+
 			}
 		});
     }
@@ -102,6 +125,36 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 		}
 		return passwordEditText;
 	}
+
+
+    private void showMessageIfNoInternetConnection()  {
+        if(!isInternetConnection()) {
+            new ErrorToastBuilder(this, "No internet connection.").build().show();
+        }
+    }
+
+    private boolean isInternetConnection()  {
+        BaseService baseService = new BaseService();
+        try {
+            return baseService.hasActiveInternetConnection(LoginActivity.this);
+        } catch (SynchronizationException e) {
+            return false;
+        }
+    }
+
+    private void showMessageIfNoGooglePlayServices() {
+        if(!isGooglePlayServicesInstalled()) {
+            new ErrorToastBuilder(this, "No Google Play Services Installed.").build().show();
+        }
+    }
+
+    public boolean isGooglePlayServicesInstalled()
+    {
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(LoginActivity.this);
+        if(status == ConnectionResult.SUCCESS)
+            return true;
+        return false;
+    }
 
 	// </editor-fold.
 

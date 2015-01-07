@@ -253,38 +253,36 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 		}
 	}
 
-	@Override
-	public void sendNewPrivateLocations() throws SynchronizationException {
-		List<Location> locations = null;
-		getLogService().debug("sendNewPrivateLocations()");
-		try {
-			locations = locationManagementService.getAllNewPrivateLocations();
-		} catch (LocationException e) {
-			getLogService().error(getClass().getName(), e.toString());
-		}
-		if ( locations == null )
-			return;
+    @Override
+    public void sendNewPrivateLocations() throws SynchronizationException {
+        List<Location> locations = null;
+        getLogService().debug("sendNewPrivateLocations()");
+        try {
+            locations = locationManagementService.getAllNewPrivateLocations();
+        } catch (LocationException e) {
+            getLogService().error(getClass().getName(), e.toString());
+        }
 
-		for ( Location location : locations) {
-			try {
-				ResponseSerializer<Long> response = new PostAddNewPrivateLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
-				if ( validateServerResponse(response) && response.getResult() != null ) {
-					location.setGlobalId(response.getResult());
-					location.setSynced(true);
-					locationManagementService.updateLocation(location);
-				} else {
-					// no result returned by server
-					throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_SIDE_ERROR);
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			} catch (LocationException e) {
-				throw new SynchronizationException(SynchronizationException.PredefinedExceptions.DATABASE_ERROR);
-			}
-		}
-	}
+        for ( Location location : locations) {
+            try {
+                ResponseSerializer<Long> response = new PostAddNewPrivateLocationAsyncTask(UserAccountManagementService.getToken(), location).execute().get();
+                if ( validateServerResponse(response) && response.getResult() != null ) {
+                    location.setGlobalId(response.getResult());
+                    location.setSynced(true);
+                    locationManagementService.updateLocation(location);
+                } else {
+                    // no result returned by server
+                    throw new SynchronizationException(SynchronizationException.PredefinedExceptions.SERVER_SIDE_ERROR);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (LocationException e) {
+                throw new SynchronizationException(SynchronizationException.PredefinedExceptions.DATABASE_ERROR);
+            }
+        }
+    }
 
 	@Override
 	public void sendAllNewLocations() throws SynchronizationException {
