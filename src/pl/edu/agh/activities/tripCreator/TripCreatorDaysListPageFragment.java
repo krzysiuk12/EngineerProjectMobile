@@ -9,6 +9,8 @@ import android.widget.Button;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.AndroidLogService;
+import pl.edu.agh.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,6 +80,8 @@ public class TripCreatorDaysListPageFragment extends TripCreatorWizardPageFragme
     }
 
     private long getTripDaysNumber(Date startDate, Date endDate) {
+        startDate = TimeUtils.formatDateForDatabase(startDate);
+        endDate = TimeUtils.formatDateForDatabase(endDate);
         long differenceInMilliseconds = endDate.getTime() - startDate.getTime();
         return TimeUnit.DAYS.convert(differenceInMilliseconds, TimeUnit.MILLISECONDS) + 1;  // equal dates = one day trip
     }

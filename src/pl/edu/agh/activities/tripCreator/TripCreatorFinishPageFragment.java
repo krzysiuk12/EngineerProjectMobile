@@ -8,7 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import pl.edu.agh.domain.trips.Trip;
+import pl.edu.agh.exceptions.TripException;
+import pl.edu.agh.layout.toast.ErrorToastBuilder;
+import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.TripManagementService;
+import pl.edu.agh.services.implementation.UserAccountManagementService;
+import pl.edu.agh.services.interfaces.ITripManagementService;
+import pl.edu.agh.tools.ErrorTools;
 import pl.edu.agh.tools.RenderingTools;
 
 import java.text.SimpleDateFormat;
@@ -19,6 +26,7 @@ import java.util.Date;
  */
 public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment {
 
+    private ITripManagementService tripManagementService;
     private TextView tripNameTextView;
     private TextView tripStartDateTextView;
     private TextView tripEndDateTextView;
@@ -48,7 +56,7 @@ public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment
         ((Button)view.findViewById(R.id.TripCreatorFinishPage_FinishButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                saveTripInDatabase();
             }
         });
 
@@ -61,6 +69,16 @@ public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment
         TripCreatorFinishPageFragment fragment = new TripCreatorFinishPageFragment();
         fragment.setInitialArguments(index, wizardElement);
         return fragment;
+    }
+
+    private void saveTripInDatabase() {
+        try {
+            getTripManagementService().saveNewTrip(trip, UserAccountManagementService.getUserAccount());
+            new InfoToastBuilder(getActivity(), getString(R.string.TripCreator_Success)).build().show();
+        } catch (TripException e) {
+            e.printStackTrace();
+            new ErrorToastBuilder(getActivity(), ErrorTools.createExceptionString(getResources(), e)).build().show();
+        }
     }
 
     public Trip getTrip() {
@@ -77,6 +95,15 @@ public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment
         getTripStartDateTextView(view).setText(RenderingTools.formatDate(trip.getStartDate()));
         getTripEndDateTextView(view).setText(RenderingTools.formatDate(trip.getEndDate()));
 
+    }
+
+    // <editor-fold desc="Getters">
+
+    public ITripManagementService getTripManagementService() {
+        if ( tripManagementService == null ) {
+            tripManagementService = new TripManagementService(getActivity());
+        }
+        return tripManagementService;
     }
 
     public TextView getTripNameTextView(View view) {
@@ -99,5 +126,7 @@ public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment
         }
         return tripEndDateTextView;
     }
+
+    // </editor-fold>
 
 }

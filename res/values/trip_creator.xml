@@ -26,4 +26,6 @@
     <string name="TripDayLocation.Name">Name</string>
     <string name="TripCreator.TripDayLocation.Button">Set</string>
     <string name="TripCreator.TripDayLocation.LocationsSet">Locations have been added</string>
+
+    <string name="TripCreator_Success">Trip has been created</string>
 </resources>
