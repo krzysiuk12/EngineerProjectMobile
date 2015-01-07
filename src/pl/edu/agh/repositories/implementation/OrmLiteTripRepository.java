@@ -79,12 +79,12 @@ public class OrmLiteTripRepository implements ITripRepository {
 
 	@Override
 	public void updateTripStep(TripStep tripStep) throws TripException {
-		((TestDatabaseHelper) openHelper).getTripStepRuntimeExceptionDao().update(tripStep);
+		((TestDatabaseHelper) openHelper).getTripStepRuntimeExceptionDao().createOrUpdate(tripStep);
 	}
 
 	@Override
 	public void updateTripDirection(TripDirection tripDirection) throws TripException {
-		((TestDatabaseHelper) openHelper).getTripDirectionRuntimeExceptionDao().update(tripDirection);
+		((TestDatabaseHelper) openHelper).getTripDirectionRuntimeExceptionDao().createOrUpdate(tripDirection);
 	}
 
 	@Override

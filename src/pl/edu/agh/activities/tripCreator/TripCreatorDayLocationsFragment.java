@@ -1,7 +1,10 @@
 package pl.edu.agh.activities.tripCreator;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,7 @@ import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.fragments.AbstractDescriptionFragment;
 import pl.edu.agh.layout.toast.InfoToastBuilder;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.AndroidLogService;
 import pl.edu.agh.services.implementation.GoogleMapsManagementService;
 import pl.edu.agh.services.implementation.LocationManagementService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
@@ -35,6 +39,8 @@ import java.util.Map;
  * Created by Magda on 2015-01-05.
  */
 public class TripCreatorDayLocationsFragment extends AbstractDescriptionFragment<TripDay> {
+
+    public static final String RESULT_KEY = "result";
 
     private IGoogleMapsManagementService googleMapsManagementService;
     private ILocationManagementService locationManagementService;
@@ -186,9 +192,15 @@ public class TripCreatorDayLocationsFragment extends AbstractDescriptionFragment
 
             ordinal++;
         }
-
         tripDay.setLocations(tripDayLocations);
+        setResult(tripDayLocations);
 
         new InfoToastBuilder(getActivity(), StringUtils.getString(getActivity(), R.string.TripCreator_TripDayLocation_LocationsSet)).build().show();
+    }
+
+    private void setResult(List<TripDayLocation> tripDayLocations) {
+        Intent intent = new Intent("com.android.activity.SEND_DATA");
+        intent.putExtra(RESULT_KEY, tripDayLocations.toArray());
+        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
     }
 }

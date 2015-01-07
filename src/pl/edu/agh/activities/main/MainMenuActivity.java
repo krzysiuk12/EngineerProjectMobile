@@ -18,6 +18,7 @@ import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.layout.toast.ErrorToastBuilder;
 import pl.edu.agh.main.R;
+import pl.edu.agh.services.implementation.SynchronizationService;
 import pl.edu.agh.services.implementation.UserAccountManagementService;
 import pl.edu.agh.tools.ErrorTools;
 
@@ -34,25 +35,13 @@ public class MainMenuActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
 
         getActionBar().hide();
 
-	    // TODO: move to appropriate place
-        //new SynchronizationService(this).downloadAllLocations();
-
         try {
-/*            Location origin = new Location();
-            origin.setLatitude(50.067265);
-            origin.setLongitude(19.944448);
-            Location destination = new Location();
-            destination.setLatitude(50.435275);
-            destination.setLongitude(18.850237);
-            GoogleDirectionsSerializer route = new GoogleDirectionsService().getTripDescription(origin, destination, null, null, null);
-            System.out.println("HERE");*/
-
-/*            GoogleGeocodingSerializer geocode = new GoogleGeocodingService().getLocationDescription("santacruz", null, null);
-            System.out.println("HERE");*/
-        } catch(Exception ex) {
-            ex.printStackTrace();
+            new SynchronizationService(this).downloadAllLocations();
+        } catch (SynchronizationException e) {
+            new ErrorToastBuilder(this, ErrorTools.createExceptionString(getResources(), e)).build().show();
+            e.printStackTrace();
         }
-
+        
         getCreateTripButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

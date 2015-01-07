@@ -21,6 +21,8 @@ import pl.edu.agh.domain.trips.TravelMode;
 import pl.edu.agh.domain.trips.Trip;
 import pl.edu.agh.domain.trips.TripDay;
 import pl.edu.agh.domain.trips.TripDayLocation;
+import pl.edu.agh.domain.trips.TripDirection;
+import pl.edu.agh.domain.trips.TripStep;
 import pl.edu.agh.exceptions.LocationException;
 import pl.edu.agh.exceptions.SynchronizationException;
 import pl.edu.agh.exceptions.TripException;
@@ -292,57 +294,9 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 
 	// <editor-fold desc="Sending Trips">
 
-	private void addTestTrip() throws TripException {
-
-		// TripDayLocations
-		TripDayLocation tripDayLocation1 = new TripDayLocation();
-		TripDayLocation tripDayLocation2 = new TripDayLocation();
-		try {
-			Location location1 = locationManagementService.getLocationByGlobalId(1L);
-			tripDayLocation1.setLocation(location1);
-			tripDayLocation1.setOrdinal(1);
-
-			Location location2 = locationManagementService.getLocationByGlobalId(2L);
-			tripDayLocation2.setLocation(location2);
-			tripDayLocation2.setOrdinal(2);
-		} catch (LocationException e) {
-			e.printStackTrace();
-		}
-		List<TripDayLocation> tripDayLocationList = new ArrayList<>();
-		tripDayLocationList.add(tripDayLocation1);
-		tripDayLocationList.add(tripDayLocation2);
-
-		// TripDay
-		TripDay tripDay1 = new TripDay();
-		tripDay1.setDate(new Date());
-		tripDay1.setLocations(tripDayLocationList);
-
-		List<TripDay> tripDayList = new ArrayList<>();
-		tripDayList.add(tripDay1);
-
-		// Trip
-		Trip trip = new Trip();
-		trip.setName("name");
-		trip.setDescription("desc");
-		trip.setDays(tripDayList);
-		trip.setStartDate(new Date());
-		trip.setEndDate(new Date());
-		trip.setAuthor(UserAccountManagementService.getUserAccount());
-		trip.setSynced(false);
-		trip.setTravelMode(TravelMode.WALKING);
-		trip.setDistanceUnit(DistanceUnit.METRIC);
-
-		tripManagementService.saveTripCascade(trip);
-	}
-
 	@Override
 	public void sendTrips(String token) throws SynchronizationException {
 		getLogService().debug("sendTrips - start");
-		try {
-			addTestTrip();  // TODO: REMOVE
-		} catch (TripException e) {
-			throw new SynchronizationException(e.getFormValidationErrors());
-		}
 		List<Trip> trips = null;
 		try {
 			trips = tripManagementService.getNewUserTrips(token);
@@ -365,7 +319,7 @@ public class SynchronizationService extends BaseService implements ISynchronizat
 					tripFromServer.setSynced(true);
 
 					Map<Date, Integer> tripDayToIdMap = buildDayToIdMap(trip.getDays());
-					getLogService().debug(tripDayToIdMap.toString());
+					getLogService().debug("TripToIdMap: " + tripDayToIdMap.toString());
 
 					tripManagementService.updateTripCascade(tripFromServer);
 

@@ -17,6 +17,8 @@ public abstract class AbstractDescriptionFragment<T extends Serializable> extend
 
 	protected View view;
 
+	public static final int REQUEST_CODE = 1;
+
 	public static final String KEY_INDEX = "index";
 
 	public static final String KEY_ITEM = "listItem";

@@ -73,7 +73,7 @@ public abstract class AbstractListFragment<T extends Serializable> extends ListF
 			intent.putExtra(AbstractDescriptionFragment.KEY_INDEX, getListAdapter().getItemId(index));
 			intent.putExtra(AbstractDescriptionFragment.KEY_ITEM, (Serializable) getListAdapter().getItem(index));
 
-			startActivity(intent);
+			startActivityForResult(intent, AbstractDescriptionFragment.REQUEST_CODE);
 		}
 	}
 

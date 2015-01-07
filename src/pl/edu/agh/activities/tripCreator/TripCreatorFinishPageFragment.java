@@ -75,6 +75,7 @@ public class TripCreatorFinishPageFragment extends TripCreatorWizardPageFragment
         try {
             getTripManagementService().saveNewTrip(trip, UserAccountManagementService.getUserAccount());
             new InfoToastBuilder(getActivity(), getString(R.string.TripCreator_Success)).build().show();
+            getActivity().finish();
         } catch (TripException e) {
             e.printStackTrace();
             new ErrorToastBuilder(getActivity(), ErrorTools.createExceptionString(getResources(), e)).build().show();

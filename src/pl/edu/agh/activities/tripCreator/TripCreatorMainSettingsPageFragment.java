@@ -10,11 +10,17 @@ import android.widget.*;
 import pl.edu.agh.domain.trips.DistanceUnit;
 import pl.edu.agh.domain.trips.TravelMode;
 import pl.edu.agh.domain.trips.Trip;
+import pl.edu.agh.domain.trips.TripDay;
+import pl.edu.agh.domain.trips.TripDayLocation;
 import pl.edu.agh.layout.listeners.AfterTextChangedTextWatcher;
 import pl.edu.agh.main.R;
+import pl.edu.agh.utils.TimeUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Sławek on 2014-12-24.
@@ -144,6 +150,7 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
                 Calendar newCalendar = Calendar.getInstance();
                 newCalendar.set(year, monthOfYear, dayOfMonth);
                 getTrip().setStartDate(newCalendar.getTime());
+                initializeTripDays();
             }
         });
 
@@ -154,9 +161,41 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
                 Calendar newCalendar = Calendar.getInstance();
                 newCalendar.set(year, monthOfYear, dayOfMonth);
                 getTrip().setEndDate(newCalendar.getTime());
+                initializeTripDays();
             }
         });
     }
+
+    // <editor-fold desc="Trip Day initialization">
+
+    private void initializeTripDays() {
+        // TODO: assumes there are proper dates, i.e. startDate < endDate
+        long numberOfDays = getTripDaysNumber(trip.getStartDate(), trip.getEndDate());
+        List<TripDay> tripDayList = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(trip.getStartDate());
+        for ( ; numberOfDays > 0; numberOfDays-- ) {
+            TripDay tripDay = new TripDay();
+            tripDay.setDate(calendar.getTime());
+            tripDay.setTrip(trip);
+            tripDay.setLocations(new ArrayList<TripDayLocation>());
+            tripDayList.add(tripDay);
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+        trip.setDays(tripDayList);
+    }
+
+    private long getTripDaysNumber(Date startDate, Date endDate) {
+        startDate = TimeUtils.formatDateForDatabase(startDate);
+        endDate = TimeUtils.formatDateForDatabase(endDate);
+        long differenceInMilliseconds = endDate.getTime() - startDate.getTime();
+        return TimeUnit.DAYS.convert(differenceInMilliseconds, TimeUnit.MILLISECONDS) + 1;  // equal dates = one day trip
+    }
+
+    // </editor-fold>
+
+    // <editor-fold desc="Getters">
 
     public EditText getTripNameEditText(View view) {
         if(tripNameEditText == null) {
@@ -211,8 +250,11 @@ public class TripCreatorMainSettingsPageFragment extends TripCreatorWizardPageFr
             trip = new Trip();
             trip.setStartDate(new Date());
             trip.setEndDate(new Date());
+            initializeTripDays();
         }
         return trip;
     }
+
+    // </editor-fold>
 
 }
