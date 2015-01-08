@@ -151,9 +151,7 @@ public class LoginActivity extends OrmLiteBaseActivity<TestDatabaseHelper> {
     public boolean isGooglePlayServicesInstalled()
     {
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(LoginActivity.this);
-        if(status == ConnectionResult.SUCCESS)
-            return true;
-        return false;
+	    return status == ConnectionResult.SUCCESS;
     }
 
 	// </editor-fold.

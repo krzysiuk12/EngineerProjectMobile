@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:showDividers="middle"
+                android:divider="@drawable/empty_divider">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help_LocationDetails_Title"
+                    android:textAppearance="@style/HelpElementDescription.Title"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/Help_LocationDetails"/>
+
+            <ListView android:layout_width="match_parent"
+                      android:layout_height="250dp"
+                      android:visibility="visible"
+                      android:id="@+id/Help_LocationDetails_ListView"
+                      android:entries="@array/Help_LocationDetails_LocationData"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -101,4 +101,38 @@
     <string name="Help_Settings_ClearDatabase_Trips">When it comes to trips, you can delete all trips from database, or only ones that are considered as \'past\', \'current\', or \'future\' - select from a dropdown menu the category. This will only remove trips that are connected to your account.</string>
     <!-- Map Menu -->
 
+    <!-- Show Trips -->
+    <string name="Help_ShowTrips_Title">Show Trips</string>
+    <string name="Help_ShowTrips_Info">On this page you will see all your trips that have been downloaded in the app to your mobile device. You can filter your trips by their start and end dates, by clicking in top-right corner on the menu icon, and choosing your preferred filter:</string>
+    <string name="Help_ShowTrips_AllTrips">&#8226; <b>All Trips</b> - default, show all trips belonging to you</string>
+    <string name="Help_ShowTrips_PastTrips">&#8226; <b>Past Trips</b> - shows all trips, which have end date in the past (before current date) </string>
+    <string name="Help_ShowTrips_CurrentTrips">&#8226; <b>Current Trips</b> - shows all trips which are \'active\' - current date is after their start date and before their end date (including) </string>
+    <string name="Help_ShowTrips_FutureTrips">&#8226; <b>Future Trips</b> - shows all trips, which have start date in the future (after current date) </string>
+    <string name="Help_ShowTrips_End">If you want to see some details about the trip, click it on the list.</string>
+
+    <!-- Trip Details -->
+    <string name="Help_TripDetails_Title">Trip Details</string>
+    <string name="Help_TripDetails_General">Here you can find all the information about the trip. On the first page you\'ll see it\'s <b>name</b>, <b>duration</b> (start date and end date) and <b>description</b> as well as list of days. Each day is represented by a date and clicking it will forward to the view presenting this trip day\'s details.</string>
+
+    <string name="Help_TripDetails_TripDay_Title">Trip Day Details</string>
+    <string name="Help_TripDetails_TripDay_Info">The most important thing about this view is the map - it shows all the locations that are part of this trip day. The map is centered and zoomed on the first location in the list. On the bottom there is a button <b>Show Directions</b>, which will take you to written so-called trip directions.</string>
+
+    <string name="Help_TripDetails_Directions_Title">Trip Directions</string>
+    <string name="Help_TripDetails_Directions_Info">Trip Directions are written hints, that will tell you where exactly you have to go to visit all the locations in your trip. A trip direction ins made of three things: <b>instruction</b> which tells you what you need to do (ex. Turn right onto Basztowa street), <b>distance</b> which you have to travel during that instruction (ex. 100 m) and estimated <b>duration</b> of that instruction.</string>
+
+    <!-- Synchronization -->
+    <string name="Help_Synchronization_Title">Synchronize with server</string>
+    <string name="Help_Synchronization_Info">Synchronizing local database with server\'s database is crucial for the application. This page allows you to download locations and trips, as well as send those created on your device. You can later access them either through web service or on another mobile device using out app.</string>
+
+    <string name="Help_Synchronization_Locations_Title">Manage Locations</string>
+    <string name="Help_Synchronization_Locations_DownloadPrivate">To download your private locations simply press the button <b>Download Private Locations</b> and wait for the operation to finish</string>
+    <string name="Help_Synchronization_Locations_DownloadInScope">To download locations in a given area press the button <b>Download Locations In Scope</b>. You will be redirected to another view with map. Use the map to set the point, that will be the center of area you\'re interested in. The default radius of the area equals 50 km, but you can set a smaller or bigger one - there is a field under the map just for this purpose. You can also change the distance unit from kilometers (default) to miles. After you set everything press <b>Download Locations</b> button and wait for the operations to finish.</string>
+    <string name="Help_Synchronization_Locations_Send">To send locations simply check, which locations you want to send to server: <b>Private</b>, <b>Public</b>, or <b>Both</b> and press the button underneath!</string>
+
+    <string name="Help_Synchronization_Trips_Title">Manage Trips</string>
+    <string name="Help_Synchronization_Trips_Info">To either send or download trips simply check the corresponding bo under <b>Mangage Trips</b> header, and press the button underneath. It is possible to perform both actions at the same time, by checking bot h<i>Download</i> and <i>Send</i> and pressing button <b>Manage Trips</b>.</string>
+
+    <string name="Help_Synchronization_Result_Title">Result of synchronization</string>
+    <string name="Help_Synchronization_Result_Info">If operation is successful the green toast will appear on the screen. However many things can go wrong when synchronizing with serve, for example because of bad internet connection. If any error will occur you will be informed in a red toast.</string>
+
 </resources>
