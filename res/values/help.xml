@@ -51,6 +51,13 @@
     <string name="Help_AddLocation_Success">If all provided information is correct, a green toast will appear on top of the screen and you will be redirected to Main Menu.</string>
     <string name="Help_AddLocation_Failure">Otherwise read toast will appear, providing information about what you need to fill in to successfuly create a location.</string>
 
+    <string name="Help.CreateTrip.Title">Trip Creator</string>
+    <string name="Help.CreateTrip.Introduction.Subtitle">Introduction</string>
+    <string name="Help.CreateTrip.Introduction.Description">With using trip creator you are able to set and create new trip. In the creator it would be possible to set all important settings including adding locations to visit for each day of the trip.</string>
+    <string name="Help.CreateTrip.MainSettings.Subtitle">MainSettings</string>
+    <string name="Help.CreateTrip.MainSettings.Description">On this page of the creator you can pick name for the trip and provide custom description. Moreover, here you must set start and end date of the trip. It is important since next page uses the information about number of days. You are also asked to choose TravelMode and DistanceUnit</string>
+
+
     <!-- Location List -->
 
 </resources>
