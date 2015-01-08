@@ -50,14 +50,41 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:id="@+id/textView6"/>
+                    android:text="@string/Help.CreateTrip.DayList.Subtitle"
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"
+                    android:layout_marginBottom="@dimen/HelpSubtitle.Margin.Bottom"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:id="@+id/textView7"/>
+                    android:text="@string/Help.CreateTrip.DayList.Description"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help.CreateTrip.DayLocationsView.Subtitle"
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"
+                    android:layout_marginBottom="@dimen/HelpSubtitle.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help.CreateTrip.DayLocationsView.Description"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help.CreateTrip.FinishPage.Subtitle"
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"
+                    android:layout_marginBottom="@dimen/HelpSubtitle.Margin.Bottom"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Help.CreateTrip.FinishPage.Description"
+                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
 
         </LinearLayout>
     </ScrollView>

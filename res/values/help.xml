@@ -57,7 +57,13 @@
     <string name="Help.CreateTrip.Introduction.Subtitle">Introduction</string>
     <string name="Help.CreateTrip.Introduction.Description">With using trip creator you are able to set and create new trip. In the creator it would be possible to set all important settings including adding locations to visit for each day of the trip.</string>
     <string name="Help.CreateTrip.MainSettings.Subtitle">MainSettings</string>
-    <string name="Help.CreateTrip.MainSettings.Description">On this page of the creator you can pick name for the trip and provide custom description. Moreover, here you must set start and end date of the trip. It is important since next page uses the information about number of days. You are also asked to choose TravelMode and DistanceUnit</string>
+    <string name="Help.CreateTrip.MainSettings.Description">On this page of the creator you can pick name for the trip and provide custom description. Moreover, here you must set start and end date of the trip. It is important since next page uses the information about number of days. You are also asked to choose TravelMode and DistanceUnit.</string>
+    <string name="Help.CreateTrip.DayList.Subtitle">List of days</string>
+    <string name="Help.CreateTrip.DayList.Description">This page contains list of days which was created basing on information about trip start and end date which you provided before. Clicking on each day will open a new page where you can set locations to visit on this particular day.</string>
+    <string name="Help.CreateTrip.DayLocationsView.Subtitle">Locations for single day</string>
+    <string name="Help.CreateTrip.DayLocationsView.Description">When you click on one element of day list, a new page opens. There you can see a map and empty list. You are able to add locations which are available on the map by clicking on them. Clicked locations will show on the locations list next to map. You can also drag and drop them to change the order of places you want to visit.</string>
+    <string name="Help.CreateTrip.FinishPage.Subtitle">Summarization and finishing</string>
+    <string name="Help.CreateTrip.FinishPage.Description">When you add locations to all days of the trip, you will be able to go to the next page when you will see a summarization of the most important info about your trip: name, start date and end date. You can change you settings by going back to previous pages. If you find everything correct, you can click on Finish button. That will end the creation of the trip and save it on the database.</string>
 
     <!-- Show Locations On Map -->
     <string name="Help_ShowOnMap_Title">Show Locations on Map</string>
