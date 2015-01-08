@@ -25,39 +25,80 @@
     <string name="Help_AddLocation_Form">In this view you have following fields to fill:</string>
 
     <string-array name="Help_AddLocation_Fields">
-        <item>Name</item>
-        <item>Description</item>
-        <item>Status</item>
-        <item>Address</item>
-        <item>Visible to other users</item>
+        <item>@string/Location.Name</item>
+        <item>@string/Location.Description</item>
+        <item>@string/Location.Status</item>
+        <item>@string/Location.Address</item>
+        <item>@string/Location.UsersPrivate</item>
     </string-array>
 
     <string name="Help_AddLocation_Address">Address is made from four fields:</string>
     <string-array name="Help_AddLocation_AddressFields">
-        <item>Street</item>
-        <item>City</item>
-        <item>Postal code</item>
-        <item>Country</item>
+        <item>@string/Address.City</item>
+        <item>@string/Address.Country</item>
+        <item>@string/Address.PostalCode</item>
+        <item>@string/Address.Street</item>
     </string-array>
 
     <string name="Help_Status_Info">Status may have following values:</string>
     <string-array name="Help_Status">
-        <item>Available</item>
-        <item>Unavailable</item>
-        <item>Draft</item>
-        <item>Removed</item>
+        <item>@string/Status_Available</item>
+        <item>@string/Status_Unavailable</item>
+        <item>@string/Status_Draft</item>
+        <item>@string/Status_Removed</item>
     </string-array>
 
     <string name="Help_AddLocation_Success">If all provided information is correct, a green toast will appear on top of the screen and you will be redirected to Main Menu.</string>
     <string name="Help_AddLocation_Failure">Otherwise read toast will appear, providing information about what you need to fill in to successfuly create a location.</string>
 
+
+    <!-- Trip Creator -->
     <string name="Help.CreateTrip.Title">Trip Creator</string>
     <string name="Help.CreateTrip.Introduction.Subtitle">Introduction</string>
     <string name="Help.CreateTrip.Introduction.Description">With using trip creator you are able to set and create new trip. In the creator it would be possible to set all important settings including adding locations to visit for each day of the trip.</string>
     <string name="Help.CreateTrip.MainSettings.Subtitle">MainSettings</string>
     <string name="Help.CreateTrip.MainSettings.Description">On this page of the creator you can pick name for the trip and provide custom description. Moreover, here you must set start and end date of the trip. It is important since next page uses the information about number of days. You are also asked to choose TravelMode and DistanceUnit</string>
 
+    <!-- Show Locations On Map -->
+    <string name="Help_ShowOnMap_Title">Show Locations on Map</string>
+    <string name="Help_ShowOnMap_Info">These views allow you to see location on the map, specifically in your closes area, but you can navigate the map to whichever place you want. Clicking a marker representing location on the map will show a small snippet above the location and also present location\'s name and status under the map.</string>
+    <string name="Help_ShowOnMap_PublicPrivate">Locations come in two types: public or private, and depending on which button you choose in Main Menu you\'ll either see all public locations or all private locations.</string>
+    <string name="Help_ShowOnMap_Buttons">There are two buttons on the bottom of the view.</string>
+    <string name="Help_ShowOnMap_ShowDetails">After selecting a location on map you can press this button and you\'ll be redirected to view that will present you details about your chosen location.</string>
+    <string name="Help_ShowOnMap_Synchronize">Clicking this button will redirect you to the Synchronization Panel, where you can download more locations.</string>
 
     <!-- Location List -->
+
+    <string name="Help_LocationList_Title">Location\'s List</string>
+
+    <string name="Help_LocationList_ListView">What you will see here is a list of all locations that have been download to your device. You can use the scroll to navigate the list. </string>
+    <string name="Help_locationList_Details">If you want to see more information about a particular location, simply click it on the list. You will be redirected to location details view.</string>
+
+    <!-- Location Details -->
+    <string name="Help_LocationDetails_Title">Location Details</string>
+    <string name="Help_LocationDetails">Here you can see basic information about a chosen location, such as it\'s:</string>
+    <string-array name="Help_LocationDetails_LocationData">
+        <item>@string/Location.Name</item>
+        <item>@string/Location.Description</item>
+        <item>@string/Location.Status</item>
+        <item>@string/Location.Address</item>
+        <item>@string/Location.UsersPrivate</item>
+        <item>@string/Location.CreationDate</item>
+    </string-array>
+
+    <!-- Settings -->
+    <string name="Help_Settings_Title">Settings</string>
+    <string name="Help_Settings_Info">This view contains a list of all settings and preferences available in the application. Currently there are three: Language, Default User and Clear Databse. Select one of the settings by clicking it on the list</string>
+    <string name="Help_Settings_Language_Subtitle">Language</string>
+    <string name="Help_Settings_Language_Info">Here you can choose language for Tour Trip application. At the moment you can choose only English and Polish, but more languages are to come! Select your language from the dropdown list and press button "Change language". Keep in mind that all location\'s and trip\'s descriptions will remain in the language they were originally wrtten in.</string>
+
+    <string name="Help_Settings_DefaultUser_Subtitle">Default User</string>
+    <string name="Help_Settings_DefaultUser_Info">You can set your account to be a default account in the application, which will enable you to use "Log as default user" option when logging in. Simply check the checkbox and press "Change". Keep in mind one thing though: there can only be one default user, so any other user can override this setting.</string>
+
+    <string name="Help_Settings_ClearDatabase_Subtitle">Clear Database</string>
+    <string name="Help_Settings_ClearDatabase_Info">If you ever think that there are many unused locations or trips on you device, here you can clear app\'s database. </string>
+    <string name="Help_Settings_ClearDatabase_Locations">By checking the boxes near "Private data" or "Public data" you can choose to delete only public, only private, or both types of locations from your device.</string>
+    <string name="Help_Settings_ClearDatabase_Trips">When it comes to trips, you can delete all trips from database, or only ones that are considered as \'past\', \'current\', or \'future\' - select from a dropdown menu the category. This will only remove trips that are connected to your account.</string>
+    <!-- Map Menu -->
 
 </resources>

@@ -12,8 +12,9 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:showDividers="middle"
+                android:divider="@drawable/empty_divider">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -26,56 +27,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Help_AddLocation_Map_Subtitle"
-                    android:textAppearance="@style/HelpElementDescription.Subtitle"
-                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Help_AddLocation_Map_Description"
-                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+                    android:text="@string/Help_AddLocation_Map_Description"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Help_AddLocation_Fields_Subtitle"
-                    android:textAppearance="@style/HelpElementDescription.Subtitle"
-                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+                    android:textAppearance="@style/HelpElementDescription.Subtitle"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Help_AddLocation_Form"
-                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+                    android:text="@string/Help_AddLocation_Form"/>
 
-            <ListView android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:entries="@array/Help_AddLocation_Fields"
-                      android:visibility="visible"/>
+            <ListView android:id="@+id/Help_AddLocation_Fields_ListView"
+                      android:layout_width="match_parent"
+                      android:layout_height="250dp"
+                      android:visibility="visible"
+                      android:entries="@array/Help_AddLocation_Fields"/>
 
             <!-- Address -->
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Help_AddLocation_Address"
-                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+                    android:text="@string/Help_AddLocation_Address"/>
 
             <ListView android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:entries="@array/Help_AddLocation_AddressFields"
-                      android:scrollbars="none"/>
+                      android:layout_height="100dp"
+                      android:entries="@array/Help_AddLocation_AddressFields"/>
 
             <!-- Status -->
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Help_Status_Info"
-                    android:layout_marginBottom="@dimen/HelpElementDescription.Margin.Bottom"/>
+                    android:text="@string/Help_Status_Info"/>
 
-            <ListView android:layout_width="match_parent"
+            <Spinner android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:entries="@array/Help_Status"
-                      android:scrollbars="none"/>
+                      android:entries="@array/Help_Status"/>
 
             <!-- Result -->
             <TextView

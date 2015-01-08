@@ -14,6 +14,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import pl.edu.agh.activities.SynchronizationActivity;
+import pl.edu.agh.activities.help.BaseHelpElement;
+import pl.edu.agh.activities.help.HelpElementDescriptionActivity;
 import pl.edu.agh.configuration.TestDatabaseHelper;
 import pl.edu.agh.domain.locations.Location;
 import pl.edu.agh.exceptions.GoogleGeocodingException;
@@ -135,7 +137,11 @@ public abstract class AbstractShowLocationsOnMapActivity extends OrmLiteBaseActi
 	}
 
 	private void helpMenuAction() {
-		new InfoToastBuilder(this, "Wybrano help").build().show();
+		Intent intent = new Intent();
+		intent.setClass(this, HelpElementDescriptionActivity.class);
+		intent.putExtra(AbstractDescriptionFragment.KEY_INDEX, 0);
+		intent.putExtra(AbstractDescriptionFragment.KEY_ITEM, BaseHelpElement.SHOW_LOCATIONS_ON_MAP.getHelpElement(getResources()));
+		startActivity(intent);
 	}
 
 	private void showDescriptionAction(View view) {
